@@ -1,12 +1,12 @@
-<!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1,interactive-widget=resizes-content">
-	
 <body>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<svg xmlns="http://www.w3.org/2000/svg" width="99%" height="99%" viewbox="0 0 580 580" style="border: 3px solid gray; border-radius: 20px;">
 
-<foreignObject id="Objn1" style="font-size:22;font-family:Arial;fill:Black;" x="200.0" y="-25.0" width="100%" height ="100%" class="qu MidText" >
+
+<svg xmlns="http://www.w3.org/TR/SVG" width="99%" height="99%" viewbox="0 0 580 580" style="border: 3px solid gray; border-radius: 20px;">
+
+<foreignObject id="Objn1" style="font-size:22;font-family:Arial;color:Black;" x="200.0" y="-25.0" width="100%" height ="100%" class="qu MidText" >
 <div>
 	<h2 style="border:2px solid gray; border-radius:10px;width:210px;text-align:center" >Law of Sines</h2>
 </div>
@@ -22,6 +22,7 @@
 <foreignObject id="Obj2" class="qu Label" style="font-size:18;font-family:Arial;fill:Black;" x="425.0" y="425.0" height="100%" width="100%" >$C$ </foreignObject>
 
 <polygon style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:3; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="180.0,180.0 180.0,180.0 60.0,420.0 420.0,420.0" class="qu Triangle" id="Obj3" />
+
 <foreignObject id="Obj4" style="font-size:22;font-family:Arial;color:blue;" x="240.0" y="430.0" width="100%" height ="100%" class="qu MidText" >$a$ </foreignObject>
 
 <foreignObject id="Obj5" style="font-size:22;font-family:Arial;color:blue;" x="310.0" y="280.0" width="100%" height ="100%" class="qu MidText" >$b$ </foreignObject>
@@ -33,9 +34,11 @@
 <foreignObject id="Obj7" class="qu Label" style="font-size:18;font-family:Arial;color:darkred;" x="175" y="205.5" width="100%" height="100%"> $A$ </foreignObject>
 
 <path id="AnglePath8" style="fill :green; fill-opacity:0.2; stroke-width:3; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" class="qu Angle" d="M 60.00 420.00 L 78.00 420.00 A 18,18 0 0,0 68.05,403.90 Z " />
+
 <foreignObject id="Obj8" class="qu Label" style="font-size:18;font-family:Arial;color:darkred;" x="83.8" y="395.3" width="100%" height="100%"> $B$ </foreignObject>
 
 <path id="AnglePath9" style="fill :green; fill-opacity:0.2; stroke-width:3; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" class="qu Angle" d="M 420.00 420.00 L 403.03 403.03 A 24,24 0 0,0 396.00,420.00 Z " />
+
 <foreignObject id="Obj9" class="qu Label" style="font-size:18;font-family:Arial;color:darkred;" x="373" y="394.7" width="100%" height="100%"> $C$ </foreignObject>
 
 <foreignObject id="Obj15" style="font-size:22;font-family:Arial;fill:Black;" x="20.0" y="40.0" width="100%" height ="100%" class="qu MidText" >
@@ -52,16 +55,18 @@
 
 <foreignObject id="Obj19" style="font-size:18;font-family:Arial;fill:Black;" x="145.0" y="370.0" width="100%" height ="100%" class="qu MidText" >$R$ </foreignObject>
 </svg>
+<div>
+	<p id="datalar">
+	</p>
+</div>
 
 </body>
 
-<script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} };
-</script>
 
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-</script>
 
 <script>
+
+
 
 let animtime=0;
 
@@ -70,10 +75,14 @@ document.getElementById("Point0").style.fillOpacity = 0;
 document.getElementById("Point0").style.animation = "pointBounce 0.2s ease-out forwards";
 document.getElementById("Point0").style.animationDelay = animtime+"s";
 animtime = animtime + 0.5;
+
+
 document.getElementById("Obj0").style.opacity = 0;
 document.getElementById("Obj0").style.animation = "textBounce 0.2s ease-out forwards";
 document.getElementById("Obj0").style.animationDelay = animtime+"s";
 animtime = animtime + 0.4;
+
+
 
 document.getElementById("Point1").style.opacity = 0;
 document.getElementById("Point1").style.fillOpacity = 0;
@@ -90,21 +99,32 @@ document.getElementById("Point2").style.fillOpacity = 0;
 document.getElementById("Point2").style.animation = "pointBounce 0.2s ease-out forwards";
 document.getElementById("Point2").style.animationDelay = animtime+"s";
 animtime = animtime + 0.5;
+
+
+
+
 document.getElementById("Obj2").style.opacity = 0;
 document.getElementById("Obj2").style.animation = "textBounce 0.2s ease-out forwards";
 document.getElementById("Obj2").style.animationDelay = animtime+"s";
 animtime = animtime + 0.4;
 
-document.getElementById("Obj3").style.strokeDasharray = document.getElementById("Obj3").getTotalLength();
-document.getElementById("Obj3").style.strokeDashoffset = document.getElementById("Obj3").getTotalLength();
+
+
+document.getElementById("Obj3").style.strokeDasharray = 967.74;
+document.getElementById("Obj3").style.strokeDashoffset = 967.74;
 document.getElementById("Obj3").style.animation = "stroke 0.5s ease-out forwards";
 document.getElementById("Obj3").style.animationDelay = animtime+"s";
 animtime = animtime + 0.8;
+
+
+
 
 document.getElementById("Obj4").style.opacity = 0;
 document.getElementById("Obj4").style.animation = "textBounce 0.2s ease-out forwards";
 document.getElementById("Obj4").style.animationDelay = animtime+"s";
 animtime = animtime + 0.4;
+
+
 
 document.getElementById("Obj5").style.opacity = 0;
 document.getElementById("Obj5").style.animation = "textBounce 0.2s ease-out forwards";
@@ -115,6 +135,10 @@ document.getElementById("Obj6").style.opacity = 0;
 document.getElementById("Obj6").style.animation = "textBounce 0.2s ease-out forwards";
 document.getElementById("Obj6").style.animationDelay = animtime+"s";
 animtime = animtime + 0.4;
+
+
+
+
 
 document.getElementById("AnglePath7").style.opacity = 0;
 document.getElementById("AnglePath7").style.fillOpacity = 0;
@@ -161,38 +185,72 @@ document.getElementById("Obj16").style.animation = "textBounce 0.2s ease-out for
 document.getElementById("Obj16").style.animationDelay = animtime+"s";
 animtime = animtime + 0.4;
 
-document.getElementById("Obj17").style.strokeDasharray = document.getElementById("Obj17").getTotalLength();
-document.getElementById("Obj17").style.strokeDashoffset = document.getElementById("Obj17").getTotalLength();
+
+
+
+
+document.getElementById("Obj17").style.strokeDasharray = 1192.09;
+document.getElementById("Obj17").style.strokeDashoffset = 1192.09;
 document.getElementById("Obj17").style.animation = "stroke 0.5s ease-out forwards";
 document.getElementById("Obj17").style.animationDelay = animtime+"s";
 animtime = animtime + 0.8;
 
-document.getElementById("Obj18").style.strokeDasharray = document.getElementById("Obj18").getTotalLength();
-document.getElementById("Obj18").style.strokeDashoffset = document.getElementById("Obj18").getTotalLength();
+
+
+document.getElementById("Obj18").style.strokeDasharray = 189.74;
+document.getElementById("Obj18").style.strokeDashoffset = 189.74;
 document.getElementById("Obj18").style.animation = "stroke 0.5s ease-out forwards";
+
 document.getElementById("Obj18").style.animationDelay = animtime+"s";
 animtime = animtime + 0.8;
+
+
 
 document.getElementById("Obj19").style.opacity = 0;
 document.getElementById("Obj19").style.animation = "textBounce 0.2s ease-out forwards";
 document.getElementById("Obj19").style.animationDelay = animtime+"s";
 animtime = animtime + 0.4;
 
+
+
 </script>
 
-	
+<script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} };
+</script>
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+
+
+
+<script>
+	/*
+	let allelems = document.getElementsByClassName("qu");
+	for(i=0;i<allelems.length;i++)
+	{
+		if(allelems[i].tagName="foreignObject")
+		{
+			allelems[i].innerHTML = '$'+allelems[i].innerHTML+'$';
+		}
+
+	}
+	*/
+</script>
+
+
 <style>
 @keyframes bumpy { 50% { text-shadow: 5px 5px 10px #00FF00; } 100% { text-shadow: none; } }
 @keyframes pointBounce { 20% { stroke-width:15; stroke:red; } to{opacity:1;fill-opacity:1; } }
 @keyframes textBounce { 0% { font-size:65; color:red; } to { opacity: 1; } }
 @keyframes lineBounce { 20%{stroke:white;} 50% { stroke-width:6;stroke:red; } to{opacity:1; fill-opacity:1;} }
 @keyframes stroke { to { stroke-dashoffset: 0; } }
-@keyframes strokeDashed { to { stroke-dashoffset: 0; } }
+
+@keyframes strokeDashed { to { stroke-dashoffset: 0; } 100% {stroke-dasharray:8,4;} }
+
 @keyframes fadeIn { to { opacity: 1; fill-opacity:20%; } }
 @keyframes fadeIn2 { 50% { fill-opacity: 0.3; } 100% { fill-opacity: 0.2; } }
 @keyframes fadeIn3 { 50% { fill-opacity: 0.2; } 100% { fill-opacity: 0.1; } }
 @keyframes fadeIn4 { to { opacity: 0.4; } }
 </style>
-
-
 </html>
