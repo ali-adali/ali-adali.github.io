@@ -1,7 +1,7 @@
 <html>
 <body>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<svg xmlns="http://www.w3.org/2000/svg" id="mainSVG" width="99%" height="99%" viewbox="100 0 580 580" style="border: 3px solid gray; border-radius: 20px;">
+<svg xmlns="http://www.w3.org/2000/svg" id="mainSVG" width="99%" height="99%" viewbox="0 0 500 600" style="border: 3px solid gray; border-radius: 20px;">
 
 <svg id="Objn1" x="120" y="100.0"  opacity="0">
 
@@ -63,7 +63,7 @@ points="60.0,360.0 60.0,360.0 420.0,360.0 180.0,120.0"/>
 
 
 <line id="LineBC" 
-style="stroke :MidnightBlue;stroke-width:0;stroke-linecap:round;stroke-linejoin :round;"  
+style="stroke :red;stroke-width:0;stroke-linecap:round;stroke-linejoin :round;"  
 x1="180.0" x2="420.0" y1="120.0" y2="360.0" />
 
 
@@ -77,7 +77,7 @@ x1="180.0" x2="420.0" y1="120.0" y2="360.0" />
 
 
 <line id="LineAC" 
-style="stroke :MidnightBlue;stroke-width:0;stroke-linecap:round;stroke-linejoin :round;"  
+style="stroke :red;stroke-width:0;stroke-linecap:round;stroke-linejoin :round;"  
 x1="180.0" x2="60.0" y1="120.0" y2="360.0" />
  
 
@@ -93,7 +93,7 @@ x1="180.0" x2="60.0" y1="120.0" y2="360.0" />
 
 
 <line id="LineAB" 
-style="stroke :MidnightBlue;stroke-width:0;stroke-linecap:round;stroke-linejoin :round;"   
+style="stroke :red;stroke-width:0;stroke-linecap:round;stroke-linejoin :round;"   
 x1="60.0" x2="420.0" y1="360.0" y2="360.0" />
 
 
@@ -118,7 +118,7 @@ x1="60.0" x2="420.0" y1="360.0" y2="360.0" />
 </svg>
 
 
-<svg id="Obj11" x="360.0" y="140.0" opacity="1" width="0%">
+<svg id="Obj11" x="60.0" y="450.0" opacity="1" width="0%">
 <foreignObject x="0" y="0" width="100%" height ="100%" class="qu MidText" >
 	<div style="font-size:32;font-family:cursive;color:black;">
 		$ c^2 = a^2+b^2-2ab \cos C^{\circ}$
@@ -280,9 +280,9 @@ animElem10.setAttribute("begin","Point3LabelAppear.end");
 var animElem11b = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
 animElem11b.setAttribute("id","BCbounce");
 animElem11b.setAttribute("attributeName","stroke-width");
-animElem11b.setAttribute("values"," 0; 10; 0");
+animElem11b.setAttribute("values"," 0; 8; 0");
 animElem11b.setAttribute("keyTimes"," 0; 0.5; 1");
-animElem11b.setAttribute("dur","0.3s");
+animElem11b.setAttribute("dur","0.5s");
 animElem11b.setAttribute("repeatCount","1");
 animElem11b.setAttribute("fill","freeze");
 animElem11b.setAttribute("begin","TriangleABCDraw.end+ 0.5s");
@@ -304,9 +304,9 @@ document.getElementById("Obj5").appendChild(animElem11);
 var animElem12b = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
 animElem12b.setAttribute("id","ACbounce");
 animElem12b.setAttribute("attributeName","stroke-width");
-animElem12b.setAttribute("values"," 0; 10; 0");
+animElem12b.setAttribute("values"," 0; 8; 0");
 animElem12b.setAttribute("keyTimes"," 0; 0.5; 1");
-animElem12b.setAttribute("dur","0.3s");
+animElem12b.setAttribute("dur","0.5s");
 animElem12b.setAttribute("repeatCount","1");
 animElem12b.setAttribute("fill","freeze");
 animElem12b.setAttribute("begin","aAppear.end+0.4s");
@@ -326,9 +326,9 @@ document.getElementById("Obj6").appendChild(animElem12);
 var animElem13b = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
 animElem13b.setAttribute("id","ABbounce");
 animElem13b.setAttribute("attributeName","stroke-width");
-animElem13b.setAttribute("values"," 0; 10; 0");
+animElem13b.setAttribute("values"," 0; 8; 0");
 animElem13b.setAttribute("keyTimes"," 0; 0.5; 1");
-animElem13b.setAttribute("dur","0.3s");
+animElem13b.setAttribute("dur","0.5s");
 animElem13b.setAttribute("repeatCount","1");
 animElem13b.setAttribute("fill","freeze");
 animElem13b.setAttribute("begin","bAppear.end+0.4s");
@@ -381,12 +381,10 @@ animElem17.setAttribute("begin","angleCFill.end+0.2s");
 document.getElementById("Obj8").appendChild(animElem17);
 
 
-
-
 var animElem18 = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
 animElem18.setAttribute("attributeName","width");
 animElem18.setAttribute("to","100%");
-animElem18.setAttribute("dur","4s");
+animElem18.setAttribute("dur","3s");
 animElem18.setAttribute("repeatCount","1");
 animElem18.setAttribute("fill","freeze");
 animElem18.setAttribute("begin","angleCdegrees.end+1.2s");
@@ -394,25 +392,6 @@ document.getElementById("Obj11").appendChild(animElem18);
 
 
 
-
-
-
-/*
-
-
-var animElem16 = document.createElementNS('http://www.w3.org/2000/svg', 'animateTransform');
-animElem16.setAttribute("attributeName","transform");
-animElem16.setAttribute("attributeType","XML");
-animElem16.setAttribute("type","scale");
-animElem16.setAttribute("from","1.05");
-animElem16.setAttribute("to","1");
-animElem16.setAttribute("dur","0.3s");
-animElem16.setAttribute("repeatCount","1");
-animElem16.setAttribute("fill","none");
-animElem16.setAttribute("begin","4s");
-document.getElementById("AnglePath8").appendChild(animElem16);
-
-*/
 
 
 </script>
