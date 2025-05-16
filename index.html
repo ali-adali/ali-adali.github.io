@@ -7,13 +7,14 @@
 </head>
 
 <body style="display: block;">
-	<div id="LogoAndButtonsDiv" style=" width: 100%; float: left; border: 1px solid black;display: inline-block; padding: 0px;">
+	<div id="LogoAndButtonsDiv" style=" width: 100%; float: left; border: 1px solid black;display: inline-block; padding: 0px;position: sticky; top:0;background-color: white;">
 		<div id = "LogoDiv" class="logoandbuttons" style="  width: 28%; float:left; ">
-			<img src="IMG2.jpeg" style="width:99%;border-radius: 50%;border: 1px solid gray;" alt="Avatar">
-			<p>Mathematician, Math Olympiad Instructor & Coach </p>
+			<img src="IMG2.jpeg" style="width:99%;border-radius: 50%;border: 1px solid gray;" >
+			<p> Ali ADALI, Ph. D. </p>
+			<p>Mathematician, Olympiad Instructor & Coach </p>
 		</div>
 
-		<button style="background-color: white; padding: 0px; width: 13%; border: none; " class="logoandbuttons">
+		<button id="homeButton" style="background-color: white; padding: 0px; width: 13%; border: none; " class="logoandbuttons">
 			<div style="border: 1px solid green;border-radius: 50px;">
 				<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 300 300">
 					<line style="stroke :MidnightBlue;stroke-width:18;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" x1="30.0" x2="150.0" y1="153.3" y2="60.0" />
@@ -88,19 +89,27 @@
 			<h1> Home Content </h1>
 			<h2> What I do </h2>
 			<h2> Youtube </h2>
-			<h2> Insta <h2>
+			<h2> Insta </h2>
+			<h2> My Blog </h2>
 		</div>
 
 		<div id="MathOlympiadContent">
-			<h1> Math </h1>
-			<p> Math Olympiad Content </p>
+			<h1> Math Olympiad Related content </h1>
+			<h2> Fun Articles </h2>
+			<h2> YT Videos </h2>
+			<h2> Sample Solutions </h2>
+			<h2> Olympiad Links </h2>
+
+			
 		</div>
 
 		<div id="AcademiaContent">
-			<h1>Academia Contents</h1>
+			<h1> Academia Contents</h1>
 			<h2> Academic Research and Publications</h2>
-			<h2> Courses </h2>
-			<p> Academia Content </p>
+
+			<h2> Past Research </h2>
+			<h2> Courses Taught</h2>
+			<h2> Sample Lecrtures</h2>
 		</div>
 
 		<div id="AboutMeContent">
@@ -128,6 +137,11 @@
 
 
 <style>
+
+	@media screen and (max-width: 620px) 
+	{
+		#LogoDiv{ display:none; transition: 0.4s;  }
+	}
 	
 
 </style>
