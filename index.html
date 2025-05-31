@@ -30,7 +30,7 @@
 
 .flex-item-right {
   background-color: smokewhite;
-  padding: 20px;
+  padding: 10px;
   flex: 70%;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -50,6 +50,11 @@
     width: auto;
     height: 15vh;
   }
+  
+  ul {
+      list-style-type: none;
+      padding-left: 1.2rem;
+    }
 }
 
 /* Portrait: height is 20% of screen height */
@@ -67,6 +72,20 @@
     height: auto;
     width: 15vw;
   }
+  
+body {
+      font-family: Georgia, serif;
+      margin: 2rem auto;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      border-bottom: 1px solid #ccc;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 1.2rem;
+    }
 }
 </style>
 </head>
@@ -147,7 +166,7 @@
   </div>
 
   <div class="flex-item-right" id="ContentDiv">
-    <div id="homeContent" style=" display: block;">
+    <div id="homeContent" style=" display: block; margin-top:50px;">
     
     <img src="IMG2.jpeg" style="
   clip-path: ellipse(50% 50%);float: left;
@@ -199,13 +218,55 @@
     </div>
 
     <div id="aboutMeContent" style=" padding: 5%; display: none;">
-      <h1> About Me Content </h1>
-      <h2> Personal Background </h2>
-      <h2> Academic Background </h2>
-      <h2> Olympiad Background </h2>
-      <h2> Employment History </h2>
+      <h2>Professional Summary</h2>
+      <p>Olympiad Medal winner and Ph.D. in Applied Mathematics with a strong academic and Olympiad teaching background. Experienced in both theoretical and applied mathematics, with research spanning fluid dynamics, number theory, and mathematical modeling. Passionate educator with a decade of experience teaching and coaching for international math competitions.
+      </p>
 
-    </div>
+      <h2>Education</h2>
+      <ul>
+        <li><strong>Ph.D., The Ohio State University</strong>, 2011–2016 – Thesis: <i>Applications of the Quasi Solution Method to Interfacial and Other Nonlinear Problems</i>, <br> Advisor: Prof. Saleh Tanveer </li>
+        <li><strong>M.S., Bilkent University</strong>, 2007–2010 – Thesis: <i>Explicit Reciprocity Laws</i>, <br> Advisor: Prof. Alexander Klyachko</li>
+        <li><strong>B.S. in Mathematics</strong>, Bilkent University, 2003–2007</li>
+      </ul>
+
+      <h2>Experience</h2>
+      <ul>
+        <li><strong>Math Olympiad Instructor</strong>, <i>Alphastar Academy</i>, CA, USA (2022-2025) </li>
+        <li> <strong>Assistant Professor</strong>, <i>Yeditepe University</i>, Istanbul, Turkiye (2020-2022) </li>
+        <li> <strong>Postdoctoral Fellow</strong>, <i>Dept. of Mathematics</i>, OSU (2018-2019)</li>
+        <li> <strong>Visiting Postdoc Research Scholar</strong>, <i>Kural Lab, Dept. of Physics</i>, OSU (2018)</li>
+        <li> <strong>Lecturer</strong>, <i>Dept. of Mathematics</i>, OSU (2016-2018)</li>
+        <li> <strong>Teaching Assistant</strong>, <i>Dept. of Mathematics</i>, OSU (2011-2016)</li>
+        <li> <strong>DARPA Research Fellow</strong>, <i>ECE Dept.</i>, OSU (2011)</li>
+        <li> <strong>Teaching Assistant</strong>, <i>Bilkent University</i> (2006-2010)</li>
+        <li> <strong>Graduate Research Fellow</strong>, <i>TUBITAK</i> (2007-2009)</li>
+        <li> <strong>Math Olympiad Instructor</strong>, <i>National Olympiad Training</i>, Turkiye (2004-2010)</li>
+      </ul>
+
+      <h2>Publications</h2>
+      <ul>
+        <li> (with S. Tanveer) <i>Rigorous Analytical Approximation of Tritronquee Solution to Painlev'e-I and the First Singularity</i>, <strong>J. Diff. Eq.</strong>, Volume 261 (2016), no. 7, pp. 3843-3863 </li>
+        <li> (with S. Tanveer) <i>Rigorous Analysis of the Hele-Shaw Bubble solution in the non-perturbative regime</i>, Preprint</li>
+      </ul>
+
+      <h2>Awards & Honors</h2>
+      <ul>
+        <li> <strong>Postdoctoral Fellowship</strong>, OSU (2018-2019)</li>
+        <li> <strong> Research Scholarship</strong>, Kural Lab, OSU (2018)</li>
+        <li> <strong> DARPA Fellowship</strong>, OSU (2011)</li>
+        <li> <strong> Graduate Research Fellowship</strong>, TUBITAK (2007-2009)</li>
+        <li> <strong>Undergraduate Full Scholarship</strong>, Bilkent University (2003-2007)</li>
+        <li> <strong>Undergraduate Scholarship</strong>, TUBITAK (2003-2007) </li>
+        <li> <strong>Bronze Medalist</strong>, <i>International Mathematical Olympiad</i> (2002, 2003)
+        </ul>
+
+        <h2>Other Activities</h2>
+        <ul>
+          <li> <strong>Coordinator</strong>, <i>European Girls' Mathematical Olympiad</i> (2014)</li>
+          <li> <strong>USA Team Deputy Leader</strong>, <i>Junior Balkan Mathematical Olympiad</i> (2013)</li>
+          <li> <strong>Former Varsity Soccer Player</strong>, Bilkent University (2006-2008)</li>
+        </ul>
+      </div>
 
     <div id="contactContent" style=" padding: 5%; display: none;" >
       <h1> Contact Me </h1>
