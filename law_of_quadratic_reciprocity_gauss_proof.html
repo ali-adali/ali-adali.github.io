@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quadratic Reciprocity</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Georgia", serif;
+      background-color: #f9f9f9;
+      color: #222;
+      padding: 3rem;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    button.collapsible {
+      background-color: #004080;
+      color: white;
+      cursor: pointer;
+      padding: 1rem;
+      width: 100%;
+      text-align: left;
+      outline: none;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    button.collapsible:hover {
+      background-color: #0059b3;
+    }
+
+    .content {
+      display: none;
+      overflow: hidden;
+      background-color: #ffffff;
+      border-left: 4px solid #004080;
+      border-radius: 0 0 8px 8px;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    code, pre {
+      background-color: #eee;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .back-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-family: sans-serif;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.2s ease;
+    z-index: 1000;
+  }
+  .back-button:hover {
+    background-color: #e0e0e0;
+  }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const coll = document.querySelectorAll(".collapsible");
+      coll.forEach(btn => {
+        btn.addEventListener("click", function () {
+          this.classList.toggle("active");
+          const content = this.nextElementSibling;
+          content.style.display = content.style.display === "block" ? "none" : "block";
+        });
+      });
+    });
+  </script>
+  <script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  <a href="javascript:history.back()" class="back-button"> <b>&larr;</b> </a>
+  <h1>Law of Quadratic Reciprocity (Gauss' Proof)</h1>
+
+  <button class="collapsible">Question-1</button>
+  <div class="content">
+    <p><b>1.</b> \( x^2 \equiv 3 \pmod{19} \) has integer solutions?</p>
+  </div>
+
+  <button class="collapsible">Question-2</button>
+  <div class="content">
+    <p><b>2.</b> For which primes \( p \), \( x^2 \equiv 3 \pmod{p} \) has integer solutions?</p>
+  </div>
+
+  <button class="collapsible">Definition</button>
+  <div class="content">
+    <p><i>(Legendre Symbol)</i><br>
+      Let \( a \in \mathbb{Z} \) and \( p \) be a prime number.
+      \[
+      \left( \frac{a}{p} \right) = 
+      \begin{cases}
+      0 & \text{if } p \mid a \\
+      1 & \text{if } x^2 \equiv a \pmod{p} \text{ has an integer solution} \\
+      -1 & \text{otherwise}
+      \end{cases}
+      \]
+    </p>
+  </div>
+
+<button class="collapsible" type="button">Law of Quadratic Reciprocity</button>
+<div class="content">
+<p><i>(Law of Quadratic Reciprocity)</i><br />
+Let $p,q$ be different odd primes. Then
+\begin{equation}
+\left( \frac{p}{q} \right) \left( \frac{q}{p} \right) = (-1)^{\frac{(p-1)(q-1)}{4}}
+\end{equation}
+with supplementary laws
+\begin{equation}
+\label{equ.suppl}
+\begin{split}
+\left( \frac{-1}{p} \right) &amp;= (-1)^{\frac{p-1}{2}},\\
+\left( \frac{2}{p} \right) &amp;= (-1)^{\frac{p^2-1}{8}},
+\end{split}
+\end{equation}&nbsp;</p>
+</div>
+<br />
+ 
+<button class="collapsible" type="button">Preliminaries</button>
+<div class="content">
+  <p>Throughout the section $p$ is an odd prime and $a$ is an integer where $p\not | a$. Denote
+
+\begin{equation}
+\begin{split}
+R\colon &amp;= \left\{ 1^2, 2^2, \cdots, \left( \frac{p-1}{2} \right)^2 \right \},\\
+N \colon&amp;= \{1, \cdots, p-1 \} \setminus R,
+\end{split}
+\end{equation}&nbsp;</p>
+<p><b>Exercise:</b>  $R$ is the complete quadratic residue set, and $N$ is the complete quadratic non-residue set in $\mod p$.&nbsp;</p>
+</div>
+<br />
+
+<button class="collapsible" type="button">Lemma-1</button>
+<div class="content">
+
+  <p><b>Lemma 1.</b><br />
+
+Let
+\begin{equation}
+a R \colon = \left\{ a\, 1^2, \cdots, a \left(\frac{p-1}{2} \right)^2 \right\}
+\end{equation}
+then
+\begin{equation}
+a R = \left\{\begin{array}{cl}R &amp; \text{if } \left( \frac{a}{p} \right) = 1 \\N &amp; \text{if } \left( \frac{a}{p} \right) = -1\end{array}\right.
+\end{equation}&nbsp;</p>
+</div>
+<br />
+
+<button class="collapsible" type="button">Proof of Lemma-1</button>
+<div class="content">
+<p>
+If $\left( \frac{a}{p} \right) = 1$ then $ a \equiv x^2 \mod{p} $ for an integer $x$. Hence $a R = x^2 R \subset R$. Since
+$$ \# aR = \frac{p-1}{2} = \# R$$
+we obtain $aR = R$.<br /> 
+
+If $\left( \frac{a}{p} \right) = -1$ then $aR \cap R = \emptyset$ because otherwise would imply 
+$$ak^2 \equiv l^2 \mod{p} $$ 
+for some $k,l \in \{1,\cdots,p-1\}$ hence 
+$$a \equiv\left(\frac{k}{l}\right)^2 \equiv x^2 \mod{p} $$ 
+for some integer $x$, which is a contradiction with $\left( \frac{a}{p} \right) =-1$. Thus $aR \subset N $. Since
+\begin{equation}
+\# aR = \frac{p-1}{2} = \# N
+\end{equation}
+we get $aR = N$ and the proof is complete. $\square$&nbsp;</p>
+  </div>
+<br />
+
+<button class="collapsible" type="button">Lemma-2</button>
+<div class="content">
+  <p><b>Lemma 2.</b>
+\begin{equation}
+\left( \frac{a}{p} \right) \equiv a^{\frac{p-1}{2}} \mod{p} 
+\end{equation}&nbsp;</p>
+  </div>
+<br />
+
+<button class="collapsible" type="button">Proof of Lemma-2</button>
+<div class="content">
+<p>
+If $\left( \frac{a}{p} \right) = 1$, then $aR = R$ from Lemma 1. Hence,
+\begin{equation}
+\begin{split}
+\prod_{k=1}^{\frac{p-1}{2}} ak^2 &amp;\equiv \prod_{l=1}^{\frac{p-1}{2}} l^2 \mod{p}  \\
+a^{\frac{p-1}{2}} \left( \frac{p-1}{2} \right)!^2 &amp;\equiv  \left( \frac{p-1}{2} \right)!^2  \mod{p}  \\
+a^{\frac{p-1}{2}} &amp;\equiv 1 \mod{p}  
+\end{split}
+\end{equation}
+  <br />
+If $\left( \frac{a}{p} \right) = -1$ then $aR = N$ and $\{1,\cdots,p-1\} = N \cup R = aR \cup R$. Hence,
+\begin{equation}
+\begin{split}
+(p-1)! &amp;\equiv \prod_{k=1}^{\frac{p-1}{2}} a k^2  \prod_{l=1}^{\frac{p-1}{2}} l^2 \mod{p} \\
+(p-1)! &amp;\equiv a^{\frac{p-1}{2}} \prod_{k=1}^{\frac{p-1}{2}}  (p-k)^2  \prod_{l=1}^{\frac{p-1}{2}} l^2\mod{p} \\
+ &amp;\equiv a^{\frac{p-1}{2}} (p-1)!^2 \mod{p}  
+\end{split}
+\end{equation}
+and thus $a^{\frac{p-1}{2}}\equiv - 1 \mod{p} $ from Wilson's theorem ( $(p-1)! \equiv -1 \mod{p} $ ). $\square$&nbsp;</p>
+ </div>
+<br />
+
+<button class="collapsible" type="button">Lemma-3</button>
+<div class="content">
+  <p>Let
+\begin{equation}
+S \colon = \left\{ 1, \cdots, \frac{p-1}{2} \right\}
+\end{equation}&nbsp;</p><p><b>Lemma 3.</b> <i>(Gauss)
+</i>
+Let 
+\begin{equation}
+j \, S \colon = \left\{ j . 1, j.2, \cdots, j\left( \frac{p-1}{2} \right) \right\}
+\end{equation}
+for $j \in \mathbb{Z}$. If
+\begin{equation}
+\label{equ.v}
+v = \# a\,S \cap (-1)\,S
+\end{equation}
+then
+\begin{equation}
+\left( \frac{a}{p} \right) = (-1)^v
+\end{equation}&nbsp;</p>
+  </div>
+<br />
+
+<button class="collapsible" type="button">Proof of Lemma-3</button>
+<div class="content">
+  <p>
+For each $k \in S$,
+$$a k \equiv (-1)^{v_k} l \mod{p} $$
+for a unique set of $(v_k, l )$ where $v_k\in\{0,1\}$ and $l \in S$. As $k$ spans through $S$ then so does $l$ because otherwise would imply
+$$a k_1^2 \equiv a k_2^2 \equiv l^2 \mod{p} $$
+for some $k_1,k_2, l \in S$ with $k_1 \neq k_2$. But then 
+$$a^2(k_1-k_2)(k_1+k_2) \equiv 0 \mod{p} $$
+since $p\not | a$ and $2 \leq k_1+k_2 \leq p-1$ one obtains $k_1 = k_2$, which is a contradiction. Therefore,
+\begin{equation}
+\begin{split}
+\prod_{k \in S} ak &amp;\equiv \prod_{k\in S}(-1)^{v_k} l \mod{p} \\
+a^{\frac{p-1}{2}} \prod_{k \in S} k &amp;\equiv (-1)^{v_1+\cdots+v_{\frac{p-1}{2}}} \prod_{l \in S} l \mod{p} \\
+a^{\frac{p-1}{2}} &amp;\equiv (-1)^{v} \mod{p} 
+\end{split}
+\end{equation}
+and from Lemma 2 one obtains $\left( \frac{a}{p} \right) = (-1)^{v}$. The proof is complete. $\square$&nbsp;</p>
+  </div>
+<br />
+
+<button class="collapsible" type="button">Proof of the Law of Quadratic Reciprocity</button>
+<div class="content">
+  
+  <p> <i>(Law of Quadratic reciprocity)</i>
+We first prove the supplementary laws \eqref{equ.suppl}. When $a = -1$, evidently 
+$$v = \# (-1) S \cap (-1) S = \frac{p-1}{2}$$ 
+and Lemma 3 implies $\left( \frac{-1}{p} \right) = (-1)^{\frac{p-1}{2}}$.
+<br />
+When $a = 2$, then 
+\begin{equation}
+\begin{split}
+v &amp;= \# \{2, 4, \cdots, p-1\} \cap \left\{-1, -2, \cdots, -\frac{(p-1)}{2} \right\} \\
+&amp;=\#  \{-2, -4, \cdots, -p+1\} \cap \left\{1, 2, \cdots, \frac{p-1}{2} \right\} \\
+&amp;= \# \{1, 3, \cdots, p-2\}   \cap\left\{1, 2, \cdots, \frac{p-1}{2} \right\}\\
+&amp; = \# \text{ of odd numbers in }\left \{1, 2, \cdots, \frac{p-1}{2}\right\}
+\end{split}
+\end{equation}
+Note that
+\begin{equation}
+\begin{split}
+p &amp;= 8k+1 \to v = 2k,\\
+p &amp;= 8k+3 \to v=2k+1,\\
+p &amp;= 8k+5 \to v=2k+1,\\
+p &amp;= 8k+7 \to v=2k+2,
+\end{split}
+\end{equation}
+thus 
+$$v\equiv \frac{p^2-1}{8}\mod{2}$$ 
+and the supplementary laws are obtained. 
+<br />
+Let
+\begin{equation}
+T \colon = \left \{ 1, \cdots, \frac{q-1}{2}  \right \}
+\end{equation}
+and let $v_q$ is the number we obtain from \eqref{equ.v} when $a = q$.
+\begin{equation}
+\label{eq.vq}
+v_q = \# \left\{ (k,l) \colon -\frac{p}{2} &lt; qk - pl &lt; 0, k\in S, l \in T \right\}
+\end{equation}
+to see this notice that when $k$ is fixed 
+\begin{equation} 
+\label{eq.qkpl1}
+-\frac{p}{2} &lt; qk - pl &lt; 0 
+\end{equation} 
+has at most one integer $l$ solution, and when it has one solution $qk - pl = -j$ for some $j \in S$ and 
+\begin{equation} 
+\label{eq.qkpl2}
+qk \equiv-j \mod{p} 
+\end{equation}  
+Similarly, when $k$ is fixed \eqref{eq.qkpl2}  has at most one solution with $j\in S$ and in this case \eqref{eq.qkpl1} holds for some $l$. $l &gt; 0$ as $k&gt;0$. Moreover, 
+$$pl = qk+j &lt; q\frac{p}{2} + \frac{p}{2} = p \frac{q+1}{2}$$
+hence $1\leq l \leq \frac{q-1}{2}$, i.e. $l \in T$. Thus, for a fixed $k$
+$$qk \equiv-j \mod{p}  \text{ has a solution }j\in S \iff   -\frac{p}{2} &lt; qk - pl &lt; 0 \text{ has a solution }l \in T$$
+(through the relation $ l = \frac{pl + j}{q}$). As $k$ spans through $S$ \eqref{eq.vq} follows immediately and the claim is proved. 
+<br />
+When we switch $p$ and $q$ we obtain 
+$$v_p =  \# \left\{ (k,l) \colon -\frac{q}{2} &lt; pl - qk &lt; 0, k\in S, l \in T \right\}  $$
+hence $v_p + v_q$ is the number of solutions to
+\begin{equation}
+\label{eq.sol1}
+ -\frac{p}{2} &lt; qk - pl &lt; \frac{q}{2}
+\end{equation}
+with $k \in S$ and $l\in T$. There are $\frac{(p-1)}{2}\times\frac{(q-1)}{2}$ possibilities for $(k,l)$ and we show that the number of non solutions to \eqref{eq.sol1}, which is $\frac{(p-1)(q-1)}{4} - (v_p + v_q)$, is  even. To see this, note that $(k,l)$ is a solution to \eqref{eq.sol1} if and only if
+$$-\frac{(q+p)}{4} &lt; [ qk - pl ] - \frac{q-p}{4} &lt;  \frac{(q+p)}{4}$$
+that is if and only if
+\begin{equation}
+\label{eq.sol2}
+\left| [ qk - pl ] - \frac{q-p}{4}  \right| &lt;   \frac{q+p}{4}
+\end{equation}
+When we set
+\begin{equation}
+\begin{split}
+K &amp;= \frac{p-1}{2} - k, \\
+L &amp;= \frac{q-1}{2} - l,
+\end{split}
+\end{equation}
+ \eqref{eq.sol2} implies  
+ \begin{equation}
+ \begin{split}
+ \left| [ qK - pL ] - \frac{q-p}{4}  \right| &amp;= \left|  q\left( \frac{p-1}{2} - k \right) - p\left( \frac{q-1}{2} - l \right)  - \frac{q-p}{4}  \right| \\
+ &amp;= \left| \frac{q-p}{4} - [ qk - pl ]  \right|  
+ \end{split}
+ \end{equation}
+Thus, $(k,l)$ is a non solution to \eqref{eq.sol2} if and only if $(K,L)$ is a non solution to \eqref{eq.sol2}. 
+<br />
+When $(k,l)$ is a non solution, then $(K,L)$ must be different than $(k,l)$ since otherwise would imply 
+$$k=K = \frac{p-1}{4}~,~l=L=\frac{q-1}{4}$$ 
+which is indeed a solution to \eqref{eq.sol2}. Therefore, when we pair up $(k,l)$ with $(K,L)$ for all possible $k,l$ we obtain that the number of non solutions to \eqref{eq.sol2} are even, and thus
+\begin{equation}
+\frac{(p-1)(q-1)}{4} \equiv v_p + v_q \mod{2}
+\end{equation}
+and this and Lemma 3 immediately imply 
+\begin{equation}
+\begin{split}
+(-1)^{\frac{(p-1)(q-1)}{4} } &amp;= (-1)^{ v_p + v_q} \\
+&amp;= \left( \frac{p}{q} \right)  \left( \frac{q}{p} \right)
+\end{split}
+\end{equation}
+the proof is complete. $\square$&nbsp;</p>
+  </div>
+<br />
+
+<button class="collapsible" type="button">Immediate Results</button>
+<div class="content">
+  <p><i>The following results are immediate:</i> </p><br />
+<p><b>(i)</b> $x^2 \equiv -1 \mod{p} $ has integer solutions iff $p\equiv 1\mod{4}$&nbsp;</p>
+<br />
+<p><b>(ii) </b>$x^2 \equiv 2 \mod{p} $ has integer solutions iff $p \equiv \pm 1 \mod{8}$&nbsp;</p>
+  </div>
+<br />
+
+<button class="collapsible" type="button">Solution to Question-2</button>
+<div class="content">
+  
+  <p>We want to find all prime $p$ such that $\left( \frac{3}{p} \right)=1$. This holds when $p=2$. We may assume $p$ is odd. The Law of Quadratic Reciprocity implies 
+$$\left( \frac{3}{p} \right) \left( \frac{p}{3} \right) = (-1)^{\frac{2(p-1)}{4}} = (-1)^{\frac{p-1}{2}}$$ and hence
+\begin{equation}
+\label{eq.3p}
+\left( \frac{3}{p} \right)=1 \iff \left( \frac{p}{3} \right) = (-1)^{\frac{p-1}{2}}
+\end{equation}
+when $p\equiv 1(\mod 4)$; \eqref{eq.3p} implies $\left( \frac{p}{3} \right) = 1$ which is $p \equiv 1 \mod{3}$ and when $p\equiv 3(\mod 4)$; \eqref{eq.3p} implies $\left( \frac{p}{3} \right) = -1$, i.e. $p \equiv 2\mod{3}$. Therefore,  
+$$\left( \frac{3}{p} \right) = 1 \iff p=2 \text{ or }p\equiv\pm1 \mod{12} $$&nbsp;</p>
+  </div>
+<br />
+<br />
+
+<button class="collapsible" type="button">Exercise-1</button>
+<div class="content">
+  <p>Let $a,b \in \mathbb{Z}$ such that $p \not | ab$. Show that $\left( \frac{a b}{p} \right) = \left( \frac{a}{p} \right)  \left( \frac{b}{p} \right)  $&nbsp;</p>
+ 
+    <br />
+
+<button class="collapsible" type="button">Solution to Exercise-1</button>
+<div class="content">
+  <p>If both in $R$: $a\equiv x^2\mod{p} $ and $b\equiv y^2\mod{p} $, hence $ab \equiv (xy)^2\mod{p} $, and hence $\left(\frac{ab}{p}\right) =1$.
+<br />
+If one in $R$ one in $N$: say $a\in N$ and $b\in R$. Lemma 1 implies $aR = N$, and since $ab \in aR = N$, we get   $\left(\frac{ab}{p}\right) =-1$.
+<br />
+If both in $N$: Lemma 1 implies $aR = N$, and since $b\in N$ there is an integer $k$ where $ak^2\equiv b\mod{p} $. Hence, $ab \equiv a^2k^2 \equiv (ak)^2\mod{p} $, and hence $\left(\frac{ab}{p}\right) =1$.
+  </p>
+  </div>
+ </div>
+<br />
+<br />   
+<button class="collapsible" type="button">Exercise-2</button>
+<div class="content">
+  <p>Find all primes $p$ for which $x^2 \equiv -2 \mod{p} $ has integer solution.&nbsp;</p>
+  <br />
+  
+  <button class="collapsible" type="button">Solution to Exercise-2</button>
+<div class="content">
+  <p>We want to find primes $p$ for which $\left( \frac{-2}{p} \right)=1$. From previous result and supplementary laws we have 
+    $$\left( \frac{-2}{p} \right) = \left( \frac{-1}{p} \right)\left( \frac{2}{p} \right) = (-1)^{\frac{p-1}{2} + \frac{p^2-1}{8}} = (-1)^{\frac{(p-1)(p+5)}{8}}$$ 
+    Thus,
+$$ \left( \frac{-2}{p} \right)=1 \iff p \equiv 1,3 \mod{8}  $$ </p>
+  </div>
+  
+</div>
+<br />
+<br />
+
+<button class="collapsible" type="button">Exercise-3</button>
+<div class="content">
+<p>Find all primes $p$ for which $x^2 \equiv 15 \mod{p} $ has integer solution.&nbsp;</p>
+  <br />
+  <button class="collapsible" type="button">Solution to Exercise-3</button>
+<div class="content">
+  We want to find primes $p$ for which $\left( \frac{15}{p} \right)=1 =\left( \frac{3}{p} \right) \left( \frac{5}{p} \right) $. Law of reciprocity implies
+$$\left( \frac{3}{p} \right) \left( \frac{p}{3} \right)=(-1)^{\frac{2(p-1)}{4}} = (-1)^{\frac{(p-1)}{2}}  \text{ and } \left( \frac{5}{p} \right) \left( \frac{p}{5} \right)=(-1)^{\frac{4(p-1)}{4}} = 1 $$
+hence 
+$$ \left( \frac{3}{p} \right) \left( \frac{p}{3} \right) \left( \frac{5}{p} \right) \left( \frac{p}{5} \right) = (-1)^{\frac{p-1}{2}} $$
+and hence
+$$ \left( \frac{3}{p} \right) \left( \frac{5}{p} \right) =1 \iff  \left( \frac{p}{3} \right)\left( \frac{p}{5} \right)= (-1)^{\frac{p-1}{2}}$$
+ <br />
+<b>(a)</b> when $p\equiv 1 \mod{ 4}$: $ \left( \frac{p}{3} \right)\left( \frac{p}{5} \right) = 1 $, hence
+  <br />
+<b>(a.1)</b> $p\equiv 1 \mod{3} \to p\equiv 1,4 \mod{5}$ or
+  <br />
+  <b>(a.2)</b> $p\equiv 2 \mod{3} \to p\equiv 2,3\mod{5}$
+  <br />
+<br />
+  <b>(b)</b> when $p\equiv 3 \mod{4}$: $ \left( \frac{p}{3} \right)\left( \frac{p}{5} \right) = -1 $, hence
+  <br />
+<b>(b.1)</b> $p\equiv 1 \mod{3} \to p\equiv 2,3\mod{5}$ or
+  <br />
+  <b>(b.2)</b> $p\equiv 2 \mod{3} \to p\equiv 1,4 \mod{5}$
+ <br />
+  <br />
+and when all combined, we obtain
+
+$$ \left( \frac{15}{p} \right)=1 \iff p \equiv 1, 7, 11, 17, 43, 49,53,59 \mod{60} $$
+  </div>
+  
+</div>
+<br />
+<br />
+<button class="collapsible" type="button">Exercise-4</button>
+<div class="content">
+ <p> Let $p\equiv 1 \mod{4}$. Prove that for infinitely many primes $q$ the equation 
+$$x^2 \equiv p \mod{ q}$$
+has no integer solution.
+</p>
+  
+  <button class="collapsible" type="button">Solution to Exercise-4</button>
+<div class="content">
+  <p>Assume the contrary. Let $q_1,\cdots,q_k$ be all primes for which
+$$\left( \frac{p}{q_j} \right) = -1$$
+Choose $a\in \mathbb{Z}$ such that $\left( \frac{a}{p}\right)=-1$. We use Chinese Remainder theorem and choose an integer $n &gt; 0$ such that
+
+\begin{equation}
+\begin{split}
+n &amp; \equiv a \mod{p}  \\
+n &amp; \neq 0 \mod{q_j} \text{ for }j=1,\cdots,k
+\end{split}
+\end{equation}
+Let $n = r_1 r_2 \cdots r_k$ where $r_i$ are primes (not necessarily distinct). On the one hand
+\begin{equation}
+\left( \frac{p}{r_i} \right) = 1
+\end{equation}
+for $i$ since $r_i \notin \{q_1,\cdots,q_k\}$. On the other hand LQR and $p\equiv 1 \mod{4}$ imply
+\begin{equation}
+\left(\frac{p}{r_i} \right)\left(\frac{r_i}{p} \right) = 1
+\end{equation}
+hence $\left(\frac{r_i}{p} \right) = 1$ for all $i=1,\cdots, l$. Exercise 2 implies
+$$ 1 =\left(\frac{r_1}{p} \right)\cdots \left(\frac{r_l}{p} \right) = \left(\frac{n}{p} \right)     $$
+which contradicts with $\left(\frac{n}{p} \right)  = \left(\frac{a}{p} \right) =-1 $. Hence, there are infinitely many primes $q$ for which $x^2\equiv p \mod{q}$ has no integer solutions.
+  </p>
+  </div>
+  
+  </div>
+<br>
+<br>
+<button class="collapsible" type="button">Try for Yourself</button>
+<div class="content">
+  <p> Solve Exercise 4. when $p\equiv 3 \mod{4}$.
+  </p> 
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <!-- Repeat the same pattern for each section -->
+  <!-- You can paste the rest of your content here following the same structure -->
+
+</body>
+</html>
