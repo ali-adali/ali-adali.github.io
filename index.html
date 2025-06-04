@@ -9,6 +9,7 @@
 }
 
 .flex-container {
+  top:0%;
   display: flex;
   flex-wrap: wrap;
   font-size: 1.2em;
@@ -17,13 +18,13 @@
 }
 
 .flex-item-left {
-  background-color: white;
-  padding: 5px;
+
+  background-color: #f9f9f9;
+
   flex: 20%;
   display: flex;
   flex-direction: column;
-  
-  justify-content:space-between;
+  justify-content:center;
   z-index:5;
 
 }
@@ -76,15 +77,34 @@
 body {
       font-family: Georgia, serif;
       
-      line-height: 1.6;
+      line-height: 1.2;
+      background-color: #f9f9f9;
+      color: #222;
+
+      margin: auto;
     }
     h1, h2 {
       border-bottom: 1px solid #ccc;
     }
+    
     ul {
       list-style-type: none;
       padding-left: 1.2rem;
     }
+
+.content {
+  display: none;
+  overflow: auto;
+  background-color: #ffffff;
+  border-left: 0px solid #004080;
+  border-top: 0px solid #004080;
+  border-radius: 10px 10px 10px 10px;
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+
 
 </style>
 </head>
@@ -97,9 +117,9 @@ body {
 
     <div class="svg-box" id="homeButton" onclick="clickHomeButton();" >
       <svg id="homeSVG" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 300 300">
-          <line style="stroke :MidnightBlue;stroke-width:18;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" x1="30.0" x2="150.0" y1="153.3" y2="60.0" />
-          <line style="stroke :MidnightBlue;stroke-width:18;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" x1="270.0" x2="150.0" y1="153.3" y2="60.0" />
-          <polyline style="stroke-linejoin:round; fill :none; stroke-width:18; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="60.0,130.0 60.0,130.0 60.0,240.0 120.0,240.0 120.0,170.0 180.0,170.0 180.0,240.0 240.0,240.0 240.0,130.0 " />
+          <line style="stroke :MidnightBlue;stroke-width:16;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" x1="30.0" x2="150.0" y1="153.3" y2="60.0" />
+          <line style="stroke :MidnightBlue;stroke-width:16;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" x1="270.0" x2="150.0" y1="153.3" y2="60.0" />
+          <polyline style="stroke-linejoin:round; fill :none; stroke-width:16; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="60.0,130.0 60.0,130.0 60.0,240.0 120.0,240.0 120.0,170.0 180.0,170.0 180.0,240.0 240.0,240.0 240.0,130.0 " />
 
           <polygon id="homeFill" style="stroke-linejoin:round; fill :gray; fill-opacity: 0.2; stroke:none;" points="150,60 60.0,130.0 60.0,130.0 60.0,240.0 120.0,240.0 120.0,170.0 180.0,170.0 180.0,240.0 240.0,240.0 240.0,130.0 " />
         </svg>
@@ -109,27 +129,27 @@ body {
 
     <div class="svg-box" id="mathOlympiadButton" onclick="clickMathOlympiadButton();">
       <svg id="mathOlympiadSVG" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 -20 240 220" style="opacity:0.8">
-          <path id="AnglePath11" style="fill :none; fill-opacity:0.2; stroke-width:18; stroke:Green; stroke-linecap:miter-clip; stroke-linejoin:miter-clip;"d="M 180 120 A 60,60 0 0,0 60,60 " />
-          <path style="fill :none; fill-opacity:0.2; stroke-width:18; stroke:rgb(255, 165, 0); stroke-linecap:miter-clip; stroke-linejoin:miter-clip;" 
+          <path id="AnglePath11" style="fill :none; fill-opacity:0.2; stroke-width:16; stroke:Green; stroke-linecap:miter-clip; stroke-linejoin:miter-clip;"d="M 180 120 A 60,60 0 0,0 60,60 " />
+          <path style="fill :none; fill-opacity:0.2; stroke-width:16; stroke:rgb(255, 165, 0); stroke-linecap:miter-clip; stroke-linejoin:miter-clip;" 
           d="M 60 60 A 60,60 0 0,0 180,120  " />
-          <line style="stroke :blue;stroke-width:18;stroke-linecap:round;stroke-linejoin :miter; stroke-dasharray:0,0;" x1="115.0" x2="60.0" y1="85.0" y2="60.0" />
-          <path style="fill :none; stroke-width:18; stroke:blue; stroke-linecap:round; stroke-linejoin:miter-clip;"   d="M 60.00 60.00 A 30,30 0 0,0 44,122" />
-          <line style="stroke :red;stroke-width:18;stroke-linecap:miter-clip;stroke-linejoin :miter-clip; stroke-dasharray:0,0;"  x1="120.0" x2="180.0" y1="90.0" y2="120.0" />
-          <path style="fill :none;  stroke-width:18; stroke:red; stroke-linecap:round; stroke-linejoin:miter-clip;"  d="M 180.00 120.00 A 30,30 0 0,0 193 , 56 " />
-          <line style="stroke :Black;stroke-width:18;stroke-linecap:miter-clip;stroke-linejoin :miter-clip; stroke-dasharray:0,0;" x1="66" x2="174" y1="117" y2="63" />
+          <line style="stroke :blue;stroke-width:16;stroke-linecap:round;stroke-linejoin :miter; stroke-dasharray:0,0;" x1="115.0" x2="60.0" y1="85.0" y2="60.0" />
+          <path style="fill :none; stroke-width:16; stroke:blue; stroke-linecap:round; stroke-linejoin:miter-clip;"   d="M 60.00 60.00 A 30,30 0 0,0 44,122" />
+          <line style="stroke :red;stroke-width:16;stroke-linecap:miter-clip;stroke-linejoin :miter-clip; stroke-dasharray:0,0;"  x1="120.0" x2="180.0" y1="90.0" y2="120.0" />
+          <path style="fill :none;  stroke-width:16; stroke:red; stroke-linecap:round; stroke-linejoin:miter-clip;"  d="M 180.00 120.00 A 30,30 0 0,0 193 , 56 " />
+          <line style="stroke :Black;stroke-width:16;stroke-linecap:miter-clip;stroke-linejoin :miter-clip; stroke-dasharray:0,0;" x1="66" x2="174" y1="117" y2="63" />
         </svg>
       
     </div>
 
     <div class="svg-box" id="academiaButton" onclick="clickAcademiaButton();">
     <svg id="academiaSVG" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 300 300">
-          <circle style="fill:none; stroke:MidnightBlue;stroke-width:10;" cx="273.0" cy="200.0" r = "13" />
-          <polygon id="academiaFill1" style="stroke-linejoin:round; fill :gray; fill-opacity:0.2; stroke-width:15; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="150.0,180.0 150.0,180.0 30.0,120.0 150.0,60.0 270.0,120.0"  />
-          <polygon id="academiaFill2" style="stroke-linejoin:round; fill :gray; fill-opacity:0.2; stroke-width:15; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="78.0,144.0 78.0,144.0 78.0,204.0 150.0,240.0 222.0,204.0 222.0,144.0 150.0,180.0 78.0,144.0" />
+          <circle style="fill:none; stroke:MidnightBlue;stroke-width:16;" cx="273.0" cy="200.0" r = "13" />
+          <polygon id="academiaFill1" style="stroke-linejoin:round; fill :gray; fill-opacity:0.2; stroke-width:16; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="150.0,180.0 150.0,180.0 30.0,120.0 150.0,60.0 270.0,120.0"  />
+          <polygon id="academiaFill2" style="stroke-linejoin:round; fill :gray; fill-opacity:0.2; stroke-width:16; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="78.0,144.0 78.0,144.0 78.0,204.0 150.0,240.0 222.0,204.0 222.0,144.0 150.0,180.0 78.0,144.0" />
 
-          <polygon style="stroke-linejoin:round; fill :gray; fill-opacity:0.0; stroke-width:15; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="150.0,180.0 150.0,180.0 30.0,120.0 150.0,60.0 270.0,120.0"  />
-          <polygon style="stroke-linejoin:round; fill :gray; fill-opacity:0.0; stroke-width:15; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="78.0,144.0 78.0,144.0 78.0,204.0 150.0,240.0 222.0,204.0 222.0,144.0 150.0,180.0 78.0,144.0" />
-          <line style="stroke :MidnightBlue;stroke-width:10;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" x1="273.0" x2="273.0" y1="120.0" y2="180.0" />
+          <polygon style="stroke-linejoin:round; fill :gray; fill-opacity:0.0; stroke-width:16; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="150.0,180.0 150.0,180.0 30.0,120.0 150.0,60.0 270.0,120.0"  />
+          <polygon style="stroke-linejoin:round; fill :gray; fill-opacity:0.0; stroke-width:16; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="78.0,144.0 78.0,144.0 78.0,204.0 150.0,240.0 222.0,204.0 222.0,144.0 150.0,180.0 78.0,144.0" />
+          <line style="stroke :MidnightBlue;stroke-width:16;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" x1="273.0" x2="273.0" y1="122.0" y2="180.0" />
         </svg>
     
     
@@ -137,9 +157,9 @@ body {
 
     <div class="svg-box" id="contentButton" onclick="clickContentButton();">
       <svg id="contentSVG" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 300 300">
-        <polyline style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:18; stroke:Midnightblue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points=" 240.0,120.0 240.0,240.0 60.0,240.0 60.0,60.0 180.0,60.0  "/>
-        <polygon style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:18; stroke:Midnightblue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="210.0,60.0 210.0,60.0 90.0,180.0 90.0,210.0 120.0,210.0 240.0,90.0 210.0,60.0" />
-        <line style="stroke :Midnightblue;stroke-width:18;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" x1="90.0" x2="120.0" y1="180.0" y2="210.0" />
+        <polyline style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:16; stroke:Midnightblue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points=" 240.0,120.0 240.0,240.0 60.0,240.0 60.0,60.0 180.0,60.0  "/>
+        <polygon style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:16; stroke:Midnightblue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="210.0,60.0 210.0,60.0 90.0,180.0 90.0,210.0 120.0,210.0 240.0,90.0 210.0,60.0" />
+        <line style="stroke :Midnightblue;stroke-width:16;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" x1="90.0" x2="120.0" y1="180.0" y2="210.0" />
         <polygon id="contentFill" style="stroke-linejoin:round; fill :MidnightBlue; fill-opacity:0; stroke-width:0; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="210.0,60.0 210.0,60.0 60.0,60.0 60.0,240.0 240.0,240.0 240.0,90.0 120.0,210.0 90.0,210.0 90.0,180.0 210.0,60.0" /> 
       </svg>
 
@@ -149,11 +169,11 @@ body {
     <div class="svg-box" id="aboutMeButton" onclick="clickAboutMeButton();"  >
     
     <svg id="aboutMeSVG" xmlns="http://www.w3.org/2000/svg"  viewbox="-20 -10 340 350">
-          <path style="fill :gray; fill-opacity:0.0; stroke-width:18; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 60.00 270.00 L 240.00 270.00 A 60,60 0 0,0 60.00,270.00 Z " />
-          <circle style="fill:gray; fill-opacity:0.0; stroke:MidnightBlue; stroke-width:18; stroke-linecap:round; stroke-dasharray:0,0; fill-opacity:0.2;" cx="150.0" cy="120" r = "40.0" />
+          <path style="fill :gray; fill-opacity:0.0; stroke-width:16; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 60.00 270.00 L 240.00 270.00 A 60,60 0 0,0 60.00,270.00 Z " />
+          <circle style="fill:gray; fill-opacity:0.0; stroke:MidnightBlue; stroke-width:16; stroke-linecap:round; stroke-dasharray:0,0; fill-opacity:0.2;" cx="150.0" cy="120" r = "40.0" />
 
-          <path id="aboutMeFill1" style="fill :gray; fill-opacity:0.2; stroke-width:18; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 60.00 270.00 L 240.00 270.00 A 60,60 0 0,0 60.00,270.00 Z " />
-          <circle id="aboutMeFill2" style="fill:gray; fill-opacity:0.2; stroke:MidnightBlue; stroke-width:18; stroke-linecap:round; stroke-dasharray:0,0; fill-opacity:0.2;" cx="150.0" cy="120" r = "40.0" />
+          <path id="aboutMeFill1" style="fill :gray; fill-opacity:0.2; stroke-width:16; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 60.00 270.00 L 240.00 270.00 A 60,60 0 0,0 60.00,270.00 Z " />
+          <circle id="aboutMeFill2" style="fill:gray; fill-opacity:0.2; stroke:MidnightBlue; stroke-width:16; stroke-linecap:round; stroke-dasharray:0,0; fill-opacity:0.2;" cx="150.0" cy="120" r = "40.0" />
         </svg>
     
     </div>
@@ -161,13 +181,13 @@ body {
     <div class="svg-box" id="contactButton" onclick="clickContactButton();">
     
     <svg id="contactSVG" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="-35 -50 365 350">
-          <polygon style="stroke-linejoin:round; fill :gray; fill-opacity:0.0; stroke-width:18; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="30.0,222.0 30.0,222.0 270.0,222.0 270.0,60.0 30.0,60.0" />
+          <polygon style="stroke-linejoin:round; fill :gray; fill-opacity:0.0; stroke-width:16; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="30.0,222.0 30.0,222.0 270.0,222.0 270.0,60.0 30.0,60.0" />
 
-          <polygon id="contactFill" style="stroke-linejoin:round; fill :gray; fill-opacity:0.2; stroke-width:18; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="30.0,222.0 30.0,222.0 270.0,222.0 270.0,60.0 30.0,60.0" />
-          <line style="stroke :MidnightBlue;stroke-width:18;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;"  x1="30.0" x2="150.0" y1="60.0" y2="160.0" />
-          <line style="stroke :MidnightBlue;stroke-width:18;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;"  x1="150.0" x2="270.0" y1="160.0" y2="60.0" />
-          <line style="stroke :MidnightBlue;stroke-width:18;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;"   x1="30.0" x2="128.2" y1="222.0" y2="141.8" />
-          <line style="stroke :MidnightBlue;stroke-width:18;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;"  x1="270.0" x2="171.8" y1="222.0" y2="141.8" />
+          <polygon id="contactFill" style="stroke-linejoin:round; fill :gray; fill-opacity:0.2; stroke-width:16; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="30.0,222.0 30.0,222.0 270.0,222.0 270.0,60.0 30.0,60.0" />
+          <line style="stroke :MidnightBlue;stroke-width:16;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;"  x1="30.0" x2="150.0" y1="60.0" y2="160.0" />
+          <line style="stroke :MidnightBlue;stroke-width:16;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;"  x1="150.0" x2="270.0" y1="160.0" y2="60.0" />
+          <line style="stroke :MidnightBlue;stroke-width:16;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;"   x1="30.0" x2="128.2" y1="222.0" y2="141.8" />
+          <line style="stroke :MidnightBlue;stroke-width:16;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;"  x1="270.0" x2="171.8" y1="222.0" y2="141.8" />
         </svg>
     
     </div>
@@ -176,7 +196,7 @@ body {
   </div>
 
   <div class="flex-item-right" id="ContentDiv">
-    <div id="homeContent" style=" display: block; margin-top:50px;">
+    <div id="homeContent" class="content" style=" display: block; ">
     
     <img src="IMG2.jpeg" style="
   clip-path: ellipse(50% 50%);float: left;
@@ -204,7 +224,7 @@ body {
 
     </div>
 
-    <div id="mathOlympiadContent" style=" padding: 5%; display: none;">
+    <div id="mathOlympiadContent" class="content" style=" display: none;">
       <h1> Math Olympiad Related content </h1>
       <h2> Fun Articles </h2>
       <h2> YT Videos </h2>
@@ -214,7 +234,7 @@ body {
       
     </div>
 
-    <div id="academiaContent" style=" padding: 5%; display: none;">
+    <div id="academiaContent" class="content" style=" display: none;">
       <h1> Academia Contents</h1>
 
 
@@ -227,10 +247,11 @@ body {
       <h2> Sample Lecrtures</h2>
     </div>
 
-    <div id="contentContent" style=" padding: 5%; display: none;">
+    <div id="contentContent" class="content" style="  display: none;">
       <h1> Contents and Resources</h1>
     <h2> Short Courses</h2>
      <a href="https://ali-adali.github.io/law_of_quadratic_reciprocity_gauss_proof.html">  <h3> Law of Quadratic Reciprocity (Gauss' Proof) </h3> </a>
+     <p> A step-by-step proof of the law of Quadratic Reciprocity with examples. </p>
 
 
        
@@ -239,7 +260,7 @@ body {
 
 
 
-    <div id="aboutMeContent" style=" padding: 5%; display: none;">
+    <div id="aboutMeContent" class="content" style="  display: none;">
       <h2>Professional Summary</h2>
       <p>Olympiad Medal winner and Ph.D. in Applied Mathematics with a strong academic and Olympiad teaching background. Experienced in both theoretical and applied mathematics, with research spanning fluid dynamics, number theory, and mathematical modeling. Passionate educator with a decade of experience teaching and coaching for international math competitions.
       </p>
@@ -290,7 +311,7 @@ body {
         </ul>
       </div>
 
-    <div id="contactContent" style=" padding: 5%; display: none;" >
+    <div id="contactContent" class="content" style="  display: none;" >
       <h1> Contact Me </h1>
       <h2> My Email for Math Olympiad</h2>
       <p> aliadalimath@gmail.com </p>
