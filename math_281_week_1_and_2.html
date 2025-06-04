@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math 281 - Lecture 1&2</title>
+  <style>
+     * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Georgia", serif;
+      background-color: #f9f9f9;
+      color: #222;
+      padding: 1.5rem;
+      width: 95vw;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.2;
+      margin-top: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    button.collapsible {
+      background-color: #004080;
+      color: white;
+      cursor: pointer;
+      padding: 1rem;
+      width: 100%;
+      text-align: left;
+      outline: none;
+      font-size: 1rem;
+      font-weight: bolder;
+      font-variant-caps: petite-caps;
+      border: none;
+      border-radius: 8px;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
+      transition: display 0.3s ease;
+    }
+
+    button.collapsible:hover {
+      background-color: #0059b3;
+    }
+
+    .content {
+      display: none;
+      overflow: auto;
+      background-color: #ffffff;
+      border-left: 4px solid #004080;
+      border-radius: 0 0 8px 8px;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    code, pre {
+      background-color: #eee;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .back-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    text-decoration: none;
+    font-size: 1rem;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-family: sans-serif;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.2s ease;
+    z-index: 1000;
+  }
+  .back-button:hover {
+    background-color: #e0e0e0;
+  }
+
+  </style>
+
+</head>
+
+<body>
+
+  <a href="javascript:history.back()" class="back-button"> <b>&larr;</b> </a>
+  <h1><b>Math 281 - Probability</b></h1>
+
+  <h1> Lecture 1 & 2</h1>
+
+
+  <button class="collapsible" type="button">2.1 Sample Space</button>
+<div class="content">
+
+  <h3>Definition.</h3> 
+  <p>
+     A recording of information is called an <b>observation</b>.
+    </p>
+  <br>
+  
+  
+  <h3>Definition.</h3> 
+  <p>
+    Any process that generates a set of data is called an <b>experiment</b>.
+  </p>
+  <br>
+  <p>
+    Observations obtained by repeating the same experiment several times are particularly interesting.
+   </p>
+  
+   <h3>Definition.</h3> 
+  <p>
+    The set of all possible outcomes of an experiment is called the <b> sample space</b> and it is represented by the symbol $S$.
+  </p>
+  <br>
+  
+  <h3>Definition.</h3> 
+  <p>
+  Each outcome in a sample space is called an <b> element</b> or a <b> member</b>, or a <b> sample point</b>.  
+  </p>
+  <br>
+  
+  <h3>Examples</h3> 
+  <p>
+  $$
+\begin{array}{|c|c|} \hline \text{  Experiment  } & \text{Sample Space}  \\ \hline   \text{Rolling a die} & S = \{1,2,3,4,5,6\} \\ \hline
+\text{ Flipping a coin and Rolling a die } & S =\left\{ \begin{array}{l}  H1, H2,H3,H4,H5,H6, \\ 
+T1,T2,T3,T4,T5,T6 \end{array} \right\}   \\ \hline
+\text{Picking a card from a standard deck of cards} & S=\left\{ \text{all }52\text{ possible cards} \right\} \\ \hline 
+\begin{array}{c} \text{Tossing a coin, }\\ \text{ if the outcome is heads then tossing another}\\ \text{if the outcome is tail then rolling a die} \end{array} & S= \{HH,HT,T1,T2,T3,T4,T5,T6\} \\ \hline
+\text{ Tossing a coin until getting the first heads} &  S= \{H,TH,TTH,TTTH, TTTTH,TTTTTH, \cdots\}\\ \hline
+\end{array} 
+$$
+  </p>
+  <br>
+
+
+  <button class="collapsible" type="button">Example 1.</button>
+<div class="content">
+  <p>  List the elements of the following sample spaces: </p>
+ <p><b>(a)</b> The set of primes between 1 and 30. 
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>
+      $$\boxed{ S=\{2,3,5,7,11,13,17,19,23,29\} }$$
+    </p>
+  </div>
+  <br>
+  
+  <p><b>(b)</b>  The set 
+    $$S = \{ x | x^2+4x-5 = 0 \}$$  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Answer is
+    Note that 
+      $$x^2+4x-5 =(x+5)(x-1)$$ 
+      hence $x^2+4x-5 =(x+5)(x-1) = 0$ when $x=-5$ and $x=1$. So
+$$\boxed{ S=\{1, -5\} }$$
+    </p>
+  </div>
+<br>
+  
+  <p><b>(c)</b>  The set of outcomes when a coin is tossed until a tail or three heads appear.
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>
+      $$\boxed{ S=\{ T,HT,HHT,HHH \} }$$
+    </p>
+  </div>
+<br>
+
+</div>  
+<br>
+  <button class="collapsible" type="button">Example 2.</button>
+<div class="content">
+  <p>  
+  Describe the sample space $S$ consisting of all points in the first quadrant inside a circle of radius $4$ with center at the origin.
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Answer is
+    $$\boxed{ S=\{ (x,y) | x\geq 0, y\geq 0, x^2 + y^2 &lt; 4^2 \} }$$
+    </p>
+  </div>
+  <br>
+  
+
+  
+ </div>
+  <br>
+  
+  <button class="collapsible" type="button">Example 3.</button>
+<div class="content">
+  <p>
+    An experiment involves tossing a pair of dice, one green and one ref, and recording the numbers that come up. Describe the sample spaces $S$ using two methods
+    </p>
+ <p><b>(a)</b> by listing the elements,
+  
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>
+      $$ \boxed{ S = \left\{ \begin{array}{l} (1,1), (1,2),(1,3),(1,4),(1,5),(1,6),\\
+      (2,1), (2,2),(2,3),(2,4),(2,5),(2,6),\\
+      (3,1), (3,2),(3,3),(3,4),(3,5),(3,6),\\
+      (4,1), (4,2),(4,3),(4,4),(4,5),(4,6),\\
+      (5,1), (5,2),(5,3),(5,4),(5,5),(5,6),\\
+      (6,1), (6,2),(6,3),(6,4),(6,5),(6,6)\end{array} \right \} }$$
+    </p>
+  </div>
+  <br>
+  
+  <p><b>(b)</b>  
+     by describing a rule,
+</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p> 
+      $$\boxed{S = \{ (i,j) | 1\leq i \leq 6, 1\leq j \leq 6, i,j \text{ integers } \}}$$
+    </p>
+  </div>
+<br> 
+</div> 
+ <br> 
+  
+ <button class="collapsible" type="button">Example 4.</button>
+<div class="content">
+  
+ <p>  
+  An experiment consists of tossing a die and then flipping a coin once if the number on die is even. If the number on the die is odd, the coin is flipped twice. Find the sample space $S$.
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>
+      $$ \boxed{ S = \left\{ \begin{array}{l} 1HH,1 HT, 1TH , 1TT, \\   2 H, 2T,\\3HH,3 HT, 3TH , 3TT,\\ 4H,4T\\ 5HH, 5HT, 5TH , 5TT,\\ 6H,6T,    \end{array}  \right\} } $$
+    </p>
+  </div>
+  <br> 
+
+</div> 
+<br>  
+  
+  <button class="collapsible" type="button">Example 5.</button>
+<div class="content">
+  
+ <p>  
+  $2$ people are selected at random among $5$ people. Find the sample space $S$.
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>
+      Label people as $P_1,P_2,P_3,P_4,P_5$. Then,
+$$\boxed{S =\left\{ \begin{array}{l} P_1P_2, P_1P_3, P_1P_4,P_1P_5,\\ P_2P_3,P_2P_4,P_2P_5,\\ P_3P4,P_3P_5,\\P_4P_5 \end{array}   \right\} } $$
+    </p>
+  </div>
+  <br> 
+
+</div> 
+<br>
+  
+ 
+  <button class="collapsible" type="button">Example 6.</button>
+<div class="content">
+  <p>
+    One couple consisting of a boy and a girl are chosen at random from a group of people consisting of 3 boys and 4 girls. Describe the sample space $S$
+    </p>
+ <p><b>(a)</b> by listing the elements,
+  
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>
+      Label boys as $B_1,B_2,B_3$ and girls as $G_1,G_2,G_3,G_4$. 
+Then
+    $$\boxed{ S = \left\{ \begin{array}{l}  B_1G_1, B_1G_2, B_1G_3, B_1G_4,\\ B_2G_1, B_2G_2, B_2G_3, B_2G_4,\\B_3G_1, B_3G_2, B_3G_3, B_3G_4 \end{array}  \right\} }$$  
+    </p>
+  </div>
+  <br>
+  
+  <p><b>(b)</b>  
+     by describing a rule,
+</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p> 
+     $$\boxed{ S =\{ B_iG_j | 1\leq i \leq 3, 1\leq j \leq 4, i,j \text{ are integers }\} } $$
+    </p>
+  </div>
+<br> 
+</div> 
+ <br>
+  
+  
+
+
+
+ </div>
+<br>
+
+
+
+<button class="collapsible" type="button">2.2 Events</button>
+<div class="content">
+
+  <h3>Definition.</h3> 
+  <p>
+    An <b> event</b> is a subset of a sample space.
+    </p>
+  <br>
+  
+  
+  <h3>Definition.</h3> 
+  <p>A <b> null set</b>  or an <b>empty set</b>  is the set which contains no elements, and it is denoted by $\emptyset$.</p>
+  <br>
+  
+  
+  <h3>Remark.</h3> 
+  <p>
+    An event which doesn't occur in the sample space is $\emptyset$.
+    </p>
+  <br>
+  
+  <h3>Definition.</h3> 
+  <p>
+    The <b> complement</b> of an event $A$ with respect to $S$ is the subset of all elements of $S$ that are not in $A$. We deonte the complement of $A$ by the symbol $A'$.
+    </p>
+  <br>
+  
+  <h3>Definition.</h3> 
+  <p>
+    The <b> intersection</b> of two events $A$ and $B$ is the event containing all elements that are common to $A$ and $B$, and it is denoted by $A\cap B$.
+    </p>
+  <p>
+    The <b>union</b> of two events $A$ and $B$ is the event containing all elements that belong to $A$ or $B$, and it is denoted by $A\cup B$. 
+    </p>
+  <br>
+  
+  <h3>Remark.</h3> 
+  <p>
+    The intersection of an event with its complement is an empty set.
+    </p>
+  <br>
+  
+  
+  <h3>Definition.</h3> 
+  <p>
+    Two events $A$ and $B$ are called <b> mutually exclusive</b>, or <b> disjoint</b>, if $A\cap B = \emptyset$.</p>
+  <br>
+  
+
+  <button class="collapsible" type="button">Example 1.</button>
+<div class="content">
+  <p>  An experiment consists of rolling two dice. </p>
+ <p><b>(a)</b>  List the elements corresponding to event that the sum of outcomes is even</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Answer is
+    $$\boxed{ E = \left\{  \begin{array}{l}(1,1),(1,3), (1,5),\\
+(2,2),(2,4),(2,6),\\
+(3,1),(3,3),(3,5),\\
+(4,2),(4,4),(4,6),\\
+(5,1),(5,3),(5,5),\\
+(6,2),(6,4)(6,6) \end{array} \right\} }
+ $$
+    </p>
+  </div>
+  <br>
+  
+  <p><b>(b)</b>  List the elements corresponding to event that one outcome is not divisible by the other.</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Answer is
+    $$\boxed{ E = \left\{ \begin{array}{l} (2,3),(2,5),\\(3,2),(3,4),(3,5),\\(4,3),(4,5),(4,6),\\(5,2),(5,3),(5,4),(5,6),\\(6,4),(6,5) \end{array}  \right\} }$$
+    </p>
+  </div>
+<br>
+  
+  <p><b>(c)</b>  List the elements corresponding to event that the sum of outcomes is greater than $8$</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Answer is
+    $$\boxed{ E = \left\{\begin{array}{l}(3,6),\\(4,5)(4,6),\\(5,4)(5,5),(5,6),\\(6,3)(6,4)(6,5),(6,6) \end{array} \right\} }$$
+    </p>
+  </div>
+<br>
+  
+  
+   <p><b>(c)</b>  Describe the event of the experiment whose list of elements is 
+  $$\{ (1,1), (1,2), (2,1), (1,4),(2,3),(3,2),(4,1),(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)  \}$$ 
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Answer is the event that the sum of outcomes is a prime number.
+    </p>
+  </div>
+<br>
+</div>  
+<br>
+  <button class="collapsible" type="button">Example 2.</button>
+<div class="content">
+  <p>  An engineering firm is hired to determine if certain waterways in a region are safe for fishing. Samples are taken from three rivers. </p>
+ <p><b>(a)</b>  List the elements of a sample space $S$, using the letters $F$ for safe to fish and $N$ for not safe to fish.</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Answer is
+    $$\boxed{ S = \{FFF,FFN,FNF,NFF,FNN,NFN,NNF,NNN \} }$$
+    </p>
+  </div>
+  <br>
+  
+  <p><b>(b)</b>  List the elements of $S$ corresponding to event $E$ that at least two rivers are safe to fish.
+</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Answer is
+    $$\boxed{ E = \{ FFF,FFN,FNF,NFF \}}$$
+    </p>
+  </div>
+<br>
+  
+  <p><b>(c)</b> Define an event that has as its elements the points 
+  $$\{ FFF, NFF,FFN,NFN \}$$
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>The event that the second river is safe to fish.
+    </p>
+  </div>
+<br>
+  
+  
+   <p><b>(d)</b> Define an event that has as its elements the points
+     $$\{ FFF, NNN\}$$
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>The event that all rivers have the same outcome.
+    </p>
+  </div>
+<br>
+  
+  <p><b>(e)</b> Define an event that has as its elements the points 
+$$\{ FFN, FNF,NFF,NNF,NFN,FNN  \}$$
+  </p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p> The event that one the number of one outcome has twice as many as the other.
+    </p>
+  </div>
+<br>
+ </div>
+  <br>
+  
+  <button class="collapsible" type="button">Example 3.</button>
+<div class="content">
+  
+ <p><b>(a)</b>  Describe the experiment whose sample space is
+$$\{ \text{ rejection }, \text{ friend zoned }, \text{ acceptance } \}$$</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Experiment: Attempting to boyfriend/girlfriend a particular person.
+    </p>
+  </div>
+  <br>
+  
+  <p><b>(b)</b>  Describe an event of the experiment in (a) whose list of elements is
+$$\{ \text{ rejection }, \text{ friend zoned } \}$$
+</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p> Event: A specific person $P$ is conducting the experiment. ( Most of you at some point of time )
+    </p>
+  </div>
+<br> 
+</div> 
+ <br> 
+  
+  <button class="collapsible" type="button">Example 4.</button>
+<div class="content">
+  
+ <p><b>(a)</b>   Describe the sample space of an iPhone to die.</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p>Let $t$ denote the life in years of an iPhone. Then the sample space is
+$$\boxed{S =  \{t | t\geq 0\} }$$ 
+    </p>
+  </div>
+  <br>
+  
+  <p><b>(b)</b>  Assume that you got an iPhone with a 2 year payment contract. Describe the event where your iPhone dies before you finish paying for your bills.
+</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p> If we denote the event by $E$, then
+$$\boxed{ E= \{ t | 2 > t \geq 0 \} }$$
+    </p>
+  </div>
+<br> 
+  
+  <p><b>(c)</b> Write the set of the event which is the complement event that described in part (b)
+</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p> $$\boxed{ E' =  \{ t | t \geq 2 \}  }$$
+    </p>
+  </div>
+<br> 
+  
+  <p><b>(c)</b> Describe the event in (c)
+</p>
+  <button class="collapsible" type="button">Answer</button>
+  <div class="content">
+    <p> The event is iPhone not failing in two years.
+    </p>
+  </div>
+<br> 
+  
+</div> 
+  
+  
+  
+
+
+  <br>
+ </div>
+<br>
+
+<button class="collapsible" type="button">2.3 Counting Sample Points</button>
+<div class="content">
+
+  <h3>Rule 1.</h3> 
+  <p>
+     If an operation can be performed in $m$ ways, and if for each of these ways a second operation can be performed in $n$ ways, then the two operations can be performed in $m\cdot n$ ways
+    </p>
+<br>
+  
+  <h3>Rule 2.</h3> 
+  <p>
+     If an operation can be performed in $n_1$ ways, and if for each of these a second operation can be performed in $n_2$ ways, and if for each of these a second operation can be performed in $n_3$ ways and so forth, then the sequence of $k$ operations can be performed in $n_1\cdot n_2\cdots n_k$ ways.
+    </p>
+<br>
+  
+  <h3>Definition.</h3> 
+  <p>
+     A <b>permutation</b> is an arrangement of a set of objects.
+    </p>
+<br>
+  
+  <h3>Definition.</h3> 
+  <p>
+     Definition: For any non-negative integer $n$, $n!$ is defined as
+$$
+\begin{array}{rll}
+n! &= n(n-1)\cdot2\cdots1 &\text{ for }n\geq 1,\\
+0!&=1
+\end{array}
+$$
+    </p>
+<br>
+  
+  <h3>Theorem.</h3> 
+  <p>
+    $$\boxed{ \text{ The number of permutations of } n \text{ objects is }n! }$$
+    </p>
+<br>
+  
+  <button class="collapsible" type="button">Idea.</button>
+<div class="content"> 
+ <p>
+There are $n$ options are availabe for the first place. Once the first place is set, there are $n-1$ options available for the second place (one less because we used one object), and once the first and second places are set there are $n-2$ options for the third place, and so forth. The result is obtained from Rule 2 by multiplying all number from $1$ to $n$.
+</p> 
+<br>
+</div>
+  
+  
+  <h3>Theorem.</h3> 
+  <p>
+     The number of permutations of $n$ distinct objects taken $r$ at a time is
+$$ n\cdot(n-1)\cdots (n-r+1) = \frac{n!}{(n-r)!} $$
+    </p>
+<br>
+  
+  <button class="collapsible" type="button">Idea.</button>
+<div class="content"> 
+ <p>
+The idea similar to previous idea, but here we stop the process after $r$ steps. Hence we multiply numbers $n, n-1, \cdots, n-r+1$ and obtain the result.
+</p> 
+<br>
+</div>
+  
+  
+  <h3>Theorem.</h3> 
+  <p>
+    The number of permutations of $n$ objects arranged in a circle is 
+$$\boxed{(n-1)!} $$
+    </p>
+<br>
+  
+  <button class="collapsible" type="button">Idea.</button>
+<div class="content"> 
+ <p>There are two ways to see this:</p>
+
+<p>(a) Consider we arrange $n$ objects in a line and then close the line to a circle. We have $n!$ arrangements in a line and observe that the line arrangements 
+$$\begin{array}{l} A_1A_2\cdots A_n\\ A_2A_3\cdots A_{n}A_1\\A_3 A_4\cdots A_{n}A_1 A_2\\ \vdots\\A_n A_1 A_2\cdots A_{n-1} \end{array} $$  
+correspond to exactly one circle arrangement and its $n$ rotations under this process. Hence each circle arrangement is counted $n$ times in the line arrangements. We obtain the number of circle arrangements by dividing $n!$ by $n$, which is $(n-1)!$
+</p>
+
+<p>
+  (b) Consider we arrange objects in a circle. Fix object, call $A$. We can rotate each such arrangement so that $A$ is always on the top. Now consider we cut the circle on the left of $A$ and make it a line so that objects are now arranged in a line. In this arrangement $A$ is always the first element, and the other $n-1$ elements can be rearranged without any restriction. Hence, there are $(n-1)!$ such rearrangements.
+</p> 
+<br>
+</div>
+  
+ 
+
+  
+  
+
+<br>
+</div>  
+
+
+
+
+</body>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+<script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js' type='text/javascript'>
+</script>
+
+
+<script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} };
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+</html>
