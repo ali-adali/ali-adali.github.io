@@ -51,7 +51,7 @@
 @media only screen and (orientation: landscape) {
   .svg-box {
     width: auto;
-    height: 15vh;
+    height: 18vh;
   }
 
 }
@@ -69,7 +69,7 @@
 
   .svg-box {
     height: auto;
-    width: 16vw;
+    width: 18vw;
     justify-content: center;
   }
 }
@@ -93,7 +93,6 @@ body {
     }
 
 .content {
-  display: none;
   overflow: auto;
   background-color: #ffffff;
   border-left: 0px solid #004080;
@@ -155,7 +154,7 @@ body {
     
     </div>
 
-    <div class="svg-box" id="contentButton" onclick="clickContentButton();">
+    <div class="svg-box" id="contentButton" onclick="clickContentButton();" style="display: none;">
       <svg id="contentSVG" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 300 300">
         <polyline style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:16; stroke:Midnightblue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points=" 240.0,120.0 240.0,240.0 60.0,240.0 60.0,60.0 180.0,60.0  "/>
         <polygon style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:16; stroke:Midnightblue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="210.0,60.0 210.0,60.0 90.0,180.0 90.0,210.0 120.0,210.0 240.0,90.0 210.0,60.0" />
@@ -234,91 +233,121 @@ body {
       
     </div>
 
-    <div id="academiaContent" class="content" style=" display: none;">
-      <h1> Academia Contents</h1>
+    <div id="academiaContent"  style=" display: none;">
+      <div class="content">
+        <h1> Academic and Creative Works</h1>
+        <p> Link to my <a href="https://scholar.google.com/citations?user=vyBo2nUAAAAJ&hl=en"> Google Scholar Page</a> </p>
+        <br>
+        <h3> The Quasi Solution Method </h3>
+        <p> A method for rigorously proving the existence and uniqueness of a solution of a nonlinear equation when a near solution and a near linear inverse is known. Link to <a href="https://ali-adali.github.io/qsm.html">full article</a>.  </p>
+        <br>
+
+        <h3> A Proof of Wallace-Bolyai-Gerwien Theorem </h3>
+        <p> This interesting theorem states any two polygons of equal area can be dissected into finitely many pieces and rearranged to form each other. Here is a link to <a href="https://ali-adali.github.io/wbg.html">my proof</a>.</p>
+        <br>
+
+        <h3> A Generalized Cauchy-Schwartz Inequality</h3>
+        <p> A generalized version of the well known Cauchy-Schwartz Inequality is presented and proved. Here is a link to <a href="https://ali-adali.github.io/generalized_CS_inequality.html">full article</a>. </p>
+        
+        <h2> Past Research </h2>
+      </div>
 
 
+      <div class="content">
+        <h1> Teacing </h1>
+        <h2> Courses Taught</h2>
+        <h2> Short Courses</h2>
+        <a href="https://ali-adali.github.io/law_of_quadratic_reciprocity_gauss_proof.html">  
+          <h3> Law of Quadratic Reciprocity (Gauss' Proof) </h3> </a>
+        <p> A step-by-step proof of the law of Quadratic Reciprocity with examples. </p>
+        <br>
+        <a href="https://ali-adali.github.io/math_241_week_1.html"><h3> Math 241 - Differential Equations - Lecture 1  </h3> </a>
+        <p> The first two chapters of Math 241 Differential Equation Course taught at Yeditepe University. </p>
+        <br>
+        <a href="https://ali-adali.github.io/math_241_week_2.html"> <h3> Math 241 - Differential Equations - Lecture 2  </h3> </a>
+        <p> The first two chapters of Math 241 Differential Equation Course taught at Yeditepe University. </p>
+        <br>
+        <a href="https://ali-adali.github.io/math_131_week_1.html"> <h3> Math 131 - Basic Mathematics - Lecture 1  </h3> </a>
+        <p> The first chapter of Math 131 - Basic Mathematics Course taught at Yeditepe University. </p>
+        <br>
+        <a href="https://ali-adali.github.io/math_281_week_1_and_2.html"> <h3> Math 281 - Probability - Lecture 1 and 2  </h3> </a>
+        <p> The first two chapters of Math 281 - Probability Course taught at Yeditepe University. </p>
+      </div>
 
-      <h2> Academic Research and Publications</h2>
-      <p> Link to my Google Scholar page </p>
+   
 
-      <h2> Past Research </h2>
-      <h2> Courses Taught</h2>
-      <h2> Sample Lecrtures</h2>
+      
     </div>
+
+    
 
     <div id="contentContent" class="content" style="  display: none;">
       <h1> Contents and Resources</h1>
-    <h2> Short Courses</h2>
-     <a href="https://ali-adali.github.io/law_of_quadratic_reciprocity_gauss_proof.html">  <h3> Law of Quadratic Reciprocity (Gauss' Proof) </h3> </a>
-     <p> A step-by-step proof of the law of Quadratic Reciprocity with examples. </p>
-     <br>
-
-     <a href="https://ali-adali.github.io/math_241_week_1.html">  <h3> Math 241 - Differential Equations - Lecture 1  </h3> </a>
-     <br>
-     <a href="https://ali-adali.github.io/math_241_week_2.html">  <h3> Math 241 - Differential Equations - Lecture 2  </h3> </a>
-     <p> The first two chapters of Math 241 Differential Equation Course taught at Yeditepe University. </p>
-     <br>
-     <a href="https://ali-adali.github.io/math_131_week_1.html">  <h3> Math 131 - Basic Mathematics - Lecture 1  </h3> </a>
-     <p> The first chapter of Math 131 - Basic Mathematics Course taught at Yeditepe University. </p>
-
-     <br>
-
-     <a href="https://ali-adali.github.io/math_281_week_1_and_2.html">  <h3> Math 281 - Probability - Lecture 1 and 2  </h3> </a>
-     <p> The first two chapters of Math 281 - Probability Course taught at Yeditepe University. </p>
-
-
-
-
-       
+      <h2>Academic Works</h2>
+      <br>
     </div>
 
 
 
 
-    <div id="aboutMeContent" class="content" style="  display: none;">
-      <h2>Professional Summary</h2>
-      <p>Olympiad Medal winner and Ph.D. in Applied Mathematics with a strong academic and Olympiad teaching background. Experienced in both theoretical and applied mathematics, with research spanning fluid dynamics, number theory, and mathematical modeling. Passionate educator with a decade of experience teaching and coaching for international math competitions.
-      </p>
+    <div id="aboutMeContent"  style="  display: none;">
+      <div class="content">
+        <h2>Professional Summary</h2>
+        <p>Olympiad Medal winner and Ph.D. in Applied Mathematics with a strong academic and Olympiad teaching background. Experienced in both theoretical and applied mathematics, with research spanning fluid dynamics, number theory, and mathematical modeling. Passionate educator with a decade of experience teaching and coaching for international math competitions.
+        </p>
+      </div>
 
-      <h2>Education</h2>
-      <ul>
-        <li><strong>Ph.D., The Ohio State University</strong>, 2011–2016 – Thesis: <i>Applications of the Quasi Solution Method to Interfacial and Other Nonlinear Problems</i>, <br> Advisor: Prof. Saleh Tanveer </li>
-        <li><strong>M.S., Bilkent University</strong>, 2007–2010 – Thesis: <i>Explicit Reciprocity Laws</i>, <br> Advisor: Prof. Alexander Klyachko</li>
-        <li><strong>B.S. in Mathematics</strong>, Bilkent University, 2003–2007</li>
-      </ul>
-
-      <h2>Experience</h2>
-      <ul>
-        <li><strong>Math Olympiad Instructor</strong>, <i>Alphastar Academy</i>, CA, USA (2022-2025) </li>
-        <li> <strong>Assistant Professor</strong>, <i>Yeditepe University</i>, Istanbul, Turkiye (2020-2022) </li>
-        <li> <strong>Postdoctoral Fellow</strong>, <i>Dept. of Mathematics</i>, OSU (2018-2019)</li>
-        <li> <strong>Visiting Postdoc Research Scholar</strong>, <i>Kural Lab, Dept. of Physics</i>, OSU (2018)</li>
-        <li> <strong>Lecturer</strong>, <i>Dept. of Mathematics</i>, OSU (2016-2018)</li>
-        <li> <strong>Teaching Assistant</strong>, <i>Dept. of Mathematics</i>, OSU (2011-2016)</li>
-        <li> <strong>DARPA Research Fellow</strong>, <i>ECE Dept.</i>, OSU (2011)</li>
-        <li> <strong>Teaching Assistant</strong>, <i>Bilkent University</i> (2006-2010)</li>
-        <li> <strong>Graduate Research Fellow</strong>, <i>TUBITAK</i> (2007-2009)</li>
-        <li> <strong>Math Olympiad Instructor</strong>, <i>National Olympiad Training</i>, Turkiye (2004-2010)</li>
-      </ul>
-
-      <h2>Publications</h2>
-      <ul>
-        <li> (with S. Tanveer) <i>Rigorous Analytical Approximation of Tritronquee Solution to Painlev'e-I and the First Singularity</i>, <strong>J. Diff. Eq.</strong>, Volume 261 (2016), no. 7, pp. 3843-3863 </li>
-        <li> (with S. Tanveer) <i>Rigorous Analysis of the Hele-Shaw Bubble solution in the non-perturbative regime</i>, Preprint</li>
-      </ul>
-
-      <h2>Awards & Honors</h2>
-      <ul>
-        <li> <strong>Postdoctoral Fellowship</strong>, OSU (2018-2019)</li>
-        <li> <strong> Research Scholarship</strong>, Kural Lab, OSU (2018)</li>
-        <li> <strong> DARPA Fellowship</strong>, OSU (2011)</li>
-        <li> <strong> Graduate Research Fellowship</strong>, TUBITAK (2007-2009)</li>
-        <li> <strong>Undergraduate Full Scholarship</strong>, Bilkent University (2003-2007)</li>
-        <li> <strong>Undergraduate Scholarship</strong>, TUBITAK (2003-2007) </li>
-        <li> <strong>Bronze Medalist</strong>, <i>International Mathematical Olympiad</i> (2002, 2003)
+      <div class="content">
+        <h2>Education</h2>
+        <ul>
+          <li><strong>Ph.D., The Ohio State University</strong>, 2011–2016 – Thesis: <i>Applications of the Quasi Solution Method to Interfacial and Other Nonlinear Problems</i>, <br> Advisor: Prof. Saleh Tanveer </li>
+          <li><strong>M.S., Bilkent University</strong>, 2007–2010 – Thesis: <i>Explicit Reciprocity Laws</i>, <br> Advisor: Prof. Alexander Klyachko</li>
+          <li><strong>B.S. in Mathematics</strong>, Bilkent University, 2003–2007</li>
         </ul>
+      </div>
 
+
+      <div class="content">
+      
+        <h2>Experience</h2>
+        <ul>
+          <li><strong>Math Olympiad Instructor</strong>, <i>Alphastar Academy</i>, CA, USA (2022-2025) </li>
+          <li> <strong>Assistant Professor</strong>, <i>Yeditepe University</i>, Istanbul, Turkiye (2020-2022) </li>
+          <li> <strong>Postdoctoral Fellow</strong>, <i>Dept. of Mathematics</i>, OSU (2018-2019)</li>
+          <li> <strong>Visiting Postdoc Research Scholar</strong>, <i>Kural Lab, Dept. of Physics</i>, OSU (2018)</li>
+          <li> <strong>Lecturer</strong>, <i>Dept. of Mathematics</i>, OSU (2016-2018)</li>
+          <li> <strong>Teaching Assistant</strong>, <i>Dept. of Mathematics</i>, OSU (2011-2016)</li>
+          <li> <strong>DARPA Research Fellow</strong>, <i>ECE Dept.</i>, OSU (2011)</li>
+          <li> <strong>Teaching Assistant</strong>, <i>Bilkent University</i> (2006-2010)</li>
+          <li> <strong>Graduate Research Fellow</strong>, <i>TUBITAK</i> (2007-2009)</li>
+          <li> <strong>Math Olympiad Instructor</strong>, <i>National Olympiad Training</i>, Turkiye (2004-2010)</li>
+        </ul>
+      </div>
+
+
+      <div class="content">
+        <h2>Publications</h2>
+        <ul>
+          <li> (with S. Tanveer) <i>Rigorous Analytical Approximation of Tritronquee Solution to Painlev'e-I and the First Singularity</i>, <strong>J. Diff. Eq.</strong>, Volume 261 (2016), no. 7, pp. 3843-3863 </li>
+          <li> (with S. Tanveer) <i>Rigorous Analysis of the Hele-Shaw Bubble solution in the non-perturbative regime</i>, Preprint</li>
+        </ul>
+      </div>
+
+
+      <div class="content">
+        <h2>Awards & Honors</h2>
+        <ul>
+          <li> <strong>Postdoctoral Fellowship</strong>, OSU (2018-2019)</li>
+          <li> <strong> Research Scholarship</strong>, Kural Lab, OSU (2018)</li>
+          <li> <strong> DARPA Fellowship</strong>, OSU (2011)</li>
+          <li> <strong> Graduate Research Fellowship</strong>, TUBITAK (2007-2009)</li>
+          <li> <strong>Undergraduate Full Scholarship</strong>, Bilkent University (2003-2007)</li>
+          <li> <strong>Undergraduate Scholarship</strong>, TUBITAK (2003-2007) </li>
+          <li> <strong>Bronze Medalist</strong>, <i>International Mathematical Olympiad</i> (2002, 2003)
+        </ul>
+      </div>
+
+      <div class="content">
         <h2>Other Activities</h2>
         <ul>
           <li> <strong>Coordinator</strong>, <i>European Girls' Mathematical Olympiad</i> (2014)</li>
@@ -326,6 +355,9 @@ body {
           <li> <strong>Former Varsity Soccer Player</strong>, Bilkent University (2006-2008)</li>
         </ul>
       </div>
+
+
+    </div>
 
     <div id="contactContent" class="content" style="  display: none;" >
       <h1> Contact Me </h1>
