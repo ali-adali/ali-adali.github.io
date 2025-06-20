@@ -12,54 +12,22 @@
     }
 
     body {
-      font-family: "Georgia", serif;
-      background-color: #f9f9f9;
+      font-family: Georgia, serif;
+      background-color: #fcfcfc;
       color: #222;
-      padding: 1.5rem;
-      width: 95vw;
-      
-      margin: auto;
-      line-height: 1.2;
-      margin-top: 2rem;
+      line-height: 1.7;
+      margin: 1rem auto;
+      max-width: 1000px;
+      padding: 0 1.5rem;
     }
-
-    h1 {
+    h1, h2, h3, h4 {
       text-align: center;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    button.collapsible {
-      background-color: #004080;
-      color: white;
-      cursor: pointer;
-      padding: 1rem;
-      width: 100%;
-      text-align: left;
-      outline: none;
-      font-size: 1rem;
-      font-weight: bolder;
-      font-variant-caps: petite-caps;
-      border: none;
-      border-radius: 8px;
       margin-top: 1rem;
-      transition: background-color 0.3s ease;
-      transition: display 0.3s ease;
+    }
+    h3 {
+      color: #2e4a62;
     }
 
-    button.collapsible:hover {
-      background-color: #0059b3;
-    }
-
-    .content {
-    overflow: auto;
-    background-color: #ffffff;
-    border-left: 0px solid #004080;
-    border-top: 0px solid #004080;
-    border-radius: 20px 20px 20px 20px;
- 
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-  }
 
     p {
       margin-bottom: 1rem;
@@ -69,6 +37,16 @@
       background-color: #eee;
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
+    }
+
+    .content {
+    overflow: auto;
+    background-color: #ffffff;
+    border-left: 0px solid #004080;
+    border-top: 0px solid #004080;
+    border-radius: 20px 20px 20px 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     }
 
     .back-button {
@@ -90,6 +68,19 @@
     background-color: #e0e0e0;
   }
 
+  .abstract {
+      margin: 2rem auto;
+      padding: 1rem;
+      border: 1px solid #888;
+      background: #f9f9f9;
+      font-style: italic;
+      max-width: 700px;
+      border-radius: 1rem;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+
   </style>
 
 </head>
@@ -97,30 +88,65 @@
 <body>
   <a href="javascript:history.back()" class="back-button"> <b>&larr;</b> </a>
 
-  <h1 style="text-align: center;margin: 1rem; ">A GENERALIZED CAUCHY-SCHWARTZ INEQUALITY</h1>
-    <div class="content" style= "height: 84vh;">
-        <embed src="generalizedCS.pdf" type="application/pdf" width="100%" height="100%">
-    </div>
+  <div class="content">
+    <h2 >Generalized Cauchy-Schwartz Inequality</h2>
+    <h4 style="margin-top: 0px;">Ali ADALI</h4>
+    <h4 style="margin-top: 0px;">14 July, 2021</h4>
+
+    <div class="abstract">
+    <h3 style="margin-top: 0px;">Abstract</h3>
+    <p>
+      In this brief article, I present a proof of a generalized form of the Cauchy-Schwarz inequality. Notably, the argument employs the forward-backward induction technique, originally introduced by Cauchy in his proof of the arithmetic mean-geometric mean inequality. This approach highlights a natural connection between the result and its historical origins.
+    </p>
+  </div>
+
+  <h3>Theorem 1.</h3>
+  <p>
+    Let $K$ and $n$ be positive integers, let $a_{i,k} \geq 0$ be real numbers for $i=1,\cdots, n$ and $k=1,\cdots, K$.  Then
+  \begin{equation}
+  \label{ineq}
+  \prod_{i=1}^{n}\left( \sum_{k=1}^{K} a_{i,k}^{n} \right) \geq \left( \sum_{k=1}^{K} \prod_{i=1}^{n}{a_{i,k}}  \right)^{n}
+  \end{equation}
+  </p>
+
+<h3> Remark 2.</h3>
+<p>
+  When $n=2$ the inequality is equivalent to Cauchy-Schwartz inequality.
+</p>
+
+<h3>Proof.</h3>
+<p>
+  It is observed that when $n=2^{N}$, \eqref{ineq} holds after applying the Cauchy-Schwartz inequality for sufficiently many times:
+\begin{equation}
+\label{ineq2}
+\begin{split}
+\prod_{i=1}^{2^{N}}\left( \sum_{k=1}^{K} a_{i,k}^{2^N} \right) &= \prod_{i=1}^{2^{N-1}}\left[ \left( \sum_{k=1}^{K} a_{i,k}^{2^N} \right) \left( \sum_{k=1}^{K} a_{i+2^{N-1},k}^{2^N} \right) \right] \\
+& \geq \prod_{i=1}^{2^{N-1}}\left[ \left( \sum_{k=1}^{K} \left( a_{i,k} a_{i+2^{N-1},k} \right)^{2^{N-1}} \right)^{2} \right]\\
+&\geq \prod_{i=1}^{2^{N-2}} \left( \sum_{k=1}^{K} \left( a_{i,k} a_{i+2^{N-2},k} a_{i+2\cdot2^{N-2},k} a_{i+3\cdot2^{N-2},k} \right)^{2^{N-2}} \right)^{2^2}  \\
+  &  \vdots\\
+ &\geq \left( \sum_{k=1}^{K}\prod_{i=1}^{2^{N}}{a_{i,k}} \right)^{2^N}.
+\end{split}
+\end{equation}
+
+
+Secondly, let $2^N < n < 2^{N+1}$. Applying \eqref{ineq2} with
+\begin{equation}
+a_{i,k} \to \left\{\begin{array}{ll}  a_{i,k}^{\frac{n}{2^{N+1}}}&  \text{if } i\leq n   \\   \prod_{i=1}^{n}{a_{i,k}^{\frac{1}{2^{N+1}}} }  &\text{if } 2^{N+1} > i > n  \end{array}\right.
+\end{equation}
+one obtains
+\begin{equation}
+\prod_{i=1}^{n}\left( \sum_{k=1}^{K} a_{i,k}^{n} \right) \left[ \sum_{k=1}^{K} \prod_{i=1}^{n}{a_{i,k}} \right]^{2^{N+1} - n} \geq  \left[ \sum_{k=1}^{K} \prod_{i=1}^{n}{a_{i,k}} \right]^{2^{N+1}}
+\end{equation}
+and the result is obtained after cancellation, completing the proof. $\square$
+</p>
+
+
+</div>
 
 </body>
 
 
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
 
 <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js' type='text/javascript'>
 </script>
@@ -131,5 +157,16 @@ for (i = 0; i < coll.length; i++) {
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+window.MathJax = {
+  tex: {
+    tags: 'ams',  // Enables \label and \ref (LaTeX-style)
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 </html>
