@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linear Independence of Square-roots</title>
+    <title>Linear Independence of Square Roots</title>
   <style>
      * {
       box-sizing: border-box;
@@ -12,54 +12,22 @@
     }
 
     body {
-      font-family: "Georgia", serif;
-      background-color: #f9f9f9;
+      font-family: Georgia, serif;
+      background-color: #fcfcfc;
       color: #222;
-      padding: 1.5rem;
-      width: 95vw;
-      
-      margin: auto;
-      line-height: 1.2;
-      margin-top: 2rem;
+      line-height: 1.7;
+      margin: 1rem auto;
+      max-width: 1000px;
+      padding: 0 1.5rem;
     }
-
-    h1 {
+    h1, h2, h3, h4 {
       text-align: center;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    button.collapsible {
-      background-color: #004080;
-      color: white;
-      cursor: pointer;
-      padding: 1rem;
-      width: 100%;
-      text-align: left;
-      outline: none;
-      font-size: 1rem;
-      font-weight: bolder;
-      font-variant-caps: petite-caps;
-      border: none;
-      border-radius: 8px;
       margin-top: 1rem;
-      transition: background-color 0.3s ease;
-      transition: display 0.3s ease;
+    }
+    h3 {
+      color: #2e4a62;
     }
 
-    button.collapsible:hover {
-      background-color: #0059b3;
-    }
-
-    .content {
-    overflow: auto;
-    background-color: #ffffff;
-    border-left: 0px solid #004080;
-    border-top: 0px solid #004080;
-    border-radius: 20px 20px 20px 20px;
- 
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-  }
 
     p {
       margin-bottom: 1rem;
@@ -69,6 +37,16 @@
       background-color: #eee;
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
+    }
+
+    .content {
+    overflow: auto;
+    background-color: #ffffff;
+    border-left: 0px solid #004080;
+    border-top: 0px solid #004080;
+    border-radius: 20px 20px 20px 20px;
+  padding: 2rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     }
 
     .back-button {
@@ -90,6 +68,19 @@
     background-color: #e0e0e0;
   }
 
+  .abstract {
+      margin: 2rem auto;
+      padding: 1rem;
+      border: 1px solid #888;
+      background: #f9f9f9;
+      font-style: italic;
+      max-width: 700px;
+      border-radius: 1rem;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+
   </style>
 
 </head>
@@ -97,15 +88,18 @@
 <body>
   <a href="javascript:history.back()" class="back-button"> <b>&larr;</b> </a>
 
-  <div>
-    <h2 style="text-align: center;">Linear independence of square roots over integers</h2>
-    <h4 style="text-align: center;">Ali ADALI</h4>
-    <h4 style="text-align: center;">30 June, 2020</h4>
+  <div class="content">
+    <h2 >Linear independence of square roots over integers</h2>
+    <h4 style="margin-top: 0px;">Ali ADALI</h4>
+    <h4 style="margin-top: 0px;">30 June, 2020</h4>
     <br>
-    <h3 style="text-align: center;">Abstract</h3>
-    <p style="font-size: 0.9rem; padding-left: 12rem; padding-right: 12rem;padding-top: 0rem;padding-bottom: 4rem;">
+
+    <div class="abstract">
+    <h3 style="margin-top: 0px;">Abstract</h3>
+    <p>
       An elementary proof is presented for the linear independence of  $\sqrt{n_1}, \cdots, \sqrt{n_k}$ over the integers, where $n_1, \cdots, n_k$ are distinct square-free positive integers.
     </p>
+  </div>
 
 Let $n_1, \cdots, n_k$ be relatively prime odd positive integers. First, I prove the following result:
 <br>
@@ -128,7 +122,7 @@ Let's choose $m$ such that $m$ is relatively prime with $n_i$ for all $i\geq 1$ 
 \label{equ.1}
 \left(\frac{m}{n_i}\right) \left(\frac{n_i}{m}\right) = (-1)^{\frac{(m-1)(n_i-1)}{2}} = 1.
 \end{equation}
-Since $n_i$ are relatively prime it is possible by Chinese remainder theorem to choose $m$ such that it equals to a non-square value in modulo $n_1$ and a square value in modulo $n_i$ for all $i \geq 2$. This choice of $m$ satisfies the condition of the Lemma 1 due to \eqref{equ.1} and the proof is complete.
+Since $n_i$ are relatively prime it is possible by Chinese remainder theorem to choose $m$ such that it equals to a non-square value in modulo $n_1$ and a square value in modulo $n_i$ for all $i \geq 2$. This choice of $m$ satisfies the condition of the Lemma 1 due to \eqref{equ.1} and the proof is complete. $\square$ 
 </p>
 <br>
 Next, I prove that $m$ in Lemma 1 can be chosen as a prime . 
@@ -167,7 +161,7 @@ Hence $\left( \frac{n}{q^{N+1}} \right) = 1$ and the assertion is proved for $k=
 
 $$ \left( \frac{n_1}{m} \right) = -1 \implies \left( \frac{n_1}{p_j^{\alpha_j}} \right) = -1 \iff  \left( \frac{n_1}{p_j} \right) = -1.$$ 
 
-Moreover, $\left( \frac{n_i}{m} \right) = 1 \implies \left( \frac{n_i}{p_j} \right) = 1$ is straightforward since $p_j | m$. Hence choosing $p = p_j$ works and the proof is complete. 
+Moreover, $\left( \frac{n_i}{m} \right) = 1 \implies \left( \frac{n_i}{p_j} \right) = 1$ is straightforward since $p_j | m$. Hence choosing $p = p_j$ works and the proof is complete. $\square$ 
 </p>
 <br>
 
@@ -192,7 +186,7 @@ Moreover, $\left( \frac{n_i}{m} \right) = 1 \implies \left( \frac{n_i}{p_j} \rig
   \begin{equation}
   Q = \prod_{d}(x_1 + d )(x_1 - d) (-x_1+d)(-x_1-d) = \prod_{d}(x_1^2 - d^2)^2
   \end{equation}
-  where $d$'s are $x_1$-free. Hence, only the even powers of $x_1$ appear in $Q$. Due to symmetry, this is true for $x_2, \cdots x_l$ as well and the proof is complete.
+  where $d$'s are $x_1$-free. Hence, only the even powers of $x_1$ appear in $Q$. Due to symmetry, this is true for $x_2, \cdots x_l$ as well and the proof is complete. $\square$
 </p>
 
 <h3>Theorem 4.</h3>
@@ -228,7 +222,7 @@ Moreover, $\left( \frac{n_i}{m} \right) = 1 \implies \left( \frac{n_i}{p_j} \rig
   $$a_1^2 n_1 - d^2 \equiv 0 \pmod{p}.$$ 
   Since $p$ does not divide $a_1$ one has 
   $$n_1 \equiv \left(\frac{d}{a_1}\right)^2 \pmod{p}$$ 
-  and this contradicts with $\left(\frac{n_1}{p} \right) = -1$. Hence $a_1=0$, and the proof is complete.
+  and this contradicts with $\left(\frac{n_1}{p} \right) = -1$. Hence $a_1=0$, and the proof is complete. $\square$
 </p>
 <br>
 
@@ -322,8 +316,8 @@ $$Q(a_1\tilde{x}_1,\cdots,a_l \tilde{x}_l) \equiv 0 \pmod{p}.$$
 
 This is on one hand, on the other hand
 \begin{equation}
+\label{eqQ}
 \begin{split}
-\label{eq.Q}
 0 &\equiv Q(a_1\tilde{x}_1,\cdots,a_l \tilde{x}_l)\\
  &= P(a_1^2\tilde{x}_1^2,\cdots,a_l^2\tilde{x}_l^2) \\ 
  &\equiv P(a_1^2\tilde{n}_1,\cdots,a_l^2\tilde{n}_l) \pmod{p}
@@ -341,7 +335,7 @@ where $P(a_1^2\tilde{n}_1,\cdots,a_l^2\tilde{n}_l)$ a constant integer. Observe 
 
 $$ p > \left|P(a_1^2\tilde{n}_1,\cdots,a_l^2\tilde{n}_l) \right|.$$ 
 
-Hence, \eqref{eq.Q} implies 
+Hence, \eqref{eqQ} implies 
 $$P(a_1^2\tilde{n}_1,\cdots,a_l^2\tilde{n}_l) = 0$$ 
 identically. Note that 
 $$ 0 = P(a_1^2\tilde{n}_1,\cdots,a_l^2\tilde{n}_l) =Q(a_1\sqrt{\tilde{n}_1},\cdots,a_l\sqrt{\tilde{n}_l}),$$ 
@@ -354,12 +348,16 @@ where $a_i' = (-1)^{j_i} a_i$ for some $j_1, \cdots, j_l$ where $j_i \in \{0,1\}
 \label{eq.l1}
 \sum_{i=2}^{l} a_i' \sqrt{\tilde{n_1} \tilde{n}_i } =  - a_1' \tilde{n}
 \end{equation}
-since $n_i$ are distinct $\sqrt{\tilde{n_1}\tilde{n_i}}$ are never integers. Since $l-1 \leq K$ \eqref{eq.l1} and hypothesis for $k=l-1$ imply $a_i' = 0$ for $i=2,\cdots,l$ and consequently for $a_1'$. This implies $a_1=\cdots=a_l = 0$. Substituting this into \eqref{eq.sumai} yields
+since $n_i$ are distinct $\sqrt{\tilde{n_1}\tilde{n_i}}$ are never integers. Since $l-1 \leq K$, \eqref{eq.l1} and hypothesis for $k=l-1$ imply $a_i' = 0$ for $i=2,\cdots,l$ and consequently for $a_1'$. This implies 
+
+$$a_1=\cdots=a_l = 0.$$ 
+
+Substituting this into \eqref{eq.sumai} yields
 \begin{equation}
 \label{eq.l2}
 \sum_{i=l+1}^{K+1}{a_i \sqrt{n_i}} = c
 \end{equation}
-Since $l\geq 1$, hypothesis for $k=K-l$ implies $a_i = 0$ for $i=l+1\cdots K+1$ in \eqref{eq.l2}. Hence, hypothesis hold for $k=K+1$, and by induction it must hold for all positive integers. The proof is complete.
+Since $l\geq 1$, hypothesis for $k=K-l$ implies $a_i = 0$ for $i=l+1\cdots K+1$ in \eqref{eq.l2}. Hence, hypothesis hold for $k=K+1$, and by induction it must hold for all positive integers. The proof is complete. $\square$
 </p>
 <br>
 <h3>Corollary 6.</h3>
@@ -390,7 +388,7 @@ Since $l\geq 1$, hypothesis for $k=K-l$ implies $a_i = 0$ for $i=l+1\cdots K+1$ 
   $$K = n_i = m_j $$ 
   for $i=1,\cdots,N$ and $j=1,\cdots, M$. In this case,  
   $$\sqrt{n_i m_j} = K,$$ 
-  and thus the left hand side of \eqref{eq.aibj} is a multiple of $K$. $p$ is a multiple of $K$, hence either $K=p$, which is possible only when there is only one rectangle in the partition, or $K=1$. In both cases, all dimensions have to be integers.
+  and thus the left hand side of \eqref{eq.aibj} is a multiple of $K$. $p$ is a multiple of $K$, hence either $K=p$, which is possible only when there is only one rectangle in the partition, or $K=1$. In both cases, all dimensions have to be integers. $\square$
 </p>
 <br>
 <br>
@@ -405,23 +403,6 @@ Since $l\geq 1$, hypothesis for $k=K-l$ implies $a_i = 0$ for $i=l+1\cdots K+1$ 
 
 </body>
 
-
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
 
 <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js' type='text/javascript'>
 </script>
