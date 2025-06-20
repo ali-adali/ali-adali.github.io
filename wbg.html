@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WBG</title>
+    <title>WALLACE-BOLYAI-GERWIEN THEOREM</title>
   <style>
      * {
       box-sizing: border-box;
@@ -12,54 +12,22 @@
     }
 
     body {
-      font-family: "Georgia", serif;
-      background-color: #f9f9f9;
+      font-family: Georgia, serif;
+      background-color: #fcfcfc;
       color: #222;
-      padding: 1.5rem;
-      width: 95vw;
-      
-      margin: auto;
-      line-height: 1.2;
-      margin-top: 2rem;
+      line-height: 1.7;
+      margin: 1rem auto;
+      max-width: 1000px;
+      padding: 0 1.5rem;
     }
-
-    h1 {
+    h1, h2, h3, h4 {
       text-align: center;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    button.collapsible {
-      background-color: #004080;
-      color: white;
-      cursor: pointer;
-      padding: 1rem;
-      width: 100%;
-      text-align: left;
-      outline: none;
-      font-size: 1rem;
-      font-weight: bolder;
-      font-variant-caps: petite-caps;
-      border: none;
-      border-radius: 8px;
       margin-top: 1rem;
-      transition: background-color 0.3s ease;
-      transition: display 0.3s ease;
+    }
+    h3 {
+      color: #2e4a62;
     }
 
-    button.collapsible:hover {
-      background-color: #0059b3;
-    }
-
-    .content {
-    overflow: auto;
-    background-color: #ffffff;
-    border-left: 0px solid #004080;
-    border-top: 0px solid #004080;
-    border-radius: 20px 20px 20px 20px;
- 
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-  }
 
     p {
       margin-bottom: 1rem;
@@ -69,6 +37,18 @@
       background-color: #eee;
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
+    }
+
+    .content {
+    overflow: auto;
+    background-color: #ffffff;
+    border-left: 0px solid #004080;
+    border-top: 0px solid #004080;
+    border-radius: 20px 20px 20px 20px;
+    padding-left: 5rem;
+    padding-right: 3rem;
+    padding-bottom: 5rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     }
 
     .back-button {
@@ -90,6 +70,19 @@
     background-color: #e0e0e0;
   }
 
+  .abstract {
+      margin: 2rem auto;
+      padding: 1rem;
+      border: 1px solid #888;
+      background: #f9f9f9;
+      font-style: italic;
+      max-width: 700px;
+      border-radius: 1rem;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+
   </style>
 
 </head>
@@ -97,30 +90,150 @@
 <body>
   <a href="javascript:history.back()" class="back-button"> <b>&larr;</b> </a>
 
-  <h1 style="text-align: center;margin: 1rem; ">A PROOF OF THE WALLACE-BOLYAI-GERWIEN THEOREM</h1>
-    <div class="content" style= "height: 84vh;">
-        <embed src="wbg.pdf" type="application/pdf" width="100%" height="100%">
-    </div>
+  <div class="content">
+    <h2 >A PROOF OF THE WALLACE-BOLYAI-GERWIEN THEOREM</h2>
+    <h4 style="margin-top: 0px;">Ali ADALI</h4>
+    <h4 style="margin-top: 0px;">14 July, 2021</h4>
+
+    <div class="abstract">
+    <h3 style="margin-top: 0px;">Abstract</h3>
+    <p>
+      This work presents a proof of the Wallace-Bolyai-Gerwien Theorem, which states that two polygons can be dissected into finitely many pieces and reassembled into one another using only translations and rotations if and only if they have the same area.
+    </p>
+  </div>
+
+
+  Let $A$ and $B$ are polygons. 
+
+<h3>
+  Definition 1.
+</h3>
+<p>
+  A <b>simple move</b> is a translation or a rotation of a polygon. If $A$ can be cut into smaller polygons and through a sequence of simple moves the polygons can be arranged to form $B$ we call $B$ is <b>simply obtainable from</b> $A$. 
+</p>
+
+
+<h3>Theorem 2. [Wallace-Bolyai-Gerwien Theorem]</h3>
+<p>
+  $B$ is simply obtainable from $A$ if and only if $A$ and $B$ have the same area.
+</p>
+
+<h3>Proof.</h3>
+<p>
+Simple moves keep the total area unchanged, hence if $B$ is obtainable by $A$ then they must have the same area. This proves the `only if' part.
+
+To prove the `if' part we first observe the following properties for any polygons $X$,$Y$ and $Z$;
+
+<ol>
+  
+
+<li> If $X$ is simply obtainable from $Y$, then $Y$ is simply obtainable from $X$ since any simple move is reversible.
+
+<li> If $X$ is simply obtainable from $Y$ and  $Y$ is simply obtainable from $Z$ then $X$ is simply obtainable from $Z$. This is readily obtained from the super partition (i.e., the union of the two partitions).
+
+<li> Any triangle is simply obtainable from a rectangle through the following process: The midpoints of two adjacent sides of the triangle are marked, and two lines passing through these marked points perpendicular to the third side are used as the cutting lines. The little triangles then can be rotated $180$-degrees around the corresponding midpoints to obtain a rectangle.
+
+<div style="
+  display: flex;
+  justify-content: center;
+  align-items: center;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="50vw" height="100%" viewbox="0 0 600 600">
+
+<polygon style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:2; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="180.0,180.0 180.0,180.0 60.0,480.0 480.0,480.0" class="qu Triangle" id="Obj3" />
+<circle style="fill:black; stroke:Gray" id="Point4" class="qu Point" cx="120.0" cy="330.0" r = "3.0" />
+
+<circle style="fill:black; stroke:Gray" id="Point5" class="qu Point" cx="330.0" cy="330.0" r = "3.0" />
+
+<line style="stroke :Midnightblue;stroke-width:2;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:8,4;" class="qu Line" id="Obj10" x1="120.0" x2="120.0" y1="180.0" y2="480.0" />
+<line style="stroke :Midnightblue;stroke-width:2;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:8,4;" class="qu Line" id="Obj11" x1="120.0" x2="330.0" y1="180.0" y2="180.0" />
+<line style="stroke :Midnightblue;stroke-width:2;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:8,4;" class="qu Line" id="Obj12" x1="330.0" x2="330.0" y1="180.0" y2="480.0" />
+<polygon style="stroke-linejoin:round; fill :Orchid; fill-opacity:0.2; stroke-width:2; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="120.0,180.0 120.0,180.0 180.0,180.0 120.0,330.0" class="qu Triangle" id="Obj13" />
+<polygon style="stroke-linejoin:round; fill :Orchid; fill-opacity:0.2; stroke-width:2; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="60.0,480.0 60.0,480.0 120.0,330.0 120.0,480.0" class="qu Triangle" id="Obj14" />
+<polygon style="stroke-linejoin:round; fill :Mediumseagreen; fill-opacity:0.2; stroke-width:2; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="180.0,180.0 180.0,180.0 330.0,180.0 330.0,330.0" class="qu Triangle" id="Obj15" />
+<polygon style="stroke-linejoin:round; fill :Mediumseagreen; fill-opacity:0.2; stroke-width:2; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="330.0,330.0 330.0,330.0 330.0,480.0 480.0,480.0" class="qu Triangle" id="Obj16" />
+
+</svg>
+</div>  
+
+
+
+
+<li> A rectangle with dimensions $(a,b)$ is simply obtainable from a rectangle with dimensions $(an, b/n)$ for any positive integer $n$.  This is obtained by cutting the $b$-side into $n$ equal parts through cuts parallel to the $a$-side and sticking the rectangles one after the other from their $b/n$-sides. An immediate consequence of this property is:
+
+<li> For  positive rational number $r$ a rectangle with dimensions $(a,b)$ is simply obtainable from a rectangle with dimensions $(ar, b/r)$.
+
+<li> A rectangle with dimensions $(a,b)$ is simply obtainable from a rectangle with dimensions $(1,ab)$. To observe this, we first assume that 
+\begin{equation}
+\label{eq.1}
+1 < b^2 < 1+a^2 
+\end{equation}
+if not we begin with simply obtaining a rectangle with dimensions $(a',b') = (ar,b/r)$ from the original rectangle where we choose a rational number $r$ such that $b/r$ is very close to $1$ but slightly larger and work with the rectangle $(a',b')$ instead.  
+
+<div style="
+  display: flex;
+  justify-content: center;
+  align-items: center;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="50vw" height="100%" viewbox="0 0 600 600">
+
+<circle style="fill:black; stroke:Gray" id="Point0" class="qu Point" cx="60.0" cy="240.0" r = "3.0" />
+<foreignObject id="Obj0" class="qu Label" style="font-size:15;font-family:Arial;color:black;" x="55.0" y="210.0" height="100%" width="100%" >$A$ </foreignObject>
+
+<circle style="fill:black; stroke:Gray" id="Point1" class="qu Point" cx="60.0" cy="480.0" r = "3.0" />
+<foreignObject id="Obj1" class="qu Label" style="font-size:15;font-family:Arial;color:black;" x="55.0" y="490.0" height="100%" width="100%" >$B$ </foreignObject>
+
+<circle style="fill:black; stroke:Gray" id="Point2" class="qu Point" cx="420.0" cy="480.0" r = "3.0" />
+<foreignObject id="Obj2" class="qu Label" style="font-size:15;font-family:Arial;color:black;" x="415.0" y="490.0" height="100%" width="100%" >$C$ </foreignObject>
+
+<circle style="fill:black; stroke:Gray" id="Point3" class="qu Point" cx="420.0" cy="240.0" r = "3.0" />
+<foreignObject id="Obj3" class="qu Label" style="font-size:15;font-family:Arial;color:black;" x="415.0" y="210.0" height="100%" width="100%" >$D$ </foreignObject>
+
+<circle style="fill:black; stroke:Gray" id="Point6" class="qu Point" cx="180.0" cy="240.0" r = "3.0" />
+<foreignObject id="Obj6" class="qu Label" style="font-size:15;font-family:Arial;color:black;" x="165.0" y="210.0" height="100%" width="100%" >$E$ </foreignObject>
+
+<circle style="fill:black; stroke:Gray" id="Point7" class="qu Point" cx="540.0" cy="240.0" r = "3.0" />
+<foreignObject id="Obj7" class="qu Label" style="font-size:15;font-family:Arial;color:black;" x="535.0" y="210.0" height="100%" width="100%" >$G$ </foreignObject>
+
+<circle style="fill:black; stroke:Gray" id="Point8" class="qu Point" cx="132.0" cy="336.0" r = "3.0" />
+<foreignObject id="Obj8" class="qu Label" style="font-size:15;font-family:Arial;color:black;" x="110.0" y="316.0" height="100%" width="100%" >$H$ </foreignObject>
+
+<circle style="fill:black; stroke:Gray" id="Point9" class="qu Point" cx="252.0" cy="96.0" r = "3.0" />
+<foreignObject id="Obj9" class="qu Label" style="font-size:15;font-family:Arial;color:black;" x="247.0" y="66.0" height="100%" width="100%" >$I$ </foreignObject>
+
+<polygon style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:2; stroke:MidnightBlue; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="60.0,240.0 60.0,240.0 60.0,480.0 420.0,480.0 420.0,240.0" class="qu Quad" id="Obj10" />
+<line style="stroke :MidnightBlue;stroke-width:2;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:0,0;" class="qu Line" id="Obj12" x1="420.0" x2="540.0" y1="240.0" y2="240.0" />
+<polygon style="stroke-linejoin:round; fill :none; fill-opacity:0.2; stroke-width:2; stroke:Midnightblue; stroke-dasharray:8,4; stroke-linecap:round; stroke-linejoin:round;" points="132.0,336.0 132.0,336.0 252.0,96.0 540.0,240.0 420.0,480.0" class="qu Quad" id="Obj13" />
+<line style="stroke :Midnightblue;stroke-width:2;stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:8,4;" class="qu Line" id="Obj14" x1="60.0" x2="132.0" y1="480.0" y2="336.0" />
+<foreignObject id="Obj15" style="display:inline-block;font-size:18;font-family:Arial;color:black;" x="40.0" y="345.0" width="100%" height ="100%" class="qu MidText" >$a$ </foreignObject>
+
+<foreignObject id="Obj16" style="display:inline-block;font-size:18;font-family:Arial;color:black;" x="235.0" y="480.0" width="100%" height ="100%" class="qu MidText" >$b$ </foreignObject>
+
+<foreignObject id="Obj17" style="display:inline-block;font-size:18;font-family:Arial;color:black;" x="271.0" y="363.0" width="100%" height ="100%" class="qu MidText" >$1$ </foreignObject>
+
+<polygon style="stroke-linejoin:round; fill :Crimson; fill-opacity:0.2; stroke-width:2; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="60.0,240.0 60.0,240.0 60.0,480.0 180.0,240.0" class="qu Triangle" id="Obj18" />
+<polygon style="stroke-linejoin:round; fill :Crimson; fill-opacity:0.2; stroke-width:2; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="420.0,480.0 420.0,480.0 420.0,240.0 540.0,240.0" class="qu Triangle" id="Obj19" />
+<polygon style="stroke-linejoin:round; fill :Lightskyblue; fill-opacity:0.2; stroke-width:2; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="60.0,480.0 60.0,480.0 132.0,336.0 420.0,480.0" class="qu Triangle" id="Obj20" />
+<polygon style="stroke-linejoin:round; fill :Lightskyblue; fill-opacity:0.2; stroke-width:2; stroke:none; stroke-dasharray:0,0; stroke-linecap:round; stroke-linejoin:round;" points="252.0,96.0 252.0,96.0 180.0,240.0 540.0,240.0" class="qu Triangle" id="Obj21" />
+
+</svg>
+</div> 
+
+
+Denote the vertices of the rectangle by $A, B, C, D$. $b>1$, hence we mark the unique right triangle $CBH$ where $CH = 1$, $CHB$ is a right angle and, $CBH$ has a common interior with the rectangle $ABCD$. Call $|BH| = x$, the Pythagorean theorem and \eqref{eq.1} imply
+$$1+x^2 = b^2 < 1+ a^2 $$
+hence $x < a$ and thus $CBH$ entirely lies inside the rectangle $ABCD$ since otherwise would imply $x > a$ as $a$ would be a side of a right triangle whose hypotenuse is part of $x$. When the rectangle is cut through the $BH$ line, and $CH$ line segment and the resulting two triangles are translated into their new positions (red to red and blue to blue) the resulting rectangle $CHIG$ has dimensions $(1,ab)$.  
+</ol>
+
+As the final step, we prove that for any two polygons $P_1$ and $P_2$, whose areas are $1$, one is simply obtainable from the other. To see this, we begin with dissecting $P_1$ into triangles (which is obviously possible), and we convert each triangle first into a rectangle through the property (3) and then each rectangle into a rectangle whose one side is $1$ through the property (6). Then we glue each resulting rectangle one under the other from their sides of length $1$. The outcome is a unit square. We can apply a similar process with the polygon $P_2$ and obtain the same unit square.  The second process is reversible from property (1). We use property (2) to combine the $P_1$ process with the inverse of $P_2$ process to simply obtain  $P_2$ from $P_1$. This completes the proof for polygons whose areas are $1$, evidently for all polygons with the same area. $\square$
+</p>
+
+
+
+</div>
 
 </body>
 
 
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
 
 <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js' type='text/javascript'>
 </script>
@@ -131,5 +244,16 @@ for (i = 0; i < coll.length; i++) {
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+window.MathJax = {
+  tex: {
+    tags: 'ams',  // Enables \label and \ref (LaTeX-style)
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 </html>
