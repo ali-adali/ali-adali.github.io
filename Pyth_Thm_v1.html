@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} }; </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,6 +18,17 @@
       background-color: #1d3030;
       font-family: 'Inter', sans-serif;
       color: white;
+      font-size: 2.22vmin;
+    }
+
+    p{
+      font-size: 2.5vmin;
+      padding: 0.5em;
+    }
+
+    h3{
+      font-size: 2.88vmin; 
+      font-weight: bold;
     }
 
     .container {
@@ -25,43 +37,110 @@
       'SVGContent StatementContent'
       'SVGContent ProofContent '
       'Buttons ProofContent ';
-      grid-template-columns: 480px 480px ;
-      grid-template-rows: 240px 240px 240px;
-      column-gap: 8px;
+      grid-template-columns: 66.6vmin 66.6vmin ;
+      grid-template-rows: 33.3vmin 33.3vmin 33.3vmin;
+      column-gap: 1.11vmin;
     }
 
     .itemSVG{
       grid-area: SVGContent;
-      border:1px solid white;
-      border-radius: 10px;
-
+      border:0.14vmin solid white;
+      border-radius: 1.38vmin;
     }
 
     .itemStatement{
       grid-area: StatementContent;
     }
 
+    .StatementHeaderClass{
+      height:16%; 
+      top:0; 
+      display:flex; 
+      text-align: center; 
+      align-items: center; 
+      justify-content: center; 
+      background: green; 
+      border-radius: 1.38vmin 1.38vmin 0vmin 0vmin; 
+      border:0px solid white;
+    }
+
+    .StatementContentClass{
+      height:84%;
+      overflow: auto; 
+      padding-left: 1.38vmin;
+      border: 0.27vmin solid green; 
+      border-top: none; 
+      border-radius: 0vmin 0vmin 1.38vmin 1.38vmin;
+    }
+
+
+
     .itemProof{
       grid-area: ProofContent;
-      margin-top: 8px;
+      margin-top: 1.11vmin;
     }
+
+    .ProofHeaderClass{
+      height:8%;
+      top:0;
+      display:flex;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      background: green;
+      border-radius: 1.38vmin 1.38vmin 0vmin 0vmin;
+    }
+
+    .ProofContentClass{
+      height:86%;
+      overflow: auto; 
+      border: 0.27vmin solid green; 
+      border-top: none; 
+      border-radius: 0vmin 0vmin 1.38vmin 1.38vmin;
+    }
+
+    .PfSteps{
+      opacity: 0;
+      border-radius: 1.11vmin;
+      padding: 0.56vmin;
+      background: black;
+      font-size: 2.5vmin;
+      font-weight: 2.88vmin;
+      margin-top: 1.38vmin;
+      margin-bottom: 1.38vmin;
+      margin-left: 1.11vmin;
+      width: 92%;
+    }
+
+    .PfButton{
+      height: 8.33vmin;
+      width: 13.88vmin;
+      border-radius: 2.5vmin;
+      color:white; 
+      font-size: 2.88vmin;
+      font-weight: bold;
+      background: black;
+      border: 0.14vmin solid lightblue;
+      padding:0.27vmin;
+    }
+
+    .PfButton:hover{
+       box-shadow: -0.14vmin -0.14vmin 0.14vmin 0.14vmin lightblue,0.14vmin 0.14vmin 0.14vmin 0.14vmin lightblue;
+       transition: box-shadow 0.3s ;
+    }
+
+
+
+
+
+
 
     .itemButtons{
       grid-area: Buttons;
       display: flex; 
       justify-content: flex-end; 
       align-items: flex-start;
-      margin-top: 10px;
-    }
-
-    p{
-      font-size: 1.1rem;
-      padding: 0.5em;
-    }
-
-    h3{
-      font-size: 1.5rem; 
-      font-weight: 700;
+      margin-top: 1.38vmin;
     }
 
     .quMidText, .quLabel
@@ -102,43 +181,14 @@
       stroke-dasharray:0,0;
       stroke-linecap:round;
       stroke-linejoin:round;
-
     }
 
     .quMidText, .quLabel, .quLine,.quAngle,.quPoint,.quTriangle, .quQuad
     {
       opacity: 0.0;
-
     } 
 
-    .PfSteps{
-      opacity: 0;
-      border-radius: 7px;
-      padding: 4px;
-      background: black;
-      font-weight: 1.2rem;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      margin-left: 8px;
-      width: 92%;
-    }
-
-    .PfButton{
-      height: 60px;
-      width: 100px;
-      border-radius: 18px;
-      color:white; 
-      font-size: 1.2rem;
-      font-weight: 500;
-      background: black;
-      border: 1px solid lightblue;
-      padding:2px;
-    }
-
-    .PfButton:hover{
-       box-shadow: -1px -1px 1px 1px lightblue,1px 1px 1px 1px lightblue;
-       transition: box-shadow 0.3s ;
-    }
+    
 
 
   </style>
@@ -272,11 +322,11 @@
 
 
     <div class="itemStatement">
-      <div id="StatementHeader" style="height:16%; top:0; display:flex; text-align: center; align-items: center; justify-content: center; background: green; border-radius: 10px 10px 0px 0px; border:0px solid white; " >
+      <div id="StatementHeader" class="StatementHeaderClass" >
         <h3>Pythagorean Theorem. </h3>
       </div>
 
-      <div id="StatementContent" style="height:84%;overflow: auto; padding-left: 10px;border: 2px solid green; border-top: none; border-radius: 0px 0px 10px 10px;">
+      <div id="StatementContent" class="StatementContentClass">
         <p style="color: white;">
           Let $a$, $b$, and $c$ be the sides of a right triangle where $c$ is the hypotenuse. Then,
           $$c^2 = a^2 + b^2.$$ 
@@ -287,10 +337,10 @@
 
 
     <div class="itemProof">
-      <div id="ProofHeader" style="height:8%; top:0; display:flex; text-align: center; align-items: center; justify-content: center; background: green; border-radius: 10px 10px 0px 0px;">
+      <div id="ProofHeader" class="ProofHeaderClass">
         <h3>Proof.</h3>
       </div>
-      <div id="ProofContent" style="height:86%;overflow: auto; border: 2px solid green; border-top: none; border-radius: 0px 0px 10px 10px;">
+      <div id="ProofContent" class="ProofContentClass">
         <ol id="ProofList">
           <li class="PfSteps" >Extend $CA$ by $a$ and $CB$ by $b$ units to points $D$ and $E$.</li>
            <li class="PfSteps" > Construct $CEFD$ square. </li>
@@ -373,6 +423,7 @@
         SVGCollection[i].style.transition = "transform 0.5s linear 0s";
       }
 
+     
 
       SVGCollection[11].style.opacity = 1;
       SVGCollection[11].style.strokeDasharray = 210.00;
@@ -397,8 +448,7 @@
       SVGCollection[15].style.strokeDashoffset = 150.00;
       SVGCollection[15].animate([{strokeDashoffset: 150 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1500});
 
-
-
+    
       SVGCollection[17].style.transition = "opacity 0.5s linear 2s";
       SVGCollection[17].style.opacity = 1;
 
@@ -426,13 +476,15 @@
       ProofStepsCollection[1].style.transition = "opacity 1s linear 0.0s";
       ProofStepsCollection[1].scrollIntoView({behavior: 'smooth',block: 'center'});
 
-
+      //SVGCollection[19].style.transition = "opacity 0.5s linear 0s";
+      //SVGCollection[19].style.opacity = 1;
       SVGCollection[19].style.opacity = 1;
       SVGCollection[19].style.strokeDasharray = 360.00;
       SVGCollection[19].style.strokeDashoffset = 360.00;
       SVGCollection[19].animate([{strokeDashoffset: 360.00 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:0});
 
-
+      //SVGCollection[20].style.transition = "opacity 0.5s linear 0.5s";
+      //SVGCollection[20].style.opacity = 1;
 
          SVGCollection[20].style.opacity = 1;
       SVGCollection[20].style.strokeDasharray = 360.00;
@@ -502,22 +554,18 @@
       SVGCollection[33].style.opacity = 1;
       SVGCollection[33].style.transition = "opacity 0.5s linear 2s";
 
-      //SVGCollection[34].style.opacity = 1;
-      //SVGCollection[34].style.transition = "opacity 0.5s linear 2.5s";
+
       SVGCollection[34].style.opacity = 1;
       SVGCollection[34].style.strokeDasharray = 258.07;
       SVGCollection[34].style.strokeDashoffset = 258.07;
       SVGCollection[34].animate([{strokeDashoffset: 258.07 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2500});
 
-      //SVGCollection[35].style.opacity = 1;
-      //SVGCollection[35].style.transition = "opacity 0.5s linear 3s";
+
       SVGCollection[35].style.opacity = 1;
       SVGCollection[35].style.strokeDasharray = 258.07;
       SVGCollection[35].style.strokeDashoffset = 258.07;
       SVGCollection[35].animate([{strokeDashoffset: 258.07 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:3000});
 
-      //SVGCollection[36].style.opacity = 1;
-      //SVGCollection[36].style.transition = "opacity 0.5s linear 3.5s";
 
       SVGCollection[36].style.opacity = 1;
       SVGCollection[36].style.strokeDasharray = 258.07;
@@ -695,11 +743,8 @@
     
       break;
     }
-
     
   }
-
-  //scene:0
 
   for(let i = 0;i< Scenes[0];i++ )
   {
@@ -708,13 +753,6 @@
   }
 
   CurrentScene = CurrentScene+1;
-
-
-
-
-
-
-  
 
 </script>
 
