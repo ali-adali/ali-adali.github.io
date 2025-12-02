@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} }; </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Law of Sines</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@450;750&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing: border-box;}
+    body{
+      padding:0vmin;
+      margin:0vmin;
+      top:0vmin;
+      background-color: #1d3030;
+      font-family: 'Inter', sans-serif;
+      color: white;
+      font-size: 2.5vmin;
+    }
+
+    p{
+      font-size: 2.3vmin;
+    }
+
+    h3{
+      font-size: 2.88vmin; 
+      font-weight: bold;
+    }
+
+    .container {
+      display: grid;
+      grid-template-areas:
+      'SVGContent StatementContent'
+      'SVGContent ProofContent'
+      ' Buttons ProofContent';
+      grid-template-columns: 64vmin 64vmin ;
+      grid-template-rows: 32vmin 32vmin 32vmin;
+      column-gap: 1.11vmin;
+      row-gap: 1.11vmin;
+      margin-top:1.11vmin;
+      margin-left:1.5vmin;
+    }
+
+    .itemSVG{
+      grid-area: SVGContent;
+      border:0.25vmin solid white;
+      border-radius: 1.38vmin;
+      background: black;
+    }
+
+    .itemStatement{
+      grid-area: StatementContent;
+    }
+
+    .StatementHeaderClass{
+      height:16%; 
+      top:0; 
+      display:flex; 
+      text-align: center; 
+      align-items: center; 
+      justify-content: center; 
+      background: green; 
+      border-radius: 1.38vmin 1.38vmin 0vmin 0vmin; 
+      border:0px solid white;
+    }
+
+    .StatementContentClass{
+      height:84%;
+      overflow: auto; 
+      padding-left: 1.38vmin;
+      border: 0.27vmin solid green; 
+      border-top: none; 
+      border-radius: 0vmin 0vmin 1.38vmin 1.38vmin;
+    }
+
+
+
+    .itemProof{
+      grid-area: ProofContent;
+    }
+
+    .ProofHeaderClass{
+      height:8%;
+      top:0;
+      display:flex;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      background: green;
+      border-radius: 1.38vmin 1.38vmin 0vmin 0vmin;
+    }
+
+    .ProofContentClass{
+      height:92%;
+      overflow: auto; 
+      border: 0.27vmin solid green; 
+      border-top: none; 
+      border-radius: 0vmin 0vmin 1.38vmin 1.38vmin;
+    }
+
+    .PfSteps{
+      opacity: 0;
+      border-radius: 1.11vmin;
+      padding: 0.56vmin;
+      background: black;
+      font-size: 2.5vmin;
+      font-weight: 2.88vmin;
+      margin-top: 1.38vmin;
+      margin-bottom: 1.38vmin;
+      margin-left: 1.11vmin;
+      width: 92%;
+    }
+
+    .PfButton{
+      height: 8.33vmin;
+      width: 13.88vmin;
+      border-radius: 2.5vmin;
+      color:white; 
+      font-size: 2.88vmin;
+      font-weight: bold;
+      background: black;
+      border: 0.2vmin solid lightblue;
+      padding:0.27vmin;
+    }
+
+    .PfButton:hover{
+       box-shadow: -0.14vmin -0.14vmin 0.14vmin 0.14vmin lightblue,0.14vmin 0.14vmin 0.14vmin 0.14vmin lightblue;
+       transition: box-shadow 0.3s ;
+    }
+
+
+
+
+
+    .itemButtons{
+      grid-area: Buttons;
+      display: flex; 
+      justify-content: flex-end; 
+      align-items: flex-start;
+    }
+
+    .quCircle, .quLabel
+    {
+      font-size: 1.2rem;
+      color: white;
+      fill: none;
+    }
+
+    .quLine{
+      stroke:lightgreen;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin :round;
+      stroke-dasharray:0,0;
+    }
+
+    .quAngle{
+      fill :none;
+      fill-opacity:0.0;
+      stroke-width:2;
+      stroke:lightgreen;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .quPoint{
+      fill:white;
+      stroke:white;
+      z-index: 3;
+    }
+
+    .quTriangle, .quQuad{
+      stroke-linejoin:round;
+      fill :none;
+      fill-opacity:0.0;
+      stroke-width:2;
+      stroke:lightgreen;
+      stroke-dasharray:0,0;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .quCircle, .quLabel, .quLine,.quAngle,.quPoint,.quTriangle, .quQuad, .quMidText
+    {
+      opacity: 0.0;
+    } 
+
+    
+
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class = "itemSVG">
+      <svg id="SVGFrame" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 480 480">
+
+        <line class="quLine" style="stroke:DarkSlateGrey;stroke-dasharray:12,6;" id="Obj13" x1="60.0" x2="240.0" y1="360.0" y2="258.0" />
+
+        <foreignObject id="Obj4" style="opacity:0.5;" class="quLabel" x="235.0" y="263.0" height="100%" width="100%" >$O$ </foreignObject>
+
+        <foreignObject id="Obj8" style="font-size: 1.2em;" x="308.0" y="190.0" width="100%" height ="100%" class="quMidText" >$b$ </foreignObject>
+
+        <foreignObject id="Obj9" style="font-size: 1.2em;" x="100.0" y="190.0" width="100%" height ="100%" class="quMidText" >$c$</foreignObject>
+
+         <path id="AnglePath11" class="quAngle" style="fill:red;fill-opacity: 0.2;" d="M 420.00 360.00 L 401.26 336.57 A 30,30 0 0,0 390.00,360.00 Z " />
+        <foreignObject id="Obj11" class="quLabel" x="370" y="330" width="100%" height="100%"> $C$ </foreignObject>
+
+        <path id="AnglePath12" class="quAngle" style="fill:red;fill-opacity: 0.2;" d="M 60.00 360.00 L 90.00 360.00 A 30,30 0 0,0 71.14,332.15 Z " />
+        <foreignObject id="Obj12" class="quLabel" x="90" y="325" width="100%" height="100%"> $B$ </foreignObject>
+
+        <foreignObject id="Obj14" style="color:cyan;" x="162.0" y="270.0" width="100%" height ="100%" class="quMidText" >$R$ </foreignObject>
+
+
+        <circle id="Point1" class="quPoint" cx="180.0" cy="60.0" r = "3.0" />
+
+        <foreignObject id="Obj1" class="quLabel" x="170.0" y="35.0" height="100%" width="100%" >$A$ </foreignObject>
+
+        <circle id="Point2" class="quPoint" cx="60.0" cy="360.0" r = "3.0" />
+        <foreignObject id="Obj2" class="quLabel" x="35.0" y="360.0" height="100%" width="100%" >$B$ </foreignObject>
+
+        <circle id="Point3" class="quPoint" cx="420.0" cy="360.0" r = "3.0" />
+        <foreignObject id="Obj3" class="quLabel" x="422.0" y="360.0" height="100%" width="100%" >$C$ </foreignObject>
+
+        <polygon points="180.0,60.0 180.0,60.0 60.0,360.0 420.0,360.0" class="quTriangle" id="Obj6" />
+
+       
+        <circle id="Point4" class="quPoint" cx="240.0" cy="258.0" r = "3.0" /> 
+
+        <circle id="Obj5" style="stroke:DarkSlateGrey; stroke-width:2;" class="quCircle" cx="240.0" cy="258.0" r = "206.9" />
+
+        <foreignObject id="Obj7" style="font-size: 1.2em;" x="235.0" y="360.0" width="100%" height ="100%" class="quMidText" >$a$</foreignObject>
+
+        <path id="AnglePath10" class="quAngle" style="fill:red;fill-opacity: 0.2;" d="M 180.00 60.00 L 167.74 90.64 A 33,33 0 0,0 200.61,85.77 Z " />
+        <foreignObject id="Obj10" class="quLabel" x="175" y="95" width="100%" height="100%">$A$ </foreignObject>
+
+
+        
+
+        <line  class="quLine" id="Obj16" x1="60.0" x2="420.0" y1="360.0" y2="156.0" />        
+
+        <circle id="Point15" class="quPoint" cx="420.0" cy="156.0" r = "3.0" />
+
+        <foreignObject id="Obj15" class="quLabel" x="424.0" y="132.0" height="100%" width="100%" >$D$ </foreignObject>
+
+         <foreignObject id="Obj18" style="color:cyan;" x="210.0" y="230.0" width="100%" height ="100%" class="quMidText" >$2R$ </foreignObject>
+
+
+
+
+        
+        <line  class="quLine" id="Obj17" x1="420.0" x2="420.0" y1="156.0" y2="360.0" />
+
+        <path id="AnglePath21"  class="quAngle"  d="M 420.00 333.00 L 393.00 333.00 L 393.00,360.00  " />
+
+
+
+        <path id="AnglePath19" style="stroke-width: 7;stroke: orangered;" class="quAngle" d="M 60 360 A 207,207 0 0,0 420,360 " />
+        
+
+        <path id="AnglePath20" class="quAngle" style="fill:red;fill-opacity: 0.2;" d="M 420.00 156.00 L 391.29 172.27 A 33,33 0 0,0 420.00,189.00 Z " />
+        <foreignObject id="Obj20" class="quLabel" x="390" y="188" width="100%" height="100%"> $A$ </foreignObject>
+
+
+
+        <polygon style="fill :yellowgreen; fill-opacity:0.2;" points="60.0,360.0 60.0,360.0 420.0,360.0 420.0,156.0" class="quTriangle" id="Obj22" /> 
+
+        
+
+    </svg>
+      
+  </div>
+
+  <div class="itemButtons">
+     <button class="PfButton" id = "PfButtonId" onclick="nextScene();" >Click for Proof</button>
+  </div>
+
+
+
+    <div class="itemStatement">
+      <div id="StatementHeader" class="StatementHeaderClass" >
+        <h3>Law of Sines </h3>
+      </div>
+
+      <div id="StatementContent" class="StatementContentClass">
+        <p style="color: white;">
+          In $\triangle ABC$ sides $a$, $b$, $c$ are seen by $\angle A$, $\angle B$ and $\angle C$. Then
+          $$ \frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} = 2R, $$
+          where $R$ is the radius of the circumcircle of $\triangle ABC$.
+        </p>
+        
+      </div>
+    </div>
+
+
+    <div class="itemProof">
+      <div id="ProofHeader" class="ProofHeaderClass">
+        <h3>Proof.</h3>
+      </div>
+      <div id="ProofContent" class="ProofContentClass">
+        <ol id="ProofList">
+
+          <li class="PfSteps">Draw diameter $BD$, thus,
+          $$BD = 2R.$$ </li>
+
+           <li class="PfSteps"> Draw $DC$. $BD$ is diameter hence,
+           $$\angle DCB = 90^{\circ}.$$  </li>
+
+           <li class="PfSteps"> $\angle A$ and $\angle D$ see the same arc $BC$, hence,
+           $$\angle BDC = A.$$  </li>
+
+           <li class="PfSteps"> Trigonometry on $\triangle BDC$ yields
+           $$\sin A = \frac{\text{opposite}}{\text{hypotenuse}}= \frac{a}{2R}.$$  </li>
+
+           <li class="PfSteps"> Hence,
+           $$2R = \frac{a}{\sin A}.$$
+           Applying similar steps from $B$ and $C$ yield the result:
+           $$\frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} = 2R,$$
+           and the proof is complete $\square$   </li>
+
+
+        </ol>
+
+      </div>
+
+      
+    </div>
+
+    
+  </div>
+  
+</body>
+
+<script>
+  let SVGElement = document.getElementById("SVGFrame");
+  let ProofElement = document.getElementById("ProofList");
+
+  let SVGCollection = SVGElement.children;
+  let ProofStepsCollection = ProofElement.children;
+
+  var Scenes = [21,8,15,9,7,5];
+  let CurrentScene = 0;
+
+  let PfButtonElement = document.getElementById("PfButtonId");
+
+
+  ProofStepsCollection[0].scrollIntoView({behavior: 'smooth',block: 'start'});
+  nextScene();
+
+
+  function nextScene()
+  {
+    switch(CurrentScene){
+
+    case 0:
+
+      for(let i = 0;i< Scenes[0];i++ )
+      {
+        SVGCollection[i].style.opacity = 1;
+      }
+
+      CurrentScene = CurrentScene+1;
+      break;
+
+    case 1:
+
+
+      PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[0].scrollIntoView({behavior: 'smooth',block: 'center'});
+      ProofStepsCollection[0].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards',delay:0});
+      ProofStepsCollection[0].animate([{opacity: 0 },{ opacity: 1 }],{duration: 1000,easing: 'ease-out', fill: 'forwards',delay:0});
+      ProofStepsCollection[0].animate([{background: 'inherit' },{ background: 'black' }],{duration: 1000,easing: 'ease-out', fill: 'forwards'});
+
+      for(let i=0;i<9;i++)
+      {
+        SVGCollection[i].style.opacity = 0;
+        SVGCollection[i].style.transition = "opacity 0.5s linear 0s";  
+      }
+
+      SVGCollection[21].style.opacity = 1;
+      SVGCollection[21].style.strokeDasharray = 413.78;
+      SVGCollection[21].style.strokeDashoffset = 413.78;
+      SVGCollection[21].animate([{strokeDashoffset: 413.78 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:500});
+
+      SVGCollection[22].style.transition = "opacity 0.5s linear 1s";
+      SVGCollection[22].style.opacity = 1;
+
+      SVGCollection[23].style.transition = "opacity 0.5s linear 1s";
+      SVGCollection[23].style.opacity = 1;
+
+      SVGCollection[24].style.transition = "opacity 0.5s linear 1.5s";
+      SVGCollection[24].style.opacity = 1;
+
+      PfButtonElement.textContent = "Next Step";
+      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:2000});
+
+
+      CurrentScene = CurrentScene + 1;
+      break;
+
+
+    case 2:
+      PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
+      ProofStepsCollection[0].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+      ProofStepsCollection[0].animate([{background: 'black' },{ background: 'inherit' }],{duration: 1000,easing: 'ease-out', fill: 'forwards'});
+  
+      ProofStepsCollection[1].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[1].style.opacity=1;
+      ProofStepsCollection[1].style.transition = "opacity 1s linear 0.0s";
+      ProofStepsCollection[1].scrollIntoView({behavior: 'smooth',block: 'center'});
+
+
+      SVGCollection[25].style.opacity = 1;
+      SVGCollection[25].style.strokeDasharray = 204.00;
+      SVGCollection[25].style.strokeDashoffset = 204.00;
+      SVGCollection[25].animate([{strokeDashoffset: 204.00 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:500});
+
+      SVGCollection[26].style.transition = "opacity 0.5s linear 1.5s";
+      SVGCollection[26].style.opacity = 1;
+
+
+      PfButtonElement.textContent = "Next Step";
+      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:2200});
+
+
+      CurrentScene = CurrentScene + 1;
+      break;
+
+    case 3:
+      PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[1].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[1].style.background = "inherit";
+      ProofStepsCollection[1].style.transition = "background 0.5s linear 0s";
+      
+      ProofStepsCollection[2].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[2].style.opacity=1;
+      ProofStepsCollection[2].style.transition = "opacity 0.5s linear 0.0s";
+      ProofStepsCollection[2].scrollIntoView({behavior: 'smooth',block: 'center'});
+
+      SVGCollection[27].style.transition = "opacity 0.5s linear 0.5s";
+      SVGCollection[27].style.opacity = 0.6;
+
+      SVGCollection[28].style.transition = "opacity 0.5s linear 1.0s";
+      SVGCollection[28].style.opacity = 1;
+
+
+      SVGCollection[29].style.transition = "opacity 0.5s linear 1.5s";
+      SVGCollection[29].style.opacity = 1;
+
+      
+      
+
+      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:2000});
+
+
+
+      CurrentScene = CurrentScene + 1;
+      break;
+
+
+    case 4:
+      PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[2].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[2].style.background = "inherit";
+      ProofStepsCollection[2].style.transition = "background 0.5s linear 0s";
+      
+      ProofStepsCollection[3].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[3].style.opacity=1;
+      ProofStepsCollection[3].style.transition = "opacity 0.5s linear 0.0s";
+      ProofStepsCollection[3].scrollIntoView({behavior: 'smooth',block: 'center'});
+
+      SVGCollection[27].style.transition = "opacity 0.5s linear 0.0s";
+      SVGCollection[27].style.opacity = 0;
+
+
+      SVGCollection[30].style.transition = "opacity 0.5s linear 0.5s";
+      SVGCollection[30].style.opacity = 1;
+
+      
+      
+
+      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:2000});
+
+
+
+      CurrentScene = CurrentScene + 1;
+      break;
+
+
+    case 5:
+      PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[3].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[3].style.background = "inherit";
+      ProofStepsCollection[3].style.transition = "background 0.5s linear 0s";
+      
+      ProofStepsCollection[4].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[4].style.opacity=1;
+      ProofStepsCollection[4].style.transition = "opacity 0.5s linear 0.0s";
+      ProofStepsCollection[4].scrollIntoView({behavior: 'smooth',block: 'center'});
+
+      
+      
+      PfButtonElement.textContent = "Finish";
+      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:2000});
+
+
+
+      CurrentScene = CurrentScene + 1;
+      break;
+
+
+    case 6:
+      PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[4].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+
+      ProofStepsCollection[4].style.background = "inherit";
+      ProofStepsCollection[4].style.transition = "background 0.5s linear 0s";
+      
+      
+      PfButtonElement.textContent = "Reload";
+      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:2000});
+
+      CurrentScene = CurrentScene + 1;
+      break;
+
+    
+
+    case 7:
+      location.reload();
+
+      break;
+    }
+  }
+
+
+
+</script>
+
+
+
+
+
+
+</html>
