@@ -12,18 +12,17 @@
   <style>
     *{box-sizing: border-box;}
     body{
-      padding:0px;
-      margin:0px;
-      top:0px;
+      padding:0vmin;
+      margin:0vmin;
+      top:0vmin;
       background-color: #1d3030;
       font-family: 'Inter', sans-serif;
       color: white;
-      font-size: 2.22vmin;
+      font-size: 2.5vmin;
     }
 
     p{
       font-size: 2.5vmin;
-      padding: 0.5em;
     }
 
     h3{
@@ -35,16 +34,19 @@
       display: grid;
       grid-template-areas:
       'SVGContent StatementContent'
-      'SVGContent ProofContent '
-      'Buttons ProofContent ';
-      grid-template-columns: 66.6vmin 66.6vmin ;
-      grid-template-rows: 33.3vmin 33.3vmin 33.3vmin;
+      'SVGContent ProofContent'
+      ' Buttons ProofContent';
+      grid-template-columns: 64vmin 64vmin ;
+      grid-template-rows: 32vmin 32vmin 32vmin;
       column-gap: 1.11vmin;
+      row-gap: 1.11vmin;
+      margin-top:1.11vmin;
+      margin-left:1.5vmin;
     }
 
     .itemSVG{
       grid-area: SVGContent;
-      border:0.14vmin solid white;
+      border:0.25vmin solid white;
       border-radius: 1.38vmin;
     }
 
@@ -73,11 +75,8 @@
       border-radius: 0vmin 0vmin 1.38vmin 1.38vmin;
     }
 
-
-
     .itemProof{
       grid-area: ProofContent;
-      margin-top: 1.11vmin;
     }
 
     .ProofHeaderClass{
@@ -92,7 +91,7 @@
     }
 
     .ProofContentClass{
-      height:86%;
+      height:92%;
       overflow: auto; 
       border: 0.27vmin solid green; 
       border-top: none; 
@@ -120,7 +119,7 @@
       font-size: 2.88vmin;
       font-weight: bold;
       background: black;
-      border: 0.14vmin solid lightblue;
+      border: 0.2vmin solid lightblue;
       padding:0.27vmin;
     }
 
@@ -129,18 +128,11 @@
        transition: box-shadow 0.3s ;
     }
 
-
-
-
-
-
-
     .itemButtons{
       grid-area: Buttons;
       display: flex; 
       justify-content: flex-end; 
       align-items: flex-start;
-      margin-top: 1.38vmin;
     }
 
     .quMidText, .quLabel
@@ -387,68 +379,64 @@
   let SVGElement = document.getElementById("SVGFrame");
   let ProofElement = document.getElementById("ProofList");
 
-
   let SVGCollection = SVGElement.children;
   let ProofStepsCollection = ProofElement.children;
 
   var Scenes = [11,8,15,9,7,5];
   let CurrentScene = 0;
-  let cFrames = 0;
-  let currentFrame = 0;
 
   let PfButtonElement = document.getElementById("PfButtonId");
 
-  
+  nextScene();
 
 
   function nextScene()
   {
     switch(CurrentScene){
 
+    case 0:
+      for(let i = 0;i< Scenes[0];i++ )
+      {
+        SVGCollection[i].style.opacity = 1;
+        SVGCollection[i].style.transform = "translate(100px, -120px)";
+      }
+
+      CurrentScene = CurrentScene+1;
+      break;
+
     case 1:
       PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
-      
       ProofStepsCollection[0].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
-
       ProofStepsCollection[0].animate([{opacity: 0 },{ opacity: 1 }],{duration: 1000,easing: 'ease-out', fill: 'forwards'});
-
       ProofStepsCollection[0].animate([{background: 'inherit' },{ background: 'black' }],{duration: 1000,easing: 'ease-out', fill: 'forwards'});
-      
-
-    
 
       for(let i = 0;i< Scenes[0];i++ )
       {
         SVGCollection[i].style.transform = "translate(0px, 0px)";
         SVGCollection[i].style.transition = "transform 0.5s linear 0s";
       }
-
-     
-
+      
       SVGCollection[11].style.opacity = 1;
       SVGCollection[11].style.strokeDasharray = 210.00;
       SVGCollection[11].style.strokeDashoffset = 210.00;
       SVGCollection[11].animate([{strokeDashoffset: 210 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:500});
 
-
-
-      SVGCollection[12].style.opacity = 1;
       SVGCollection[12].style.transition = "opacity 0.5s linear 0.5s";
       
-
       SVGCollection[13].style.transition = "opacity 0.5s linear 1s";
       SVGCollection[13].style.opacity = 1;
 
       SVGCollection[14].style.transition = "opacity 0.5s linear 1s";
       SVGCollection[14].style.opacity = 1;
 
-
       SVGCollection[15].style.opacity = 1;
       SVGCollection[15].style.strokeDasharray = 150.00;
       SVGCollection[15].style.strokeDashoffset = 150.00;
       SVGCollection[15].animate([{strokeDashoffset: 150 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1500});
 
-    
+      SVGCollection[16].style.transition = "opacity 0.5s linear 1.5s";
+      SVGCollection[16].style.opacity = 1;
+
       SVGCollection[17].style.transition = "opacity 0.5s linear 2s";
       SVGCollection[17].style.opacity = 1;
 
@@ -458,7 +446,6 @@
       PfButtonElement.textContent = "Next Step";
       PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:2200});
 
-
       CurrentScene = CurrentScene + 1;
       break;
 
@@ -466,27 +453,19 @@
       PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
       ProofStepsCollection[0].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
       ProofStepsCollection[0].animate([{background: 'black' },{ background: 'inherit' }],{duration: 1000,easing: 'ease-out', fill: 'forwards'});
-
   
-      
-      
       ProofStepsCollection[1].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
 
       ProofStepsCollection[1].style.opacity=1;
       ProofStepsCollection[1].style.transition = "opacity 1s linear 0.0s";
       ProofStepsCollection[1].scrollIntoView({behavior: 'smooth',block: 'center'});
 
-      //SVGCollection[19].style.transition = "opacity 0.5s linear 0s";
-      //SVGCollection[19].style.opacity = 1;
       SVGCollection[19].style.opacity = 1;
       SVGCollection[19].style.strokeDasharray = 360.00;
       SVGCollection[19].style.strokeDashoffset = 360.00;
       SVGCollection[19].animate([{strokeDashoffset: 360.00 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:0});
 
-      //SVGCollection[20].style.transition = "opacity 0.5s linear 0.5s";
-      //SVGCollection[20].style.opacity = 1;
-
-         SVGCollection[20].style.opacity = 1;
+      SVGCollection[20].style.opacity = 1;
       SVGCollection[20].style.strokeDasharray = 360.00;
       SVGCollection[20].style.strokeDashoffset = 360.00;
       SVGCollection[20].animate([{strokeDashoffset: 360.00 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:500});
@@ -508,7 +487,6 @@
 
       PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3200});
 
-      
       CurrentScene = CurrentScene + 1;
       break;
 
@@ -520,16 +498,12 @@
       ProofStepsCollection[1].style.background = "inherit";
       ProofStepsCollection[1].style.transition = "background 0.5s linear 0s";
       
-      
       ProofStepsCollection[2].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
 
       ProofStepsCollection[2].style.opacity=1;
       ProofStepsCollection[2].style.transition = "opacity 0.5s linear 0.0s";
       ProofStepsCollection[2].scrollIntoView({behavior: 'smooth',block: 'center'});
       
-
-    
-
       SVGCollection[26].style.opacity = 1;
       SVGCollection[26].style.transition = "opacity 0.5s linear 0.5s";
 
@@ -554,18 +528,15 @@
       SVGCollection[33].style.opacity = 1;
       SVGCollection[33].style.transition = "opacity 0.5s linear 2s";
 
-
       SVGCollection[34].style.opacity = 1;
       SVGCollection[34].style.strokeDasharray = 258.07;
       SVGCollection[34].style.strokeDashoffset = 258.07;
       SVGCollection[34].animate([{strokeDashoffset: 258.07 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2500});
 
-
       SVGCollection[35].style.opacity = 1;
       SVGCollection[35].style.strokeDasharray = 258.07;
       SVGCollection[35].style.strokeDashoffset = 258.07;
       SVGCollection[35].animate([{strokeDashoffset: 258.07 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:3000});
-
 
       SVGCollection[36].style.opacity = 1;
       SVGCollection[36].style.strokeDasharray = 258.07;
@@ -573,8 +544,6 @@
       SVGCollection[36].animate([{strokeDashoffset: 258.07 },{ strokeDashoffset: 0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:3500});
 
       PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3700});
-
-
 
       CurrentScene = CurrentScene + 1;
       break;
@@ -587,10 +556,8 @@
       ProofStepsCollection[2].style.background = "inherit";
       ProofStepsCollection[2].style.transition = "background 0.5s linear 0s";
       
-      
       ProofStepsCollection[3].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
       
-
       ProofStepsCollection[3].style.opacity=1;
       ProofStepsCollection[3].style.transition = "opacity 0.5s linear 0.0s";
       ProofStepsCollection[3].scrollIntoView({behavior: 'smooth',block: 'center'});
@@ -609,7 +576,6 @@
 
       PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:2700});
 
-      
       CurrentScene = CurrentScene + 1;
       break;
 
@@ -621,14 +587,11 @@
       ProofStepsCollection[3].style.background = "inherit";
       ProofStepsCollection[3].style.transition = "background 0.5s linear 0s";
       
-      
       ProofStepsCollection[4].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
       
-
       ProofStepsCollection[4].style.opacity=1;
       ProofStepsCollection[4].style.transition = "opacity 0.5s linear 0.0s";
       ProofStepsCollection[4].scrollIntoView({behavior: 'smooth',block: 'center'});
-
 
       SVGCollection[41].style.opacity = 1;
       SVGCollection[41].style.transition = "opacity 0.5s linear 1s";
@@ -651,7 +614,6 @@
 
       PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3200});
       
-      
       CurrentScene = CurrentScene + 1;
       break;
 
@@ -663,10 +625,8 @@
       ProofStepsCollection[4].style.background = "inherit";
       ProofStepsCollection[4].style.transition = "background 0.5s linear 0s";
       
-      
       ProofStepsCollection[5].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
       
-
       ProofStepsCollection[5].style.opacity=1;
       ProofStepsCollection[5].style.transition = "opacity 0.5s linear 0.0s";
       ProofStepsCollection[5].scrollIntoView({behavior: 'smooth',block: 'center'});
@@ -675,7 +635,6 @@
       SVGCollection[48].style.transition = "opacity 0.5s linear 1s";
       SVGCollection[49].style.opacity = 1;
       SVGCollection[49].style.transition = "opacity 0.5s linear 1s";
-
 
       SVGCollection[50].style.opacity = 1;
       SVGCollection[50].style.transition = "opacity 0.5s linear 1.5s";
@@ -694,7 +653,6 @@
 
       PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:4200});
       
-      
       CurrentScene = CurrentScene + 1;
       break;
 
@@ -706,10 +664,8 @@
       ProofStepsCollection[5].style.background = "inherit";
       ProofStepsCollection[5].style.transition = "background 0.5s linear 0s";
       
-      
       ProofStepsCollection[6].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
       
-
       ProofStepsCollection[6].style.opacity=1;
       ProofStepsCollection[6].style.transition = "opacity 0.5s linear 0.0s";
       ProofStepsCollection[6].scrollIntoView({behavior: 'smooth',block: 'center'});
@@ -728,31 +684,19 @@
       ProofStepsCollection[6].style.background = "inherit";
       ProofStepsCollection[6].style.transition = "background 0.5s linear 0s";
       
-
-
       PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:1000})
       PfButtonElement.textContent = "Restart";
       
-      CurrentScene = CurrentScene + 1;
+      CurrentScene = CurrentScene+1;
       break;
-
 
     case 9:
-
       location.reload();
-    
+      location.reload();
+
       break;
     }
-    
   }
-
-  for(let i = 0;i< Scenes[0];i++ )
-  {
-    SVGCollection[i].style.opacity = 1;
-    SVGCollection[i].style.transform = "translate(100px, -120px)";
-  }
-
-  CurrentScene = CurrentScene+1;
 
 </script>
 
