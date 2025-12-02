@@ -5,7 +5,7 @@
   <script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} }; </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pyth Thm v1</title>
+  <title>Pythagorean Theorem</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@450;750&display=swap" rel="stylesheet">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -48,6 +48,7 @@
       grid-area: SVGContent;
       border:0.25vmin solid white;
       border-radius: 1.38vmin;
+      background: black;
     }
 
     .itemStatement{
@@ -74,6 +75,8 @@
       border-top: none; 
       border-radius: 0vmin 0vmin 1.38vmin 1.38vmin;
     }
+
+
 
     .itemProof{
       grid-area: ProofContent;
@@ -128,6 +131,10 @@
        transition: box-shadow 0.3s ;
     }
 
+
+
+
+
     .itemButtons{
       grid-area: Buttons;
       display: flex; 
@@ -135,7 +142,7 @@
       align-items: flex-start;
     }
 
-    .quMidText, .quLabel
+    .quCircle, .quLabel
     {
       font-size: 1.2rem;
       color: white;
@@ -175,7 +182,7 @@
       stroke-linejoin:round;
     }
 
-    .quMidText, .quLabel, .quLine,.quAngle,.quPoint,.quTriangle, .quQuad
+    .quCircle, .quLabel, .quLine,.quAngle,.quPoint,.quTriangle, .quQuad
     {
       opacity: 0.0;
     } 
@@ -202,11 +209,11 @@
 
       <polygon points="60.0,270.0 60.0,270.0 270.0,420.0 60.0,420.0" class="quTriangle" id="Obj7" />
 
-      <foreignObject id="Obj8" x="150.0" y="422.0" width="100%" height ="100%" class="quMidText" >$a$ </foreignObject>
+      <foreignObject id="Obj8" x="150.0" y="422.0" width="100%" height ="100%" class="quCircle" >$a$ </foreignObject>
 
-      <foreignObject id="Obj9" x="40.0" y="330.0" width="100%" height ="100%" class="quMidText" >$b$ </foreignObject>
+      <foreignObject id="Obj9" x="40.0" y="330.0" width="100%" height ="100%" class="quCircle" >$b$ </foreignObject>
 
-      <foreignObject id="Obj10" x="163.0" y="320.0" width="100%" height ="100%" class="quMidText" > $c$ </foreignObject>
+      <foreignObject id="Obj10" x="163.0" y="320.0" width="100%" height ="100%" class="quCircle" > $c$ </foreignObject>
 
       <path id="AnglePath17" class="quAngle" d="M 60.00 420.00 L 78.00 420.00 L 78.00 402.00 L 60.00,402.00 Z" />
 
@@ -217,14 +224,14 @@
 
       <line class="quLine" id="Obj11" x1="60.0" x2="60.0" y1="270.0" y2="60.0" />
 
-      <foreignObject id="Obj13" x="40.0" y="155.0" width="100%" height ="100%" class="quMidText" > $a$ </foreignObject>
+      <foreignObject id="Obj13" x="40.0" y="155.0" width="100%" height ="100%" class="quCircle" > $a$ </foreignObject>
       
       <circle id="Point4" class="quPoint" cx="60.0" cy="60.0" r = "3.0" />
       <foreignObject id="Obj4" class="quLabel" x="40.0" y="40.0" height="100%" width="100%" >$D$ </foreignObject>
     
 
       <line class="quLine" id="Obj12" x1="270.0" x2="420.0" y1="420.0" y2="420.0" />
-      <foreignObject id="Obj14" x="345.0" y="425.0" width="100%" height ="100%" class="quMidText" >$b$ </foreignObject>
+      <foreignObject id="Obj14" x="345.0" y="425.0" width="100%" height ="100%" class="quCircle" >$b$ </foreignObject>
 
       <circle id="Point2" class="quPoint" cx="420.0" cy="420.0" r = "3.0" />
       <foreignObject id="Obj2" class="quLabel" x="422.0" y="420.0" height="100%" width="100%" >$E$ </foreignObject>
@@ -250,15 +257,15 @@
       <circle id="Point19" class="quPoint" cx="420.0" cy="210.0" r = "3.0" />
       <foreignObject id="Obj19" class="quLabel" x="425.0" y="200.0" height="100%" width="100%" >$H$ </foreignObject>
 
-      <foreignObject id="Obj20" x="130.0" y="37.0" width="100%" height ="100%" class="quMidText" >$b$ </foreignObject>
+      <foreignObject id="Obj20" x="130.0" y="37.0" width="100%" height ="100%" class="quCircle" >$b$ </foreignObject>
 
-      <foreignObject id="Obj21" x="325.0" y="37.0" width="100%" height ="100%" class="quMidText" >$a$ </foreignObject>
+      <foreignObject id="Obj21" x="325.0" y="37.0" width="100%" height ="100%" class="quCircle" >$a$ </foreignObject>
 
       
 
-      <foreignObject id="Obj22" x="425.0" y="125.0" width="100%" height ="100%" class="quMidText" >$b$ </foreignObject>
+      <foreignObject id="Obj22" x="425.0" y="125.0" width="100%" height ="100%" class="quCircle" >$b$ </foreignObject>
 
-      <foreignObject id="Obj23" x="425.0" y="310.0" width="100%" height ="100%" class="quMidText" >$a$ </foreignObject>
+      <foreignObject id="Obj23" x="425.0" y="310.0" width="100%" height ="100%" class="quCircle" >$a$ </foreignObject>
 
       <line class="quLine" id="Obj24" x1="60.0" x2="210.0" y1="270.0" y2="60.0" />
       <line class="quLine" id="Obj25" x1="210.0" x2="420.0" y1="60.0" y2="210.0" />
@@ -274,11 +281,11 @@
 
 
 
-      <foreignObject id="Obj33" x="140.0" y="160.0" width="100%" height ="100%" class="quMidText" >$c$ </foreignObject>
+      <foreignObject id="Obj33" x="140.0" y="160.0" width="100%" height ="100%" class="quCircle" >$c$ </foreignObject>
 
-      <foreignObject id="Obj34" x="305.0" y="135.0" width="100%" height ="100%" class="quMidText" >$c$ </foreignObject>
+      <foreignObject id="Obj34" x="305.0" y="135.0" width="100%" height ="100%" class="quCircle" >$c$ </foreignObject>
 
-      <foreignObject id="Obj35" x="325.0" y="298.0" width="100%" height ="100%" class="quMidText" >$c$ </foreignObject>
+      <foreignObject id="Obj35" x="325.0" y="298.0" width="100%" height ="100%" class="quCircle" >$c$ </foreignObject>
 
 
       <path id="AnglePath30" class="quAngle" d="M 270.00 420.00 L 252.91 407.79 A 21,21 0 0,0 249.00,420.00 Z " />
@@ -387,6 +394,9 @@
 
   let PfButtonElement = document.getElementById("PfButtonId");
 
+  ProofStepsCollection[0].scrollIntoView({behavior: 'smooth',block: 'start'});
+
+
   nextScene();
 
 
@@ -395,6 +405,7 @@
     switch(CurrentScene){
 
     case 0:
+
       for(let i = 0;i< Scenes[0];i++ )
       {
         SVGCollection[i].style.opacity = 1;
@@ -405,10 +416,14 @@
       break;
 
     case 1:
+
+
       PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
-      ProofStepsCollection[0].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
-      ProofStepsCollection[0].animate([{opacity: 0 },{ opacity: 1 }],{duration: 1000,easing: 'ease-out', fill: 'forwards'});
+      ProofStepsCollection[0].scrollIntoView({behavior: 'smooth',block: 'center'});
+      ProofStepsCollection[0].animate([{scale: 1 },{ scale: 1.1 }],{duration: 500,easing: 'ease-out', fill: 'forwards',delay:0});
+      ProofStepsCollection[0].animate([{opacity: 0 },{ opacity: 1 }],{duration: 1000,easing: 'ease-out', fill: 'forwards',delay:0});
       ProofStepsCollection[0].animate([{background: 'inherit' },{ background: 'black' }],{duration: 1000,easing: 'ease-out', fill: 'forwards'});
+
 
       for(let i = 0;i< Scenes[0];i++ )
       {
@@ -692,11 +707,13 @@
 
     case 9:
       location.reload();
-      location.reload();
 
       break;
     }
   }
+
+
+  
 
 </script>
 
