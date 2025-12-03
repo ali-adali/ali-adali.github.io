@@ -362,6 +362,7 @@
             and one inner angle of the quadrilateral is 
             $$\angle BAG = 90.$$ 
             All inner angles of $AGHB$ are $90^{\circ}$ by symmetry. Thus, $AGHB$ is a square with side $c$.</li>
+
           <li class="PfSteps"> Area(Big Square) = Area(Small Square)+4&times;Area(Triangle), hence:
             \begin{align}
             (a+b)^2 &= c^2 + 4\times \frac{1}{2}\,a\,b,\\
@@ -369,7 +370,9 @@
             a^2+b^2 &= c^2.
             \end{align}
             and the result follows. The proof is complete $\square$
-           </li>
+          </li>
+
+          <li style="height:10vmin;" class="PfSteps"></li>
         </ol>
 
       </div>
@@ -578,16 +581,16 @@
       ProofStepsCollection[3].scrollIntoView({behavior: 'smooth',block: 'center'});
 
       SVGCollection[37].style.opacity = 1;
-      SVGCollection[37].style.transition = "opacity 0.5s linear 0.5s";
+      SVGCollection[37].style.transition = "opacity 0.5s linear 0s";
 
       SVGCollection[38].style.opacity = 1;
-      SVGCollection[38].style.transition = "opacity 0.5s linear 1s";
+      SVGCollection[38].style.transition = "opacity 0.5s linear 0.5s";
 
       SVGCollection[39].style.opacity = 1;
-      SVGCollection[39].style.transition = "opacity 0.5s linear 1.5s";
+      SVGCollection[39].style.transition = "opacity 0.5s linear 1s";
 
       SVGCollection[40].style.opacity = 1;
-      SVGCollection[40].style.transition = "opacity 0.5s linear 2s";
+      SVGCollection[40].style.transition = "opacity 0.5s linear 1.5s";
 
       PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:2700});
 
@@ -635,7 +638,7 @@
     case 6:
       PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
 
-      ProofStepsCollection[1].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+      ProofStepsCollection[4].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
 
       ProofStepsCollection[4].style.background = "inherit";
       ProofStepsCollection[4].style.transition = "background 0.5s linear 0s";
@@ -664,9 +667,9 @@
       SVGCollection[53].style.transition = "opacity 0.5s linear 3.5s";
 
       SVGCollection[54].style.opacity = 1;
-      SVGCollection[54].style.transition = "opacity 0.5s linear 4s";
+      SVGCollection[54].style.transition = "opacity 0.5s linear 3.5s";
 
-      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:4200});
+      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:4000});
       
       CurrentScene = CurrentScene + 1;
       break;
@@ -674,7 +677,7 @@
     case 7:
       PfButtonElement.animate([{scale: 1 },{ scale: 0 }],{duration: 200,easing: 'ease-out', fill: 'forwards'});
 
-      ProofStepsCollection[4].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
+      ProofStepsCollection[5].animate([{scale: 1.1 },{ scale: 1 }],{duration: 500,easing: 'ease-out', fill: 'forwards'});
 
       ProofStepsCollection[5].style.background = "inherit";
       ProofStepsCollection[5].style.transition = "background 0.5s linear 0s";
@@ -686,7 +689,7 @@
       ProofStepsCollection[6].scrollIntoView({behavior: 'smooth',block: 'center'});
 
       PfButtonElement.textContent = "Finish";
-      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:1000})
+      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3000})
       
       CurrentScene = CurrentScene + 1;
       break;
@@ -699,7 +702,7 @@
       ProofStepsCollection[6].style.background = "inherit";
       ProofStepsCollection[6].style.transition = "background 0.5s linear 0s";
       
-      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:1000})
+      PfButtonElement.animate([{scale: 0 },{ scale: 1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3000})
       PfButtonElement.textContent = "Restart";
       
       CurrentScene = CurrentScene+1;
@@ -711,6 +714,12 @@
       break;
     }
   }
+
+
+
+
+
+
 
 
   
