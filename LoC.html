@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@450;750&display=swap" rel="stylesheet">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  
   <style>
     *{box-sizing: border-box;}
     body{
@@ -18,17 +19,18 @@
       background-color: #1d3030;
       font-family: 'Inter', sans-serif;
       color: white;
-      font-size: 2.5vmin;
+      font-size: 2.3vmin;
+
     }
 
-    p{
-      font-size: 2.5vmin;
-    }
 
     h3{
-      font-size: 2.88vmin; 
+      font-size: 2.8vmin; 
       font-weight: bold;
+
     }
+
+    
 
     .container {
       display: grid;
@@ -68,12 +70,14 @@
     }
 
     .StatementContentClass{
+
       height:84%;
-      overflow: auto; 
-      padding-left: 1.38vmin;
+      overflow: auto;
+      padding-inline: 7%; 
       border: 0.27vmin solid green; 
       border-top: none; 
       border-radius: 0vmin 0vmin 1.38vmin 1.38vmin;
+      font-size: 2.5vmin;
     }
 
 
@@ -99,19 +103,30 @@
       border: 0.27vmin solid green; 
       border-top: none; 
       border-radius: 0vmin 0vmin 1.38vmin 1.38vmin;
+      margin: 0;
+    }
+
+    ol{
+      align-items: center; 
+      justify-content: center;
+      padding-inline-start: 10%;
+      padding-inline-end: 7%;
+      
+    }
+
+    li{
+      margin-block : 5%; 
     }
 
     .PfSteps{
       opacity: 0;
       border-radius: 1.11vmin;
-      padding: 0.56vmin;
+      padding: 0;
       background: black;
-      font-size: 2.35vmin;
-      font-weight: 2.88vmin;
-      margin-top: 1.38vmin;
-      margin-bottom: 1.38vmin;
-      margin-left: 1.11vmin;
-      width: 92%;
+      font-size: 2.3vmin;
+      font-weight: 2.8vmin;
+      width: 100%;
+      padding: 1%;
     }
 
     .PfButton{
@@ -133,8 +148,6 @@
 
 
 
-
-
     .itemButtons{
       grid-area: Buttons;
       display: flex; 
@@ -144,13 +157,14 @@
 
     .quCircle, .quLabel
     {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: white;
       fill: none;
     }
 
-    .quMidText{
-      font-size: 1.2em;
+    .quMidText
+    {
+      font-size: 1.3rem;
     }
 
     .quLine{
@@ -190,12 +204,8 @@
     .quCircle, .quLabel, .quLine,.quAngle,.quPoint,.quTriangle, .quQuad, .quMidText
     {
       opacity: 0.0;
-    }
-
-
-
+    } 
     
-
 
   </style>
 </head>
