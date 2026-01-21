@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>!Set!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@450;750&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing: border-box;}
+
+    body
+    {
+      padding:0vmin;
+      margin: 0vmin;
+      top:0vmin;
+      background-color: #1d2b30;
+      color: white;   
+    }
+
+    .theTable
+    {
+      position: absolute;
+      top:0;
+      left:5vmin;
+      height: 100vmin;
+      width: 146vmin;
+      border: 0px solid blue;
+      background: burlywood;
+
+    }
+
+    
+
+
+    .console
+    {
+      position: fixed;
+      left: 151vmin;
+      height: 100vmin;
+      width: 45vmin;
+      border: 2px solid green;
+    }
+
+    .checkButton{
+      position: absolute;
+      height: 20vmin;
+      width: 20vmin;
+      top:1vmin;
+      left: 1vmin;
+      border: 1vmin solid cyan;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+
+    }
+
+    .moreCardsButton{
+      position: absolute;
+      height: 20vmin;
+      width: 20vmin;
+      top:22vmin;
+      left: 1vmin;
+      border:1vmin solid brown;
+      border-radius: 50%;
+    }
+
+
+
+    .clockPlace{
+      position: absolute;
+      height: 20vmin;
+      width: 20vmin;
+      top:44vmin;
+      left: 1vmin;
+      border: 1vmin solid seagreen;
+      border-radius: 3vmin;
+    }
+
+    .startButton{
+      position: absolute;
+      height: 20vmin;
+      width: 20vmin;
+      top:66vmin;
+      left: 1vmin;
+      border: 1vmin solid magenta;
+      border-radius: 50%;
+
+    }
+   
+
+
+    
+  </style>
+</head>
+
+<body>
+
+  <div class="theTable" id="cardTable">
+    
+  </div>
+
+  <div class="console">
+    <div class="clockPlace" style="font-size: 3vmin;display: block; justify-content: center; align-items: center;"   >
+      <div style="height: 40%; font-size: 4.5vmin; text-align: center; display: flex; justify-content: center; align-items: center;background: seagreen; color: white;border-radius: 2vmin 2vmin 0vmin 0vmin; font-weight: 800;">  POINTS  </div>  
+      <div id="test" style="height: 60%; font-size: 7vmin; text-align: center;display: flex; justify-content: center; align-items: center;">  0 </div> 
+    </div>
+
+
+    <div class="moreCardsButton" style="font-size: 7.2vmin;display: flex; justify-content: center; align-items: center;text-align: center;" onclick="putExtraCards();" > &#127136; &#127136; &#127136; </div>
+
+
+    <div class="checkButton" style="font-size: 10vmin;display: flex; justify-content: center; align-items: center;text-align: center;" onclick="checkSet();"> &#10004;</div>
+
+    <div class="startButton" onclick="openCard();" style="font-size: 5vmin;display: flex; justify-content: center; align-items: center;"> <span> Start </span></div>
+    
+  </div>
+  
+</body>
+
+<script>
+
+  
+  let theDeck=[];
+  let dz = 0.4;
+  let cardHeight=30;
+  let cardWidth=20;
+
+  let checkedCardsContent=[];
+  let checkedCardsIndices=[];
+  let checkedCardsPlaces=[];
+
+  let topCard = 80;
+
+  let openExtraPlaces = [0,1,2];
+  let extraCards = [];
+  let nextExtraPlace = 0;
+
+  let totalPoints = 0;
+
+
+  document.getElementById("test").innerHTML = totalPoints;
+
+
+
+  class Card{
+    constructor(or_index,sh_index,place)
+    {
+      this.place = place;
+      this.originalIndex = or_index;
+      this.shuffeledIndex = sh_index;
+
+      let newCard = document.createElement("DIV");
+      newCard.setAttribute("style","background:white; border:0.3vmin solid black; border-radius:3vmin; position:absolute; text-align:center;font-size:7.5vmin;transition: scale 0.1s;display: flex; justify-content: center; flex-direction: column; text-align: center;");
+      newCard.style.height=cardHeight+"vmin";
+      newCard.style.width= cardWidth+"vmin";
+      newCard.setAttribute("onclick",' let ccc= checkedCardsIndices.indexOf('+this.originalIndex+') ; if(ccc==-1&&checkedCardsIndices.length<3){ this.animate([{scale:1.07 }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.push('+this.originalIndex+')} else{ this.animate([{scale:1.00 }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.splice( checkedCardsIndices.indexOf('+this.originalIndex+') ,1)  } ');
+
+      let cColor;
+      let cOpacity;
+      let cPattern;
+      let cNumber;
+
+      let vv= toProps(sh_index);
+
+      switch(Number(vv[1]))
+      {
+      case 0:
+        cOpacity=0.0;
+        break;
+
+      case 1:
+        cOpacity=0.5;
+        break;
+
+      case 2:
+        cOpacity=1;
+        break;
+      }
+
+      switch(Number(vv[0]))
+      {
+      case 0:
+        cColor= 'rgba(0, 0, 139,'; //rgba(0, 0, 139, 1) 'blue'
+        break;
+
+      case 1:
+        cColor= 'rgba(139, 0, 0,'; //rgba(139, 0, 0, 1) 'darkred'
+        break;
+
+      case 2:
+        cColor='rgba(0, 110, 0,'; //rgba(0, 100, 0, 1)  'green'
+        break;
+      }
+
+      
+    
+
+
+
+      switch(Number(vv[2]))
+      {
+      case 0:
+        cPattern= '&#9679;';
+        break;
+
+      case 1:
+        cPattern='&#9632;';
+        break;
+
+      case 2:
+        cPattern='&#9650;';
+        break;
+      }
+
+//  -webkit-text-stroke: 5px rgba(139, 0, 0, 1);
+
+      let ccdo= '<div style=" -webkit-text-stroke: 0.7vmin '+cColor +'1); color: '+cColor +cOpacity + ');  " >'+ cPattern+'</div>' ; 
+
+
+
+      switch(Number(vv[3]))
+      {
+      case 0:
+        cNumber=ccdo ;
+        break;
+
+      case 1:
+        cNumber= ccdo + ' ' +ccdo ;
+        break;
+
+      case 2:
+        cNumber=ccdo+ ' ' +ccdo+ ' ' +ccdo;
+        break;
+      }
+
+
+
+
+
+      let tcontent = document.createElement("p");
+      tcontent.innerHTML=cNumber;
+      tcontent.style.opacity = 0.8;
+      //tcontent.style.color = cColor;
+
+      //tcontent.appendChild(txtNode);
+      newCard.appendChild(tcontent);
+      this.content = newCard;
+    }
+  }
+
+
+
+  let shuffledDeckIdx = secureShuffle(81);
+
+  
+  //Original deck:
+
+  for(let i=0;i<81;i++)
+  {
+    let nC = new Card(i,shuffledDeckIdx[i],-1);
+    theDeck.push(nC);
+    let nCC = nC.content;
+    nCC.style.left= "120vmin";
+    let cLZ = 66 - i*dz;
+    nCC.style.top= cLZ+'vmin';
+    document.getElementById("cardTable").appendChild(nCC);
+  }
+
+
+  //open places:
+
+  let openPlaces = [];
+  for (let i = 0; i < 12; i++)
+  {
+    openPlaces.push(i);
+  }
+
+
+  let marginX = 2;
+  let marginY = 2;
+
+  function toGrid(n)
+  {
+    let rem = n % 4;
+    let div = (n-rem)/4;
+    let res = [ rem, div ];
+    return res;
+  }
+
+  function toProps(n)
+  {
+    let r1 = n % 3;
+    let d1 = (n-r1)/3
+    
+    let r2 = d1 % 3;
+    let d2 = (d1-r2)/3;
+
+    let r3 = d2 % 3;
+    let d3 = (d2-r3)/3;
+
+    return [d3,r3,r2,r1];
+
+  }
+
+
+
+  function openCard()
+  {
+    if(extraCards.length>0)
+    {
+      while(extraCards.length>0)
+      {
+        let card = extraCards[0];
+
+        let coors = toGrid(openPlaces[0]) ;
+        let px= Number(marginX) + Number(coors[0])*Number(cardWidth+marginX);
+        let py= Number(marginY) + Number(coors[1])*Number(cardHeight+marginY);
+        card.content.animate([{ top:py+'vmin', left:px+'vmin' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+        card.place = openPlaces[0];
+
+        extraCards.splice(0,1);
+        openPlaces.splice(0,1);
+        nextExtraPlace=nextExtraPlace-1;
+      }
+
+    }
+
+    if(extraCards.length==0&&openPlaces.length>0)
+    {
+      while(openPlaces.length>0)
+      {
+        let card = theDeck[topCard];
+        let coors = toGrid(openPlaces[0]) ;
+        let px= Number(marginX) + Number(coors[0])*Number(cardWidth+marginX);
+        let py= Number(marginY) + Number(coors[1])*Number(cardHeight+marginY);
+        card.content.animate([{ top:py+'vmin', left:px+'vmin' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:200});
+        card.place = openPlaces[0];
+        topCard=topCard-1;
+
+        openPlaces.splice(0,1);
+      }
+    }
+  
+  }
+
+  function checkSet()
+  {
+    if(checkedCardsIndices.length==3)
+    {
+      let vv1=toProps( theDeck[ checkedCardsIndices[0]].shuffeledIndex);
+      let vv2=toProps( theDeck[ checkedCardsIndices[1]].shuffeledIndex);
+      let vv3=toProps( theDeck[ checkedCardsIndices[2]].shuffeledIndex);
+
+      // document.getElementById("test").innerHTML +=vv1+' P '+vv2+' P '+vv3+' P ';
+
+      let r = [];
+      let sP = 0;
+
+      for(let i =0;i<4;i++)
+      {
+        let rem = Number(Number(vv1[i])+Number(vv2[i])+Number(vv3[i]))%3;
+        r.push(rem);
+        let crt = 0;
+        if(Number(vv1[i])!=Number(vv2[i]))
+        {
+          crt = 1;
+        }
+        sP+=crt;
+
+      }
+
+
+      if(r[0]==0&&r[1]==0&&r[2]==0&&r[3]==0)
+      {
+        while(checkedCardsIndices.length>0)
+        {
+          let card = theDeck[ checkedCardsIndices[0]];
+          card.content.animate([{ top:'5vmin', left:'120vmin',scale:1 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+          if( extraCards.indexOf(card)== -1 )
+          {
+            openPlaces.push(card.place);
+          }
+            window.setTimeout(function() { openCard(); }, 500);
+           
+          checkedCardsIndices.splice(0,1);
+          if( extraCards.indexOf(card)> -1 )
+          {
+            extraCards.splice( extraCards.indexOf(card),1 );
+            nextExtraPlace=nextExtraPlace-1;
+          }
+        }
+
+        totalPoints += Number(sP)*Number(sP);
+        document.getElementById("test").innerHTML = totalPoints ;
+
+      }
+
+
+
+
+
+     else
+      {
+        while(checkedCardsIndices.length>0)
+        {
+          let card = theDeck[ checkedCardsIndices[0]];
+          card.content.animate([{scale:1 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+          checkedCardsIndices.splice(0,1);
+        }
+      }
+
+    
+    }
+  }
+
+  function putExtraCards(){
+    if(extraCards.length==0)
+    {
+      while(extraCards.length<3)
+      {
+        let card = theDeck[topCard];
+        let px=Number(marginX) + 4*Number(cardWidth+marginX);
+        let py=Number(marginY) + Number(nextExtraPlace)*Number(cardHeight+marginY);
+
+      
+
+
+        //let coors = toGrid(openPlaces[0]) ;
+        //let px= Number(marginX) + Number(coors[0])*Number(cardWidth+marginX);
+        //let py= Number(marginY) + Number(coors[1])*Number(cardHeight+marginY);
+        card.content.animate([{ top:py+'vmin', left:px+'vmin' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+        card.place = 13 + Number(openExtraPlaces[0]);
+        topCard=topCard-1;
+        nextExtraPlace=nextExtraPlace+1;
+        extraCards.push(card);
+    }
+
+    }
+    
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  function secureShuffle(n)
+  {
+    const arr = Array.from({ length: n }, (_, i) => i );
+    const randomValues = new Uint32Array(n);
+    window.crypto.getRandomValues(randomValues);
+
+    for (let i = arr.length - 1; i > 0; i--) {
+        // Use the cryptographically strong random value
+        const j = randomValues[i] % (i + 1);
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+</script>
+
+
+
+
+
+
+
+
+
+</html>
