@@ -16,7 +16,7 @@
       padding:0vmin;
       margin: 0vmin;
       top:0vmin;
-      background-color: #1d2b30;
+      background-color: burlywood;
       color: white;   
     }
 
@@ -29,8 +29,37 @@
       width: 146vmin;
       border: 0px solid blue;
       background: burlywood;
+    }
+
+
+    .pointReaction
+    {
+      position: fixed;
+      top: 0vmin;
+      left: 100vmin;
+      height: 30vmin;
+      width: 30vmin;
+      border: 1px solid orange;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      font-size: 12vmin;
+      font-weight: 700;
+      color: ghostwhite;
+
+      text-shadow: 0.5vmin 0vmin 1vmin ghostwhite,0.0vmin 0.5vmin 1vmin ghostwhite , -0.5vmin 0vmin 1vmin ghostwhite,0vmin -0.5vmin 1vmin ghostwhite  ;
+      opacity: 1;
+      background: none;
+      -webkit-text-stroke: 0.7vmin black;
+      scale: 0;
+
 
     }
+
+
 
     
 
@@ -38,19 +67,20 @@
     .console
     {
       position: fixed;
-      left: 151vmin;
+      right: 0vmin;
       height: 100vmin;
-      width: 45vmin;
-      border: 2px solid green;
+      width: 25vmin;
+
     }
 
     .checkButton{
       position: absolute;
-      height: 20vmin;
-      width: 20vmin;
+      height: 23vmin;
+      width: 23vmin;
       top:1vmin;
       left: 1vmin;
-      border: 1vmin solid cyan;
+      border: 1vmin solid darkgreen;
+      background: black;
       justify-content: center;
       align-items: center;
       border-radius: 50%;
@@ -59,34 +89,54 @@
 
     .moreCardsButton{
       position: absolute;
-      height: 20vmin;
-      width: 20vmin;
-      top:22vmin;
+      height: 23vmin;
+      width: 23vmin;
+      top:25vmin;
       left: 1vmin;
       border:1vmin solid brown;
       border-radius: 50%;
+      background: black;
+      padding-inline: 0.6vmin;
+      padding-top: 0.9vmin;
+      font-size: 8.2vmin;
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      text-align: center;
     }
 
 
 
     .clockPlace{
       position: absolute;
-      height: 20vmin;
-      width: 20vmin;
-      top:44vmin;
+      height: 23vmin;
+      width: 23vmin;
+      top:50vmin;
       left: 1vmin;
       border: 1vmin solid seagreen;
       border-radius: 3vmin;
+      background: black;
+  
+      display: block; 
+      justify-content: center; 
+      align-items: center;
     }
 
     .startButton{
       position: absolute;
-      height: 20vmin;
-      width: 20vmin;
-      top:66vmin;
+      height: 23vmin;
+      width: 23vmin;
+      top:75vmin;
       left: 1vmin;
-      border: 1vmin solid magenta;
+      border: 2vmin solid ghostwhite;
       border-radius: 50%;
+      background: silver;
+      font-size: 5vmin;
+      font-weight: 800;
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      -webkit-text-stroke: 0.33vmin black;
 
     }
    
@@ -103,20 +153,22 @@
   </div>
 
   <div class="console">
-    <div class="clockPlace" style="font-size: 3vmin;display: block; justify-content: center; align-items: center;"   >
-      <div style="height: 40%; font-size: 4.5vmin; text-align: center; display: flex; justify-content: center; align-items: center;background: seagreen; color: white;border-radius: 2vmin 2vmin 0vmin 0vmin; font-weight: 800;">  POINTS  </div>  
-      <div id="test" style="height: 60%; font-size: 7vmin; text-align: center;display: flex; justify-content: center; align-items: center;">  0 </div> 
+
+    <div class="clockPlace"   >
+      <div style="height: 40%; font-size: 5vmin; text-align: center; display: flex; justify-content: center; align-items: center;background: seagreen; color: white;border-radius: 2vmin 2vmin 0vmin 0vmin; font-weight: 800;">  POINTS  </div>  
+      <div id="test" style="height: 60%; font-size: 10vmin; font-weight: 800; text-align: center;display: flex; justify-content: center; align-items: center;">  0 </div> 
     </div>
 
 
-    <div class="moreCardsButton" style="font-size: 7.2vmin;display: flex; justify-content: center; align-items: center;text-align: center;" onclick="putExtraCards();" > &#127136; &#127136; &#127136; </div>
+    <div class="moreCardsButton" style="" onclick="putExtraCards();" > &#127136; &#127136; &#127136; </div>
 
 
     <div class="checkButton" style="font-size: 10vmin;display: flex; justify-content: center; align-items: center;text-align: center;" onclick="checkSet();"> &#10004;</div>
 
-    <div class="startButton" onclick="openCard();" style="font-size: 5vmin;display: flex; justify-content: center; align-items: center;"> <span> Start </span></div>
-    
+    <div class="startButton" onclick="openCard();" > <span> START </span></div>
   </div>
+
+  <div class="pointReaction" id="pointAwesomeWindow"><p id = "ptAwesome" >  +1 </p> </div>
   
 </body>
 
@@ -124,7 +176,7 @@
 
   
   let theDeck=[];
-  let dz = 0.4;
+  let dz = 0.3;
   let cardHeight=30;
   let cardWidth=20;
 
@@ -143,6 +195,9 @@
 
   document.getElementById("test").innerHTML = totalPoints;
 
+  let ptReaction = document.getElementById("pointAwesomeWindow");
+  let ptReactionText = document.getElementById("ptAwesome");
+
 
 
   class Card{
@@ -153,15 +208,20 @@
       this.shuffeledIndex = sh_index;
 
       let newCard = document.createElement("DIV");
-      newCard.setAttribute("style","background:white; border:0.3vmin solid black; border-radius:3vmin; position:absolute; text-align:center;font-size:7.5vmin;transition: scale 0.1s;display: flex; justify-content: center; flex-direction: column; text-align: center;");
+      newCard.setAttribute("style","background:white; border-left:0.5vmin solid black; border-right:0.5vmin solid black; border-top:0.5vmin solid black; border-bottom:0.1vmin solid black; border-radius:3vmin; position:absolute; text-align:center;font-size:7.5vmin;transition: scale 0.1s;display: flex; justify-content: center; flex-direction: column; ");
       newCard.style.height=cardHeight+"vmin";
       newCard.style.width= cardWidth+"vmin";
-      newCard.setAttribute("onclick",' let ccc= checkedCardsIndices.indexOf('+this.originalIndex+') ; if(ccc==-1&&checkedCardsIndices.length<3){ this.animate([{scale:1.07 }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.push('+this.originalIndex+')} else{ this.animate([{scale:1.00 }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.splice( checkedCardsIndices.indexOf('+this.originalIndex+') ,1)  } ');
+      newCard.setAttribute("onclick",' let ccc= checkedCardsIndices.indexOf('+this.originalIndex+') ; if(ccc==-1&&checkedCardsIndices.length<3){ this.animate([{scale:1.1 }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.push('+this.originalIndex+')} else{ this.animate([{scale:1.00 }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.splice( checkedCardsIndices.indexOf('+this.originalIndex+') ,1)  } ');
 
       let cColor;
       let cOpacity;
       let cPattern;
       let cNumber;
+
+
+
+      
+
 
       let vv= toProps(sh_index);
 
@@ -266,8 +326,11 @@
     nCC.style.left= "120vmin";
     let cLZ = 66 - i*dz;
     nCC.style.top= cLZ+'vmin';
+    if(i==80){ nCC.style.border = '0.3vmin solid black';  }
     document.getElementById("cardTable").appendChild(nCC);
   }
+
+
 
 
   //open places:
@@ -318,7 +381,7 @@
         let coors = toGrid(openPlaces[0]) ;
         let px= Number(marginX) + Number(coors[0])*Number(cardWidth+marginX);
         let py= Number(marginY) + Number(coors[1])*Number(cardHeight+marginY);
-        card.content.animate([{ top:py+'vmin', left:px+'vmin' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+        card.content.animate([{ top:py+'vmin', left:px+'vmin', border:'0.45vmin solid black' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
         card.place = openPlaces[0];
 
         extraCards.splice(0,1);
@@ -336,12 +399,14 @@
         let coors = toGrid(openPlaces[0]) ;
         let px= Number(marginX) + Number(coors[0])*Number(cardWidth+marginX);
         let py= Number(marginY) + Number(coors[1])*Number(cardHeight+marginY);
-        card.content.animate([{ top:py+'vmin', left:px+'vmin' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:200});
+        card.content.animate([{ top:py+'vmin', left:px+'vmin',border:'0.45vmin solid black' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:200});
         card.place = openPlaces[0];
         topCard=topCard-1;
 
+
         openPlaces.splice(0,1);
       }
+      theDeck[topCard].content.style.border = '0.3vmin solid black';
     }
   
   }
@@ -375,6 +440,10 @@
 
       if(r[0]==0&&r[1]==0&&r[2]==0&&r[3]==0)
       {
+        
+
+
+
         while(checkedCardsIndices.length>0)
         {
           let card = theDeck[ checkedCardsIndices[0]];
@@ -383,7 +452,7 @@
           {
             openPlaces.push(card.place);
           }
-            window.setTimeout(function() { openCard(); }, 500);
+            
            
           checkedCardsIndices.splice(0,1);
           if( extraCards.indexOf(card)> -1 )
@@ -393,8 +462,35 @@
           }
         }
 
+        //iterations:2,direction:'alternate',
+
+        ptReaction.animate([{ scale: 1 }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:700});
+
+        ptReaction.animate([{ top:"50vmin" , left:"158vmin"}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1200});
+
+        ptReaction.animate([{ scale: 0 }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1600});
+
+        ptReaction.animate([{ top:"0vmin" , left:"100vmin"}],{duration: 1,easing: 'ease-out', fill: 'forwards', delay:3300});
+        // ptReactionText.animate([{ opacity:1 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1000});
+
+        // ptReactionText.animate([{ opacity:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2000});
+
+        // ptReaction.animate([{ height:'0vmin' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:3000});
+
+        
+
         totalPoints += Number(sP)*Number(sP);
-        document.getElementById("test").innerHTML = totalPoints ;
+
+        document.getElementById("ptAwesome").innerHTML = '+'+Number(sP)*Number(sP);
+
+        window.setTimeout(function() { document.getElementById("test").innerHTML = totalPoints ; }, 2100);
+
+        window.setTimeout(function() { openCard(); }, 2100);
+
+
+
+        
+        
 
       }
 
@@ -431,7 +527,7 @@
         //let coors = toGrid(openPlaces[0]) ;
         //let px= Number(marginX) + Number(coors[0])*Number(cardWidth+marginX);
         //let py= Number(marginY) + Number(coors[1])*Number(cardHeight+marginY);
-        card.content.animate([{ top:py+'vmin', left:px+'vmin' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+        card.content.animate([{ top:py+'vmin', left:px+'vmin',border:'0.45vmin solid black' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
         card.place = 13 + Number(openExtraPlaces[0]);
         topCard=topCard-1;
         nextExtraPlace=nextExtraPlace+1;
