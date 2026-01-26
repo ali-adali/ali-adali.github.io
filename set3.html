@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>!Set!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@450;750&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing: border-box;}
+
+    body
+    {
+      padding:0vmin;
+      margin: 0vmin;
+      top:0vmin;
+      background-color: black;
+      color: white;   
+    }
+
+    .theTableClass
+    {
+      position: fixed;
+      top:0;
+      left:0;
+      height: 100vmin;
+      width: calc(100vmax - 20vmin);
+      border: 0px solid blue;
+      background: burlywood;
+    }
+
+    .cardClass
+    {
+      position: fixed;
+      border: 0.1vmin solid black;
+      height: 30.66vmin;
+      width: 20.44vmin;
+      transition: height 0.1s, width 0.1s;
+
+      
+      border-radius: 3vmin;
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:10vmin;
+      background: white;
+      
+      padding-bottom:4vmin;
+    }
+
+    .scoreClass
+    {
+      position: fixed;
+      border:2px solid blueviolet;
+    }
+
+    .clockClass
+    {
+      
+    }
+
+    .checkButtonClass
+    {
+      position: fixed;
+      top:40vmin;
+      left:calc(100vmax - 20vmin);
+      width: 20vmin;
+      height: 20vmin;
+      border:2px solid silver;
+    }
+
+    .moreCardsClass
+    {
+      position: fixed;
+
+      border:0.5vmin solid black;
+      border-radius: 3vmin;
+      background: orange;
+      opacity: 1;
+      color: black;
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:5vmin;
+      font-weight: 700;
+    }
+
+    .newGameClass
+    {
+      position: fixed;
+      top:80vmin;
+      left:calc(100vmax - 20vmin);
+      width: 20vmin;
+      height: 20vmin;
+      border:2px solid silver;
+    }
+
+    .dealCardsClass
+    {
+      position: fixed;
+      top:40%;
+      left:40%;
+      width: 20%;
+      height: 20%;
+      border:2px solid silver;    
+    }
+
+
+    @media (orientation: portrait)
+    {
+      .theTableClass
+      {    
+        top:20vmin;
+        left:0vmin;
+        height: calc(100vmax - 20vmin);
+        width: 100vmin;
+      }
+
+      .cardClass
+      {
+        width: 22.44vmin;
+        height: 33.66vmin;
+      }
+
+      .moreCardsClass
+      {
+        width: 22.44vmin;
+        height: 33.66vmin;
+      }
+
+      
+
+      .scoreClass
+      {
+        left:0vmin;
+        top:0vmax;
+        height: 20vmin;
+        width: 100vmin;
+      }
+
+      .clockClass
+      {
+        
+      }
+
+      .checkButtonClass
+      { 
+        left:30vmin;
+        top:90vmax;
+        height: 10vmax;
+        width: 40vmin;
+      }
+
+      .moreCardsClass
+      {
+        width: 22.44vmin;
+        height: 33.66vmin;
+      }
+
+      .newGameClass
+      {
+        left:0vmin;
+        top:90vmax;
+        height: 10vmax;
+        width: 30vmin;
+      }
+
+    }
+
+    @media (orientation: landscape)
+    {
+      .cardClass
+      {
+        height: 30.66vmin;
+        width: 20.44vmin;
+      }
+
+      .theTableClass
+      {
+        top:0;
+        left:0;
+        height: 100vmin;
+        width: calc(100vmax - 20vmin);
+      }
+
+      .scoreClass
+      {
+        top:0vmin;
+        left:calc(100vmax - 30vmin);
+        width: 30vmin;
+        height: 20vmin;
+      }
+
+      .moreCardsClass
+      {
+        width: 20.44vmin;
+        height: 30.66vmin;
+      }
+
+
+
+      .clockClass
+      {
+        
+      }
+
+      .checkButtonClass
+      {
+        top:40vmin;
+        left:calc(100vmax - 20vmin);
+        width: 20vmin;
+        height: 20vmin;
+      }
+    }
+   
+
+
+    
+  </style>
+</head>
+
+<body>
+
+  <div class="theTableClass" id="theTable">
+    
+  </div>
+
+  <div class="scoreClass">SCORE</div>
+
+ 
+  <div class="moreCardsClass" id="moreCardsDiv">MORE CARDS</div>
+  
+
+
+  <div class="dealCardsClass" onclick="dealCards(); this.style.scale=0;" > <span> DEAL CARDS </span></div>
+
+
+ 
+  
+</body>
+
+<script>
+
+  let theDeck=[];
+  let cardPlaces=[];
+  let cardExtraPlaces=[];
+  let openPlaces=[];
+  let openExtraPlaces=[];
+
+  let checkedCardsIndices=[];
+
+  let cardsOnTable=[];
+
+  let cardHeightLS=30.66;
+  let cardWidthLS=20.44;
+
+
+  let cardHeightPT=33.66;
+  let cardWidthPT=22.44;
+
+
+  let marginX = 2;
+  let marginY = 2;
+
+
+  let totalPoints = 0;
+
+
+
+  
+
+  /*
+  if(orientationQuery.matches)
+  {
+    cardHeight=45;
+    cardWidth=30;
+  }
+  */
+
+
+  class Card
+  {
+    constructor(original_index,shuffeled_index,place)
+    {
+      this.place = place;
+      this.originalIndex = original_index;
+      let props = toProperties(shuffeled_index);
+      this.properties = props;
+
+      let cColor;
+      switch(props[0])
+      {
+      case 0:
+        cColor= 'rgba(0, 0, 139,'; //rgba(0, 0, 139, 1) 'blue'
+        break;
+
+      case 1:
+        cColor= 'rgba(139, 0, 0,'; //rgba(139, 0, 0, 1) 'darkred'
+        break;
+
+      case 2:
+        cColor='rgba(0, 110, 0,'; //rgba(0, 100, 0, 1)  'green'
+        break;
+      }
+
+      let cOpacity;
+      switch(props[1])
+      {
+      case 0:
+        cOpacity=0;
+        break;
+
+      case 1:
+        cOpacity=0.5;
+        break;
+
+      case 2:
+        cOpacity=1;
+        break;
+      }
+
+      let cPattern;
+      switch(props[2])
+      {
+      case 0:
+        cPattern= '&#9679;';
+        break;
+
+      case 1:
+        cPattern='&#9632;';
+        break;
+
+      case 2:
+        cPattern='&#9650;';
+        break;
+      }
+
+      let cNumber=Number(props[3]);
+
+      let cardContent = document.createElement("DIV");
+      cardContent.classList.add("cardClass");
+      
+      cardContent.style.color = cColor+cOpacity+')';
+      cardContent.style.webkitTextStroke = '0.7'+'vmin '+ cColor+'1)';
+      
+      
+      for(let i=0;i< Number(cNumber+1);i++)
+      {
+        let ctdiv = document.createElement("DIV");
+        ctdiv.style.height='33%';
+        ctdiv.innerHTML = cPattern;
+        cardContent.appendChild(ctdiv);
+      }
+      
+      cardContent.setAttribute("onclick", ' let ccc= checkedCardsIndices.indexOf('+this.originalIndex+'); if(ccc==-1){ if(checkedCardsIndices.length<3) {this.animate([{scale:1.08 }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.push('+this.originalIndex+');} } else {this.animate([{scale:1.00 }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.splice( checkedCardsIndices.indexOf('+this.originalIndex+') ,1);} '  );
+
+
+      this.content = cardContent;
+    }
+  }
+
+
+
+  //define the places:
+  for(let i=0;i<12;i++)
+  {
+    cardPlaces.push(i);
+    openPlaces.push(i);
+  }
+
+  for(let i=12;i<15;i++)
+  {
+    cardExtraPlaces.push(i);
+    openExtraPlaces.push(i);
+  }
+
+
+
+  
+
+  
+  let topCard = 80;
+  let bottomCard = 0;
+
+  
+  let shuffledDeckIdx = secureShuffle(81);
+
+  
+  //Original deck:
+
+  
+  let dz = 0.1;
+
+  let orientationQueryLS = window.matchMedia("(orientation: landscape)");
+
+  for(let i=0;i<81;i++)
+  {
+    let newCard = new Card(i,shuffledDeckIdx[i],-1);
+    theDeck.push(newCard);
+  }
+
+  for(let i=0;i<81;i++)
+  {
+    let newCard = theDeck[i];
+    let newCardContent = newCard.content;
+    let cLeft;
+    let cTop;
+    let cHeight;
+    let cWidth;
+
+    if(orientationQueryLS.matches)
+    {
+      cHeight = cardHeightLS;
+      cWidth = cardWidthLS;
+
+      cLeft = 'calc(100vmax - '+cWidth+'vmin - 2vmin)';
+      cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin )';
+    }
+
+    else
+    {
+      cHeight = cardHeightPT;
+      cWidth = cardWidthPT;
+
+      cLeft = 'calc(100vmin - '+cWidth+'vmin - 2vmin)';
+      cTop = 'calc(100vmax - '+cHeight+'vmin - '+Number(Number(i)*Number(dz))+'vmin - 1vmin)';
+    }
+
+    document.getElementById("moreCardsDiv").style.left=cLeft;
+    document.getElementById("moreCardsDiv").style.top=cTop;
+
+    newCardContent.style.left=cLeft;
+    newCardContent.style.top=cTop; 
+    
+    document.getElementById("theTable").appendChild(newCardContent);
+  }
+
+  
+
+
+
+
+  
+
+
+  function dealCards()
+  {
+    while(openPlaces.length>0)
+      {
+        let card = theDeck[0];
+        let coors;
+        
+        if(orientationQueryLS.matches){ coors =  cardLocationsLS(openPlaces[0]);  }
+        else{coors =cardLocationsPT(openPlaces[0]);}
+        moveCard(card,coors);
+        card.content.animate([{ border:'0.5vmin solid black' }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:0});
+        card.place = openPlaces[0];
+
+        openPlaces.splice(0,1);
+        cardsOnTable.push(card);
+        theDeck.splice(0,1);      
+      }
+  }
+
+  function checkSet(){}
+
+  function putExtraCards(){}
+
+
+
+
+  function toProperties(n)
+  {
+    let r1 = n % 3;
+    let d1 = (n-r1)/3
+    
+    let r2 = d1 % 3;
+    let d2 = (d1-r2)/3;
+
+    let r3 = d2 % 3;
+    let d3 = (d2-r3)/3;
+
+    return [d3,r3,r2,r1];
+  }
+
+
+
+  function secureShuffle(n)
+  {
+    const arr = Array.from({ length: n }, (_, i) => i );
+    const randomValues = new Uint32Array(n);
+    window.crypto.getRandomValues(randomValues);
+
+    for (let i = arr.length - 1; i > 0; i--) {
+        // Use the cryptographically strong random value
+        const j = randomValues[i] % (i + 1);
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+
+  function cardLocationsLS(n)
+  {
+    
+    let cardTop;
+    let cardLeft;
+
+    if(n<12)
+    {
+      let rem = n % 4;
+      let div = (n-rem)/4;
+  
+      cardLeft = Number(marginX) + Number(rem)*Number(cardWidthLS+marginX);
+      cardTop = Number(marginY) + Number(div)*Number(cardHeightLS+marginY);
+    }
+    else if(n<15)
+    {
+      cardLeft = Number(marginX) + 4*Number(cardWidthLS+marginX);
+      cardTop = Number(marginY) + Number(n-12)*Number(cardHeightLS+marginY);
+    }
+
+    let coordinates = [cardLeft,cardTop]
+
+    return coordinates;
+  }
+
+
+
+function cardLocationsPT(n)
+  {
+    
+    let cardTop;
+    let cardLeft;
+
+    if(n<12)
+    {
+      let rem = n % 4;
+      let div = (n-rem)/4;
+  
+      cardLeft = Number(marginX) + Number(rem)*Number(cardWidthPT+marginX);
+      cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+20;
+    }
+
+    else if(n<15)
+    {
+      cardLeft = Number(marginX) + Number(n-12)*Number(cardWidthPT+marginX);
+      cardTop = Number(marginY) + 5*Number(cardHeightPT+marginY)+20;
+    }
+    
+    let coordinates = [cardLeft,cardTop]
+
+    return coordinates;
+  }
+
+function moveCard(card,location)
+{
+  card.content.animate([{ left:location[0]+'vmin', top:location[1]+'vmin' }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:100});
+}
+
+let buttonConsole = document.getElementById('theConsole');
+
+
+
+
+orientationQueryLS.addEventListener("change", (e) => {
+
+  for(let i=0;i<cardsOnTable.length;i++)
+  {
+    let crd = cardsOnTable[i];
+    let coors=cardLocationsPT(Number(crd.place));
+
+    if(e.matches){coors =cardLocationsLS(Number(crd.place));}
+    crd.content.animate([{ left:coors[0]+'vmin', top:coors[1]+'vmin'}],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
+    
+
+  }
+
+  for(let i=0;i<theDeck.length;i++)
+  {
+    let crd = theDeck[i];
+    let coors=cardLocationsPT(Number(crd.place));
+
+    let cLeft;
+    let cTop;
+    let cHeight;
+    let cWidth;
+
+    if(e.matches)
+    {
+      cHeight = cardHeightLS;
+      cWidth = cardWidthLS;
+
+      cLeft = 'calc(100vmax - '+cWidth+'vmin - 2vmin)';
+      cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin )';
+    }
+
+    else
+    {
+      cHeight = cardHeightPT;
+      cWidth = cardWidthPT;
+
+      cLeft = 'calc(100vmin - '+cWidth+'vmin - 2vmin)';
+      cTop = 'calc(100vmax - '+cHeight+'vmin - '+Number(Number(i)*Number(dz))+'vmin - 1vmin)';
+    }
+
+    crd.content.animate([{ left:cLeft, top:cTop, width:cWidth,height:cHeight }],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
+
+    document.getElementById("moreCardsDiv").animate([{ left:cLeft, top:cTop, width:cWidth,height:cHeight }],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
+
+
+    
+  }
+
+ 
+   
+});
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+</html>
