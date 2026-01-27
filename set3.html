@@ -43,7 +43,7 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:10vmin;
+      font-size:9.5vmin;
       background: whitesmoke;
       
       padding-bottom:4vmin;
@@ -851,7 +851,34 @@
         while(checkedCards.length>0)
         {
           let card =  checkedCards[0];
-          card.content.animate([{ top:'5vmin', left:'120vmin',scale:0.1, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+
+          let cLeft='37.5vmin'; 
+          let cTop='5vmin';
+
+          /*
+          left:37.5vmin;
+        top:5vmin;
+        height: 25vmin;
+        width: 25vmin;
+          */
+
+          if(orientationQueryLS.matches){ cLeft = 'calc(100vmax - 25vmin - 2vmin )'; cTop='2vmin';    } 
+
+            /*
+            top:2vmin;
+        left:calc(100vmax - 25vmin - 2vmin);
+        width: 25vmin;
+        height: 25vmin;
+
+            */
+ 
+
+
+
+          card.content.animate([{ top:cTop, left:cLeft, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+
+          card.content.animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:700});
+
           if( extraCards.indexOf(card)== -1 )
           {
             openPlaces.push(card.place);
@@ -884,12 +911,19 @@
 
         
 
-        totalPoints += Number(pointsBase)*Number(pointsBase);
+        // totalPoints += Number(pointsBase)*Number(pointsBase);
+        let ptsIncrease = Number(pointsBase)*Number(pointsBase);
+
+        for(let i =0;i<ptsIncrease;i++)
+        {
+          window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 700+ 20*i);
+
+        }
 
 
-        window.setTimeout(function() { document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1000);
+        //window.setTimeout(function() { document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1000);
 
-        window.setTimeout(function() { dealCards(); }, 1100);      
+        window.setTimeout(function() { dealCards(); }, 1200+20*ptsIncrease);      
 
       }
 
