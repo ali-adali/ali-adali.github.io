@@ -541,19 +541,19 @@
     
   </div>
 
-  <div class="scoreClass"> 345 </div>
+  <div class="scoreClass" id="scoreDiv" > 0 </div>
   <div class="niceClass"> &#127808; </div>
-  <div class="niceCountClass" >0</div>
+  <div class="niceCountClass" id="niceCountDiv">0</div>
 
 
   <div class="brilliantClass"> &#127812;   </div>
-  <div class="brilliantCountClass">0</div>
+  <div class="brilliantCountClass" id="niceCountDiv">0</div>
 
   <div class="superiorClass">&#127989;  </div>
-  <div class="superiorCountClass">0</div>
+  <div class="superiorCountClass" id="niceCountDiv">0</div>
 
   <div class="epicClass">&#128293; </div>
-  <div class="epicCountClass">0</div>
+  <div class="epicCountClass" id="niceCountDiv">0</div>
 
  
   <div class="moreCardsClass" id="moreCardsDiv" onclick="putExtraCards();">MORE CARDS</div>
@@ -570,12 +570,15 @@
 <script>
 
   let theDeck=[];
+  let theCards=[];
   let cardPlaces=[];
   let cardExtraPlaces=[];
   let openPlaces=[];
   let openExtraPlaces=[];
+  let extraCards = [];
 
   let checkedCardsIndices=[];
+  let checkedCards = [];
 
   let cardsOnTable=[];
 
@@ -593,6 +596,11 @@
 
   let totalPoints = 0;
 
+  let epicCount=0;
+  let superiorCount=0;
+  let brilliantCount=0;
+  let niceCount=0;
+
 
 
   
@@ -601,11 +609,11 @@
 
   class Card
   {
-    constructor(original_index,shuffeled_index,place)
+    constructor(original_index,properties_index,place)
     {
       this.place = place;
       this.originalIndex = original_index;
-      let props = toProperties(shuffeled_index);
+      let props = toProperties(properties_index);
       this.properties = props;
 
       let cColor;
@@ -673,8 +681,9 @@
         cardContent.appendChild(ctdiv);
       }
       
-      cardContent.setAttribute("onclick", ' let ccc= checkedCardsIndices.indexOf('+this.originalIndex+'); if(ccc==-1){ if(checkedCardsIndices.length<3) {this.animate([{scale:1.08 , boxShadow: "0.5vmin 0vmin 0.5vmin darkblue, -0.5vmin 0vmin 0.5vmin darkblue, 0vmin -0.5vmin 0.5vmin darkblue,0vmin 0.5vmin 0.5vmin darkblue"  }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.push('+this.originalIndex+');} } else {this.animate([{scale:1.00, boxShadow: "0.3vmin 0.3vmin 0.3vmin rgba(0, 0, 0, 0.7)" }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCardsIndices.splice( checkedCardsIndices.indexOf('+this.originalIndex+') ,1);} '  );
+      cardContent.setAttribute("onclick", 'let ccc= checkedCards.indexOf(theCards['+this.originalIndex+']); if(ccc==-1){ if(checkedCards.length<3) {this.animate([{scale:1.08 , boxShadow: "0.5vmin 0vmin 0.5vmin darkblue, -0.5vmin 0vmin 0.5vmin darkblue, 0vmin -0.5vmin 0.5vmin darkblue,0vmin 0.5vmin 0.5vmin darkblue"  }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.push(theCards['+this.originalIndex+']);} window.setTimeout(function() { checkSet(); }, 400);  } else {this.animate([{scale:1.00, boxShadow: "0.3vmin 0.3vmin 0.3vmin rgba(0, 0, 0, 0.7)" }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.splice( checkedCards.indexOf(theCards['+this.originalIndex+']) ,1); } '  );
 
+     
 
       this.content = cardContent;
     }
@@ -704,7 +713,7 @@
   let bottomCard = 0;
 
   
-  let shuffledDeckIdx = secureShuffle(81);
+  let cardPropertiesIndexes = secureShuffle(81);
 
   
   //Original deck:
@@ -716,8 +725,9 @@
 
   for(let i=0;i<81;i++)
   {
-    let newCard = new Card(i,shuffledDeckIdx[i],-1);
+    let newCard = new Card(i,cardPropertiesIndexes[i],-1);
     theDeck.push(newCard);
+    theCards.push(newCard);
   }
 
   for(let i=0;i<81;i++)
@@ -765,7 +775,32 @@
 
   function dealCards()
   {
-    while(openPlaces.length>0)
+    if(extraCards.length>0)
+    {
+      while(extraCards.length>0)
+      {
+        card = extraCards[0];
+        let coors;
+        if(orientationQueryLS.matches){ coors =  cardLocationsLS(openPlaces[0]);  }
+        else{coors =cardLocationsPT(openPlaces[0]);}
+        moveCard(card,coors);
+
+        openExtraPlaces.push(card.place);
+
+        card.place = openPlaces[0];
+
+        openPlaces.splice(0,1);
+
+
+        extraCards.splice(0,1);
+        
+      }
+
+    }
+
+    else
+    {
+      while(openPlaces.length>0)
       {
         let card = theDeck[0];
         let coors;
@@ -780,12 +815,103 @@
         cardsOnTable.push(card);
         theDeck.splice(0,1);      
       }
+    }
+    
   }
 
-  function checkSet(){}
+   function checkSet()
+  {
+    if(checkedCards.length==3)
+    {
+      let Card1Props=checkedCards[0].properties;
+      let Card2Props=checkedCards[1].properties;
+      let Card3Props=checkedCards[2].properties;
 
-  function putExtraCards(){}
 
+      let remainders = [];
+      let pointsBase = 0;
+
+      for(let i =0;i<4;i++)
+      {
+        let rem = Number(Number(Card1Props[i])+Number(Card2Props[i])+Number(Card3Props[i]))%3;
+        remainders.push(rem);
+        let isPropertyDifferent = 1;
+        if(Number(Card1Props[i])!=Number(Card2Props[i]))
+        {
+          isPropertyDifferent = 2;
+        }
+        pointsBase+=isPropertyDifferent;
+
+      }
+
+
+      if(remainders[0]==0&&remainders[1]==0&&remainders[2]==0&&remainders[3]==0)
+      {
+        
+        while(checkedCards.length>0)
+        {
+          let card =  checkedCards[0];
+          card.content.animate([{ top:'5vmin', left:'120vmin',scale:0.1, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+          if( extraCards.indexOf(card)== -1 )
+          {
+            openPlaces.push(card.place);
+          }
+
+          
+            
+          checkedCards.splice(0,1);
+          cardsOnTable.splice( cardsOnTable.indexOf(card),1 );
+
+          if( extraCards.indexOf(card)> -1 )
+          {
+            extraCards.splice( extraCards.indexOf(card),1 );
+            openExtraPlaces.push(card.place);
+          }
+
+          card.place = 18;
+        }
+
+        //iterations:2,direction:'alternate',
+
+        //ptReaction.animate([{ scale: 1 }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:700});
+
+        //ptReaction.animate([{ top:"50vmin" , left:"158vmin"}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1200});
+
+        //ptReaction.animate([{ scale: 0 }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1600});
+
+        //ptReaction.animate([{ top:"0vmin" , left:"100vmin"}],{duration: 1,easing: 'ease-out', fill: 'forwards', delay:3300});
+        
+
+        
+
+        totalPoints += Number(pointsBase)*Number(pointsBase);
+
+
+        window.setTimeout(function() { document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1000);
+
+        window.setTimeout(function() { dealCards(); }, 1100);      
+
+      }
+
+
+
+
+
+     else
+      {
+        while(checkedCards.length>0)
+        {
+          let card = checkedCards[0];
+          card.content.animate([{scale:1 ,boxShadow: "0.3vmin 0.3vmin 0.3vmin rgba(0, 0, 0, 0.7)"}],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+          checkedCards.splice(0,1);
+        }
+      }
+
+    
+    }
+  }
+
+  
 
 
 
@@ -865,7 +991,7 @@ function cardLocationsPT(n)
     else if(n<15)
     {
       cardLeft = Number(marginX) + Number(n-12)*Number(cardWidthPT+marginX);
-      cardTop = Number(marginY) + 5*Number(cardHeightPT+marginY)+33;
+      cardTop = Number(marginY) + 3*Number(cardHeightPT+marginY)+33;
     }
     
     let coordinates = [cardLeft,cardTop]
@@ -878,7 +1004,7 @@ function moveCard(card,location)
   card.content.animate([{ left:location[0]+'vmin', top:location[1]+'vmin' }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:100});
 }
 
-let buttonConsole = document.getElementById('theConsole');
+//let buttonConsole = document.getElementById('theConsole');
 
 
 
@@ -899,7 +1025,7 @@ orientationQueryLS.addEventListener("change", (e) => {
   for(let i=0;i<theDeck.length;i++)
   {
     let crd = theDeck[i];
-    let coors=cardLocationsPT(Number(crd.place));
+    let coors;
 
     let cLeft;
     let cTop;
@@ -915,54 +1041,50 @@ orientationQueryLS.addEventListener("change", (e) => {
       cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin )';
     }
 
+
+
     else
     {
       cHeight = cardHeightPT;
       cWidth = cardWidthPT;
 
       cLeft = Number(4*Number(marginX) + 3*Number(cWidth))+'vmin';
-      cTop = Number(33 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number(Number(i)*Number(dz)) + 'vmin';
-
-      //cLeft = 'calc(100vmin - '+cWidth+'vmin - 2vmin)';
-      //cTop = 'calc(100vmax - '+cHeight+'vmin - '+Number(Number(i)*Number(dz))+'vmin - 1vmin)';
+      cTop = Number(33 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number((Number(i)+81-theDeck.length)*Number(dz)) + 'vmin';
+      
     }
 
     crd.content.animate([{ left:cLeft, top:cTop, width:cWidth,height:cHeight }],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
 
     document.getElementById("moreCardsDiv").animate([{ left:cLeft, top:cTop, width:cWidth,height:cHeight }],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
 
-
-    
   }
  
 });
 
 
 function putExtraCards(){
-    if(extraCards.length==0)
-    {
-      while(extraCards.length<3)
+    
+      while(openExtraPlaces.length>0)
       {
         let card = theDeck[0];
-        
 
+        let coors;
 
-        //let coors = toGrid(openPlaces[0]) ;
-        //let px= Number(marginX) + Number(coors[0])*Number(cardWidth+marginX);
-        //let py= Number(marginY) + Number(coors[1])*Number(cardHeight+marginY);
+        if(orientationQueryLS.matches){ coors =  cardLocationsLS(openExtraPlaces[0]);  }
+        else{coors =cardLocationsPT(openExtraPlaces[0]);}
+        card.place = openExtraPlaces[0];
+        moveCard(card,coors);
+        card.content.animate([{ border:'0.5vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.7)' }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:0});
 
+        openExtraPlaces.splice(0,1);
+        cardExtraPlaces.push(card); //??
 
-        
-        card.content.animate([{ top:py+'vmin', left:px+'vmin',border:'0.45vmin solid black' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
-        card.place = 13 + Number(openExtraPlaces[0]);
-        //topCard=topCard-1;
-        theDeck.splice(0,1);
-
-        nextExtraPlace=nextExtraPlace+1;
         extraCards.push(card);
+        cardsOnTable.push(card);
+        theDeck.splice(0,1);      
     }
 
-    }
+    
     
 
   }
