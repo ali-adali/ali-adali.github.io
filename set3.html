@@ -241,8 +241,111 @@
       border-radius: 50%;
       padding-top: 0.5vmin;
       padding-left: 0.1vmin;
-      border: 0.2vmin solid black;
+      border: 0.0vmin solid gray;
       z-index: 20;
+    }
+
+    .reactionClass
+    {
+      position: fixed;
+      height: 20vmin;
+      width: 40vmin;
+      
+      top:calc(40% - 25vmin);
+      left:calc(50% - 20vmin );
+
+      color: yellowgreen;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:10vmin;
+      font-weight: 900;
+
+      -webkit-text-stroke: 0.3vmin white;
+
+      
+      
+
+      border: 0.0vmin solid gray;
+      z-index: 31;
+
+      scale: 0;
+    }
+
+
+    .reactionIconClass
+    {
+      position: fixed;
+      height: 30vmin;
+      width: 30vmin;
+      top:calc(40% - 10vmin);
+      left:calc(50% - 15vmin);
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:18vmin;
+      font-weight: 500;
+
+      border: 0.0vmin solid gray;
+
+      ext-shadow: 0.5vmin 0vmin 0.7vmin ghostwhite, 0vmin 0.5vmin 0.7vmin ghostwhite,-0.5vmin 0vmin 0.7vmin ghostwhite,0vmin -0.5vmin 0.7vmin ghostwhite;
+      z-index: 31;
+
+      scale: 0;
+
+
+    }
+
+
+    
+
+
+    .pointsClass
+    {
+      position: fixed;
+      height: 30vmin;
+      width: 30vmin;
+      
+      top:calc(40% + 10vmin);
+      left:calc(50% - 15vmin);
+
+      color: white;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:13vmin;
+      font-weight: 600;
+
+      -webkit-text-stroke: 0.0vmin rgba(0, 0, 0, 0.9);
+
+      
+
+      
+
+      border: 0.0vmin solid black;
+      border-radius: 50%;
+      
+      z-index: 31;
+      scale: 0;
+    }
+
+    .curtainClass
+    {
+      position: fixed;
+      top:0;
+      left:0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      scale:0;
+      z-index: 30;
+
     }
 
 
@@ -297,11 +400,19 @@
     .dealCardsClass
     {
       position: fixed;
-      top:40%;
-      left:40%;
-      width: 20%;
-      height: 20%;
-      border:2px solid silver;    
+      top:0;
+      left:0;
+      width: 100%;
+      height: 100%;
+      
+      background: rgba(0, 0, 0, 0.7); 
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:8vmin;
+      z-index: 50;   
     }
 
 
@@ -542,21 +653,34 @@
   </div>
 
   <div class="scoreClass" id="scoreDiv" > 0 </div>
+
   <div class="niceClass"> &#127808; </div>
   <div class="niceCountClass" id="niceCountDiv">0</div>
 
 
   <div class="brilliantClass"> &#127812;   </div>
-  <div class="brilliantCountClass" id="niceCountDiv">0</div>
+  <div class="brilliantCountClass" id="brilliantCountDiv">0</div>
 
   <div class="superiorClass">&#127989;  </div>
-  <div class="superiorCountClass" id="niceCountDiv">0</div>
+  <div class="superiorCountClass" id="superiorCountDiv">0</div>
 
   <div class="epicClass">&#128293; </div>
-  <div class="epicCountClass" id="niceCountDiv">0</div>
+  <div class="epicCountClass" id="epicCountDiv">0</div>
+
+
+  <div class="reactionClass" id="reactionDiv"> Epic!!!  </div>
+  <div class="reactionIconClass" id="reactionIconDiv">&#128293; </div>
+  
+  <div class="pointsClass" id="pointsDiv"> +64</div>
+
+  <div class="curtainClass" id="curtainDiv"></div>
 
  
   <div class="moreCardsClass" id="moreCardsDiv" onclick="putExtraCards();">MORE CARDS</div>
+
+ 
+
+
   
 
 
@@ -844,6 +968,49 @@
 
       }
 
+      let reactionIcon;
+      let reactionPhrase;
+      let iconTop;
+      let iconLeft;
+
+
+      switch(pointsBase)
+      {
+      case 5:
+        reactionIcon = '&#127808;';
+        niceCount++;
+        reactionPhrase='Nice';
+        
+        break;
+
+      case 6:
+        reactionIcon = '&#127812;';
+        brilliantCount++;
+        reactionPhrase='Brilliant!';
+
+        break;
+
+      case 7:
+        reactionIcon = '&#127989;';
+        superiorCount++;
+        reactionPhrase='Superior!!';
+        break;
+
+      case 8:
+        reactionIcon = '&#128293;';
+        epicCount++; 
+        reactionPhrase='Epic!!!';
+
+        break;
+      }
+
+      let ptsIncrease = Number(pointsBase)*Number(pointsBase);
+
+      document.getElementById("reactionIconDiv").innerHTML = reactionIcon;
+      document.getElementById("pointsDiv").innerHTML = '+'+ptsIncrease ;
+      document.getElementById("reactionDiv").innerHTML = reactionPhrase;
+
+
 
       if(remainders[0]==0&&remainders[1]==0&&remainders[2]==0&&remainders[3]==0)
       {
@@ -855,29 +1022,31 @@
           let cLeft='37.5vmin'; 
           let cTop='5vmin';
 
-          /*
-          left:37.5vmin;
-        top:5vmin;
-        height: 25vmin;
-        width: 25vmin;
-          */
 
           if(orientationQueryLS.matches){ cLeft = 'calc(100vmax - 25vmin - 2vmin )'; cTop='2vmin';    } 
 
-            /*
-            top:2vmin;
-        left:calc(100vmax - 25vmin - 2vmin);
-        width: 25vmin;
-        height: 25vmin;
 
-            */
- 
+         
+
+          //document.getElementById("reactionDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:600});
 
 
+          //document.getElementById("reactionIconDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:600});
+          //document.getElementById("pointsDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:600});
 
-          card.content.animate([{ top:cTop, left:cLeft, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+          //document.getElementById("curtainDiv").animate([{ scale:0 }],{duration: 10,easing: 'ease-out', fill: 'forwards', delay:790});
 
-          card.content.animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:700});
+
+          
+
+
+
+
+          card.content.animate([{ top:cTop, left:cLeft, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1500});
+
+
+
+          card.content.animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1800});
 
           if( extraCards.indexOf(card)== -1 )
           {
@@ -898,32 +1067,34 @@
           card.place = 18;
         }
 
-        //iterations:2,direction:'alternate',
+        //iterations:2,direction:'alternate', duration
 
-        //ptReaction.animate([{ scale: 1 }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:700});
+        document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
 
-        //ptReaction.animate([{ top:"50vmin" , left:"158vmin"}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1200});
+        document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
+        document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
 
-        //ptReaction.animate([{ scale: 0 }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1600});
+        document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
 
-        //ptReaction.animate([{ top:"0vmin" , left:"100vmin"}],{duration: 1,easing: 'ease-out', fill: 'forwards', delay:3300});
+
+        
         
 
         
-
-        // totalPoints += Number(pointsBase)*Number(pointsBase);
-        let ptsIncrease = Number(pointsBase)*Number(pointsBase);
+        
 
         for(let i =0;i<ptsIncrease;i++)
         {
-          window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 700+ 20*i);
+          window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 2200+ 20*i);
 
         }
+
+         window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 2200);
 
 
         //window.setTimeout(function() { document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1000);
 
-        window.setTimeout(function() { dealCards(); }, 1200+20*ptsIncrease);      
+        window.setTimeout(function() { dealCards(); }, 2200+20*ptsIncrease);      
 
       }
 
