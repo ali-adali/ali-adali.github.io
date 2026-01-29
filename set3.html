@@ -241,7 +241,7 @@
       border-radius: 50%;
       padding-top: 0.5vmin;
       padding-left: 0.1vmin;
-      border: 0.0vmin solid gray;
+      border: 0.2vmin solid black;
       z-index: 20;
     }
 
@@ -413,6 +413,29 @@
       text-align: center;
       font-size:8vmin;
       z-index: 50;   
+    }
+
+
+    .currentSetsClass
+    {
+      position: fixed;
+      top:0;
+      right:0;
+      height: 15vmin;
+      width: 15vmin;
+      border: 0.1vmin solid black;
+      border-radius: 50%;
+
+      color: black;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:2vmin;
+      z-index: 1000;
+
+
     }
 
 
@@ -676,7 +699,9 @@
   <div class="curtainClass" id="curtainDiv"></div>
 
  
-  <div class="moreCardsClass" id="moreCardsDiv" onclick="putExtraCards();">MORE CARDS</div>
+  <div class="moreCardsClass" id="moreCardsDiv" onclick="putExtraCards();"> <span>Cards</span> <span id="cardsInDeckSpan">(81)</span> </div>
+
+  <div class="currentSetsClass" id="currentSetsDiv">0</div>
 
  
 
@@ -920,6 +945,8 @@
         
       }
 
+
+
     }
 
     else
@@ -937,14 +964,36 @@
 
         openPlaces.splice(0,1);
         cardsOnTable.push(card);
-        theDeck.splice(0,1);      
+        theDeck.splice(0,1);
+
+        window.setTimeout(function() { document.getElementById("cardsInDeckSpan").innerHTML = '('+theDeck.length +')'   ; }, 20);      
       }
+
+
     }
+
+
+    let crSets = findCurrentSets(cardsOnTable);
+    document.getElementById("currentSetsDiv").innerHTML = crSets.length;
     
   }
 
    function checkSet()
   {
+    if (checkedCards.length==1)
+    {
+      //document.getElementById("currentSetsDiv").innerHTML ='Pr:'+checkedCards[0].properties ;
+    }
+
+    if (checkedCards.length==2)
+    {
+      let compCardProp = complementaryCardProperites(checkedCards[0],checkedCards[1]);
+      let n1 = propertiesToNumber(compCardProp);
+      //document.getElementById("currentSetsDiv").innerHTML ='P'+compCardProp+'N'+n1+'C'+checkedCards[0].properties ;
+
+
+    }
+
     if(checkedCards.length==3)
     {
       let Card1Props=checkedCards[0].properties;
@@ -1026,21 +1075,6 @@
           if(orientationQueryLS.matches){ cLeft = 'calc(100vmax - 25vmin - 2vmin )'; cTop='2vmin';    } 
 
 
-         
-
-          //document.getElementById("reactionDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:600});
-
-
-          //document.getElementById("reactionIconDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:600});
-          //document.getElementById("pointsDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:600});
-
-          //document.getElementById("curtainDiv").animate([{ scale:0 }],{duration: 10,easing: 'ease-out', fill: 'forwards', delay:790});
-
-
-          
-
-
-
 
           card.content.animate([{ top:cTop, left:cLeft, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1500});
 
@@ -1094,7 +1128,10 @@
 
         //window.setTimeout(function() { document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1000);
 
-        window.setTimeout(function() { dealCards(); }, 2200+20*ptsIncrease);      
+        window.setTimeout(function() { dealCards(); }, 2200+20*ptsIncrease);
+
+        let crSets = findCurrentSets(cardsOnTable);
+        document.getElementById("currentSetsDiv").innerHTML = crSets.length;      
 
       }
 
@@ -1131,7 +1168,11 @@
     let r3 = d2 % 3;
     let d3 = (d2-r3)/3;
 
-    return [d3,r3,r2,r1];
+    let res = [r1,r2,r3,d3];
+    
+
+
+    return res;
   }
 
 
@@ -1267,7 +1308,8 @@ orientationQueryLS.addEventListener("change", (e) => {
 });
 
 
-function putExtraCards(){
+function putExtraCards()
+{
     
       while(openExtraPlaces.length>0)
       {
@@ -1289,8 +1331,91 @@ function putExtraCards(){
         theDeck.splice(0,1);      
     }
 
+    let crSets = findCurrentSets(cardsOnTable);
+
+    document.getElementById("currentSetsDiv").innerHTML = crSets.length;
+
     
     
+
+  }
+
+  function findCurrentSets(Cards)
+  {
+    let currentSets = [];
+    let compCardProp;
+
+    for(let i=0; i<Cards.length-2;i++ )
+    {
+      for(let j=i+1;j<Cards.length-1;j++)
+      {
+        let compCardProp = complementaryCardProperites(Cards[i],Cards[j]);
+        let n1 = propertiesToNumber(compCardProp);
+
+        for(let k=j+1;k<Cards.length;k++)
+        {
+          let n2 = propertiesToNumber(Cards[k].properties);
+          if(n1==n2)
+          {
+            let newSet = [];
+            newSet.push(Cards[i]);
+            newSet.push(Cards[j]);
+            newSet.push(Cards[k]);
+            currentSets.push(newSet);
+          }
+
+
+        }
+
+
+      }
+
+    }
+
+    return currentSets;
+
+  }
+
+  function complementaryCardProperites(Card1,Card2)
+  {
+    let res=[];
+
+    let cP1 = Card1.properties;
+    let cP2 = Card2.properties;
+
+    for(let i=0;i<4;i++)
+    {
+      let prop;
+
+      let n1=Number(cP1[i]);
+      let n2=Number(cP2[i]);
+      if( n1==n2 )
+      {
+        prop = n1;
+      }
+
+      else
+      {
+        prop = Number(3 - n1 - n2 );
+      }
+
+      res.push(prop);
+
+    }
+
+    return res;
+
+  }
+
+  function propertiesToNumber(cardProp)
+  {
+    let res=0;
+    for(let i=0;i<4;i++)
+    {
+      res+=Number(cardProp[i])*Number(3**i);
+    }
+
+    return res;
 
   }
 
