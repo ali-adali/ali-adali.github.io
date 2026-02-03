@@ -68,7 +68,7 @@
       background: seagreen;
       border-radius: 50%;
      
-      z-index: 7;
+      z-index: 31;
     }
 
     .epicClass
@@ -89,7 +89,8 @@
       border-radius: 50%;
       box-shadow: 0.3vmin 0vmin 0.7vmin black, 0vmin 0.3vmin 0.7vmin black,-0.3vmin 0vmin 0.7vmin black,0vmin -0.3vmin 0.7vmin black ;
 
-      z-index: 2;
+      z-index: 31;
+
     }
 
     .epicCountClass
@@ -111,7 +112,8 @@
       border-radius: 50%;
       padding-top: 0.5vmin;
       padding-left: 0.1vmin;
-      z-index: 20;
+      z-index: 31;
+
       border: 0.2vmin solid black;
     }
 
@@ -130,7 +132,8 @@
       
       border-radius: 50%;
       box-shadow: 0.3vmin 0vmin 0.7vmin black, 0vmin 0.3vmin 0.7vmin black,-0.3vmin 0vmin 0.7vmin black,0vmin -0.3vmin 0.7vmin black ;
-      z-index: 3;
+      z-index: 31;
+
     }
 
     .superiorCountClass
@@ -153,7 +156,8 @@
       padding-top: 0.5vmin;
       padding-left: 0.1vmin;
       border: 0.2vmin solid black;
-      z-index: 20;
+      z-index: 31;
+
     }
 
 
@@ -175,7 +179,8 @@
       border-radius: 50%;
 
       box-shadow: 0.3vmin 0vmin 0.7vmin black, 0vmin 0.3vmin 0.7vmin black,-0.3vmin 0vmin 0.7vmin black,0vmin -0.3vmin 0.7vmin black ;
-      z-index: 4;
+      z-index: 31;
+
     }
 
     .brilliantCountClass
@@ -198,7 +203,8 @@
       padding-top: 0.5vmin;
       padding-left: 0.1vmin;
       border: 0.2vmin solid black;
-      z-index: 20;
+      z-index: 31;
+
     }
 
     
@@ -218,7 +224,8 @@
       border-radius: 50%;
 
       box-shadow: 0.3vmin 0vmin 0.7vmin black, 0vmin 0.3vmin 0.7vmin black,-0.3vmin 0vmin 0.7vmin black,0vmin -0.3vmin 0.7vmin black ;
-      z-index: 5;
+      z-index: 31;
+
     }
 
 
@@ -242,7 +249,8 @@
       padding-top: 0.5vmin;
       padding-left: 0.1vmin;
       border: 0.2vmin solid black;
-      z-index: 20;
+      z-index: 31;
+
     }
 
     .reactionClass
@@ -296,6 +304,8 @@
       z-index: 31;
 
       scale: 0;
+      z-index: 31;
+
 
 
     }
@@ -380,6 +390,7 @@
       opacity: 1;
       color: black;
       display:flex;
+      align-items: center;
       justify-content: center;
       flex-direction: column;
       text-align: center;
@@ -409,6 +420,7 @@
 
       display:flex;
       justify-content: center;
+      align-items: center;
       flex-direction: column;
       text-align: center;
       font-size:8vmin;
@@ -428,7 +440,7 @@
 
       color: black;
 
-      display:flex;
+      display:none;
       justify-content: center;
       flex-direction: column;
       text-align: center;
@@ -436,7 +448,112 @@
       z-index: 1000;
 
 
+
     }
+
+
+
+    .endGameScreenClass
+    {
+      position: fixed;
+      top:0;
+      left:0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      scale:0;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      z-index: 0;
+      padding-top:2vmin;
+
+    }
+
+    .endGameCardClass
+    {
+      height: 78vmin;
+      width: 49vmin;
+      background: whitesmoke;
+      border: 0.15vmin solid blueviolet;
+      border-radius: 8vmin;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: black;
+      font-size: 6vmin;
+      font-weight: 600;
+
+      box-shadow:0vmin 0vmin 1vmin 0.7vmin ghostwhite;
+
+      background-image: repeating-linear-gradient(45deg,blueviolet   ,ghostwhite 49.5%, ghostwhite 50.5% , blueviolet 100% );
+    }
+
+    .endGameIdClass
+    {
+      font-size: 8vmin;
+      font-weight: 700;
+    }
+
+    .endGameScoreClass
+    {
+      height: 22vmin;
+      width: 22vmin;
+
+      color: ghostwhite;
+
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:9.5vmin;
+      font-weight: 550;
+
+    
+      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
+
+      background: seagreen;
+      border-radius: 50%;
+
+      
+     
+      z-index: 31;
+      margin-block: 2vmin;
+    }
+
+    .endGameTimeClass
+    {
+      font-size: 2vmin;
+      margin-top: 2vmin;
+
+
+    }
+
+    .endGameNewGameClass
+    {
+      border: 0.3vmin solid ghostwhite;
+      height: 15vmin;
+      width: 15vmin;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      border-radius: 3vmin;
+      margin-block: 2vmin;
+      background: black;
+    
+      font-size: 9vmin;
+      font-weight: 600;
+
+    }
+
+
+
+
 
 
     @media (orientation: portrait)
@@ -662,6 +779,41 @@
         height: 20vmin;
       }
     }
+
+
+  textarea 
+  {
+    height:12vmin ;
+    width:30vmin ;
+
+
+    /* 1. Remove background */
+    background: none;
+
+    /* 2. Remove the resize handle (bottom-right corner) */
+    resize: none;
+
+    /* 3. Change Border Radius */
+    border-radius: 3vmin;
+
+    /* 4. Font Size and Style */
+    font-size: 6vmin;
+    
+    font-weight: 700;
+    color: white;
+
+    /* Extra: Removing the default blue outline on click */
+    outline: none;
+    
+    /* Extra: Adjusting padding so text doesn't touch the border */
+    padding-top: 2vmin;
+
+    border: 0.3vmin solid #ccc;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
    
 
 
@@ -675,31 +827,31 @@
     
   </div>
 
-  <div class="scoreClass" id="scoreDiv" > 0 </div>
+  <div class="scoreClass" id="scoreDiv" onclick="theLastStep();"> 0 </div>
 
-  <div class="niceClass"> &#127808; </div>
+  <div class="niceClass" id="niceDiv"> &#127808; </div>
   <div class="niceCountClass" id="niceCountDiv">0</div>
 
 
-  <div class="brilliantClass"> &#127812;   </div>
+  <div class="brilliantClass" id="brilliantDiv"> &#127812;   </div>
   <div class="brilliantCountClass" id="brilliantCountDiv">0</div>
 
-  <div class="superiorClass">&#127989;  </div>
+  <div class="superiorClass" id="superiorDiv">&#127989;  </div>
   <div class="superiorCountClass" id="superiorCountDiv">0</div>
 
-  <div class="epicClass">&#128293; </div>
+  <div class="epicClass" id="epicDiv">&#128293; </div>
   <div class="epicCountClass" id="epicCountDiv">0</div>
 
 
-  <div class="reactionClass" id="reactionDiv"> Epic!!!  </div>
+  <div class="reactionClass" id="reactionDiv">   </div>
   <div class="reactionIconClass" id="reactionIconDiv">&#128293; </div>
   
-  <div class="pointsClass" id="pointsDiv"> +64</div>
+  <div class="pointsClass" id="pointsDiv" > </div>
 
   <div class="curtainClass" id="curtainDiv"></div>
 
  
-  <div class="moreCardsClass" id="moreCardsDiv" onclick="putExtraCards();"> <span>Cards</span> <span id="cardsInDeckSpan">(81)</span> </div>
+  <div class="moreCardsClass" id="moreCardsDiv" > <span>Cards</span> <span id="cardsInDeckSpan" style=" height: 8vmin; width: 8vmin; border: 0.1vmin solid gray; display: flex; justify-content: center; align-items: center;border-radius: 50%;padding-top: 0.7vmin; padding-left: 0vmin;background: black;color: ghostwhite; ">81</span> </div>
 
   <div class="currentSetsClass" id="currentSetsDiv">0</div>
 
@@ -709,7 +861,39 @@
   
 
 
-  <div class="dealCardsClass" onclick="dealCards(); this.style.scale=0;" > <span> DEAL CARDS </span></div>
+  <div class="dealCardsClass" id="dealCardsDiv" > 
+    
+   
+    <span  style=" height: 30vmin; width: 30vmin; border: 0.1vmin solid gray; border-radius: 50%; font-size: 32vmin; color:darkgreen;cursor:pointer; display:flex; align-items:center; justify-content:center; text-align:center; padding-top: 4vmin; padding-left:2vmin; background: ghostwhite; " onclick='document.getElementById("dealCardsDiv").style.scale=0;dealCards(); ' > &#9205;</span>
+
+
+    <textarea id='playerTA' style="margin-top:5vmin;" oninput =' playerName = document.getElementById("playerTA").value; document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value; '>Player1</textarea> 
+  </div>
+
+
+  <div class="endGameScreenClass" id="endGameScreenDiv">
+    <div class="endGameCardClass">
+      <span class="endGameIdClass" id = "endGameIdSpan"> Player1</span>
+      <span class="endGameScoreClass" id="endGameScoreSpan"> 1763</span>
+      <span id="endGameEpicSpan"> 5 &times; &#128293; </span>
+      <span id="endGameSuperiorSpan"> 4 &times; &#127989; </span>
+      <span id="endGameBrilliantSpan"> 3 &times; &#127812; </span>
+      <span id="endGameNiceSpan"> 2 &times; &#127808; </span>
+      <span id="endGameTimeSpan" class="endGameTimeClass" onclick='document.getElementById("endGameTimeSpan").innerHTML = Date.now(); ' > time </span>
+    </div>
+
+    <div class="endGameNewGameClass" onclick="location.reload();">&#10226;</div>
+    
+    
+  </div>
+
+
+
+  
+
+
+
+  
 
 
  
@@ -749,6 +933,8 @@
   let superiorCount=0;
   let brilliantCount=0;
   let niceCount=0;
+
+  let playerName='';
 
 
 
@@ -905,8 +1091,6 @@
       cLeft = Number(4*Number(marginX) + 3*Number(cWidth))+'vmin';
       cTop = Number(33 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number(Number(i)*Number(dz)) + 'vmin';
 
-      //cLeft = 'calc(100vmin - '+cWidth+'vmin - 2vmin)';
-      //cTop = 'calc(100vmax - '+cHeight+'vmin - '+Number(Number(i)*Number(dz))+'vmin - 1vmin)';
     }
 
     document.getElementById("moreCardsDiv").style.left=cLeft;
@@ -945,8 +1129,6 @@
         
       }
 
-
-
     }
 
     else
@@ -966,7 +1148,7 @@
         cardsOnTable.push(card);
         theDeck.splice(0,1);
 
-        window.setTimeout(function() { document.getElementById("cardsInDeckSpan").innerHTML = '('+theDeck.length +')'   ; }, 20);      
+        window.setTimeout(function() { document.getElementById("cardsInDeckSpan").innerHTML = theDeck.length; }, 20);      
       }
 
 
@@ -974,25 +1156,28 @@
 
 
     let crSets = findCurrentSets(cardsOnTable);
-    document.getElementById("currentSetsDiv").innerHTML = crSets.length;
+    if(crSets.length>0)
+    {
+      let firstSet= crSets[0];
+      let n1= Number(firstSet[0].place)+1;
+      let n2= Number(firstSet[1].place)+1;
+      let n3= Number(firstSet[2].place)+1;
+      document.getElementById("currentSetsDiv").innerHTML = crSets.length+'P '+n1 +','+n2+','+n3; 
+    }
+
+    else
+    {
+      document.getElementById("currentSetsDiv").innerHTML = 'No Sets!';
+      putExtraCards();
+
+    }
+    
+    
     
   }
 
    function checkSet()
   {
-    if (checkedCards.length==1)
-    {
-      //document.getElementById("currentSetsDiv").innerHTML ='Pr:'+checkedCards[0].properties ;
-    }
-
-    if (checkedCards.length==2)
-    {
-      let compCardProp = complementaryCardProperites(checkedCards[0],checkedCards[1]);
-      let n1 = propertiesToNumber(compCardProp);
-      //document.getElementById("currentSetsDiv").innerHTML ='P'+compCardProp+'N'+n1+'C'+checkedCards[0].properties ;
-
-
-    }
 
     if(checkedCards.length==3)
     {
@@ -1054,6 +1239,8 @@
       }
 
       let ptsIncrease = Number(pointsBase)*Number(pointsBase);
+      
+
 
       document.getElementById("reactionIconDiv").innerHTML = reactionIcon;
       document.getElementById("pointsDiv").innerHTML = '+'+ptsIncrease ;
@@ -1076,11 +1263,11 @@
 
 
 
-          card.content.animate([{ top:cTop, left:cLeft, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1500});
+          card.content.animate([{ top:cTop, left:cLeft, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1000});
 
 
 
-          card.content.animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1800});
+          card.content.animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1500});
 
           if( extraCards.indexOf(card)== -1 )
           {
@@ -1103,35 +1290,34 @@
 
         //iterations:2,direction:'alternate', duration
 
+        document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
+
         document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
 
         document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
         document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
 
-        document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
 
-
-        
-        
-
-        
-        
+        window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 1500);
 
         for(let i =0;i<ptsIncrease;i++)
         {
-          window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 2200+ 20*i);
-
+          window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1500+ 20*i);
         }
 
-         window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 2200);
+
+       
+        window.setTimeout(function() { dealCards();  }, 1500+20*ptsIncrease);
+        
+
+        window.setTimeout(function() { 
+          let crSets = findCurrentSets(cardsOnTable); 
+          if(crSets.length==0&&theDeck.length>0){ putExtraCards(); } 
+          if(crSets.length==0&&theDeck.length==0){ theLastStep(); }   
+
+        }, 1800+20*ptsIncrease);
 
 
-        //window.setTimeout(function() { document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1000);
-
-        window.setTimeout(function() { dealCards(); }, 2200+20*ptsIncrease);
-
-        let crSets = findCurrentSets(cardsOnTable);
-        document.getElementById("currentSetsDiv").innerHTML = crSets.length;      
 
       }
 
@@ -1147,10 +1333,135 @@
           card.content.animate([{scale:1 ,boxShadow: "0.3vmin 0.3vmin 0.3vmin rgba(0, 0, 0, 0.7)"}],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
           checkedCards.splice(0,1);
         }
+
+        //document.getElementById("currentSetsDiv").innerHTML ='';
       }
+
+
+
+      
 
     
     }
+
+    let crSets = findCurrentSets(cardsOnTable);
+    if(crSets.length>0)
+    {
+      let firstSet= crSets[0];
+      let n1= Number(firstSet[0].place)+1;
+      let n2= Number(firstSet[1].place)+1;
+      let n3= Number(firstSet[2].place)+1;
+      document.getElementById("currentSetsDiv").innerHTML = crSets.length+'P '+n1 +','+n2+','+n3; 
+    }
+
+    else
+    {
+      document.getElementById("currentSetsDiv").innerHTML = 'No Sets!';
+
+    }
+
+    
+  }
+
+  function theLastStep()
+  {
+    let pointsBase = Number(cardsOnTable.length);
+    let ptsIncrease = Number(pointsBase)*Number(pointsBase);
+    document.getElementById("pointsDiv").innerHTML = '+'+ptsIncrease ;
+
+    while(cardsOnTable.length>0)
+    {
+      let card =  cardsOnTable[0];
+      let cLeft='37.5vmin'; 
+      let cTop='5vmin';
+
+      if(orientationQueryLS.matches){ cLeft = 'calc(100vmax - 25vmin - 2vmin )'; cTop='2vmin';    } 
+
+      card.content.animate([{ top:cTop, left:cLeft, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+
+      card.content.animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1000});
+ 
+      cardsOnTable.splice(0,1);
+          
+      card.place = 18;
+    }
+
+    document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
+
+    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
+
+    document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
+    
+    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
+
+    window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; 
+
+    document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; 
+
+    document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 1200);
+
+    
+    for(let i =0;i<ptsIncrease;i++)
+    {
+      window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ;}, 1200+ 20*i);
+    }
+
+
+
+    ////  niceDiv niceCountDiv
+    document.getElementById("niceDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2000+2*ptsIncrease});
+
+    document.getElementById("niceCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2000+2*ptsIncrease});
+
+
+    document.getElementById("brilliantDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2100+2*ptsIncrease});
+
+    document.getElementById("brilliantCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2100+2*ptsIncrease});
+
+
+
+    document.getElementById("superiorDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2200+2*ptsIncrease});
+
+    document.getElementById("superiorCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2200+2*ptsIncrease});
+
+
+
+    document.getElementById("epicDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2300+2*ptsIncrease});
+
+    document.getElementById("epicCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2300+2*ptsIncrease});
+
+
+    document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2500+2*ptsIncrease});
+
+    document.getElementById("scoreDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2700+2*ptsIncrease});
+
+
+
+
+
+
+    
+
+    document.getElementById("endGameScoreSpan").innerHTML = totalPoints;
+    document.getElementById("endGameEpicSpan").innerHTML =  epicCount + " &times; &#128293;";
+    document.getElementById("endGameSuperiorSpan").innerHTML =  superiorCount + " &times; &#127989;";
+    document.getElementById("endGameBrilliantSpan").innerHTML =  brilliantCount + " &times; &#127812;";
+    document.getElementById("endGameNiceSpan").innerHTML =  niceCount + " &times; &#127808;";
+    document.getElementById("endGameTimeSpan").innerHTML = Date.now();
+    
+
+
+
+    document.getElementById("endGameScreenDiv").animate([{ scale:0 },{ scale:1 }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:3000+2*ptsIncrease});
+
+    
+     
+
+    
+
+
+
+
   }
 
   
@@ -1333,7 +1644,12 @@ function putExtraCards()
 
     let crSets = findCurrentSets(cardsOnTable);
 
-    document.getElementById("currentSetsDiv").innerHTML = crSets.length;
+    let firstSet= crSets[0];
+    document.getElementById("currentSetsDiv").innerHTML = crSets.length+'P '+firstSet[0].place +','+firstSet[1].place+','+firstSet[2].place;
+
+    document.getElementById("scoreDiv").style.zIndex=200; 
+
+    //document.getElementById("currentSetsDiv").innerHTML = crSets.length;
 
     
     
