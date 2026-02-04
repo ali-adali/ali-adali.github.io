@@ -65,6 +65,8 @@
       
       box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
 
+      text-shadow: 0.3vmin 0vmin 0.3vmin black, 0vmin 0.3vmin 0.3vmin black,-0.3vmin 0vmin 0.3vmin black,0vmin -0.3vmin 0.3vmin black;
+
       background: seagreen;
       border-radius: 50%;
      
@@ -273,6 +275,8 @@
 
       -webkit-text-stroke: 0.3vmin white;
 
+
+
       
       
 
@@ -300,7 +304,7 @@
 
       border: 0.0vmin solid gray;
 
-      ext-shadow: 0.5vmin 0vmin 0.7vmin ghostwhite, 0vmin 0.5vmin 0.7vmin ghostwhite,-0.5vmin 0vmin 0.7vmin ghostwhite,0vmin -0.5vmin 0.7vmin ghostwhite;
+      text-shadow: 0.5vmin 0vmin 0.7vmin ghostwhite, 0vmin 0.5vmin 0.7vmin ghostwhite,-0.5vmin 0vmin 0.7vmin ghostwhite,0vmin -0.5vmin 0.7vmin ghostwhite;
       z-index: 31;
 
       scale: 0;
@@ -333,6 +337,8 @@
       font-weight: 600;
 
       -webkit-text-stroke: 0.0vmin rgba(0, 0, 0, 0.9);
+
+      text-shadow: 0.5vmin 0vmin 0.7vmin black, 0vmin 0.5vmin 0.7vmin black,-0.5vmin 0vmin 0.7vmin black,0vmin -0.5vmin 0.7vmin black;
 
       
 
@@ -386,9 +392,9 @@
 
       border:0.5vmin solid black;
       border-radius: 3vmin;
-      background: whitesmoke;
+      background: silver;
       opacity: 1;
-      color: black;
+      color: whitesmoke;
       display:flex;
       align-items: center;
       justify-content: center;
@@ -396,6 +402,32 @@
       text-align: center;
       font-size:5vmin;
       font-weight: 700;
+      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black;
+
+      background-image: repeating-linear-gradient(45deg,silver   ,silver 30%, ghostwhite 50% ,silver 70%, silver 100% ); 
+    }
+
+    .cardsInDeckClass
+    {
+       height: 15vmin; 
+       width: 15vmin; 
+       border: 0.0vmin solid gray; 
+       display: flex; 
+       justify-content: center; 
+       align-items: center;
+       border-radius: 50%;
+       padding-top: 0.7vmin; 
+       padding-left: 0vmin;
+       background: none;
+       color: ghostwhite;
+
+       font-size: 12vmin;
+       font-weight: 800;
+
+       text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black; 
+
+
+
     }
 
     .newGameClass
@@ -437,9 +469,11 @@
       width: 15vmin;
       border: 0.1vmin solid black;
       border-radius: 50%;
-      display:none;
 
       color: black;
+
+      display: flex;
+      scale:0.0;
 
       
       justify-content: center;
@@ -451,6 +485,7 @@
 
 
     }
+
 
 
 
@@ -473,10 +508,12 @@
 
     }
 
+    
+
     .endGameCardClass
     {
-      height: 78vmin;
-      width: 49vmin;
+      height: 120vmin;
+      width: 86vmin;
       background: whitesmoke;
       border: 0.15vmin solid blueviolet;
       border-radius: 8vmin;
@@ -486,24 +523,30 @@
       flex-direction: column;
       text-align: center;
       color: black;
-      font-size: 6vmin;
-      font-weight: 600;
+      font-size: 10vmin;
+      font-weight: 800;
 
       box-shadow:0vmin 0vmin 1vmin 0.7vmin ghostwhite;
 
-      background-image: repeating-linear-gradient(45deg,blueviolet   ,ghostwhite 49.5%, ghostwhite 50.5% , blueviolet 100% );
+      background-image: repeating-linear-gradient(45deg,blueviolet, blueviolet 15%   ,ghostwhite 49.5%, ghostwhite 50.5% , blueviolet 85%, blueviolet 100% );
+
+      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black;
+      color: ghostwhite; 
     }
 
     .endGameIdClass
     {
-      font-size: 8vmin;
+      font-size: 12vmin;
       font-weight: 700;
+      color: white;
+
+      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black; 
     }
 
     .endGameScoreClass
     {
-      height: 22vmin;
-      width: 22vmin;
+      height: 30vmin;
+      width: 30vmin;
 
       color: ghostwhite;
 
@@ -511,11 +554,13 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:9.5vmin;
+      font-size:13.5vmin;
       font-weight: 550;
 
     
       box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
+
+      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black; 
 
       background: seagreen;
       border-radius: 50%;
@@ -536,30 +581,33 @@
 
     .endGameNewGameClass
     {
-      border: 0.3vmin solid ghostwhite;
-      height: 15vmin;
-      width: 15vmin;
+      border: 0.0vmin solid ghostwhite;
+      height: 40vmin;
+      width: 40vmin;
       display: flex;
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      border-radius: 3vmin;
-      margin-block: 2vmin;
-      background: black;
+      border-radius: 50%;
+      margin-top: 5%;
+      background-image: repeating-linear-gradient(45deg,orangered, orangered 20%   ,orange 49.5%, orange 50.5% , orangered 80%, orangered 100% );
     
-      font-size: 9vmin;
-      font-weight: 600;
+      font-size: 11vmin;
+      font-weight: 700;
+
+      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black; 
+      color:whitesmoke;
 
     }
 
     .startButtonClass
     {
-      height: 30vmin;
-      width: 30vmin; 
+      height: 54vmin;
+      width: 54vmin; 
       border: 0.1vmin solid gray; 
       border-radius: 50%; 
-      font-size: 12vmin;
-      font-weight: 600; 
+      font-size: 15vmin;
+      font-weight: 800; 
       color:darkgreen;
       cursor:pointer; 
       display:flex; 
@@ -568,7 +616,10 @@
       text-align:center; 
       padding-top: 0vmin; 
       padding-left:0vmin; 
-      background: ghostwhite; 
+      background-image: repeating-linear-gradient(45deg,orangered, orangered 20%   ,orange 49.5%, orange 50.5% , orangered 80%, orangered 100% );
+
+      text-shadow: 0.3vmin 0vmin 0.2vmin darkgreen, 0vmin 0.3vmin 0.2vmin darkgreen,-0.3vmin 0vmin 0.2vmin darkgreen,0vmin -0.3vmin 0.2vmin darkgreen,0.3vmin 0.3vmin 0.2vmin darkgreen, -0.3vmin -0.3vmin 0.2vmin darkgreen; 
+      color:whitesmoke; 
     }
 
 
@@ -720,6 +771,8 @@
         height: 25vmin;
       }
 
+      
+
       .epicClass
       {
         left:calc(100vmax - 45vmin - 2vmin);
@@ -799,6 +852,18 @@
         width: 20vmin;
         height: 20vmin;
       }
+
+      .endGameScreenClass
+      {
+        flex-direction: row;
+      }
+
+      .endGameCardClass
+      {
+        height: 93vmin;
+        width: 60vmin;
+        margin-right: 5%;
+      }
     }
 
 
@@ -872,7 +937,7 @@
   <div class="curtainClass" id="curtainDiv"></div>
 
  
-  <div class="moreCardsClass" id="moreCardsDiv" > <span>Cards</span> <span id="cardsInDeckSpan" style=" height: 8vmin; width: 8vmin; border: 0.1vmin solid gray; display: flex; justify-content: center; align-items: center;border-radius: 50%;padding-top: 0.7vmin; padding-left: 0vmin;background: black;color: ghostwhite; ">81</span> </div>
+  <div class="moreCardsClass" id="moreCardsDiv" > <span>CARDS</span>  <span class="cardsInDeckClass" id="cardsInDeckSpan" >81</span> </div>
 
   <div class="currentSetsClass" id="currentSetsDiv">0</div>
 
@@ -903,7 +968,7 @@
       <span id="endGameTimeSpan" class="endGameTimeClass" onclick='document.getElementById("endGameTimeSpan").innerHTML = Date.now(); ' > time </span>
     </div>
 
-    <div class="endGameNewGameClass" onclick="location.reload();">&#10226;</div>
+    <div class="endGameNewGameClass" onclick="location.reload();">New Game</div>
     
     
   </div>
@@ -1230,9 +1295,17 @@
       let rSideLength;
 
       //Portrait
-      let scoreLeft = '37.5vmin' ;
-      let scoreTop = '5vmin' ;
+      let scoreLeft = '40vmin' ;
+      let scoreTop = '6vmin' ;
       let scoreSideLength= '25vmin' ;
+      if(orientationQueryLS.matches)
+      {
+        scoreLeft = 'calc(100vmax - 25vmin - 2vmin)' ;
+        scoreTop = '2vmin' ;
+        scoreSideLength= '25vmin' ;
+      }
+
+      // scoreLeft scoreTop scoreSideLength
 
 
       /* Portrait
@@ -1241,6 +1314,15 @@
       superior(15vmin) left:61.6vmin; top:16.5vmin;
       epic(15vmin) left:23.5vmin; top:16.5vmin;
       score(25vmin) left:37.5vmin; top:5vmin;
+      */
+
+      /*
+      LS: 
+      score(25vmin) top:2vmin; left:calc(100vmax - 25vmin - 2vmin);
+      epic(20vmin) left:calc(100vmax - 45vmin - 2vmin); top:2vmin;
+      superior(15vmin) left:calc(100vmax - 34.8vmin - 2vmin); top:20.6vmin;
+      brilliant(12vmin) left:calc(100vmax - 20.2vmin - 2vmin); top:27vmin;
+      nice(10vmin)left:calc(100vmax - 10.3vmin );top:24.5vmin;  
       */
 
   
@@ -1253,10 +1335,15 @@
         reactionPhrase='Nice';
 
         //Portrait
-
         iconTop = '5vmin';
         iconLeft='61.2vmin';
-        rSideLength = '11.25vmin'; 
+        rSideLength = '11.25vmin';
+        if(orientationQueryLS.matches)
+        {
+          iconTop = 'top:24.5vmin';
+          iconLeft='calc(100vmax - 10.3vmin )';
+          rSideLength = '10vmin';
+        } 
 
         
         break;
@@ -1271,6 +1358,13 @@
         iconLeft = '27.5vmin';
         rSideLength='11.25vmin' ;
 
+        if(orientationQueryLS.matches)
+        {
+          iconTop = 'top:27vmin';
+          iconLeft='calc(100vmax - 20.2vmin - 2vmin)';
+          rSideLength = '12vmin';
+        }
+
 
         break;
 
@@ -1284,6 +1378,13 @@
         iconLeft = '61.6vmin';
         rSideLength='15vmin' ;
 
+        if(orientationQueryLS.matches)
+        {
+          iconTop = '20.6vmin';
+          iconLeft='calc(100vmax - 34.8vmin - 2vmin)';
+          rSideLength = '15vmin';
+        }
+
 
         break;
 
@@ -1296,6 +1397,13 @@
         iconTop = '5vmin';
         iconLeft = '23.5vmin';
         rSideLength='15vmin' ;
+        
+        if(orientationQueryLS.matches)
+        {
+          iconTop = '2vmin';
+          iconLeft='calc(100vmax - 45vmin - 2vmin)';
+          rSideLength = '20vmin';
+        }
 
         break;
       }
@@ -1351,8 +1459,90 @@
         }
 
         //iterations:2,direction:'alternate', duration
+
+        //a curtain pops:
+
+         document.getElementById("curtainDiv").animate([{ scale:0 }, {scale:1}],{duration: 1,easing: 'ease-out', fill: 'forwards', delay:0});
+
+        //reaction pops:
+
+        document.getElementById("reactionDiv").animate([{ scale:0, offset:0 }, {scale:2.5,offset:0.7}, {scale:1.5,offset:1}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:10});
+
+
+        //reaction icon pops:
+
+        document.getElementById("reactionIconDiv").animate([{ scale:0, offset:0 }, {scale:1.5,offset:0.7}, {scale:1,offset:1}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:100});
+
         
 
+        //points pops:
+
+        document.getElementById("pointsDiv").animate([{ scale:0, offset:0 }, {scale:1.5,offset:0.7}, {scale:1,offset:1}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:200});
+
+        
+
+        // reaction fades:
+        document.getElementById("reactionDiv").animate([{ scale:0 }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1000});
+
+        // reaction icon moves to its place
+        document.getElementById("reactionIconDiv").animate([{ top: iconTop ,left: iconLeft, height: rSideLength ,width: rSideLength }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1100});
+
+        //points move
+        document.getElementById("pointsDiv").animate([{ top:scoreTop, left: scoreLeft, height: scoreSideLength ,width: scoreSideLength,scale:0.6 }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:1200});
+
+        //points fade
+
+        document.getElementById("pointsDiv").animate([{scale:0}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1500});
+
+        document.getElementById("pointsDiv").animate([{height: '30vmin', width: '30vmin', top:'calc(40% + 10vmin)', left:'calc(50% - 15vmin)'}],{duration: 1,easing: 'ease-out', fill: 'forwards', delay:3200});
+
+         //curtain fades:
+
+        document.getElementById("curtainDiv").animate([{ scale:0 }],{duration: 10,easing: 'ease-out', fill: 'forwards', delay:1600});
+
+        // points adding counter
+
+        for(let i =0;i<ptsIncrease;i++)
+         {window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1700+ 20*i);}
+
+
+        // reaction icon fades and returns to its original place:
+
+        document.getElementById("reactionIconDiv").animate([{ scale:0 }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1500});
+
+        document.getElementById("reactionIconDiv").animate([{ height: '30vmin', width: '30vmin', top:'calc(40% - 10vmin)',left:'calc(50% - 15vmin)'}],{duration: 10,easing: 'ease-out', fill: 'forwards', delay:3000});
+        // height: 30vmin;width: 30vmin; top:calc(40% - 10vmin);left:calc(50% - 15vmin);
+
+         window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 1750);
+
+        
+
+
+
+        
+
+        
+
+        //points class:  height: 30vmin; width: 30vmin; top:calc(40% + 10vmin); left:calc(50% - 15vmin);
+
+       
+
+
+        
+
+        window.setTimeout(function() { dealCards();  }, 1700+20*ptsIncrease);
+
+        window.setTimeout(function() { 
+          let crSets = findCurrentSets(cardsOnTable); 
+          if(crSets.length==0&&theDeck.length>0){ putExtraCards(); } 
+          if(crSets.length==0&&theDeck.length==0){ theLastStep(); } }, 2100+20*ptsIncrease);
+
+
+        
+
+
+
+        /*
         document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
 
         document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
@@ -1376,9 +1566,9 @@
         window.setTimeout(function() { 
           let crSets = findCurrentSets(cardsOnTable); 
           if(crSets.length==0&&theDeck.length>0){ putExtraCards(); } 
-          if(crSets.length==0&&theDeck.length==0){ theLastStep(); }   
+          if(crSets.length==0&&theDeck.length==0){ theLastStep(); } }, 1800+20*ptsIncrease);
 
-        }, 1800+20*ptsIncrease);
+        */
 
 
 
