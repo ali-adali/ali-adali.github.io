@@ -440,7 +440,7 @@
 
       color: black;
 
-      display:none;
+      
       justify-content: center;
       flex-direction: column;
       text-align: center;
@@ -549,6 +549,25 @@
       font-size: 9vmin;
       font-weight: 600;
 
+    }
+
+    .startButtonClass
+    {
+      height: 30vmin;
+      width: 30vmin; 
+      border: 0.1vmin solid gray; 
+      border-radius: 50%; 
+      font-size: 12vmin;
+      font-weight: 600; 
+      color:darkgreen;
+      cursor:pointer; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      text-align:center; 
+      padding-top: 0vmin; 
+      padding-left:0vmin; 
+      background: ghostwhite; 
     }
 
 
@@ -750,6 +769,7 @@
         height: 10vmin;
         width: 10vmin;
       }
+ 
 
       .niceCountClass
       {
@@ -864,7 +884,7 @@
   <div class="dealCardsClass" id="dealCardsDiv" > 
     
    
-    <span  style=" height: 30vmin; width: 30vmin; border: 0.1vmin solid gray; border-radius: 50%; font-size: 32vmin; color:darkgreen;cursor:pointer; display:flex; align-items:center; justify-content:center; text-align:center; padding-top: 4vmin; padding-left:2vmin; background: ghostwhite; " onclick='document.getElementById("dealCardsDiv").style.scale=0;dealCards(); ' > &#9205;</span>
+    <span class="startButtonClass"  style=" " onclick='document.getElementById("dealCardsDiv").style.scale=0;dealCards(); ' > Start</span>
 
 
     <textarea id='playerTA' style="margin-top:5vmin;" oninput =' playerName = document.getElementById("playerTA").value; document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value; '>Player1</textarea> 
@@ -1206,7 +1226,23 @@
       let reactionPhrase;
       let iconTop;
       let iconLeft;
+      let rSideLength;
 
+      //Portrait
+      let scoreLeft = '37.5vmin' ;
+      let scoreTop = '5vmin' ;
+      let scoreSideLength= '25vmin' ;
+
+
+      /* Portrait
+      nice(11.25vmin) left:61.2vmin; top:5vmin;
+      brilliant(11.25vmin) left:27.5vmin; top:5vmin;
+      superior(15vmin) left:61.6vmin; top:16.5vmin;
+      epic(15vmin) left:23.5vmin; top:16.5vmin;
+      score(25vmin) left:37.5vmin; top:5vmin;
+      */
+
+  
 
       switch(pointsBase)
       {
@@ -1214,6 +1250,13 @@
         reactionIcon = '&#127808;';
         niceCount++;
         reactionPhrase='Nice';
+
+        //Portrait
+
+        iconTop = '5vmin';
+        iconLeft='61.2vmin';
+        rSideLength = '11.25vmin'; 
+
         
         break;
 
@@ -1222,18 +1265,36 @@
         brilliantCount++;
         reactionPhrase='Brilliant!';
 
+        //Portrait
+        iconTop = '5vmin';
+        iconLeft = '27.5vmin';
+        rSideLength='11.25vmin' ;
+
+
         break;
 
       case 7:
         reactionIcon = '&#127989;';
         superiorCount++;
         reactionPhrase='Superior!!';
+
+        //Portrait
+        iconTop = '16.5vmin';
+        iconLeft = '61.6vmin';
+        rSideLength='15vmin' ;
+
+
         break;
 
       case 8:
         reactionIcon = '&#128293;';
         epicCount++; 
         reactionPhrase='Epic!!!';
+
+        //Portrait
+        iconTop = '5vmin';
+        iconLeft = '23.5vmin';
+        rSideLength='15vmin' ;
 
         break;
       }
@@ -1289,6 +1350,7 @@
         }
 
         //iterations:2,direction:'alternate', duration
+        
 
         document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
 
