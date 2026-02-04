@@ -57,8 +57,8 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:10vmin;
-      font-weight: 550;
+      font-size:11vmin;
+      font-weight: 700;
 
       padding-top: 2vmin;
 
@@ -99,14 +99,14 @@
     {
       position: fixed;
 
-      height: 4vmin;
-      width: 4vmin;
+      height: 5vmin;
+      width: 5vmin;
 
       display:flex;
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:3vmin;
+      font-size:3.2vmin;
       font-weight: 500;
 
       background: red;
@@ -117,6 +117,8 @@
       z-index: 31;
 
       border: 0.2vmin solid black;
+
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black; 
     }
 
     .superiorClass
@@ -142,14 +144,14 @@
     {
       position: fixed;
 
-      height: 4vmin;
-      width: 4vmin;
+      height: 5vmin;
+      width: 5vmin;
 
       display:flex;
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:3vmin;
+      font-size:3.2vmin;
       font-weight: 500;
 
       background: red;
@@ -159,6 +161,7 @@
       padding-left: 0.1vmin;
       border: 0.2vmin solid black;
       z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black; 
 
     }
 
@@ -189,14 +192,14 @@
     {
       position: fixed;
 
-      height: 4vmin;
-      width: 4vmin;
+      height: 5vmin;
+      width: 5vmin;
 
       display:flex;
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:3vmin;
+      font-size:3.2vmin;
       font-weight: 500;
 
       background: red;
@@ -206,6 +209,8 @@
       padding-left: 0.1vmin;
       border: 0.2vmin solid black;
       z-index: 31;
+
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
 
     }
 
@@ -235,14 +240,14 @@
     {
       position: fixed;
 
-      height: 4vmin;
-      width: 4vmin;
+      height: 5vmin;
+      width: 5vmin;
 
       display:flex;
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:3vmin;
+      font-size:3.2vmin;
       font-weight: 500;
 
       background: red;
@@ -252,6 +257,8 @@
       padding-left: 0.1vmin;
       border: 0.2vmin solid black;
       z-index: 31;
+
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
 
     }
 
@@ -657,64 +664,74 @@
         top:5vmin;
         height: 25vmin;
         width: 25vmin;
+        scale: 1.2;
+
       }
 
       
 
       .epicClass
       {
-        left:23.5vmin;
-        top:16.5vmin;
+        left:19.3vmin;
+        top:18.5vmin;
         height: 15vmin;
         width: 15vmin;
+         scale: 1.2;
       }
 
       .epicCountClass
       {
-        left:24.5vmin;
-        top:16vmin;
+        left:17.2vmin;
+        top:16.5vmin;
+         scale: 1.2;
       }
 
       .superiorClass
       {
-        left:61.6vmin;
-        top:16.5vmin;
+        left:66.0vmin;
+        top:18.5vmin;
         height: 15vmin;
         width: 15vmin;
+        scale: 1.2;
       }
 
       .superiorCountClass
       {
-        left:72.4vmin;
-        top:16vmin;
+        left:78vmin;
+        top:16.5vmin;
+        scale: 1.2;
       }
 
       .brilliantClass
       {
-        left:27.5vmin;
-        top:5vmin;
+        left:23.5vmin;
+        top:4.2vmin;
         height: 11.25vmin;
         width: 11.25vmin;
+        scale: 1.2;
       }
 
       .brilliantCountClass
       {
-        left:26vmin;
-        top:5vmin;
+        left:20vmin;
+        top:2.5vmin;
+        scale: 1.2;
       }
 
       .niceClass
       {
-        left:61.2vmin;
-        top:5vmin;
+        left:65.3vmin;
+        top:4.2vmin;
         height: 11.25vmin;
         width: 11.25vmin;
+        scale: 1.2;
       }
 
       .niceCountClass
       {
-        left:69.5vmin;
-        top:5vmin;
+        left:74.5vmin;
+        top:2vmin;
+        scale: 1.2;
       }
 
       .clockClass
@@ -1037,6 +1054,29 @@
       let props = toProperties(properties_index);
       this.properties = props;
 
+      let cardContent = document.createElement("DIV");
+      cardContent.classList.add("cardClass");
+
+      
+
+      let cPattern;
+      switch(props[2])
+      {
+      case 0:
+        cPattern= '&#9679;';
+        break;
+
+      case 1:
+        cPattern='&#9632;';
+        break;
+
+      case 2:
+        cPattern='&#9650;';
+        break;
+      }
+
+      let cNumber=Number(props[3]);
+
       let cColor;
       switch(props[0])
       {
@@ -1062,6 +1102,8 @@
 
       case 1:
         cOpacity=0.5;
+      //background: repeating-linear-gradient( 45deg, darkred, darkred 0.6vmin, white 0.6vmin, white 1.2vmin );
+         //cardContent.style.background = "repeating-linear-gradient( 45deg, "+cColor +"1), "+cColor + "1) 0.6vmin, white 0.6vmin, white 1.2vmin )";
         break;
 
       case 2:
@@ -1069,38 +1111,45 @@
         break;
       }
 
-      let cPattern;
-      switch(props[2])
-      {
-      case 0:
-        cPattern= '&#9679;';
-        break;
 
-      case 1:
-        cPattern='&#9632;';
-        break;
-
-      case 2:
-        cPattern='&#9650;';
-        break;
-      }
-
-      let cNumber=Number(props[3]);
-
-      let cardContent = document.createElement("DIV");
-      cardContent.classList.add("cardClass");
-      
-      cardContent.style.color = cColor+cOpacity+')';
-      cardContent.style.webkitTextStroke = '0.7'+'vmin '+ cColor+'1)';
-      
-      
       for(let i=0;i< Number(cNumber+1);i++)
       {
         let ctdiv = document.createElement("DIV");
         ctdiv.style.height='33%';
         ctdiv.innerHTML = cPattern;
+        if(cOpacity==0.5)
+        {
+          ctdiv.style.background = "repeating-linear-gradient( 45deg, "+ cColor + "1), " + cColor + "1) 0.5vmin, white 0.5vmin, white 1.0vmin )";
+          ctdiv.style.color="transparent";
+          ctdiv.style.webkitBackgroundClip='text';
+          ctdiv.style.backgroundClip='text';
+        }
+
+        
+
+          /*
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          */
         cardContent.appendChild(ctdiv);
+
       }
+
+
+      
+
+      
+
+      
+
+      
+      
+      cardContent.style.color = cColor+cOpacity+')';
+      cardContent.style.webkitTextStroke = '0.7'+'vmin '+ cColor+'1)';
+      
+      
+      
       
       cardContent.setAttribute("onclick", 'let ccc= checkedCards.indexOf(theCards['+this.originalIndex+']); if(ccc==-1){ if(checkedCards.length<3) {this.animate([{scale:1.08 , boxShadow: "0.5vmin 0vmin 0.5vmin darkblue, -0.5vmin 0vmin 0.5vmin darkblue, 0vmin -0.5vmin 0.5vmin darkblue,0vmin 0.5vmin 0.5vmin darkblue"  }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.push(theCards['+this.originalIndex+']);} window.setTimeout(function() { checkSet(); }, 400);  } else {this.animate([{scale:1.00, boxShadow: "0.3vmin 0.3vmin 0.3vmin rgba(0, 0, 0, 0.7)" }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.splice( checkedCards.indexOf(theCards['+this.originalIndex+']) ,1); } '  );
 
@@ -1175,7 +1224,7 @@
       cWidth = cardWidthPT;
 
       cLeft = Number(4*Number(marginX) + 3*Number(cWidth))+'vmin';
-      cTop = Number(33 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number(Number(i)*Number(dz)) + 'vmin';
+      cTop = Number(36 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number(Number(i)*Number(dz)) + 'vmin';
 
     }
 
@@ -1335,8 +1384,8 @@
         reactionPhrase='Nice';
 
         //Portrait
-        iconTop = '5vmin';
-        iconLeft='61.2vmin';
+        iconTop = '4.5vmin';
+        iconLeft='62vmin';
         rSideLength = '11.25vmin';
         if(orientationQueryLS.matches)
         {
@@ -1354,8 +1403,8 @@
         reactionPhrase='Brilliant!';
 
         //Portrait
-        iconTop = '5vmin';
-        iconLeft = '27.5vmin';
+        iconTop = '3.5vmin';
+        iconLeft = '23vmin';
         rSideLength='11.25vmin' ;
 
         if(orientationQueryLS.matches)
@@ -1374,8 +1423,8 @@
         reactionPhrase='Superior!!';
 
         //Portrait
-        iconTop = '16.5vmin';
-        iconLeft = '61.6vmin';
+        iconTop = '17.5vmin';
+        iconLeft = '63.5vmin';
         rSideLength='15vmin' ;
 
         if(orientationQueryLS.matches)
@@ -1394,8 +1443,8 @@
         reactionPhrase='Epic!!!';
 
         //Portrait
-        iconTop = '5vmin';
-        iconLeft = '23.5vmin';
+        iconTop = '16vmin';
+        iconLeft = '19vmin';
         rSideLength='15vmin' ;
         
         if(orientationQueryLS.matches)
@@ -1795,13 +1844,13 @@ function cardLocationsPT(n)
       let div = (n-rem)/4;
   
       cardLeft = Number(marginX) + Number(rem)*Number(cardWidthPT+marginX);
-      cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+33;
+      cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+37;
     }
 
     else if(n<15)
     {
       cardLeft = Number(marginX) + Number(n-12)*Number(cardWidthPT+marginX);
-      cardTop = Number(marginY) + 3*Number(cardHeightPT+marginY)+33;
+      cardTop = Number(marginY) + 3*Number(cardHeightPT+marginY)+36;
     }
     
     let coordinates = [cardLeft,cardTop]
