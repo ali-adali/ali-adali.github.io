@@ -57,7 +57,7 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:11vmin;
+      font-size:10vmin;
       font-weight: 700;
 
       padding-top: 2vmin;
@@ -1039,6 +1039,14 @@
 
   let playerName='';
 
+  let setColors=['rgba(0, 0, 139,','rgba(139, 0, 0,','rgba(0, 110, 0,']; // blue darkred green
+
+  // rgba(0, 114, 178,    rgba(0, 158, 115,  rgba(213, 94, 0,   dark blue - blueish green - vermillion
+
+  //let setColors=[ 'rgba(0, 114, 178,','rgba(0, 158, 115,','rgba(213, 94, 0,' ];
+
+  let currentTime;
+
 
 
   
@@ -1077,7 +1085,8 @@
 
       let cNumber=Number(props[3]);
 
-      let cColor;
+      let cColor = setColors[props[0]];
+      /*
       switch(props[0])
       {
       case 0:
@@ -1092,6 +1101,7 @@
         cColor='rgba(0, 110, 0,'; //rgba(0, 100, 0, 1)  'green'
         break;
       }
+      */
 
       let cOpacity;
       switch(props[1])
@@ -1243,6 +1253,10 @@
 
   function dealCards()
   {
+    currentTime = Date.now();
+
+
+
     if(extraCards.length>0)
     {
       while(extraCards.length>0)
@@ -1313,6 +1327,10 @@
 
    function checkSet()
   {
+    let setFindTime = Number(Date.now()) - Number(currentTime);
+
+    let timeCoeff = Math.exp(1 / (1 + (setFindTime)/60000));
+
 
     if(checkedCards.length==3)
     {
@@ -1457,7 +1475,9 @@
         break;
       }
 
-      let ptsIncrease = Number(pointsBase)*Number(pointsBase);
+      //let ptsIncrease = Number(pointsBase)*Number(pointsBase);
+
+      let ptsIncrease = Math.round( Number(pointsBase)*Number(pointsBase)*Number(timeCoeff) ); 
       
 
 
@@ -1469,6 +1489,7 @@
 
       if(remainders[0]==0&&remainders[1]==0&&remainders[2]==0&&remainders[3]==0)
       {
+        currentTime = Date.now();
         
         while(checkedCards.length>0)
         {
@@ -1552,7 +1573,7 @@
         // points adding counter
 
         for(let i =0;i<ptsIncrease;i++)
-         {window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1700+ 20*i);}
+         {window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1700+ 10*i);}
 
 
         // reaction icon fades and returns to its original place:
@@ -1579,12 +1600,12 @@
 
         
 
-        window.setTimeout(function() { dealCards();  }, 1700+20*ptsIncrease);
+        window.setTimeout(function() { dealCards();  }, 1700+10*ptsIncrease);
 
         window.setTimeout(function() { 
           let crSets = findCurrentSets(cardsOnTable); 
           if(crSets.length==0&&theDeck.length>0){ putExtraCards(); } 
-          if(crSets.length==0&&theDeck.length==0){ theLastStep(); } }, 2100+20*ptsIncrease);
+          if(crSets.length==0&&theDeck.length==0){ theLastStep(); } }, 2100+10*ptsIncrease);
 
 
         
@@ -1690,17 +1711,16 @@
 
     document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
 
+    document.getElementById("reactionDiv").innerHTML="Remaining Cards Bonus";
+
     document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
 
-    document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
+    //document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
     
     document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
 
-    window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; 
+    window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 1750);
 
-    document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; 
-
-    document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 1200);
 
     
     for(let i =0;i<ptsIncrease;i++)
@@ -1742,14 +1762,22 @@
 
 
 
-    
 
-    document.getElementById("endGameScoreSpan").innerHTML = totalPoints;
+
+    window.setTimeout(function() { document.getElementById("endGameScoreSpan").innerHTML = totalPoints;
     document.getElementById("endGameEpicSpan").innerHTML =  epicCount + " &times; &#128293;";
     document.getElementById("endGameSuperiorSpan").innerHTML =  superiorCount + " &times; &#127989;";
     document.getElementById("endGameBrilliantSpan").innerHTML =  brilliantCount + " &times; &#127812;";
     document.getElementById("endGameNiceSpan").innerHTML =  niceCount + " &times; &#127808;";
-    document.getElementById("endGameTimeSpan").innerHTML = Date.now();
+    document.getElementById("endGameTimeSpan").innerHTML = Date.now();  }, 2700+2*ptsIncrease);
+
+
+
+
+
+    
+
+    
     
 
 
@@ -1844,7 +1872,7 @@ function cardLocationsPT(n)
       let div = (n-rem)/4;
   
       cardLeft = Number(marginX) + Number(rem)*Number(cardWidthPT+marginX);
-      cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+37;
+      cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+36;
     }
 
     else if(n<15)
@@ -1908,7 +1936,7 @@ orientationQueryLS.addEventListener("change", (e) => {
       cWidth = cardWidthPT;
 
       cLeft = Number(4*Number(marginX) + 3*Number(cWidth))+'vmin';
-      cTop = Number(33 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number((Number(i)+81-theDeck.length)*Number(dz)) + 'vmin';
+      cTop = Number(36 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number((Number(i)+81-theDeck.length)*Number(dz)) + 'vmin';
       
     }
 
