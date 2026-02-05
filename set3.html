@@ -557,8 +557,8 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:13.5vmin;
-      font-weight: 550;
+      font-size:11vmin;
+      font-weight: 700;
 
     
       box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
@@ -595,10 +595,10 @@
       margin-top: 5%;
       background-image: repeating-linear-gradient(45deg,orangered, orangered 20%   ,orange 49.5%, orange 50.5% , orangered 80%, orangered 100% );
     
-      font-size: 11vmin;
+      font-size: 10.6vmin;
       font-weight: 700;
 
-      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black; 
+      text-shadow: 0.3vmin 0vmin 0.2vmin darkgreen, 0vmin 0.3vmin 0.2vmin darkgreen,-0.3vmin 0vmin 0.2vmin darkgreen,0vmin -0.3vmin 0.2vmin darkgreen,0.3vmin 0.3vmin 0.2vmin darkgreen, -0.3vmin -0.3vmin 0.2vmin darkgreen; 
       color:whitesmoke;
 
     }
@@ -1043,6 +1043,16 @@
 
   let currentTime;
 
+   let setSymbols = ['&#9679;','&#9632;','&#9650;']  //square triangle circle
+   
+  // let setSymbols =['&#10084;','&#10022;','&#9752;' ] //     kalp 4-yildiz yonca 
+  
+
+  //let setSymbols =['&#9827;','&#9824;','&#9830;']; //  clubs  spade  diamond &#9829; heart
+
+
+
+
 
 
   
@@ -1063,7 +1073,9 @@
 
       
 
-      let cPattern;
+      let cPattern=setSymbols[props[2]];
+
+      /*
       switch(props[2])
       {
       case 0:
@@ -1078,6 +1090,7 @@
         cPattern='&#9650;';
         break;
       }
+      */
 
       let cNumber=Number(props[3]);
 
