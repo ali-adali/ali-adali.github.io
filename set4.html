@@ -1800,7 +1800,7 @@
       let totalTime = 0;
       for(let i=0;i<findSetDurations.length;i++)
       {
-        totalTime+=Number(findSetDurations[i])/1000;
+        totalTime+=Math.trunc(Number(findSetDurations[i]))/1000;
       }
       let averageTime = Math.trunc( 1000*Number(totalTime)/Number(findSetDurations.length))/1000;
       let minimumTime = Math.min(...findSetDurations)/1000;
