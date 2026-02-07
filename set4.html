@@ -1645,41 +1645,6 @@
           if(crSets.length==0&&theDeck.length>0){ putExtraCards(); } 
           if(crSets.length==0&&theDeck.length==0){ theLastStep(); } }, 2100+10*ptsIncrease);
 
-
-        
-
-
-
-        /*
-        document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
-
-        document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
-
-        document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
-        document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
-
-
-        window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 1500);
-
-        for(let i =0;i<ptsIncrease;i++)
-        {
-          window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1500+ 20*i);
-        }
-
-
-       
-        window.setTimeout(function() { dealCards();  }, 1500+20*ptsIncrease);
-        
-
-        window.setTimeout(function() { 
-          let crSets = findCurrentSets(cardsOnTable); 
-          if(crSets.length==0&&theDeck.length>0){ putExtraCards(); } 
-          if(crSets.length==0&&theDeck.length==0){ theLastStep(); } }, 1800+20*ptsIncrease);
-
-        */
-
-
-
       }
 
 
@@ -1819,7 +1784,7 @@
 
       document.getElementById("endGameTotalTimeSpan").innerHTML ='Total time: '+ totalTime+'s';
       document.getElementById("endGameAverageTimeSpan").innerHTML ='Average Time: '+ averageTime+'s';
-      document.getElementById("endGameBestTimeSpan").innerHTML ='Minimum Time: '+ minimumTime+'s';
+      document.getElementById("endGameBestTimeSpan").innerHTML ='Best Time: '+ minimumTime+'s';
 
       }, 2700+2*ptsIncrease);
 
