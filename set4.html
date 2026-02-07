@@ -454,12 +454,13 @@
       background: rgba(0, 0, 0, 0.7); 
 
       display:flex;
-      justify-content: center;
+      justify-content: sta;
       align-items: center;
       flex-direction: column;
       text-align: center;
       font-size:8vmin;
-      z-index: 50;   
+      z-index: 50;
+      padding-top: 35vmin;   
     }
 
 
@@ -605,8 +606,9 @@
 
     .startButtonClass
     {
-      height: 54vmin;
-      width: 54vmin; 
+      position: fixed;
+      height: 60vmin;
+      width: 60vmin; 
       border: 0.1vmin solid gray; 
       border-radius: 50%; 
       font-size: 15vmin;
@@ -623,6 +625,12 @@
 
       text-shadow: 0.3vmin 0vmin 0.2vmin darkgreen, 0vmin 0.3vmin 0.2vmin darkgreen,-0.3vmin 0vmin 0.2vmin darkgreen,0vmin -0.3vmin 0.2vmin darkgreen,0.3vmin 0.3vmin 0.2vmin darkgreen, -0.3vmin -0.3vmin 0.2vmin darkgreen; 
       color:whitesmoke; 
+    }
+
+    .enterNameClass
+    {
+      position: fixed;
+      top:100vmin;
     }
 
 
@@ -884,6 +892,12 @@
         width: 60vmin;
         margin-right: 5%;
       }
+
+      .enterNameClass
+      {
+        position: fixed;
+        top:20vmin;
+      }
     }
 
 
@@ -970,10 +984,10 @@
   <div class="dealCardsClass" id="dealCardsDiv" > 
     
    
-    <button class="startButtonClass" id="startButton"  style=" cursor:" onclick='document.getElementById("dealCardsDiv").style.scale=0;dealCards(); ' disabled> Start</button>
+    <button class="startButtonClass" id="startButton" onclick='document.getElementById("dealCardsDiv").style.scale=0;dealCards(); ' disabled> Start</button>
 
 
-    <textarea id='playerTA' style="margin-top:5vmin;" placeholder="Enter Name" oninput='document.getElementById("startButton").disabled = false; document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value;  '></textarea> 
+    <textarea class="enterNameClass" id='playerTA' placeholder="Enter Name" oninput='document.getElementById("startButton").disabled = false; document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value;  '></textarea> 
   </div>
 
 
@@ -988,8 +1002,6 @@
       <span id="endGameTotalTimeSpan" class="endGameTimeClass" > Total Time: 0s</span>
       <span id="endGameAverageTimeSpan" class="endGameTimeClass" > Average Time: 0s</span>
       <span id="endGameBestTimeSpan" class="endGameTimeClass" > Best Time: 0s</span>
-
-
 
 
     </div>
@@ -1800,7 +1812,7 @@
       let totalTime = 0;
       for(let i=0;i<findSetDurations.length;i++)
       {
-        totalTime+=Math.trunc(Number(findSetDurations[i]))/1000;
+        totalTime+= Math.trunc(Number(findSetDurations[i]))/1000;
       }
       let averageTime = Math.trunc( 1000*Number(totalTime)/Number(findSetDurations.length))/1000;
       let minimumTime = Math.min(...findSetDurations)/1000;
