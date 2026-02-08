@@ -90,6 +90,7 @@
       box-shadow: 0.3vmin 0vmin 0.7vmin black, 0vmin 0.3vmin 0.7vmin black,-0.3vmin 0vmin 0.7vmin black,0vmin -0.3vmin 0.7vmin black ;
 
       z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
 
     }
 
@@ -135,6 +136,7 @@
       border-radius: 50%;
       box-shadow: 0.3vmin 0vmin 0.7vmin black, 0vmin 0.3vmin 0.7vmin black,-0.3vmin 0vmin 0.7vmin black,0vmin -0.3vmin 0.7vmin black ;
       z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
 
     }
 
@@ -182,6 +184,7 @@
 
       box-shadow: 0.3vmin 0vmin 0.7vmin black, 0vmin 0.3vmin 0.7vmin black,-0.3vmin 0vmin 0.7vmin black,0vmin -0.3vmin 0.7vmin black ;
       z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
 
     }
 
@@ -228,6 +231,7 @@
 
       box-shadow: 0.3vmin 0vmin 0.7vmin black, 0vmin 0.3vmin 0.7vmin black,-0.3vmin 0vmin 0.7vmin black,0vmin -0.3vmin 0.7vmin black ;
       z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
 
     }
 
@@ -508,7 +512,7 @@
       flex-direction: column;
       text-align: center;
       z-index: 0;
-      padding-top:2vmin;
+      padding-top:1vmin;
 
     }
 
@@ -516,7 +520,9 @@
 
     .endGameCardClass
     {
-      height: 130vmin;
+      position: fixed;
+      top:2vmin;
+      height: 140vmin;
       width: 90vmin;
       background: whitesmoke;
       border: 0.15vmin solid blueviolet;
@@ -540,7 +546,9 @@
 
     .endGameIdClass
     {
-      font-size: 11.5vmin;
+      position: fixed;
+      top:38vmin;
+      font-size: 12vmin;
       font-weight: 800;
       color: white;
 
@@ -575,16 +583,78 @@
       margin-block: 2vmin;
     }
 
-    .endGameTimeClass
-    {
-      font-size: 4vmin;
-      margin-top: 2vmin;
+    
 
+    .endGameTotalTimeClass
+    {
+      border:0.0vmin solid gray;
+      position: fixed;
+      height: 10vmin ;
+      weight: 20vmin ;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      bottom:calc(100vmax - 129vmin);
+      left: 25vmin;
+      font-size: 5vmin;
+
+      font-weight: 500;
+      border-radius: 6vmin;
+
+    }
+
+    .endGameAverageTimeClass
+    {
+      border:0.0vmin solid gray;
+      position: fixed;
+      height: 12vmin;
+      weight: 70vmin;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      bottom:calc(100vmax - 139vmin);
+      left:32vmin;
+      font-size: 5vmin;
+
+      font-weight: 500;
+      border-radius: 6vmin;
+
+    }
+
+    .endGameBestTimeClass
+    {
+      border:0.0vmin solid gray;
+      position: fixed;
+      height: 10vmin ;
+      weight: 20vmin ;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      bottom:calc(100vmax - 129vmin);
+      left:55vmin;
+      font-size: 5vmin;
+
+      font-weight: 500;
+      border-radius: 6vmin;
 
     }
 
     .endGameNewGameClass
     {
+      position: fixed;
+      top:140vmin;
       border: 0.0vmin solid ghostwhite;
       height: 40vmin;
       width: 40vmin;
@@ -642,6 +712,60 @@
 
 
 
+    .graphClass
+    {
+      position: fixed;
+      bottom:calc(100vmax - 117vmin);
+      display: grid;
+      grid-template-rows: auto auto; /* Two distinct rows */
+      width: 80vmin;
+    }
+
+    .graphDataClass
+    {
+      display: flex;
+      flex-direction: row;
+      height: auto; /* Fixed height for the bars */
+    }
+
+    /* NEW: Style for the label row to match the top row */
+    .intervalsClass
+    {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .timeRow, .intervalLabel
+    {
+      flex: 1; /* This ensures both the bar and the label take up equal width */
+      text-align: center;
+      border-right: 0.1vmin solid black;
+      box-sizing: border-box; /* Prevents border from adding extra width */
+    }
+
+    .timeRow 
+    {
+      display:flex;
+      font-size:7vmin;
+      justify-content: end;
+      vertical-align: middle;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      align-items: center;
+      letter-spacing: -2vmin;
+      text-shadow: 0.3vmin 0vmin 0.3vmin black, 0vmin 0.3vmin 0.3vmin black,-0.3vmin 0vmin 0.3vmin black,0vmin -0.3vmin 0.3vmin black;
+    }
+
+    .intervalLabel
+    {
+      font-size: 3.3vmin; /* Adjusted for fit */
+      font-weight: 300;
+      padding: 1vmin 0;
+      border-top:0.1vmin solid black;
+    }
+
+
+
 
 
 
@@ -672,7 +796,7 @@
       .scoreClass
       {
         left:37.5vmin;
-        top:5vmin;
+        top:7vmin;
         height: 25vmin;
         width: 25vmin;
         scale: 1.2;
@@ -684,7 +808,7 @@
       .epicClass
       {
         left:19.3vmin;
-        top:18.5vmin;
+        top:20.5vmin;
         height: 15vmin;
         width: 15vmin;
          scale: 1.2;
@@ -693,14 +817,14 @@
       .epicCountClass
       {
         left:17.2vmin;
-        top:16.5vmin;
+        top:18.5vmin;
          scale: 1.2;
       }
 
       .superiorClass
       {
         left:66.0vmin;
-        top:18.5vmin;
+        top:20.5vmin;
         height: 15vmin;
         width: 15vmin;
         scale: 1.2;
@@ -709,14 +833,14 @@
       .superiorCountClass
       {
         left:78vmin;
-        top:16.5vmin;
+        top:18.5vmin;
         scale: 1.2;
       }
 
       .brilliantClass
       {
         left:23.5vmin;
-        top:4.2vmin;
+        top:6.2vmin;
         height: 11.25vmin;
         width: 11.25vmin;
         scale: 1.2;
@@ -725,14 +849,14 @@
       .brilliantCountClass
       {
         left:20vmin;
-        top:2.5vmin;
+        top:5.5vmin;
         scale: 1.2;
       }
 
       .niceClass
       {
         left:65.3vmin;
-        top:4.2vmin;
+        top:6.2vmin;
         height: 11.25vmin;
         width: 11.25vmin;
         scale: 1.2;
@@ -741,7 +865,7 @@
       .niceCountClass
       {
         left:74.5vmin;
-        top:2vmin;
+        top:4vmin;
         scale: 1.2;
       }
 
@@ -936,7 +1060,6 @@
   }
    
 
-
     
   </style>
 </head>
@@ -994,19 +1117,34 @@
   <div class="endGameScreenClass" id="endGameScreenDiv">
     <div class="endGameCardClass">
       <span class="endGameIdClass" id = "endGameIdSpan"> Player1</span>
-      <span class="endGameScoreClass" id="endGameScoreSpan"> 144</span>
-      <span id="endGameEpicSpan"> 0 &times; &#128293; </span>
-      <span id="endGameSuperiorSpan"> 0 &times; &#127989; </span>
-      <span id="endGameBrilliantSpan"> 0 &times; &#127812; </span>
-      <span id="endGameNiceSpan"> 0 &times; &#127808; </span>
-      <span id="endGameTotalTimeSpan" class="endGameTimeClass" > Total Time: 0s</span>
-      <span id="endGameAverageTimeSpan" class="endGameTimeClass" > Average Time: 0s</span>
-      <span id="endGameBestTimeSpan" class="endGameTimeClass" > Best Time: 0s</span>
+      
+      <div class="graphClass" style="scale:1">
+        <div class="graphDataClass">
+          <span class="timeRow" id="time030"></span>
+          <span class="timeRow" id="time3060"></span>
+          <span class="timeRow" id="time6090">  </span>
+          <span class="timeRow" id="time90120"> </span>
+          <span class="timeRow" id="time120150">  </span>
+          <span class="timeRow" id="time150p" style="border-right: 0.0vmin solid black;"> </span> 
+        </div>
 
+        <div class="intervalsClass">
+          <div class="intervalLabel">0-5s</div>
+          <div class="intervalLabel">5-15s</div>
+          <div class="intervalLabel">15-30s</div>
+          <div class="intervalLabel">30-60s</div>
+          <div class="intervalLabel">60-120s</div>
+          <div class="intervalLabel" style="border-right: 0.0vmin solid black;">120s+</div>
+        </div>
+      </div>
 
-    </div>
+      <span  class="endGameTotalTimeClass" > <span>&#8987;</span>  <span id="endGameTotalTimeSpan">409.327s</span> </span>
+      <span class="endGameAverageTimeClass" >  <span style="letter-spacing: -0.5vmin"> &#9201;&nbsp; &#8725;  &nbsp; &#127136; &#127136; &#127136;</span> <span id="endGameAverageTimeSpan">&nbsp;   24.205s </span> </span>
+      <span  class="endGameBestTimeClass" > <span>&#9889;</span>  <span id="endGameBestTimeSpan">3.476s</span> </span>
 
-    <div class="endGameNewGameClass" onclick="location.reload();">New Game</div>
+  </div>
+
+  <div class="endGameNewGameClass" onclick="location.reload();">New Game</div>
     
     
   </div>
@@ -1076,6 +1214,8 @@
   //let setSymbols =['&#9827;','&#9824;','&#9830;']; //  clubs  spade  diamond &#9829; heart
 
    let findSetDurations=[];
+
+   let timeStrings=['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;'];
 
 
 
@@ -1270,7 +1410,7 @@
       cWidth = cardWidthPT;
 
       cLeft = Number(4*Number(marginX) + 3*Number(cWidth))+'vmin';
-      cTop = Number(36 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number(Number(i)*Number(dz)) + 'vmin';
+      cTop = Number(37 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number(Number(i)*Number(dz)) + 'vmin';
 
     }
 
@@ -1528,6 +1668,47 @@
         currentTime = Date.now();
 
         findSetDurations.push(setFindTime);
+
+        switch(true)
+        {
+        case setFindTime< 5000:
+          
+          //timeStrings[0] = timeStrings[0].replace('&nbsp;', reactionIcon + '&nbsp;');
+          timeStrings[0] = reactionIcon + timeStrings[0];
+          document.getElementById("time030").innerHTML = timeStrings[0];
+          break;
+
+        case setFindTime< 15000:
+          //timeStrings[1] = timeStrings[1].replace('&nbsp;', reactionIcon + '&nbsp;');
+          timeStrings[1] = reactionIcon + timeStrings[1];
+          document.getElementById("time3060").innerHTML = timeStrings[1];
+          break;
+
+        case setFindTime<30000:
+          //timeStrings[2] = timeStrings[2].replace('&nbsp;', reactionIcon + '&nbsp;');
+          timeStrings[2] = reactionIcon + timeStrings[2];
+          document.getElementById("time6090").innerHTML = timeStrings[2];
+          break;
+
+        case setFindTime<60000:
+          //timeStrings[3] = timeStrings[3].replace('&nbsp;', reactionIcon + '&nbsp;');
+          timeStrings[3] = reactionIcon + timeStrings[3];
+          document.getElementById("time90120").innerHTML = timeStrings[3];
+          break;
+
+        case setFindTime<120000:
+          //timeStrings[4] = timeStrings[4].replace('&nbsp;', reactionIcon + '&nbsp;');
+          timeStrings[4] = reactionIcon + timeStrings[4];
+          document.getElementById("time120150").innerHTML = timeStrings[4];
+          break;
+
+        case setFindTime>119999:
+          //timeStrings[5] = timeStrings[5].replace('&nbsp;', reactionIcon + '&nbsp;');
+          timeStrings[5] = reactionIcon + timeStrings[1];
+          document.getElementById("time150p").innerHTML = timeStrings[5];
+          break;
+
+        }
         
         while(checkedCards.length>0)
         {
@@ -1625,13 +1806,6 @@
 
         
 
-
-
-        
-
-        
-
-        //points class:  height: 30vmin; width: 30vmin; top:calc(40% + 10vmin); left:calc(50% - 15vmin);
 
        
 
@@ -1733,7 +1907,7 @@
 
 
 
-    ////  niceDiv niceCountDiv
+  /*
     document.getElementById("niceDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2000+2*ptsIncrease});
 
     document.getElementById("niceCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2000+2*ptsIncrease});
@@ -1759,6 +1933,7 @@
     document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2500+2*ptsIncrease});
 
     document.getElementById("scoreDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2700+2*ptsIncrease});
+    */
 
 
 
@@ -1768,23 +1943,24 @@
 
 
     window.setTimeout(function() {
-      document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value ; 
-      document.getElementById("endGameScoreSpan").innerHTML = totalPoints;
-      document.getElementById("endGameEpicSpan").innerHTML =  epicCount + " &times; &#128293;";
-      document.getElementById("endGameSuperiorSpan").innerHTML =  superiorCount + " &times; &#127989;";
-      document.getElementById("endGameBrilliantSpan").innerHTML =  brilliantCount + " &times; &#127812;";
-      document.getElementById("endGameNiceSpan").innerHTML =  niceCount + " &times; &#127808;";
+      document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value;
+
+      //document.getElementById("endGameScoreSpan").innerHTML = totalPoints;
+      //document.getElementById("endGameEpicSpan").innerHTML =  epicCount + " &times; &#128293;";
+      //document.getElementById("endGameSuperiorSpan").innerHTML =  superiorCount + " &times; &#127989;";
+      //document.getElementById("endGameBrilliantSpan").innerHTML =  brilliantCount + " &times; &#127812;";
+      //document.getElementById("endGameNiceSpan").innerHTML =  niceCount + " &times; &#127808;";
       let totalTime = 0;
       for(let i=0;i<findSetDurations.length;i++)
       {
-        totalTime+= Math.trunc(Number(findSetDurations[i]))/1000;
+        totalTime+= Number(findSetDurations[i]);
       }
-      let averageTime = Math.trunc( 1000*Number(totalTime)/Number(findSetDurations.length))/1000;
+      let averageTime = Math.trunc(Number(totalTime)/Number(findSetDurations.length))/1000;
       let minimumTime = Math.min(...findSetDurations)/1000;
 
-      document.getElementById("endGameTotalTimeSpan").innerHTML ='Total time: '+ totalTime+'s';
-      document.getElementById("endGameAverageTimeSpan").innerHTML ='Average Time: '+ averageTime+'s';
-      document.getElementById("endGameBestTimeSpan").innerHTML ='Best Time: '+ minimumTime+'s';
+      document.getElementById("endGameTotalTimeSpan").innerHTML =Number(totalTime/1000)+'s';
+      document.getElementById("endGameAverageTimeSpan").innerHTML =averageTime+'s';
+      document.getElementById("endGameBestTimeSpan").innerHTML =minimumTime+'s';
 
       }, 2700+2*ptsIncrease);
 
@@ -1896,13 +2072,13 @@ function cardLocationsPT(n)
       let div = (n-rem)/4;
   
       cardLeft = Number(marginX) + Number(rem)*Number(cardWidthPT+marginX);
-      cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+36;
+      cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+37;
     }
 
     else if(n<15)
     {
       cardLeft = Number(marginX) + Number(n-12)*Number(cardWidthPT+marginX);
-      cardTop = Number(marginY) + 3*Number(cardHeightPT+marginY)+36;
+      cardTop = Number(marginY) + 3*Number(cardHeightPT+marginY)+37;
     }
     
     let coordinates = [cardLeft,cardTop]
@@ -1960,7 +2136,7 @@ orientationQueryLS.addEventListener("change", (e) => {
       cWidth = cardWidthPT;
 
       cLeft = Number(4*Number(marginX) + 3*Number(cWidth))+'vmin';
-      cTop = Number(36 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number((Number(i)+81-theDeck.length)*Number(dz)) + 'vmin';
+      cTop = Number(37 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number((Number(i)+81-theDeck.length)*Number(dz)) + 'vmin';
       
     }
 
