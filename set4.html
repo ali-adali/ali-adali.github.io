@@ -490,8 +490,6 @@
       font-size:2vmin;
       z-index: 1000;
 
-
-
     }
 
 
@@ -505,7 +503,7 @@
       height: 100%;
       width: 100%;
       background: rgba(0, 0, 0, 0.7);
-      scale:0;
+      scale:1;
       display:flex;
       justify-content: center;
       align-items: center;
@@ -568,7 +566,6 @@
       text-align: center;
       font-size:11vmin;
       font-weight: 700;
-
     
       box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
 
@@ -587,10 +584,10 @@
 
     .endGameTotalTimeClass
     {
-      border:0.0vmin solid gray;
       position: fixed;
-      height: 10vmin ;
-      weight: 20vmin ;
+      top: 121vmin;
+      height: 8vmin ;
+      width: 28vmin ;
 
       display: flex;
       flex-direction: row;
@@ -598,43 +595,27 @@
       justify-content: center;
       text-align: center;
 
-      bottom:calc(100vmax - 129vmin);
-      left: 25vmin;
-      font-size: 5vmin;
+      
+      left: 22vmin;
+      font-size: 4.5vmin;
 
-      font-weight: 500;
-      border-radius: 6vmin;
+      font-weight: 300;
+      border-radius: 4vmin;
+      background-image: repeating-linear-gradient(45deg,royalblue, royalblue 20%   ,silver 49.5%, silver 50.5% , royalblue 80%, royalblue 100% );
 
-    }
+      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
 
-    .endGameAverageTimeClass
-    {
-      border:0.0vmin solid gray;
-      position: fixed;
-      height: 12vmin;
-      weight: 70vmin;
 
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      bottom:calc(100vmax - 139vmin);
-      left:32vmin;
-      font-size: 5vmin;
-
-      font-weight: 500;
-      border-radius: 6vmin;
 
     }
 
     .endGameBestTimeClass
     {
-      border:0.0vmin solid gray;
+      
       position: fixed;
-      height: 10vmin ;
-      weight: 20vmin ;
+      top: 121vmin;
+      height: 8vmin ;
+      width: 24vmin ;
 
       display: flex;
       flex-direction: row;
@@ -642,14 +623,53 @@
       justify-content: center;
       text-align: center;
 
-      bottom:calc(100vmax - 129vmin);
-      left:55vmin;
-      font-size: 5vmin;
+      
+      left:52vmin;
+      font-size: 4.5vmin;
 
-      font-weight: 500;
-      border-radius: 6vmin;
+      font-weight: 300;
+      border-radius: 4vmin;
+
+      background-image: repeating-linear-gradient(45deg,orangered, orangered 20%   ,silver 49.5%, silver 50.5% , orangered 80%, orangered 100% );
+
+      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
+
+      
 
     }
+
+    .endGameAverageTimeClass
+    {
+      
+
+      position: fixed;
+      top:131vmin;
+      left:30vmin;
+      height: 8vmin;
+      width: 40vmin;
+
+
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      
+      
+      font-size: 4.5vmin;
+
+      font-weight: 300;
+      border-radius: 4vmin;
+
+      background-image: repeating-linear-gradient(45deg,seagreen, seagreen 20%   ,silver 49.5%, silver 50.5% , seagreen 80%, seagreen 100% );
+
+      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
+
+    }
+
+    
 
     .endGameNewGameClass
     {
@@ -715,7 +735,7 @@
     .graphClass
     {
       position: fixed;
-      bottom:calc(100vmax - 117vmin);
+      top:111vmin;
       display: grid;
       grid-template-rows: auto auto; /* Two distinct rows */
       width: 80vmin;
@@ -739,29 +759,30 @@
     {
       flex: 1; /* This ensures both the bar and the label take up equal width */
       text-align: center;
-      border-right: 0.1vmin solid black;
+      border-right: 0.2vmin dashed black;
       box-sizing: border-box; /* Prevents border from adding extra width */
     }
 
     .timeRow 
     {
       display:flex;
-      font-size:7vmin;
+      font-size:6vmin;
       justify-content: end;
       vertical-align: middle;
       writing-mode: vertical-rl;
       text-orientation: upright;
       align-items: center;
-      letter-spacing: -2vmin;
+      letter-spacing: -0.6vmin;
       text-shadow: 0.3vmin 0vmin 0.3vmin black, 0vmin 0.3vmin 0.3vmin black,-0.3vmin 0vmin 0.3vmin black,0vmin -0.3vmin 0.3vmin black;
     }
 
     .intervalLabel
     {
-      font-size: 3.3vmin; /* Adjusted for fit */
+      font-size: 3.0vmin; /* Adjusted for fit */
       font-weight: 300;
       padding: 1vmin 0;
-      border-top:0.1vmin solid black;
+      border-top:0.2vmin dashed black;
+      border-bottom:0.3vmin solid black;
     }
 
 
@@ -1122,10 +1143,10 @@
         <div class="graphDataClass">
           <span class="timeRow" id="time030"></span>
           <span class="timeRow" id="time3060"></span>
-          <span class="timeRow" id="time6090">  </span>
-          <span class="timeRow" id="time90120"> </span>
-          <span class="timeRow" id="time120150">  </span>
-          <span class="timeRow" id="time150p" style="border-right: 0.0vmin solid black;"> </span> 
+          <span class="timeRow" id="time6090"></span>
+          <span class="timeRow" id="time90120"></span>
+          <span class="timeRow" id="time120150"></span>
+          <span class="timeRow" id="time150p" style="border-right: 0.0vmin solid black;"></span> 
         </div>
 
         <div class="intervalsClass">
@@ -1138,9 +1159,9 @@
         </div>
       </div>
 
-      <span  class="endGameTotalTimeClass" > <span>&#8987;</span>  <span id="endGameTotalTimeSpan">409.327s</span> </span>
-      <span class="endGameAverageTimeClass" >  <span style="letter-spacing: -0.5vmin"> &#9201;&nbsp; &#8725;  &nbsp; &#127136; &#127136; &#127136;</span> <span id="endGameAverageTimeSpan">&nbsp;   24.205s </span> </span>
-      <span  class="endGameBestTimeClass" > <span>&#9889;</span>  <span id="endGameBestTimeSpan">3.476s</span> </span>
+      <span  class="endGameTotalTimeClass" > <span>&#8987;&nbsp;</span>   <span id="endGameTotalTimeSpan">409.327s</span> </span>
+      <span class="endGameAverageTimeClass" style="letter-spacing: 0vmin" >  <span style="letter-spacing: -0.5vmin"> &#9201;&nbsp; &#8725;  &nbsp; &#127136; &#127136; &#127136; &nbsp; &nbsp;</span>  <span id="endGameAverageTimeSpan">24.205s </span> </span>
+      <span  class="endGameBestTimeClass" > <span>&#9889;&nbsp;</span> <span id="endGameBestTimeSpan">3.476s</span> </span>
 
   </div>
 
