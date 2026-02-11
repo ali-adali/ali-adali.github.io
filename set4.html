@@ -3,7 +3,7 @@
 <head>
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>!Set!</title>
   
   <style>
@@ -17,7 +17,17 @@
       background-color: black;
       color: white;
       font-family: Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* This keeps your sizes consistent */
+    }
+
+
 
     .theTableClass
     {
@@ -503,7 +513,7 @@
       height: 100%;
       width: 100%;
       background: rgba(0, 0, 0, 0.7);
-      scale:0;
+      scale:1;
       display:flex;
       justify-content: center;
       align-items: center;
@@ -734,8 +744,8 @@
 
     .graphClass
     {
-      position: fixed;
-      bottom:calc( 100vmax - 118.5vmin);
+      position: absolute;
+      bottom:23vmin;
       display: grid;
       grid-template-rows: auto auto; /* Two distinct rows */
       width: 80vmin;
@@ -761,19 +771,22 @@
       text-align: center;
       border-right: 0.2vmin dashed black;
       box-sizing: border-box; /* Prevents border from adding extra width */
+      width: 17%;
     }
 
     .timeRow 
     {
       display:flex;
       font-size:6vmin;
-      justify-content: end;
+      justify-content: flex-end;
       vertical-align: middle;
       writing-mode: vertical-rl;
-      text-orientation: upright;
+      
       align-items: center;
-      letter-spacing: -0.6vmin;
+      letter-spacing: -0.8vmin;
       text-shadow: 0.3vmin 0vmin 0.3vmin black, 0vmin 0.3vmin 0.3vmin black,-0.3vmin 0vmin 0.3vmin black,0vmin -0.3vmin 0.3vmin black;
+      margin-bottom: 1vmin;
+
     }
 
     .intervalLabel
@@ -1141,9 +1154,9 @@
       
       <div class="graphClass" style="scale:1">
         <div class="graphDataClass">
-          <span class="timeRow" id="time030"></span>
-          <span class="timeRow" id="time3060"></span>
-          <span class="timeRow" id="time6090"></span>
+          <span class="timeRow" id="time030">&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&nbsp;</span>
+          <span class="timeRow" id="time3060">&#128293;&#128293;&#128293;&#128293;&#128293;&#128293;&nbsp;</span>
+          <span class="timeRow" id="time6090">&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&nbsp;</span>
           <span class="timeRow" id="time90120"></span>
           <span class="timeRow" id="time120150"></span>
           <span class="timeRow" id="time150p" style="border-right: 0.0vmin solid black;"></span> 
