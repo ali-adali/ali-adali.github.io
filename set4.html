@@ -52,10 +52,10 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:9.5vmin;
+      font-size:9.8vmin;
       background: whitesmoke;
       
-      padding-bottom:4vmin;
+      padding-bottom:3vmin;
     }
 
     .scoreClass
@@ -745,10 +745,14 @@
     .graphClass
     {
       position: absolute;
-      bottom:23vmin;
+      bottom:25vmin;
       display: grid;
-      grid-template-rows: auto auto; /* Two distinct rows */
-      width: 80vmin;
+      grid-template-rows: 64vmin 6vmin; /* Two distinct rows */
+      width: 78vmin;
+      height: 70vmin;
+      border: 0.0vmin solid blue;
+      scale: 0.85;
+
     }
 
     .graphDataClass
@@ -769,9 +773,9 @@
     {
       flex: 1; /* This ensures both the bar and the label take up equal width */
       text-align: center;
-      border-right: 0.2vmin dashed black;
+      border-right: 0.0vmin dashed black;
       box-sizing: border-box; /* Prevents border from adding extra width */
-      width: 17%;
+      width: 13vmin;
     }
 
     .timeRow 
@@ -781,9 +785,12 @@
       justify-content: flex-end;
       vertical-align: middle;
       writing-mode: vertical-rl;
+
+      height: 64vmin;
+      width: 13vmin;
       
       align-items: center;
-      letter-spacing: -0.8vmin;
+      letter-spacing: -0.6vmin;
       text-shadow: 0.3vmin 0vmin 0.3vmin black, 0vmin 0.3vmin 0.3vmin black,-0.3vmin 0vmin 0.3vmin black,0vmin -0.3vmin 0.3vmin black;
       margin-bottom: 1vmin;
 
@@ -794,7 +801,7 @@
       font-size: 3.0vmin; /* Adjusted for fit */
       font-weight: 300;
       padding: 1vmin 0;
-      border-top:0.2vmin dashed black;
+      border-top:0.0vmin dashed black;
       border-bottom:0.3vmin solid black;
     }
 
@@ -1152,11 +1159,11 @@
     <div class="endGameCardClass">
       <span class="endGameIdClass" id = "endGameIdSpan"> Player1</span>
       
-      <div class="graphClass" style="scale:1">
+      <div class="graphClass">
         <div class="graphDataClass">
-          <span class="timeRow" id="time030">&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&nbsp;</span>
-          <span class="timeRow" id="time3060">&#128293;&#128293;&#128293;&#128293;&#128293;&#128293;&nbsp;</span>
-          <span class="timeRow" id="time6090">&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&nbsp;</span>
+          <span class="timeRow" id="time030"></span>
+          <span class="timeRow" id="time3060"></span>
+          <span class="timeRow" id="time6090"></span>
           <span class="timeRow" id="time90120"></span>
           <span class="timeRow" id="time120150"></span>
           <span class="timeRow" id="time150p" style="border-right: 0.0vmin solid black;"></span> 
@@ -1251,6 +1258,15 @@
 
    let timeStrings=['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;'];
 
+   /*
+        <span class="timeRow" id="time030">&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&#127808;&nbsp;</span>
+          <span class="timeRow" id="time3060">&#128293;&#128293;&#128293;&#128293;&#128293;&#128293;&nbsp;</span>
+          <span class="timeRow" id="time6090">&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&#127812;&nbsp;</span>
+          <span class="timeRow" id="time90120">&#127812;&#127812;&#127812;&nbsp;</span>
+          <span class="timeRow" id="time120150">&#127812;&#127812;&#127812;&nbsp;</span>
+          <span class="timeRow" id="time150p" style="border-right: 0.0vmin solid black;">&#128293;&#128293;&#128293;&#128293;&#128293;&#128293;&nbsp;</span>
+   */
+
 
 
 
@@ -1337,6 +1353,10 @@
         let ctdiv = document.createElement("DIV");
         ctdiv.style.height='33%';
         ctdiv.innerHTML = cPattern;
+
+        ctdiv.style.opacity=0.99
+
+
         if(cOpacity==0.5)
         {
           ctdiv.style.background = "repeating-linear-gradient( 45deg, "+ cColor + "1), " + cColor + "1) 0.5vmin, white 0.5vmin, white 1.0vmin )";
@@ -1371,7 +1391,7 @@
       
       
       
-      cardContent.setAttribute("onclick", 'let ccc= checkedCards.indexOf(theCards['+this.originalIndex+']); if(ccc==-1){ if(checkedCards.length<3) {this.animate([{scale:1.08 , boxShadow: "0.5vmin 0vmin 0.5vmin darkblue, -0.5vmin 0vmin 0.5vmin darkblue, 0vmin -0.5vmin 0.5vmin darkblue,0vmin 0.5vmin 0.5vmin darkblue"  }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.push(theCards['+this.originalIndex+']);} window.setTimeout(function() { checkSet(); }, 400);  } else {this.animate([{scale:1.00, boxShadow: "0.3vmin 0.3vmin 0.3vmin rgba(0, 0, 0, 0.7)" }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.splice( checkedCards.indexOf(theCards['+this.originalIndex+']) ,1); } '  );
+      cardContent.setAttribute("onclick", 'let ccc= checkedCards.indexOf(theCards['+this.originalIndex+']); if(ccc==-1){ if(checkedCards.length<3) {this.animate([{scale:1.085 , boxShadow: "0.7vmin 0vmin 0.7vmin blueviolet, -0.7vmin 0vmin 0.7vmin blueviolet, 0vmin -0.7vmin 0.7vmin blueviolet,0vmin 0.7vmin 0.7vmin blueviolet"  }],{duration: 300,easing: "ease-out", fill: "forwards", delay:10}); checkedCards.push(theCards['+this.originalIndex+']);} window.setTimeout(function() { checkSet(); }, 400);  } else {this.animate([{scale:1.00, boxShadow: "0.3vmin 0.3vmin 0.3vmin rgba(0, 0, 0, 0.7)" }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.splice( checkedCards.indexOf(theCards['+this.originalIndex+']) ,1); } '  );
 
      
 
