@@ -1158,8 +1158,7 @@
   <div class="endGameScreenClass" id="endGameScreenDiv">
     <div class="endGameCardClass">
       <span class="endGameIdClass" id = "endGameIdSpan"> Player1</span>
-      
-      <div class="graphClass">
+      <div class="graphClass" id="graphDiv">
         <div class="graphDataClass">
           <span class="timeRow" id="time030"></span>
           <span class="timeRow" id="time3060"></span>
@@ -1179,13 +1178,13 @@
         </div>
       </div>
 
-      <span  class="endGameTotalTimeClass" > <span>&#8987;&nbsp;</span>   <span id="endGameTotalTimeSpan">409.327s</span> </span>
-      <span class="endGameAverageTimeClass" style="letter-spacing: 0vmin" >  <span style="letter-spacing: -0.5vmin"> &#9201;&nbsp; &#8725;  &nbsp; &#127136; &#127136; &#127136; &nbsp; &nbsp;</span>  <span id="endGameAverageTimeSpan">24.205s </span> </span>
-      <span  class="endGameBestTimeClass" > <span>&#9889;&nbsp;</span> <span id="endGameBestTimeSpan">3.476s</span> </span>
+      <span  class="endGameTotalTimeClass" id="egTotalTimeSpan"> <span>&#8987;&nbsp;</span>   <span id="endGameTotalTimeSpan">409.327s</span> </span>
+      <span class="endGameAverageTimeClass" id="egTotalAverageTimeSpan" style="letter-spacing: 0vmin" >  <span style="letter-spacing: -0.5vmin"> &#9201;&nbsp; &#8725;  &nbsp; &#127136; &#127136; &#127136; &nbsp; &nbsp;</span>  <span id="endGameAverageTimeSpan">24.205s </span> </span>
+      <span  class="endGameBestTimeClass" id="egBestTimeSpan" > <span>&#9889;&nbsp;</span> <span id="endGameBestTimeSpan">3.476s</span> </span>
 
   </div>
 
-  <div class="endGameNewGameClass" onclick="location.reload();">New Game</div>
+  <div class="endGameNewGameClass" id="endGameNewGameDiv" onclick="location.reload();">New Game</div>
     
     
   </div>
@@ -1940,54 +1939,108 @@
       card.place = 18;
     }
 
-    document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
 
-    document.getElementById("reactionDiv").innerHTML="Remaining Cards Bonus";
 
-    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 3500+10*ptsIncrease,easing: 'ease-out', fill: 'forwards', delay:0});
+
+    document.getElementById("currentSetsDiv").innerHTML = '<span>Sets</span> <span>Finished!!!</span>';
+    document.getElementById("currentSetsDiv").setAttribute('style','border:none; font-size:18vmin;font-weight:800; text-align:center;color:white; text-shadow: 0.5vmin 0vmin 0.7vmin black, 0vmin 0.5vmin 0.7vmin black,-0.5vmin 0vmin 0.7vmin black,0vmin -0.5vmin 0.7vmin black;height:100%;width:100%;display:flex; flex-direction:column;justify-content:center;align-items:center; ');
+
+    document.getElementById("currentSetsDiv").animate([{ scale:0,offset:0 }, {scale:1.0,offset:0.1},{scale:0.8,offset:0.99},{scale:0,offset:1}],{duration: 1600,easing: 'ease-out', fill: 'forwards', delay:50});
+
+    //document.getElementById("reactionIconDiv").innerHTML="Sets FINITO!!!";
+
+    //document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.5,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 2950,easing: 'ease-out', fill: 'forwards', delay:50});
+
+     document.getElementById("reactionDiv").innerHTML="Remaining Cards Bonus";
+
+    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:1500});
+
+    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:1.2,offset:1}],{duration: 900,easing: 'ease-out', fill: 'forwards', delay:1700});
+
+
+    let vLeft='37.5vmin'; 
+    let vTop='5vmin';
+    if(orientationQueryLS.matches){ vLeft = 'calc(100vmax - 25vmin - 2vmin )'; vTop='2vmin';    } 
+
+
+    document.getElementById("pointsDiv").animate([{ scale:0.4, top:vTop, left:vLeft }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:3000});
+    document.getElementById("pointsDiv").animate([{ scale:0}],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+
+
 
     //document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
-    
-    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
 
-    window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 1750);
+    //window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 3500);
 
 
     
     for(let i =0;i<ptsIncrease;i++)
     {
-      window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ;}, 1200+ 20*i);
+      window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ;}, 3500+ 10*i);
     }
 
 
 
-  /*
-    document.getElementById("niceDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2000+2*ptsIncrease});
 
-    document.getElementById("niceCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2000+2*ptsIncrease});
+   
 
+    
+    
+    
 
-    document.getElementById("brilliantDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2100+2*ptsIncrease});
+    //moreCardsDiv
 
-    document.getElementById("brilliantCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2100+2*ptsIncrease});
-
-
-
-    document.getElementById("superiorDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2200+2*ptsIncrease});
-
-    document.getElementById("superiorCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2200+2*ptsIncrease});
+    document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
 
 
+  
+    document.getElementById("niceDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
 
-    document.getElementById("epicDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2300+2*ptsIncrease});
-
-    document.getElementById("epicCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2300+2*ptsIncrease});
+    document.getElementById("niceCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
 
 
-    document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2500+2*ptsIncrease});
+    document.getElementById("brilliantDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
 
-    document.getElementById("scoreDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2700+2*ptsIncrease});
+    document.getElementById("brilliantCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+
+
+    document.getElementById("superiorDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+    document.getElementById("superiorCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+
+    document.getElementById("epicDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+    document.getElementById("epicCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+
+    document.getElementById("endGameIdSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("egTotalTimeSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("egTotalAverageTimeSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("egBestTimeSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("graphDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("endGameScreenDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("endGameNewGameDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    //endGameNewGameDiv
+ 
+/*
+
+    document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:500});
+
+    document.getElementById("scoreDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:600});
+
     */
+    
 
 
 
@@ -2016,7 +2069,18 @@
       document.getElementById("endGameAverageTimeSpan").innerHTML =averageTime+'s';
       document.getElementById("endGameBestTimeSpan").innerHTML =minimumTime+'s';
 
-      }, 2700+2*ptsIncrease);
+      }, 3500+10*ptsIncrease);
+
+
+    //  endGameIdSpan graphDiv egTotalTimeSpan egTotalAverageTimeSpan egBestTimeSpan scoreDiv
+
+
+
+ 
+
+
+
+
 
     /*
     <span class="endGameIdClass" id = "endGameIdSpan"> Player1</span>
@@ -2036,7 +2100,43 @@
 
 
 
-    document.getElementById("endGameScreenDiv").animate([{ scale:0 },{ scale:1 }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:3000+2*ptsIncrease});
+    document.getElementById("endGameScreenDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:3800+10*ptsIncrease});
+
+
+     document.getElementById("niceDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4000+10*ptsIncrease});
+
+    document.getElementById("niceCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4200+10*ptsIncrease});
+
+
+    document.getElementById("brilliantDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4400+10*ptsIncrease});
+
+    document.getElementById("brilliantCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4600+10*ptsIncrease});
+
+
+
+    document.getElementById("superiorDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease});
+
+    document.getElementById("superiorCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5000+10*ptsIncrease});
+
+
+    document.getElementById("epicDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5200+10*ptsIncrease});
+
+    document.getElementById("epicCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5400+10*ptsIncrease});
+
+
+    document.getElementById("endGameIdSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5600+10*ptsIncrease});
+
+    document.getElementById("graphDiv").animate([{ scale:0.9 }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:5800+10*ptsIncrease});
+
+    document.getElementById("egTotalTimeSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:6000+10*ptsIncrease});
+
+    document.getElementById("egTotalAverageTimeSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:6200+10*ptsIncrease});
+
+    document.getElementById("egBestTimeSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:6400+10*ptsIncrease});
+
+     document.getElementById("endGameNewGameDiv").animate([{ scale:1 }],{duration: 200,easing: 'ease-out', fill: 'forwards',delay: 6400+10*ptsIncrease});
+
+    
 
     
      
