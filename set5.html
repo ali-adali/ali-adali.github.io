@@ -3,7 +3,7 @@
 <head>
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>!Set!</title>
   
   <style>
@@ -17,7 +17,17 @@
       background-color: black;
       color: white;
       font-family: Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* This keeps your sizes consistent */
+    }
+
+
 
     .theTableClass
     {
@@ -42,10 +52,9 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:9.5vmin;
+      font-size:9.8vmin;
       background: whitesmoke;
       
-      padding-bottom:4vmin;
     }
 
     .scoreClass
@@ -490,8 +499,6 @@
       font-size:2vmin;
       z-index: 1000;
 
-
-
     }
 
 
@@ -568,7 +575,6 @@
       text-align: center;
       font-size:11vmin;
       font-weight: 700;
-
     
       box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
 
@@ -583,63 +589,14 @@
       margin-block: 2vmin;
     }
 
-    .endGameAverageTimeClass
-    {
-      border:0.0vmin solid gray;
-      position: absolute;
-      height: 12vmin;
-      weight: 70vmin;
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      
-      bottom: 12vmin;
-      font-size: 5vmin;
-
-      font-weight: 500;
-      border-radius: 6vmin;
-
-    }
-
     
 
     .endGameTotalTimeClass
     {
-      border:0.0vmin solid gray;
-      position: absolute;
-      height: 10vmin ;
-      weight: 20vmin ;
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      bottom: 3vmin;
-      left: 20vmin;
-      font-size: 5vmin;
-
-      font-weight: 500;
-      border-radius: 6vmin;
-
-    }
-
-    
-
-    .endGameBestTimeClass
-    {
-      border:0.0vmin solid gray;
-      position: absolute;
-      height: 10vmin ;
-      weight: 20vmin ;
-
-      bottom: 3vmin;
-      left: 50vmin;
+      position: fixed;
+      top: 121vmin;
+      height: 8vmin ;
+      width: 28vmin ;
 
       display: flex;
       flex-direction: row;
@@ -648,12 +605,80 @@
       text-align: center;
 
       
-      font-size: 5vmin;
+      left: 22vmin;
+      font-size: 4.5vmin;
 
-      font-weight: 500;
-      border-radius: 6vmin;
+      font-weight: 300;
+      border-radius: 4vmin;
+      background-image: repeating-linear-gradient(45deg,royalblue, royalblue 20%   ,silver 49.5%, silver 50.5% , royalblue 80%, royalblue 100% );
+
+      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
+
+
 
     }
+
+    .endGameBestTimeClass
+    {
+      
+      position: fixed;
+      top: 121vmin;
+      height: 8vmin ;
+      width: 24vmin ;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      
+      left:52vmin;
+      font-size: 4.5vmin;
+
+      font-weight: 300;
+      border-radius: 4vmin;
+
+      background-image: repeating-linear-gradient(45deg,orangered, orangered 20%   ,silver 49.5%, silver 50.5% , orangered 80%, orangered 100% );
+
+      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
+
+      
+
+    }
+
+    .endGameAverageTimeClass
+    {
+      
+
+      position: fixed;
+      top:131vmin;
+      left:30vmin;
+      height: 8vmin;
+      width: 40vmin;
+
+
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      
+      
+      font-size: 4.5vmin;
+
+      font-weight: 300;
+      border-radius: 4vmin;
+
+      background-image: repeating-linear-gradient(45deg,seagreen, seagreen 20%   ,silver 49.5%, silver 50.5% , seagreen 80%, seagreen 100% );
+
+      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
+
+    }
+
+    
 
     .endGameNewGameClass
     {
@@ -715,64 +740,69 @@
     }
 
 
-    .graphTableClass
+
+    .graphClass
     {
       position: absolute;
-      border-collapse: collapse;
-      
-      height: 66vmin ;
-      width: 70vmin;
-      top:52vmin;
-      
+      bottom:25vmin;
+      display: grid;
+      grid-template-rows: 64vmin 6vmin; /* Two distinct rows */
+      width: 78vmin;
+      height: 70vmin;
+      border: 0.0vmin solid blue;
+      scale: 0.85;
+
     }
 
-
-
-    .graphTableClass th,td
+    .graphDataClass
     {
-      border:0.0vmin solid black;
-    }
-  
-    .graphTableClass td,tr
-    {
-      vertical-align: center;
-      text-align: center;
-     
-    }
-  
-    .dataClass
-    {
-      vertical-align: top;
-      align-items:center;
-      padding-left: 2vmin;
-    }
-
-    .dataSpanClass
-    {
-      writing-mode: vertical-rl;
-      text-orientation: upright;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size:6.5vmin;
-      letter-spacing: -0.65vmin;
-      text-shadow: 0.3vmin 0vmin 0.3vmin black, 0vmin 0.3vmin 0.3vmin black,-0.3vmin 0vmin 0.3vmin black,0vmin -0.3vmin 0.3vmin black;
+      flex-direction: row;
+      height: auto; /* Fixed height for the bars */
     }
 
-    .intervalsClass td
+    /* NEW: Style for the label row to match the top row */
+    .intervalsClass
     {
-      font-size: 3.5vmin;
-      font-weight: 300;
-      height: 6vmin;
-      border-bottom: 0.2vmin solid black;
-      border-right: 0.2vmin solid black;
+      display: flex;
+      flex-direction: row;
     }
 
+    .timeRow, .intervalLabel
+    {
+      flex: 1; /* This ensures both the bar and the label take up equal width */
+      text-align: center;
+      border-right: 0.0vmin dashed black;
+      box-sizing: border-box; /* Prevents border from adding extra width */
+      width: 13vmin;
+    }
 
+    .timeRow 
+    {
+      display:flex;
+      font-size:6vmin;
+      justify-content: flex-end;
+      vertical-align: middle;
+      writing-mode: vertical-rl;
 
+      height: 64vmin;
+      width: 13vmin;
+      
+      align-items: center;
+      letter-spacing: -0.6vmin;
+      text-shadow: 0.3vmin 0vmin 0.3vmin black, 0vmin 0.3vmin 0.3vmin black,-0.3vmin 0vmin 0.3vmin black,0vmin -0.3vmin 0.3vmin black;
+      margin-bottom: 1vmin;
 
+    }
 
-
+    .intervalLabel
+    {
+      font-size: 3.0vmin; /* Adjusted for fit */
+      font-weight: 300;
+      padding: 1vmin 0;
+      border-top:0.0vmin dashed black;
+      border-bottom:0.3vmin solid black;
+    }
 
 
 
@@ -1127,37 +1157,33 @@
   <div class="endGameScreenClass" id="endGameScreenDiv">
     <div class="endGameCardClass">
       <span class="endGameIdClass" id = "endGameIdSpan"> Player1</span>
+      <div class="graphClass" id="graphDiv">
+        <div class="graphDataClass">
+          <span class="timeRow" id="time030"></span>
+          <span class="timeRow" id="time3060"></span>
+          <span class="timeRow" id="time6090"></span>
+          <span class="timeRow" id="time90120"></span>
+          <span class="timeRow" id="time120150"></span>
+          <span class="timeRow" id="time150p" style="border-right: 0.0vmin solid black;"></span> 
+        </div>
 
-      <table class="graphTableClass">
-        <tr class="intervalsClass">
-          <td>0-5s </td>
-          <td>5-15s </td>
-          <td>15-30s </td>
-          <td>30-60s </td>
-          <td>60-120s </td>
-          <td style="border-right: none;">120s+ </td>
-        </tr>
+        <div class="intervalsClass">
+          <div class="intervalLabel">0-5s</div>
+          <div class="intervalLabel">5-15s</div>
+          <div class="intervalLabel">15-30s</div>
+          <div class="intervalLabel">30-60s</div>
+          <div class="intervalLabel">60-120s</div>
+          <div class="intervalLabel" style="border-right: 0.0vmin solid black;">120s+</div>
+        </div>
+      </div>
 
-        <tr>
-          <td class="dataClass"><span class="dataSpanClass" id="time030">  </span>  </td>
-          <td class="dataClass"><span class="dataSpanClass" id="time3060"> </span> </td>
-          <td class="dataClass"><span class="dataSpanClass" id="time60890"></span>  </td>
-          <td class="dataClass"><span class="dataSpanClass" id="time90120">  </span> </td>
-          <td class="dataClass"><span class="dataSpanClass" id="time120150"> </span> </td>
-          <td class="dataClass"><span class="dataSpanClass" id="time150p">  </span> </td>
-        </tr> 
-
-      </table>
-      
-     
-
-      <span  class="endGameTotalTimeClass" > <span>&#8987;</span>  <span id="endGameTotalTimeSpan">409.327s</span> </span>
-      <span class="endGameAverageTimeClass" >  <span style="letter-spacing: -0.5vmin"> &#9201;&nbsp; &#8725;  &nbsp; &#127136; &#127136; &#127136;</span> <span style="letter-spacing: 0.5vmin" id="endGameAverageTimeSpan">&nbsp;   24.205s </span> </span>
-      <span  class="endGameBestTimeClass" > <span>&#9889;</span>  <span id="endGameBestTimeSpan">3.476s</span> </span>
+      <span  class="endGameTotalTimeClass" id="egTotalTimeSpan"> <span>&#8987;&nbsp;</span>   <span id="endGameTotalTimeSpan">409.327s</span> </span>
+      <span class="endGameAverageTimeClass" id="egTotalAverageTimeSpan" style="letter-spacing: 0vmin" >  <span style="letter-spacing: -0.5vmin"> &#9201;&nbsp; &#8725;  &nbsp; &#127136; &#127136; &#127136; &nbsp; &nbsp;</span>  <span id="endGameAverageTimeSpan">24.205s </span> </span>
+      <span  class="endGameBestTimeClass" id="egBestTimeSpan" > <span>&#9889;&nbsp;</span> <span id="endGameBestTimeSpan">3.476s</span> </span>
 
   </div>
 
-  <div class="endGameNewGameClass" onclick="location.reload();">New Game</div>
+  <div class="endGameNewGameClass" id="endGameNewGameDiv" onclick="location.reload();">New Game</div>
     
     
   </div>
@@ -1176,28 +1202,6 @@
 </body>
 
 <script>
-
-  /*
-   <div class="graphClass" style="scale:1">
-        <div class="graphDataClass">
-          <span class="timeRow" id="time030"></span>
-          <span class="timeRow" id="time3060"></span>
-          <span class="timeRow" id="time6090">  </span>
-          <span class="timeRow" id="time90120"> </span>
-          <span class="timeRow" id="time120150">  </span>
-          <span class="timeRow" id="time150p" style="border-right: 0.0vmin solid black;"> </span> 
-        </div>
-
-        <div class="intervalsClass">
-          <div class="intervalLabel">0-5s</div>
-          <div class="intervalLabel">5-15s</div>
-          <div class="intervalLabel">15-30s</div>
-          <div class="intervalLabel">30-60s</div>
-          <div class="intervalLabel">60-120s</div>
-          <div class="intervalLabel" style="border-right: 0.0vmin solid black;">120s+</div>
-        </div>
-      </div>
-  */
 
   let theDeck=[];
   let theCards=[];
@@ -1233,25 +1237,20 @@
 
   let playerName='';
 
-  let setColors=['rgba(0, 0, 139,','rgba(139, 0, 0,','rgba(0, 110, 0,']; // blue darkred green
+  let setColors=['midnightblue','darkred','darkgreen'];
 
-  // rgba(0, 114, 178,    rgba(0, 158, 115,  rgba(213, 94, 0,   dark blue - blueish green - vermillion
 
-  //let setColors=[ 'rgba(0, 114, 178,','rgba(0, 158, 115,','rgba(213, 94, 0,' ];
+ 
 
   let currentTime;
 
-   let setSymbols = ['&#9679;','&#9632;','&#9650;']  //square triangle circle
-   
-  // let setSymbols =['&#10084;','&#10022;','&#9752;' ] //     kalp 4-yildiz yonca 
   
-
-  //let setSymbols =['&#9827;','&#9824;','&#9830;']; //  clubs  spade  diamond &#9829; heart
 
    let findSetDurations=[];
 
    let timeStrings=['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;'];
 
+  
 
 
 
@@ -1273,73 +1272,178 @@
       let cardContent = document.createElement("DIV");
       cardContent.classList.add("cardClass");
 
+      const cardSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+      cardSVG.setAttribute("viewBox", "0 0 540 240");
+
+      const cardDefs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+      const cardPattern = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
+
+      let cOpacity=Number(props[1]);
+      let cColor = setColors[props[0]];
+      let cPattern=Number(props[2]);
+      let cNumber=Number(props[3]);
       
 
-      let cPattern=setSymbols[props[2]];
 
 
-      let cNumber=Number(props[3]);
+      
+      cardPattern.setAttribute("patternUnits", "userSpaceOnUse");
+      cardPattern.setAttribute("width", "20");
+      cardPattern.setAttribute("height", "20");
+      cardPattern.setAttribute("patternTransform", "rotate(45)");
 
-      let cColor = setColors[props[0]];
-      /*
-      switch(props[0])
+      const rect1 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect1.setAttribute("width", "10");
+      rect1.setAttribute("height", "20");
+      
+
+      const rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect2.setAttribute("x", "10");
+      rect2.setAttribute("width", "10");
+      rect2.setAttribute("height", "20");
+      //rect2.setAttribute("fill", "whitesmoke");
+
+      let patternId = '';
+
+      switch(cOpacity)
       {
       case 0:
-        cColor= 'rgba(0, 0, 139,'; //rgba(0, 0, 139, 1) 'blue'
+        rect1.setAttribute("fill", "whitesmoke");
+        rect2.setAttribute("fill", "whitesmoke");
+        patternId = cColor+'Empty';
         break;
 
       case 1:
-        cColor= 'rgba(139, 0, 0,'; //rgba(139, 0, 0, 1) 'darkred'
+        rect1.setAttribute("fill", cColor);
+        rect2.setAttribute("fill", "whitesmoke");
+        patternId = cColor+'Striped';
         break;
 
       case 2:
-        cColor='rgba(0, 110, 0,'; //rgba(0, 100, 0, 1)  'green'
+        rect1.setAttribute("fill", cColor);
+        rect2.setAttribute("fill", cColor);
+        patternId = cColor+'Full';
         break;
       }
+      //rect1.setAttribute("fill", "darkred");
+
+
+
+      cardPattern.setAttribute("id", patternId);
+      cardPattern.appendChild(rect1);
+      cardPattern.appendChild(rect2);
+      cardDefs.appendChild(cardPattern);
+      cardSVG.appendChild(cardDefs);
+
+      let cardFigure;
+
+      switch(cPattern)
+      {
+      case 0:
+        cardFigure = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        cardFigure.setAttribute("points", "270,30 120,120 270,210 420,120");
+        break;
+
+      case 1:
+        cardFigure = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        cardFigure.setAttribute("d", "M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z");
+        break;
+
+      case 2:
+        cardFigure = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        cardFigure.setAttribute("d", "M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100");
+        break;
+      }
+
+
+
+      //const cardFigure = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      //cardFigure.setAttribute("points", "270,30 120,120 270,210 420,120");
+
+      Object.assign(cardFigure.style, {
+          fill: "url(#"+patternId+")",
+          stroke: cColor,
+          strokeWidth: "16",
+          strokeLinejoin: "round",
+          strokeLinecap: "round",
+      });
+
+      cardSVG.appendChild(cardFigure);
+
+
+
+      /*
+      // 1. Define the Namespace
+      const svgNS = "http://www.w3.org/2000/svg";
+
+      // 2. Create the main SVG element
+      const svg = document.createElementNS(svgNS, "svg");
+      svg.setAttribute("viewBox", "0 0 540 240");
+
+      // 3. Create <defs> and <pattern>
+      const defs = document.createElementNS(svgNS, "defs");
+      const pattern = document.createElementNS(svgNS, "pattern");
+
+      pattern.setAttribute("id", "stripes");
+      pattern.setAttribute("patternUnits", "userSpaceOnUse");
+      pattern.setAttribute("width", "20");
+      pattern.setAttribute("height", "20");
+      pattern.setAttribute("patternTransform", "rotate(45)");
+
+      // 4. Create the stripes inside the pattern
+      const rect1 = document.createElementNS(svgNS, "rect");
+      rect1.setAttribute("width", "10");
+      rect1.setAttribute("height", "20");
+      rect1.setAttribute("fill", "darkred");
+
+      const rect2 = document.createElementNS(svgNS, "rect");
+      rect2.setAttribute("x", "10");
+      rect2.setAttribute("width", "10");
+      rect2.setAttribute("height", "20");
+      rect2.setAttribute("fill", "whitesmoke");
+
+      pattern.appendChild(rect1);
+      pattern.appendChild(rect2);
+      defs.appendChild(pattern);
+      svg.appendChild(defs);
+
+      // 5. Create the Polygon
+      const polygon = document.createElementNS(svgNS, "polygon");
+      polygon.setAttribute("points", "270,30 120,120 270,210 420,120");
+
+      // Apply styles (You can use .style property for CSS-like syntax)
+      Object.assign(polygon.style, {
+          fill: "url(#stripes)",
+          stroke: "darkred",
+          strokeWidth: "16",
+          strokeLinejoin: "round",
+          strokeLinecap: "round",
+          strokeDasharray: "699.71"
+      });
+
+      svg.appendChild(polygon);
       */
 
-      let cOpacity;
-      switch(props[1])
+      cardContent.appendChild(cardSVG);
+
+
+
+      
+
+      //let cPattern=setSymbols[props[2]];
+      for(let i = 0; i<cNumber;i++)
       {
-      case 0:
-        cOpacity=0;
-        break;
-
-      case 1:
-        cOpacity=0.5;
-      //background: repeating-linear-gradient( 45deg, darkred, darkred 0.6vmin, white 0.6vmin, white 1.2vmin );
-         //cardContent.style.background = "repeating-linear-gradient( 45deg, "+cColor +"1), "+cColor + "1) 0.6vmin, white 0.6vmin, white 1.2vmin )";
-        break;
-
-      case 2:
-        cOpacity=1;
-        break;
+        let copySVG = cardSVG.cloneNode(true);
+        cardContent.appendChild(copySVG);
       }
 
+      
 
-      for(let i=0;i< Number(cNumber+1);i++)
-      {
-        let ctdiv = document.createElement("DIV");
-        ctdiv.style.height='33%';
-        ctdiv.innerHTML = cPattern;
-        if(cOpacity==0.5)
-        {
-          ctdiv.style.background = "repeating-linear-gradient( 45deg, "+ cColor + "1), " + cColor + "1) 0.5vmin, white 0.5vmin, white 1.0vmin )";
-          ctdiv.style.color="transparent";
-          ctdiv.style.webkitBackgroundClip='text';
-          ctdiv.style.backgroundClip='text';
-        }
 
-        
+ 
 
-          /*
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          */
-        cardContent.appendChild(ctdiv);
 
-      }
 
 
       
@@ -1348,15 +1452,11 @@
 
       
 
-      
-      
-      cardContent.style.color = cColor+cOpacity+')';
-      cardContent.style.webkitTextStroke = '0.7'+'vmin '+ cColor+'1)';
+    
       
       
       
-      
-      cardContent.setAttribute("onclick", 'let ccc= checkedCards.indexOf(theCards['+this.originalIndex+']); if(ccc==-1){ if(checkedCards.length<3) {this.animate([{scale:1.08 , boxShadow: "0.5vmin 0vmin 0.5vmin darkblue, -0.5vmin 0vmin 0.5vmin darkblue, 0vmin -0.5vmin 0.5vmin darkblue,0vmin 0.5vmin 0.5vmin darkblue"  }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.push(theCards['+this.originalIndex+']);} window.setTimeout(function() { checkSet(); }, 400);  } else {this.animate([{scale:1.00, boxShadow: "0.3vmin 0.3vmin 0.3vmin rgba(0, 0, 0, 0.7)" }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.splice( checkedCards.indexOf(theCards['+this.originalIndex+']) ,1); } '  );
+      cardContent.setAttribute("onclick", 'let ccc= checkedCards.indexOf(theCards['+this.originalIndex+']); if(ccc==-1){ if(checkedCards.length<3) {this.animate([{scale:1.085 , boxShadow: "0.7vmin 0vmin 0.7vmin blueviolet, -0.7vmin 0vmin 0.7vmin blueviolet, 0vmin -0.7vmin 0.7vmin blueviolet,0vmin 0.7vmin 0.7vmin blueviolet"  }],{duration: 300,easing: "ease-out", fill: "forwards", delay:10}); checkedCards.push(theCards['+this.originalIndex+']);} window.setTimeout(function() { checkSet(); }, 400);  } else {this.animate([{scale:1.00, boxShadow: "0.3vmin 0.3vmin 0.3vmin rgba(0, 0, 0, 0.7)" }],{duration: 500,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.splice( checkedCards.indexOf(theCards['+this.originalIndex+']) ,1); } '  );
 
      
 
@@ -1523,7 +1623,8 @@
    function checkSet()
   {
     let setFindTime = Number(Date.now()) - Number(currentTime);
-    let timeCoeff = Math.exp(1 / (1 + Number(setFindTime)/60000));
+
+    let timeCoeff = Math.exp(1 / (1 + (setFindTime)/60000));
 
 
     if(checkedCards.length==3)
@@ -1566,7 +1667,26 @@
         scoreSideLength= '25vmin' ;
       }
 
-     
+      // scoreLeft scoreTop scoreSideLength
+
+
+      /* Portrait
+      nice(11.25vmin) left:61.2vmin; top:5vmin;
+      brilliant(11.25vmin) left:27.5vmin; top:5vmin;
+      superior(15vmin) left:61.6vmin; top:16.5vmin;
+      epic(15vmin) left:23.5vmin; top:16.5vmin;
+      score(25vmin) left:37.5vmin; top:5vmin;
+      */
+
+      /*
+      LS: 
+      score(25vmin) top:2vmin; left:calc(100vmax - 25vmin - 2vmin);
+      epic(20vmin) left:calc(100vmax - 45vmin - 2vmin); top:2vmin;
+      superior(15vmin) left:calc(100vmax - 34.8vmin - 2vmin); top:20.6vmin;
+      brilliant(12vmin) left:calc(100vmax - 20.2vmin - 2vmin); top:27vmin;
+      nice(10vmin)left:calc(100vmax - 10.3vmin );top:24.5vmin;  
+      */
+
   
 
       switch(pointsBase)
@@ -1703,7 +1823,7 @@
 
         case setFindTime>119999:
           //timeStrings[5] = timeStrings[5].replace('&nbsp;', reactionIcon + '&nbsp;');
-          timeStrings[5] = reactionIcon + timeStrings[1];
+          timeStrings[5] = reactionIcon + timeStrings[5];
           document.getElementById("time150p").innerHTML = timeStrings[5];
           break;
 
@@ -1885,54 +2005,108 @@
       card.place = 18;
     }
 
-    document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:0});
 
-    document.getElementById("reactionDiv").innerHTML="Remaining Cards Bonus";
 
-    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 3500+10*ptsIncrease,easing: 'ease-out', fill: 'forwards', delay:0});
+
+    document.getElementById("currentSetsDiv").innerHTML = '<span>Sets</span> <span>Finished!!!</span>';
+    document.getElementById("currentSetsDiv").setAttribute('style','border:none; font-size:18vmin;font-weight:800; text-align:center;color:white; text-shadow: 0.5vmin 0vmin 0.7vmin black, 0vmin 0.5vmin 0.7vmin black,-0.5vmin 0vmin 0.7vmin black,0vmin -0.5vmin 0.7vmin black;height:100%;width:100%;display:flex; flex-direction:column;justify-content:center;align-items:center; ');
+
+    document.getElementById("currentSetsDiv").animate([{ scale:0,offset:0 }, {scale:1.0,offset:0.1},{scale:0.8,offset:0.99},{scale:0,offset:1}],{duration: 1600,easing: 'ease-out', fill: 'forwards', delay:50});
+
+    //document.getElementById("reactionIconDiv").innerHTML="Sets FINITO!!!";
+
+    //document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.5,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 2950,easing: 'ease-out', fill: 'forwards', delay:50});
+
+     document.getElementById("reactionDiv").innerHTML="Remaining Cards Bonus";
+
+    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:1500});
+
+    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:1.2,offset:1}],{duration: 900,easing: 'ease-out', fill: 'forwards', delay:1700});
+
+
+    let vLeft='37.5vmin'; 
+    let vTop='5vmin';
+    if(orientationQueryLS.matches){ vLeft = 'calc(100vmax - 25vmin - 2vmin )'; vTop='2vmin';    } 
+
+
+    document.getElementById("pointsDiv").animate([{ scale:0.4, top:vTop, left:vLeft }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:3000});
+    document.getElementById("pointsDiv").animate([{ scale:0}],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+
+
 
     //document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
-    
-    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
 
-    window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 1750);
+    //window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 3500);
 
 
     
     for(let i =0;i<ptsIncrease;i++)
     {
-      window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ;}, 1200+ 20*i);
+      window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ;}, 3500+ 10*i);
     }
 
 
 
-  /*
-    document.getElementById("niceDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2000+2*ptsIncrease});
 
-    document.getElementById("niceCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2000+2*ptsIncrease});
+   
 
+    
+    
+    
 
-    document.getElementById("brilliantDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2100+2*ptsIncrease});
+    //moreCardsDiv
 
-    document.getElementById("brilliantCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2100+2*ptsIncrease});
-
-
-
-    document.getElementById("superiorDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2200+2*ptsIncrease});
-
-    document.getElementById("superiorCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2200+2*ptsIncrease});
+    document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
 
 
+  
+    document.getElementById("niceDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
 
-    document.getElementById("epicDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2300+2*ptsIncrease});
-
-    document.getElementById("epicCountDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2300+2*ptsIncrease});
+    document.getElementById("niceCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
 
 
-    document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2500+2*ptsIncrease});
+    document.getElementById("brilliantDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
 
-    document.getElementById("scoreDiv").animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2700+2*ptsIncrease});
+    document.getElementById("brilliantCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+
+
+    document.getElementById("superiorDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+    document.getElementById("superiorCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+
+    document.getElementById("epicDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+    document.getElementById("epicCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+
+    document.getElementById("endGameIdSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("egTotalTimeSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("egTotalAverageTimeSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("egBestTimeSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("graphDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("endGameScreenDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    document.getElementById("endGameNewGameDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
+
+    //endGameNewGameDiv
+ 
+/*
+
+    document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:500});
+
+    document.getElementById("scoreDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:600});
+
     */
+    
 
 
 
@@ -1961,7 +2135,18 @@
       document.getElementById("endGameAverageTimeSpan").innerHTML =averageTime+'s';
       document.getElementById("endGameBestTimeSpan").innerHTML =minimumTime+'s';
 
-      }, 2700+2*ptsIncrease);
+      }, 3500+10*ptsIncrease);
+
+
+    //  endGameIdSpan graphDiv egTotalTimeSpan egTotalAverageTimeSpan egBestTimeSpan scoreDiv
+
+
+
+ 
+
+
+
+
 
     /*
     <span class="endGameIdClass" id = "endGameIdSpan"> Player1</span>
@@ -1981,7 +2166,43 @@
 
 
 
-    document.getElementById("endGameScreenDiv").animate([{ scale:0 },{ scale:1 }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:3000+2*ptsIncrease});
+    document.getElementById("endGameScreenDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:3800+10*ptsIncrease});
+
+
+     document.getElementById("niceDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4000+10*ptsIncrease});
+
+    document.getElementById("niceCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4200+10*ptsIncrease});
+
+
+    document.getElementById("brilliantDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4400+10*ptsIncrease});
+
+    document.getElementById("brilliantCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4600+10*ptsIncrease});
+
+
+
+    document.getElementById("superiorDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease});
+
+    document.getElementById("superiorCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5000+10*ptsIncrease});
+
+
+    document.getElementById("epicDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5200+10*ptsIncrease});
+
+    document.getElementById("epicCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5400+10*ptsIncrease});
+
+
+    document.getElementById("endGameIdSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5600+10*ptsIncrease});
+
+    document.getElementById("graphDiv").animate([{ scale:0.9 }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:5800+10*ptsIncrease});
+
+    document.getElementById("egTotalTimeSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:6000+10*ptsIncrease});
+
+    document.getElementById("egTotalAverageTimeSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:6200+10*ptsIncrease});
+
+    document.getElementById("egBestTimeSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:6400+10*ptsIncrease});
+
+     document.getElementById("endGameNewGameDiv").animate([{ scale:1 }],{duration: 200,easing: 'ease-out', fill: 'forwards',delay: 6400+10*ptsIncrease});
+
+    
 
     
      
