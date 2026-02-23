@@ -723,9 +723,12 @@
       justify-content:center; 
       text-align:center; 
       padding-top: 0vmin; 
-      padding-left:0vmin; 
-      background-image: repeating-linear-gradient(45deg,orangered, orangered 20%   ,orange 49.5%, orange 50.5% , orangered 80%, orangered 100% );
+      padding-left:0vmin;
 
+      background: radial-gradient(circle, orange 0%, orangered 100%);
+
+
+      
       text-shadow: 0.3vmin 0vmin 0.2vmin darkgreen, 0vmin 0.3vmin 0.2vmin darkgreen,-0.3vmin 0vmin 0.2vmin darkgreen,0vmin -0.3vmin 0.2vmin darkgreen,0.3vmin 0.3vmin 0.2vmin darkgreen, -0.3vmin -0.3vmin 0.2vmin darkgreen; 
       color:whitesmoke; 
     }
@@ -851,8 +854,8 @@
 
       .epicClass
       {
-        left:19.3vmin;
-        top:18.5vmin;
+        left:19.4vmin;
+        top:16.4vmin;
         height: 15vmin;
         width: 15vmin;
          scale: 1.2;
@@ -867,8 +870,8 @@
 
       .superiorClass
       {
-        left:66.0vmin;
-        top:18.5vmin;
+        left:65.6vmin;
+        top:16.4vmin;
         height: 15vmin;
         width: 15vmin;
         scale: 1.2;
@@ -877,14 +880,14 @@
       .superiorCountClass
       {
         left:78vmin;
-        top:16.5vmin;
+        top:14.5vmin;
         scale: 1.2;
       }
 
       .brilliantClass
       {
         left:23.5vmin;
-        top:4.2vmin;
+        top:2.4vmin;
         height: 11.25vmin;
         width: 11.25vmin;
         scale: 1.2;
@@ -892,15 +895,15 @@
 
       .brilliantCountClass
       {
-        left:20vmin;
-        top:3.5vmin;
+        left:19.5vmin;
+        top:1.0vmin;
         scale: 1.2;
       }
 
       .niceClass
       {
         left:65.3vmin;
-        top:4.2vmin;
+        top:2.4vmin;
         height: 11.25vmin;
         width: 11.25vmin;
         scale: 1.2;
@@ -908,8 +911,8 @@
 
       .niceCountClass
       {
-        left:74.5vmin;
-        top:2vmin;
+        left:75vmin;
+        top:1.0vmin;
         scale: 1.2;
       }
 
@@ -947,14 +950,15 @@
     {
       .cardClass
       {
-        height: 30.0vmin;
-        width: 20.0vmin;
+        height: 28.5vmin;
+        width: 19.0vmin;
       }
 
       .moreCardsClass
       {
-        width: 20.0vmin;
-        height: 30.0vmin;
+        height: 28.5vmin;
+        width: 19.0vmin;
+        
       }
 
       .theTableClass
@@ -977,7 +981,7 @@
 
       .epicClass
       {
-        left:calc(100vmax - 45vmin - 2vmin);
+        left:calc(100vmax - 45vmin - 2.2vmin);
         top:2vmin;
         height: 20vmin;
         width: 20vmin;
@@ -985,14 +989,14 @@
 
       .epicCountClass
       {
-        left:calc(100vmax - 45.2vmin );
-        top:18vmin;
+        left:calc(100vmax - 46.0vmin );
+        top:17.6vmin;
       }
   
 
       .superiorClass
       {
-        left:calc(100vmax - 34.8vmin - 2vmin);
+        left:calc(100vmax - 35vmin - 2vmin);
         top:20.6vmin;
         height: 15vmin;
         width: 15vmin;
@@ -1000,28 +1004,28 @@
 
       .superiorCountClass
       {
-        left:calc(100vmax - 36.7vmin );
+        left:calc(100vmax - 37vmin );
         top:31.1vmin;
       }
 
       .brilliantClass
       {
-        left:calc(100vmax - 20.2vmin - 2vmin);
-        top:27vmin;
+        left:calc(100vmax - 20.5vmin - 2vmin);
+        top:27.1vmin;
         height: 12vmin;
         width: 12vmin;
       }
 
       .brilliantCountClass
       {
-        left:calc(100vmax - 22.6vmin);
+        left:calc(100vmax - 23vmin);
         top:35.7vmin;
       }
 
       .niceClass
       {
-        left:calc(100vmax - 10.3vmin );
-        top:24.5vmin;
+        left:calc(100vmax - 10.7vmin );
+        top:24.8vmin;
         height: 10vmin;
         width: 10vmin;
       }
@@ -1029,8 +1033,8 @@
 
       .niceCountClass
       {
-        left:calc(100vmax - 9.7vmin);
-        top:32.1vmin;
+        left:calc(100vmax - 10vmin);
+        top:32.4vmin;
       }
 
 
@@ -1222,8 +1226,8 @@
 
   let cardsOnTable=[];
 
-  let cardHeightLS=30.0;
-  let cardWidthLS=20.0;
+  let cardHeightLS=28.5;
+  let cardWidthLS=19.0;
 
 
   let cardHeightPT=33.66;
@@ -1410,7 +1414,7 @@
       
       
       
-      cardContent.setAttribute("onclick", 'let ccc= checkedCards.indexOf(theCards['+this.originalIndex+']); if(ccc==-1){ if(checkedCards.length<3) {this.animate([{scale:1.03 , boxShadow: "0.7vmin 0vmin 0.7vmin blueviolet, -0.7vmin 0vmin 0.7vmin blueviolet, 0vmin -0.7vmin 0.7vmin blueviolet,0vmin 0.7vmin 0.7vmin blueviolet"  }],{duration: 200,easing: "ease-out", fill: "forwards", delay:0}); checkedCards.push(theCards['+this.originalIndex+']);} window.setTimeout(function() { checkSet(); }, 300);  } else {this.animate([{scale:1.00, boxShadow: "0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.7)" }],{duration: 200,easing: "ease-out", fill: "forwards", delay:100}); checkedCards.splice( checkedCards.indexOf(theCards['+this.originalIndex+']) ,1); } '  );
+      cardContent.setAttribute("onclick", 'let ccc= checkedCards.indexOf(theCards['+this.originalIndex+']); if(ccc==-1){ if(checkedCards.length<3) {this.animate([{scale:1.03 , boxShadow: "1.2vmin 0vmin 0.8vmin orangered, -1.2vmin 0vmin 0.8vmin orangered, 0vmin -1.2vmin 0.8vmin orangered,0vmin 1.2vmin 0.8vmin orangered"  }],{duration: 150,easing: "ease-out", fill: "forwards", delay:0}); checkedCards.push(theCards['+this.originalIndex+']);} window.setTimeout(function() { checkSet(); }, 200);  } else {this.animate([{scale:1.00, boxShadow: "0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.7)" }],{duration: 200,easing: "ease-out", fill: "forwards", delay:0}); checkedCards.splice( checkedCards.indexOf(theCards['+this.originalIndex+']) ,1); } '  );
 
      //box-shadow: 0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.0) ;
 
@@ -1474,7 +1478,7 @@
       cWidth = cardWidthLS;
 
       cLeft = 'calc(100vmax - '+cWidth+'vmin - 2vmin)';
-      cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin )';
+      cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin - 7.5vmin)';
     }
 
     else
@@ -2281,7 +2285,7 @@ orientationQueryLS.addEventListener("change", (e) => {
       cWidth = cardWidthLS;
 
       cLeft = 'calc(100vmax - '+cWidth+'vmin - 2vmin)';
-      cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin )';
+      cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin - 7.5vmin )';
     }
 
 
