@@ -1,0 +1,14 @@
+{
+    "name": "!Set!",
+    "short_name": "Set",
+    "icons": [
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#2F3E46",
+    "background_color": "#2F3E46",
+    "display": "standalone"
+}
