@@ -16,7 +16,6 @@
 
   <meta name="theme-color" content="#3D2B1F">
 
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>!Set!</title>
   
@@ -31,6 +30,8 @@
       background-color: black;
       color: white;
       font-family: Arial, sans-serif;
+
+      overscroll-behavior-y: contain;
      
     }
 
@@ -46,7 +47,7 @@
     {
       position: fixed;    
       border: 0px solid blue;
-      background: radial-gradient(circle, burlywood, burlywood 40%,#3D2B1F 100%);
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
     }
 
     .cardClass
@@ -186,9 +187,6 @@
       text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black; 
 
     }
-
-
-
 
     .brilliantClass
     {
@@ -347,8 +345,7 @@
     }
 
 
-    
-
+  
 
     .pointsClass
     {
@@ -395,15 +392,6 @@
       z-index: 30;
 
     }
-
-
-
-    .clockClass
-    {
-      position: fixed;
-      border:2px solid blueviolet;
-    }
-
 
 
 
@@ -519,9 +507,6 @@
 
     }
 
-
-
-
     .endGameScreenClass
     {
       position: fixed;
@@ -529,197 +514,291 @@
       left:0;
       height: 100%;
       width: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      scale:0;
+
       display:flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       text-align: center;
-      z-index: 0;
-      padding-top:1vmin;
+      scale: 0;
+
+      z-index: 31;
+
 
     }
+
 
     
 
     .endGameCardClass
     {
-      position: fixed;
-      top:2vmin;
-      height: 140vmin;
-      width: 90vmin;
-      background: whitesmoke;
+      
+
+      height: 98vmin;
+      width: 92vmin;
+
+      padding-block: 3vmin;
+
       border: 0.15vmin solid blueviolet;
-      border-radius: 8vmin;
+      border-radius: 6vmin;
+      
       display:flex;
-      justify-content: center;
+      justify-content: space-evenly;
       align-items: center;
       flex-direction: column;
       text-align: center;
-      color: black;
-      font-size: 7vmin;
-      font-weight: 800;
 
       box-shadow:0vmin 0vmin 1vmin 0.7vmin ghostwhite;
-
-      background-image: repeating-linear-gradient(45deg,blueviolet, blueviolet 15%   ,ghostwhite 49.5%, ghostwhite 50.5% , blueviolet 85%, blueviolet 100% );
+      background: radial-gradient(circle, ghostwhite, blueviolet 100%);
 
       text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black;
-      color: ghostwhite; 
-    }
-
-    .endGameIdClass
-    {
-      position: fixed;
-      top:38vmin;
-      font-size: 12vmin;
-      font-weight: 800;
-      color: white;
-
-      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black; 
-    }
-
-    .endGameScoreClass
-    {
-      height: 32vmin;
-      width: 32vmin;
-
       color: ghostwhite;
-
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      font-size:11vmin;
-      font-weight: 700;
-    
-      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
-
-      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black; 
-
-      background: seagreen;
-      border-radius: 50%;
-
-      
-     
       z-index: 31;
-      margin-block: 2vmin;
+      
     }
+
+
+
+
+    .endGameNameNPointsClass
+    {
+      height: 10vmin;
+      width: 90%;
+      
+      margin-bottom:4vmin;
+
+      display:flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      border: 0.0vmin solid darkblue;
+      font-size: 9.6vmin;
+      font-weight: 600;
+    }
+
+    .endGameNameNPointsClass span
+    {
+      height: 100%;
+      width: 50%;
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 0.0vmin solid blanchedalmond;
+    }
+
+    .chartClass
+    {
+      height: 34vmin;
+      width: 80%;
+
+      padding: 0;
+      margin: 0;
+
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 0.0vmin solid darkseagreen;     
+    }
+
+    .dataClass
+    {     
+      width: 100%;
+      height: 88%;
+      display:flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 3vmin 3vmin  0vmin 0vmin;
+    }
+
+    .dataClass div
+    {
+      width: 16.6%;
+      height: 100%;
+      border: 0.0vmin solid darkcyan;
+      display:flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      padding-bottom: 1vmin;
+      padding-top: 0.5vmin;
+      border-right: 0.1vmin solid ghostwhite;
+    }
+
+    .dataClass div > span
+    {
+      margin: -0.3vmin;
+      font-size:3.2vmin;
+      scale: 0;
+    }
+
+
+
+    .intervalsClass
+    {
+  
+      width: 100%;
+      height: 12%;
+
+      display:flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0vmin;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 0vmin 0vmin  3vmin 3vmin;
+    }
+
+    .intervalsClass span
+    {
+      width: 16.6%;
+      height: 100%;
+      
+      border-top: 0.1vmin solid ghostwhite;
+      border-right: 0.1vmin solid ghostwhite;
+
+      font-size: 2.8vmin;
+
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    .typeCountsClass
+    {
+      
+      width: 80%;
+      height: 10%;
+
+      display:flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      border: 0.0vmin solid black;
+      
+
+      border-radius: 3vmin 3vmin 3vmin 3vmin;
+
+      scale: 0.9;
+    }
+
+    .typeCountsClass span
+    {
+      width: 22%;
+      height: 100%;
+      border: 0.0vmin solid black;
+
+      display:flex;
+      flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 4.7vmin;
+        font-weight: 700;
+
+        background: orange;
+
+        border-radius: 3vmin;
+        
+    }
+
+
+    .timeClass
+    {
+
+      width: 60%;
+      height: 24vmin;
+      
+
+      display:flex;
+      flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+      border: 0.0vmin solid darkcyan;
+      font-size: 3.0vmin;
+
+      
+
+      margin-left: 0vmin;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 3vmin;
+      
+    }
+
+    .timeClass div
+    {
+      width: 100%;
+      height: 27%;
+      
+
+      display:flex;
+      flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+      border: 0.0vmin solid red;
+    
+    }
+
+    .timeClass div > span
+    {
+      height: 100%;
+      width: 40%;
 
     
+      border: 0.0vmin solid darkmagenta;
+      text-align: left;
 
-    .endGameTotalTimeClass
-    {
-      position: fixed;
-      top: 121vmin;
-      height: 8vmin ;
-      width: 28vmin ;
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      
-      left: 22vmin;
-      font-size: 4.5vmin;
-
-      font-weight: 300;
-      border-radius: 4vmin;
-      background-image: repeating-linear-gradient(45deg,royalblue, royalblue 20%   ,silver 49.5%, silver 50.5% , royalblue 80%, royalblue 100% );
-
-      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
-
-
+      display:flex;
+      flex-direction: column;
+        justify-content: center;
+        
+  
 
     }
-
-    .endGameBestTimeClass
-    {
-      
-      position: fixed;
-      top: 121vmin;
-      height: 8vmin ;
-      width: 24vmin ;
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      
-      left:52vmin;
-      font-size: 4.5vmin;
-
-      font-weight: 300;
-      border-radius: 4vmin;
-
-      background-image: repeating-linear-gradient(45deg,orangered, orangered 20%   ,silver 49.5%, silver 50.5% , orangered 80%, orangered 100% );
-
-      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
-
-      
-
-    }
-
-    .endGameAverageTimeClass
-    {
-      
-
-      position: fixed;
-      top:131vmin;
-      left:30vmin;
-      height: 8vmin;
-      width: 40vmin;
-
-
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      
-      
-      font-size: 4.5vmin;
-
-      font-weight: 300;
-      border-radius: 4vmin;
-
-      background-image: repeating-linear-gradient(45deg,seagreen, seagreen 20%   ,silver 49.5%, silver 50.5% , seagreen 80%, seagreen 100% );
-
-      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.8),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.8),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.8) ;
-
-    }
-
-    
 
     .endGameNewGameClass
     {
-      position: fixed;
-      top:140vmin;
-      border: 0.0vmin solid ghostwhite;
-      height: 40vmin;
-      width: 40vmin;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      border-radius: 50%;
-      margin-top: 5%;
-      background-image: repeating-linear-gradient(45deg,orangered, orangered 20%   ,orange 49.5%, orange 50.5% , orangered 80%, orangered 100% );
-    
-      font-size: 10.6vmin;
-      font-weight: 700;
+      height: 30vmin;
+      width: 30vmin;
 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 8vmin;
+
+      border-radius: 50%;
+
+      background: radial-gradient(circle, orangered,orange);
+      color:ghostwhite;
+
+      font-size: 7.5vmin;
+      font-weight: 600; 
+
+      
       text-shadow: 0.3vmin 0vmin 0.2vmin darkgreen, 0vmin 0.3vmin 0.2vmin darkgreen,-0.3vmin 0vmin 0.2vmin darkgreen,0vmin -0.3vmin 0.2vmin darkgreen,0.3vmin 0.3vmin 0.2vmin darkgreen, -0.3vmin -0.3vmin 0.2vmin darkgreen; 
       color:whitesmoke;
 
+      margin-top: 4vmin;
     }
+
+
+
+
+   
+
+
+
 
     .startButtonClass
     {
@@ -728,8 +807,7 @@
       width: 60vmin; 
       border: 0.1vmin solid gray; 
       border-radius: 50%; 
-      font-size: 15vmin;
-      font-weight: 800; 
+      
       color:darkgreen;
       cursor:pointer; 
       display:flex; 
@@ -738,6 +816,9 @@
       text-align:center; 
       padding-top: 0vmin; 
       padding-left:0vmin;
+
+      font-size: 15vmin;
+      font-weight: 800; 
 
       background: radial-gradient(circle, orange 0%, orangered 100%);
 
@@ -762,68 +843,7 @@
 
 
 
-    .graphClass
-    {
-      position: absolute;
-      bottom:25vmin;
-      display: grid;
-      grid-template-rows: 64vmin 6vmin; /* Two distinct rows */
-      width: 78vmin;
-      height: 70vmin;
-      border: 0.0vmin solid blue;
-      scale: 0.85;
 
-    }
-
-    .graphDataClass
-    {
-      display: flex;
-      flex-direction: row;
-      height: auto; /* Fixed height for the bars */
-    }
-
-    /* NEW: Style for the label row to match the top row */
-    .intervalsClass
-    {
-      display: flex;
-      flex-direction: row;
-    }
-
-    .timeRow, .intervalLabel
-    {
-      flex: 1; /* This ensures both the bar and the label take up equal width */
-      text-align: center;
-      border-right: 0.0vmin dashed black;
-      box-sizing: border-box; /* Prevents border from adding extra width */
-      width: 13vmin;
-    }
-
-    .timeRow 
-    {
-      display:flex;
-      font-size:6vmin;
-      justify-content: flex-end;
-      vertical-align: middle;
-      writing-mode: vertical-rl;
-
-      height: 64vmin;
-      width: 13vmin;
-      
-      align-items: center;
-      letter-spacing: -0.6vmin;
-      text-shadow: 0.3vmin 0vmin 0.3vmin black, 0vmin 0.3vmin 0.3vmin black,-0.3vmin 0vmin 0.3vmin black,0vmin -0.3vmin 0.3vmin black;
-      margin-bottom: 1vmin;
-
-    }
-
-    .intervalLabel
-    {
-      font-size: 3.0vmin; /* Adjusted for fit */
-      font-weight: 300;
-      padding: 1vmin 0;
-      border-top:0.0vmin dashed black;
-      border-bottom:0.3vmin solid black;
-    }
 
 
 
@@ -950,13 +970,7 @@
         height: 33.66vmin;
       }
 
-      .newGameClass
-      {
-        left:0vmin;
-        top:90vmax;
-        height: 10vmax;
-        width: 30vmin;
-      }
+     
 
     }
 
@@ -1072,14 +1086,15 @@
       .endGameScreenClass
       {
         flex-direction: row;
+
       }
 
-      .endGameCardClass
+      .endGameNewGameClass
       {
-        height: 93vmin;
-        width: 60vmin;
-        margin-right: 5%;
+        margin-left: 6vmin;
       }
+
+
 
       .enterNameClass
       {
@@ -1089,39 +1104,24 @@
     }
 
 
-  textarea 
-  {
-    height:12vmin ;
-    width:40vmin ;
-
-
-    /* 1. Remove background */
-    background: none;
-
-    /* 2. Remove the resize handle (bottom-right corner) */
-    resize: none;
-
-    /* 3. Change Border Radius */
-    border-radius: 3vmin;
-
-    /* 4. Font Size and Style */
-    font-size: 5.5vmin;
-    
-    font-weight: 600;
-    color: white;
-
-    /* Extra: Removing the default blue outline on click */
-    outline: none;
-    
-    /* Extra: Adjusting padding so text doesn't touch the border */
-    padding-top: 2vmin;
-
-    border: 0.3vmin solid #ccc;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-  }
+    textarea 
+    {
+      height:12vmin ;
+      width:40vmin ;
+      background: none;
+      resize: none; /* 2. Remove the resize handle (bottom-right corner) */
+      border-radius: 3vmin;
+      font-size: 5.5vmin;
+      font-weight: 600;
+      color: white;
+      outline: none;  /* Extra: Removing the default blue outline on click */
+      padding-top: 2vmin;
+      border: 0.3vmin solid #ccc;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+    }
    
 
     
@@ -1136,14 +1136,14 @@
 
   <div class="scoreClass" id="scoreDiv" onclick="theLastStep();"> 0 </div>
 
-  <div class="niceClass" id="niceDiv"> &#127808; </div>
+  <div class="niceClass" id="niceDiv"> </div>
   <div class="niceCountClass" id="niceCountDiv">0</div>
 
 
-  <div class="brilliantClass" id="brilliantDiv"> &#127812;   </div>
+  <div class="brilliantClass" id="brilliantDiv">  </div>
   <div class="brilliantCountClass" id="brilliantCountDiv">0</div>
 
-  <div class="superiorClass" id="superiorDiv">&#127989;  </div>
+  <div class="superiorClass" id="superiorDiv"> </div>
   <div class="superiorCountClass" id="superiorCountDiv">0</div>
 
   <div class="epicClass" id="epicDiv">&#128293; </div>
@@ -1151,9 +1151,11 @@
 
 
   <div class="reactionClass" id="reactionDiv">   </div>
-  <div class="reactionIconClass" id="reactionIconDiv">&#128293; </div>
+  <div class="reactionIconClass" id="reactionIconDiv"> </div>
   
   <div class="pointsClass" id="pointsDiv" > </div>
+
+
 
   <div class="curtainClass" id="curtainDiv"></div>
 
@@ -1177,40 +1179,90 @@
     <textarea class="enterNameClass" id='playerTA' placeholder="Enter Name" oninput='document.getElementById("startButton").disabled = false; document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value;  '></textarea> 
   </div>
 
-
   <div class="endGameScreenClass" id="endGameScreenDiv">
-    <div class="endGameCardClass">
-      <span class="endGameIdClass" id = "endGameIdSpan"> Player1</span>
-      <div class="graphClass" id="graphDiv">
-        <div class="graphDataClass">
-          <span class="timeRow" id="time030"></span>
-          <span class="timeRow" id="time3060"></span>
-          <span class="timeRow" id="time6090"></span>
-          <span class="timeRow" id="time90120"></span>
-          <span class="timeRow" id="time120150"></span>
-          <span class="timeRow" id="time150p" style="border-right: 0.0vmin solid black;"></span> 
+    <div class="endGameCardClass" id="endGameCardDiv">
+      
+      <div class="endGameNameNPointsClass">
+        <span id = "endGameIdSpan">AADALI</span> <span id = "endGamePointsSpan">2168 pts</span>
+      </div>
+
+
+
+
+      <div class="chartClass">
+        <div class="dataClass">
+          <div id="time030"> </div> 
+
+          <div id="time3060"> </div> 
+
+          <div id="time6090"> </div> 
+
+          <div id="time90120"> </div> 
+
+          <div id="time120150"> </div> 
+
+          <div id="time150p" style="border-right: none;"> </div>
         </div>
 
+
+
         <div class="intervalsClass">
-          <div class="intervalLabel">0-5s</div>
-          <div class="intervalLabel">5-15s</div>
-          <div class="intervalLabel">15-30s</div>
-          <div class="intervalLabel">30-60s</div>
-          <div class="intervalLabel">60-120s</div>
-          <div class="intervalLabel" style="border-right: 0.0vmin solid black;">120s+</div>
+          <span>0-5s </span> 
+          <span>5-15s </span>  
+          <span> 15-30s </span> 
+          <span> 30-60s </span> 
+          <span>60-120s </span> 
+          <span style="border-right: none;">120s+</span>
         </div>
       </div>
 
-      <span  class="endGameTotalTimeClass" id="egTotalTimeSpan"> <span>&#8987;&nbsp;</span>   <span id="endGameTotalTimeSpan">409.327s</span> </span>
-      <span class="endGameAverageTimeClass" id="egTotalAverageTimeSpan" style="letter-spacing: 0vmin" >  <span style="letter-spacing: -0.5vmin"> &#9201;&nbsp; &#8725;  &nbsp; &#127136; &#127136; &#127136; &nbsp; &nbsp;</span>  <span id="endGameAverageTimeSpan">24.205s </span> </span>
-      <span  class="endGameBestTimeClass" id="egBestTimeSpan" > <span>&#9889;&nbsp;</span> <span id="endGameBestTimeSpan">3.476s</span> </span>
+      <div class="typeCountsClass">
+          <span id="typeCountsEpicSpan"></span> 
+          <span id="typeCountsSuperiorSpan"></span>
+          <span id="typeCountsBrilliantSpan"></span>
+          <span id="typeCountsNiceSpan"></span>  
+      </div>
 
+
+
+
+      <div class="timeClass">
+        <div style="background: rgba(0, 0, 0, 0.8);border-radius: 3vmin 3vmin 0vmin 0vmin;"> 
+          <span>Total Time</span>
+          <span id="endGameTotalTimeSpan" style="text-align: right;width: 28%;">436.288</span>
+          <span style="width: 22%;"> &nbsp; sec</span>
+        </div>
+
+        <div>
+          <span>Average Time</span>
+          <span id="endGameAverageTimeSpan" style="text-align: right;width: 28%;">40.813</span>
+          <span style="width: 22%;">&nbsp; sec/set</span>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.8);">
+          <span>Fastest Set</span>
+          <span id="endGameBestTimeSpan" style="text-align: right;width: 28%;">2.071</span>
+          <span style="width: 22%;" >&nbsp; sec</span>
+        </div>
+
+        <div style="border-radius: 0vmin 0vmin 3vmin 3vmin;">
+          <span>Efficiency</span>
+          <span id="endGameEfficiencySpan" style="text-align: right; width: 28%;">4.392</span>
+          <span style="width: 22%;">&nbsp; pts/sec</span>
+        </div>  
+      </div>
+
+
+      <div >
+        
+      </div>  
+    </div>
+
+    <div class="endGameNewGameClass" onclick="location.reload();"> New Game </div>
+    
   </div>
 
-  <div class="endGameNewGameClass" id="endGameNewGameDiv" onclick="location.reload();">New Game</div>
-    
-    
-  </div>
+  
 
 
 
@@ -1264,15 +1316,21 @@
   let setColors=['midnightblue','darkred','darkgreen'];
 
 
- 
-
   let currentTime;
 
-  
+  let findSetDurations=[];
 
-   let findSetDurations=[];
+  let timeStrings=['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;'];
 
-   let timeStrings=['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;'];
+  // '&#127808;' 'Nice',  '&#127812;' 'Brilliant!', '&#127989;' 'Superior!!', '&#128293;' 'Epic!!!'  
+
+  let icons=['&#127812;','&#127808;','&#127989;','&#128293;'];
+  let reactions=['Nice','Brilliant!','Superior!!','Epic!!!'];
+
+  document.getElementById("niceDiv").innerHTML = icons[0];
+  document.getElementById("brilliantDiv").innerHTML = icons[1];
+  document.getElementById("superiorDiv").innerHTML = icons[2];
+  document.getElementById("epicDiv").innerHTML = icons[3];
 
   
 
@@ -1646,16 +1704,21 @@
           scoreSideLength= '25vmin' ;
         }
 
+        reactionIcon = icons[pointsBase-5];
+        reactionPhrase= reactions[pointsBase-5];
+
+
+
+
        
     
 
         switch(pointsBase)
         {
         case 5:
-          reactionIcon = '&#127808;';
+          
           niceCount++;
-          reactionPhrase='Nice';
-
+          
           //Portrait
           iconTop = '4.5vmin';
           iconLeft='62vmin';
@@ -1671,9 +1734,9 @@
           break;
 
         case 6:
-          reactionIcon = '&#127812;';
+          
           brilliantCount++;
-          reactionPhrase='Brilliant!';
+          
 
           //Portrait
           iconTop = '3.5vmin';
@@ -1691,9 +1754,9 @@
           break;
 
         case 7:
-          reactionIcon = '&#127989;';
+          
           superiorCount++;
-          reactionPhrase='Superior!!';
+          
 
           //Portrait
           iconTop = '17.5vmin';
@@ -1711,9 +1774,8 @@
           break;
 
         case 8:
-          reactionIcon = '&#128293;';
+          
           epicCount++; 
-          reactionPhrase='Epic!!!';
 
           //Portrait
           iconTop = '16vmin';
@@ -1730,6 +1792,8 @@
           break;
         }
 
+
+
         //let ptsIncrease = Number(pointsBase)*Number(pointsBase);
 
         let ptsIncrease = Math.round( Number(pointsBase)*Number(pointsBase)*Number(timeCoeff) ); 
@@ -1743,47 +1807,41 @@
         currentTime = Date.now();
 
         findSetDurations.push(setFindTime);
+        let spanElement= document.createElement("SPAN");
+
+        spanElement.innerHTML = reactionIcon;
+
+        let timeIntervalDiv;
 
         switch(true)
         {
         case setFindTime< 5000:
-          
-          //timeStrings[0] = timeStrings[0].replace('&nbsp;', reactionIcon + '&nbsp;');
-          timeStrings[0] = reactionIcon + timeStrings[0];
-          document.getElementById("time030").innerHTML = timeStrings[0];
+          timeIntervalDiv = document.getElementById("time030");
           break;
 
         case setFindTime< 15000:
-          //timeStrings[1] = timeStrings[1].replace('&nbsp;', reactionIcon + '&nbsp;');
-          timeStrings[1] = reactionIcon + timeStrings[1];
-          document.getElementById("time3060").innerHTML = timeStrings[1];
+          timeIntervalDiv =document.getElementById("time3060");
           break;
 
         case setFindTime<30000:
-          //timeStrings[2] = timeStrings[2].replace('&nbsp;', reactionIcon + '&nbsp;');
-          timeStrings[2] = reactionIcon + timeStrings[2];
-          document.getElementById("time6090").innerHTML = timeStrings[2];
+          timeIntervalDiv = document.getElementById("time6090");
           break;
 
         case setFindTime<60000:
-          //timeStrings[3] = timeStrings[3].replace('&nbsp;', reactionIcon + '&nbsp;');
-          timeStrings[3] = reactionIcon + timeStrings[3];
-          document.getElementById("time90120").innerHTML = timeStrings[3];
+          timeIntervalDiv = document.getElementById("time90120");
           break;
 
         case setFindTime<120000:
-          //timeStrings[4] = timeStrings[4].replace('&nbsp;', reactionIcon + '&nbsp;');
-          timeStrings[4] = reactionIcon + timeStrings[4];
-          document.getElementById("time120150").innerHTML = timeStrings[4];
+          timeIntervalDiv = document.getElementById("time120150");
           break;
 
         case setFindTime>119999:
-          //timeStrings[5] = timeStrings[5].replace('&nbsp;', reactionIcon + '&nbsp;');
-          timeStrings[5] = reactionIcon + timeStrings[5];
-          document.getElementById("time150p").innerHTML = timeStrings[5];
+          timeIntervalDiv =document.getElementById("time150p");
           break;
-
         }
+
+        timeIntervalDiv.appendChild(spanElement);
+
         
         while(checkedCards.length>0)
         {
@@ -1938,11 +1996,15 @@
     
   }
 
+
+
   function theLastStep()
   {
     let pointsBase = Number(cardsOnTable.length);
     let ptsIncrease = Number(pointsBase)*Number(pointsBase);
     document.getElementById("pointsDiv").innerHTML = '+'+ptsIncrease ;
+
+    let TTPts = totalPoints+ptsIncrease;
 
     while(cardsOnTable.length>0)
     {
@@ -1963,22 +2025,18 @@
 
 
 
-    document.getElementById("curtainDiv").animate([{ scale:0,offset:0 }, {scale:1,offset:0.0001},{scale:1,offset:0.9999},{scale:0,offset:1}],{duration: 3500+10*ptsIncrease,easing: 'ease-out', fill: 'forwards', delay:0});
+    document.getElementById("curtainDiv").animate([{ scale:1}],{duration: 10,easing: 'ease-out', fill: 'forwards', delay:0});
 
     document.getElementById("currentSetsDiv").innerHTML = '<span>Sets</span> <span>Finished!!!</span>';
     document.getElementById("currentSetsDiv").setAttribute('style','border:none; font-size:18vmin;font-weight:800; text-align:center;color:white; text-shadow: 0.5vmin 0vmin 0.7vmin black, 0vmin 0.5vmin 0.7vmin black,-0.5vmin 0vmin 0.7vmin black,0vmin -0.5vmin 0.7vmin black;height:100%;width:100%;display:flex; flex-direction:column;justify-content:center;align-items:center; ');
 
-    document.getElementById("currentSetsDiv").animate([{ scale:0,offset:0 }, {scale:1.0,offset:0.1},{scale:0.8,offset:0.99},{scale:0,offset:1}],{duration: 1600,easing: 'ease-out', fill: 'forwards', delay:50});
+    document.getElementById("currentSetsDiv").animate([{ scale:0,offset:0 }, {scale:1.0,offset:0.1},{scale:0.8,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:50});
 
-    //document.getElementById("reactionIconDiv").innerHTML="Sets FINITO!!!";
+    document.getElementById("reactionDiv").innerHTML="Remaining Cards Bonus";
 
-    //document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.5,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 2950,easing: 'ease-out', fill: 'forwards', delay:50});
+    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.9},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:900});
 
-     document.getElementById("reactionDiv").innerHTML="Remaining Cards Bonus";
-
-    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:1500});
-
-    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:1.2,offset:1}],{duration: 900,easing: 'ease-out', fill: 'forwards', delay:1700});
+    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:1.2,offset:1}],{duration: 900,easing: 'ease-out', fill: 'forwards', delay:1200});
 
 
     let vLeft='37.5vmin'; 
@@ -1986,100 +2044,32 @@
     if(orientationQueryLS.matches){ vLeft = 'calc(100vmax - 25vmin - 2vmin )'; vTop='2vmin';    } 
 
 
-    document.getElementById("pointsDiv").animate([{ scale:0.4, top:vTop, left:vLeft }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:3000});
-    document.getElementById("pointsDiv").animate([{ scale:0}],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:3500});
-
-
-
-
-    //document.getElementById("reactionIconDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:100});
-
-    //window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 3500);
-
+    document.getElementById("pointsDiv").animate([{ scale:0.4, top:vTop, left:vLeft }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2100});
+    document.getElementById("pointsDiv").animate([{ scale:0}],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:2900});
 
     
     for(let i =0;i<ptsIncrease;i++)
     {
-      window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ;}, 3500+ 10*i);
+      window.setTimeout(function() { document.getElementById("scoreDiv").innerHTML = Number(totalPoints+1+i) ;}, 2900+ 10*i);
     }
 
 
 
-
-   
-
-    
-    
-    
-
-    //moreCardsDiv
-
     document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
-
-
-  
     document.getElementById("niceDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
-
     document.getElementById("niceCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
-
-
     document.getElementById("brilliantDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
-
     document.getElementById("brilliantCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
-
-
-
     document.getElementById("superiorDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
-
     document.getElementById("superiorCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
-
-
     document.getElementById("epicDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
-
     document.getElementById("epicCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
-
-
-    document.getElementById("endGameIdSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
-
-    document.getElementById("egTotalTimeSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
-
-    document.getElementById("egTotalAverageTimeSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
-
-    document.getElementById("egBestTimeSpan").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
-
-    document.getElementById("graphDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
-
-    document.getElementById("endGameScreenDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
-
-    document.getElementById("endGameNewGameDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3500});
-
-    //endGameNewGameDiv
- 
-/*
-
-    document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:500});
-
-    document.getElementById("scoreDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:600});
-
-    */
-    
-
-
-
-
-
-
 
 
     window.setTimeout(function() {
       document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value;
-
-      //document.getElementById("endGameScoreSpan").innerHTML = totalPoints;
-      //document.getElementById("endGameEpicSpan").innerHTML =  epicCount + " &times; &#128293;";
-      //document.getElementById("endGameSuperiorSpan").innerHTML =  superiorCount + " &times; &#127989;";
-      //document.getElementById("endGameBrilliantSpan").innerHTML =  brilliantCount + " &times; &#127812;";
-      //document.getElementById("endGameNiceSpan").innerHTML =  niceCount + " &times; &#127808;";
       let totalTime = 0;
+
       for(let i=0;i<findSetDurations.length;i++)
       {
         totalTime+= Number(findSetDurations[i]);
@@ -2087,189 +2077,187 @@
       let averageTime = Math.trunc(Number(totalTime)/Number(findSetDurations.length))/1000;
       let minimumTime = Math.min(...findSetDurations)/1000;
 
-      document.getElementById("endGameTotalTimeSpan").innerHTML =Number(totalTime/1000)+'s';
-      document.getElementById("endGameAverageTimeSpan").innerHTML =averageTime+'s';
-      document.getElementById("endGameBestTimeSpan").innerHTML =minimumTime+'s';
+      let gameEfficiency = Math.trunc(1000000*Number(TTPts)/Number(totalTime))/1000;
 
-      }, 3500+10*ptsIncrease);
+      document.getElementById("endGameTotalTimeSpan").innerHTML =Number(totalTime/1000);
+      document.getElementById("endGameAverageTimeSpan").innerHTML =averageTime;
+      document.getElementById("endGameBestTimeSpan").innerHTML =minimumTime;
+      document.getElementById("endGameEfficiencySpan").innerHTML =gameEfficiency;
+      document.getElementById("endGamePointsSpan").innerHTML ='0'+' pts';
 
+      document.getElementById("typeCountsEpicSpan").innerHTML = '0'+' &times; '+icons[3];
+      document.getElementById("typeCountsSuperiorSpan").innerHTML ='0'+' &times; '+icons[2];
+      document.getElementById("typeCountsBrilliantSpan").innerHTML = '0'+' &times; '+icons[1];
+      document.getElementById("typeCountsNiceSpan").innerHTML = '0'+' &times; '+icons[0];
 
-    //  endGameIdSpan graphDiv egTotalTimeSpan egTotalAverageTimeSpan egBestTimeSpan scoreDiv
+      //typeCountsEpicSpan typeCountsSuperiorSpan typeCountsBrilliantSpan typeCountsNiceSpan  3 &times; &#128293;
 
+      // "endGameCardDiv" "endGamePointsSpan"
 
-
- 
-
-
-
-
-
-    /*
-    <span class="endGameIdClass" id = "endGameIdSpan"> Player1</span>
-    <span id="endGameTotalTimeSpan" class="endGameTimeClass" > total Time </span>
-      <span id="endGameAverageTimeSpan" class="endGameTimeClass" > Average Time </span>
-      <span id="endGameBestTimeSpan" class="endGameTimeClass" > Best Time </span>
-    */
+      // time030 time3060 time6090 time90120 time120150
 
 
+      }, 2900+10*ptsIncrease);
 
+    document.getElementById("scoreDiv").animate([{ scale:0 }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:2900+10*ptsIncrease });
 
+    document.getElementById("endGameScreenDiv").animate([{ scale:1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3000+10*ptsIncrease });
 
-    
+    //document.getElementById("endGamePointsSpan").innerHTML =TTPts+' pts';
 
-    
-    
+    for(let i=0;i<TTPts;i++)
+    {
+      let dtime = Number(1000/TTPts);
+      window.setTimeout(function() { document.getElementById("endGamePointsSpan").innerHTML = Number(i+1)+' pts'; }, 3000+10*ptsIncrease+Number(dtime*i) );
+    }
 
-
-
-    document.getElementById("endGameScreenDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:3800+10*ptsIncrease});
-
-
-     document.getElementById("niceDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4000+10*ptsIncrease});
-
-    document.getElementById("niceCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4200+10*ptsIncrease});
-
-
-    document.getElementById("brilliantDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4400+10*ptsIncrease});
-
-    document.getElementById("brilliantCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4600+10*ptsIncrease});
+    document.getElementById("endGamePointsSpan").animate([{ scale:0,offset:0 }, {scale:1.8,offset:0.8},{scale:1,offset:1}],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:4000+10*ptsIncrease});
 
 
 
-    document.getElementById("superiorDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease});
-
-    document.getElementById("superiorCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5000+10*ptsIncrease});
-
-
-    document.getElementById("epicDiv").animate([{ scale:1.2 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5200+10*ptsIncrease});
-
-    document.getElementById("epicCountDiv").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5400+10*ptsIncrease});
-
-
-    document.getElementById("endGameIdSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:5600+10*ptsIncrease});
-
-    document.getElementById("graphDiv").animate([{ scale:0.9 }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:5800+10*ptsIncrease});
-
-    document.getElementById("egTotalTimeSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:6000+10*ptsIncrease});
-
-    document.getElementById("egTotalAverageTimeSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:6200+10*ptsIncrease});
-
-    document.getElementById("egBestTimeSpan").animate([{ scale:1 }],{duration: 250,easing: 'ease-out', fill: 'forwards', delay:6400+10*ptsIncrease});
-
-     document.getElementById("endGameNewGameDiv").animate([{ scale:1 }],{duration: 200,easing: 'ease-out', fill: 'forwards',delay: 6400+10*ptsIncrease});
-
-    
-
-    
-     
-
-    
+    // endGameIdSpan  endGamePointsSpan
 
 
 
+    let t1 = document.getElementById("time030");
+    let t2 = document.getElementById("time3060");
+    let t3 = document.getElementById("time6090");
+    let t4 = document.getElementById("time90120");
+    let t5 = document.getElementById("time120150");
+    let t6 = document.getElementById("time150p");
 
-  }
+    let allReactionIconSpans = [...t6.querySelectorAll('span'),...t5.querySelectorAll('span'),...t4.querySelectorAll('span'),...t3.querySelectorAll('span'),...t2.querySelectorAll('span'),...t1.querySelectorAll('span')  ];
+
+
+
+    for(let i=0;i<allReactionIconSpans.length;i++)
+    {
+      let dtime = Number(2000/allReactionIconSpans.length);
+
+      allReactionIconSpans[allReactionIconSpans.length-1-i].animate([{ scale:0,offset:0 }, {scale:1.75,offset:0.8},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:4000+10*ptsIncrease+Number(dtime*i)});
+    }
+
+
+    for(let i=0;i<epicCount;i++)
+    {
+      let dtime = Number(2000/epicCount);
+      window.setTimeout(function() { document.getElementById("typeCountsEpicSpan").innerHTML = Number(i+1)+' &times; '+icons[3]; }, 5000+10*ptsIncrease+Number(dtime*i) );
+    }
+
+    for(let i=0;i<superiorCount;i++)
+    {
+      let dtime = Number(2000/superiorCount);
+      window.setTimeout(function() { document.getElementById("typeCountsSuperiorSpan").innerHTML = Number(i+1)+' &times; '+icons[2]; }, 5000+10*ptsIncrease+Number(dtime*i) );
+    }
+
+    for(let i=0;i<brilliantCount;i++)
+    {
+      let dtime = Number(2000/brilliantCount);
+      window.setTimeout(function() { document.getElementById("typeCountsBrilliantSpan").innerHTML = Number(i+1)+' &times; '+icons[1]; }, 5000+10*ptsIncrease+Number(dtime*i) );
+    }
+
+
+    for(let i=0;i<niceCount;i++)
+    {
+      let dtime = Number(2000/niceCount);
+      window.setTimeout(function() { document.getElementById("typeCountsBrilliantSpan").innerHTML = Number(i+1)+' &times; '+icons[0]; }, 5000+10*ptsIncrease+Number(dtime*i) );
+    }
+
+
+
+    //document.getElementById("typeCountsSuperiorSpan").innerHTML = superiorCount+' &times; '+icons[2];
+    //document.getElementById("typeCountsBrilliantSpan").innerHTML = brilliantCount+' &times; '+icons[1];
+    //document.getElementById("typeCountsNiceSpan").innerHTML = niceCount+' &times; '+icons[0];
+
+}
 
   
 
 
 
-  function toProperties(n)
+function toProperties(n)
+{
+  let r1 = n % 3;
+  let d1 = (n-r1)/3
+  let r2 = d1 % 3;
+  let d2 = (d1-r2)/3;
+  let r3 = d2 % 3;
+  let d3 = (d2-r3)/3;
+  let res = [r1,r2,r3,d3];
+  return res;
+}
+
+
+
+function secureShuffle(n)
+{
+  const arr = Array.from({ length: n }, (_, i) => i );
+  const randomValues = new Uint32Array(n);
+  window.crypto.getRandomValues(randomValues);
+  for (let i = arr.length - 1; i > 0; i--)
   {
-    let r1 = n % 3;
-    let d1 = (n-r1)/3
-    
-    let r2 = d1 % 3;
-    let d2 = (d1-r2)/3;
-
-    let r3 = d2 % 3;
-    let d3 = (d2-r3)/3;
-
-    let res = [r1,r2,r3,d3];
-    
-
-
-    return res;
+    const j = randomValues[i] % (i + 1);
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
+  return arr;
+}
 
 
-
-  function secureShuffle(n)
-  {
-    const arr = Array.from({ length: n }, (_, i) => i );
-    const randomValues = new Uint32Array(n);
-    window.crypto.getRandomValues(randomValues);
-
-    for (let i = arr.length - 1; i > 0; i--) {
-        // Use the cryptographically strong random value
-        const j = randomValues[i] % (i + 1);
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
-
-
-  function cardLocationsLS(n)
-  {
-    
-    let cardTop;
-    let cardLeft;
-
-    if(n<12)
-    {
-      let rem = n % 4;
-      let div = (n-rem)/4;
+function cardLocationsLS(n)
+{
   
-      cardLeft = Number(marginX) + Number(rem)*Number(cardWidthLS+marginX) + 2;
-      cardTop = Number(marginY) + Number(div)*Number(cardHeightLS+marginY);
-    }
-    else if(n<15)
-    {
-      cardLeft = Number(marginX) + 4*Number(cardWidthLS+marginX) +2;
-      cardTop = Number(marginY) + Number(n-12)*Number(cardHeightLS+marginY);
-    }
+  let cardTop;
+  let cardLeft;
 
-    let coordinates = [cardLeft,cardTop]
+  if(n<12)
+  {
+    let rem = n % 4;
+    let div = (n-rem)/4;
 
-    return coordinates;
+    cardLeft = Number(marginX) + Number(rem)*Number(cardWidthLS+marginX) + 2;
+    cardTop = Number(marginY) + Number(div)*Number(cardHeightLS+marginY);
   }
+  else if(n<15)
+  {
+    cardLeft = Number(marginX) + 4*Number(cardWidthLS+marginX) +2;
+    cardTop = Number(marginY) + Number(n-12)*Number(cardHeightLS+marginY);
+  }
+
+  let coordinates = [cardLeft,cardTop]
+  return coordinates;
+}
 
 
 
 function cardLocationsPT(n)
-  {
-    
-    let cardTop;
-    let cardLeft;
-
-    if(n<12)
-    {
-      let rem = n % 4;
-      let div = (n-rem)/4;
+{
   
-      cardLeft = Number(marginX) + Number(rem)*Number(cardWidthPT+marginX) + 2;
-      cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+35;
-    }
+  let cardTop;
+  let cardLeft;
+  if(n<12)
+  {
+    let rem = n % 4;
+    let div = (n-rem)/4;
 
-    else if(n<15)
-    {
-      cardLeft = Number(marginX) + Number(n-12)*Number(cardWidthPT+marginX) + 2;
-      cardTop = Number(marginY) + 3*Number(cardHeightPT+marginY)+35;
-    }
-    
-    let coordinates = [cardLeft,cardTop]
-
-    return coordinates;
+    cardLeft = Number(marginX) + Number(rem)*Number(cardWidthPT+marginX) + 2;
+    cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+35;
   }
+
+  else if(n<15)
+  {
+    cardLeft = Number(marginX) + Number(n-12)*Number(cardWidthPT+marginX) + 2;
+    cardTop = Number(marginY) + 3*Number(cardHeightPT+marginY)+35;
+  }
+  
+  let coordinates = [cardLeft,cardTop]
+  
+  return coordinates;
+}
 
 function moveCard(card,location)
 {
   card.content.animate([{ left:location[0]+'vmin', top:location[1]+'vmin' }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:100});
 }
-
-//let buttonConsole = document.getElementById('theConsole');
-
-
 
 
 orientationQueryLS.addEventListener("change", (e) => {
@@ -2304,8 +2292,6 @@ orientationQueryLS.addEventListener("change", (e) => {
       cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin - 7.5vmin )';
     }
 
-
-
     else
     {
       cHeight = cardHeightPT;
@@ -2319,51 +2305,42 @@ orientationQueryLS.addEventListener("change", (e) => {
     crd.content.animate([{ left:cLeft, top:cTop, width:cWidth,height:cHeight }],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
 
     document.getElementById("moreCardsDiv").animate([{ left:cLeft, top:cTop, width:cWidth,height:cHeight }],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
-
   }
- 
 });
 
 
 function putExtraCards()
 {
+  while(openExtraPlaces.length>0)
+  {
+    let card = theDeck[0];
+    let coors;
+
+    if(orientationQueryLS.matches){ coors =  cardLocationsLS(openExtraPlaces[0]);  }
+    else{coors =cardLocationsPT(openExtraPlaces[0]);}
+    card.place = openExtraPlaces[0];
+    moveCard(card,coors);
+    card.content.animate([{ border:'0.5vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.7)' }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:0});
     
-      while(openExtraPlaces.length>0)
-      {
-        let card = theDeck[0];
+    openExtraPlaces.splice(0,1);
+    cardExtraPlaces.push(card); //??
 
-        let coors;
-
-        if(orientationQueryLS.matches){ coors =  cardLocationsLS(openExtraPlaces[0]);  }
-        else{coors =cardLocationsPT(openExtraPlaces[0]);}
-        card.place = openExtraPlaces[0];
-        moveCard(card,coors);
-        card.content.animate([{ border:'0.5vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.7)' }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:0});
-
-        openExtraPlaces.splice(0,1);
-        cardExtraPlaces.push(card); //??
-
-        extraCards.push(card);
-        cardsOnTable.push(card);
-        theDeck.splice(0,1);      
-    }
-
-    let crSets = findCurrentSets(cardsOnTable);
-
-    let firstSet= crSets[0];
-    document.getElementById("currentSetsDiv").innerHTML = crSets.length+'P '+firstSet[0].place +','+firstSet[1].place+','+firstSet[2].place;
-
-    document.getElementById("scoreDiv").style.zIndex=200; 
-
-    //document.getElementById("currentSetsDiv").innerHTML = crSets.length;
-
-    
-    
-
+    extraCards.push(card);
+    cardsOnTable.push(card);
+    theDeck.splice(0,1);      
   }
 
-  function findCurrentSets(Cards)
-  {
+  let crSets = findCurrentSets(cardsOnTable);
+
+  let firstSet= crSets[0];
+  document.getElementById("currentSetsDiv").innerHTML = crSets.length+'P '+firstSet[0].place +','+firstSet[1].place+','+firstSet[2].place;
+
+  document.getElementById("scoreDiv").style.zIndex=200;
+}
+
+
+function findCurrentSets(Cards)
+{
     let currentSets = [];
     let compCardProp;
 
@@ -2395,52 +2372,47 @@ function putExtraCards()
     }
 
     return currentSets;
+}
 
-  }
 
-  function complementaryCardProperites(Card1,Card2)
+function complementaryCardProperites(Card1,Card2)
+{
+  let res=[];
+  let cP1 = Card1.properties;
+  let cP2 = Card2.properties;
+
+  for(let i=0;i<4;i++)
   {
-    let res=[];
+    let prop;
 
-    let cP1 = Card1.properties;
-    let cP2 = Card2.properties;
-
-    for(let i=0;i<4;i++)
+    let n1=Number(cP1[i]);
+    let n2=Number(cP2[i]);
+    if( n1==n2 )
     {
-      let prop;
-
-      let n1=Number(cP1[i]);
-      let n2=Number(cP2[i]);
-      if( n1==n2 )
-      {
-        prop = n1;
-      }
-
-      else
-      {
-        prop = Number(3 - n1 - n2 );
-      }
-
-      res.push(prop);
-
+      prop = n1;
     }
 
-    return res;
-
-  }
-
-  function propertiesToNumber(cardProp)
-  {
-    let res=0;
-    for(let i=0;i<4;i++)
+    else
     {
-      res+=Number(cardProp[i])*Number(3**i);
+      prop = Number(3 - n1 - n2 );
     }
 
-    return res;
-
+    res.push(prop);
   }
 
+  return res;
+}
+
+
+function propertiesToNumber(cardProp)
+{
+  let res=0;
+  for(let i=0;i<4;i++)
+  {
+    res+=Number(cardProp[i])*Number(3**i);
+  }
+  return res;
+}
 
 </script>
 
