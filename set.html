@@ -590,7 +590,7 @@
     .chartClass
     {
       height: 34vmin;
-      width: 80%;
+      width: 84%;
 
       padding: 0;
       margin: 0;
@@ -631,8 +631,8 @@
 
     .dataClass div > span
     {
-      margin: -0.3vmin;
-      font-size:3.2vmin;
+      margin: -0.4vmin;
+      font-size:3.7vmin;
       scale: 0;
     }
 
@@ -2107,11 +2107,11 @@
 
     for(let i=0;i<TTPts;i++)
     {
-      let dtime = Number(1000/TTPts);
+      let dtime = Number(1800/TTPts);
       window.setTimeout(function() { document.getElementById("endGamePointsSpan").innerHTML = Number(i+1)+' pts'; }, 3000+10*ptsIncrease+Number(dtime*i) );
     }
 
-    document.getElementById("endGamePointsSpan").animate([{ scale:0,offset:0 }, {scale:1.8,offset:0.8},{scale:1,offset:1}],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:4000+10*ptsIncrease});
+    document.getElementById("endGamePointsSpan").animate([{ scale:0,offset:0 }, {scale:1.8,offset:0.8},{scale:1,offset:1}],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease});
 
 
 
@@ -2132,35 +2132,35 @@
 
     for(let i=0;i<allReactionIconSpans.length;i++)
     {
-      let dtime = Number(2000/allReactionIconSpans.length);
+      let dtime = Number(2500/allReactionIconSpans.length);
 
-      allReactionIconSpans[allReactionIconSpans.length-1-i].animate([{ scale:0,offset:0 }, {scale:1.75,offset:0.8},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:4000+10*ptsIncrease+Number(dtime*i)});
+      allReactionIconSpans[allReactionIconSpans.length-1-i].animate([{ scale:0,offset:0 }, {scale:1.6,offset:0.8},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:5300+10*ptsIncrease+Number(dtime*i)});
     }
 
 
     for(let i=0;i<epicCount;i++)
     {
       let dtime = Number(2000/epicCount);
-      window.setTimeout(function() { document.getElementById("typeCountsEpicSpan").innerHTML = Number(i+1)+' &times; '+icons[3]; }, 5000+10*ptsIncrease+Number(dtime*i) );
+      window.setTimeout(function() { document.getElementById("typeCountsEpicSpan").innerHTML = Number(i+1)+' &times; '+icons[3]; }, 7800+10*ptsIncrease+Number(dtime*i) );
     }
 
     for(let i=0;i<superiorCount;i++)
     {
       let dtime = Number(2000/superiorCount);
-      window.setTimeout(function() { document.getElementById("typeCountsSuperiorSpan").innerHTML = Number(i+1)+' &times; '+icons[2]; }, 5000+10*ptsIncrease+Number(dtime*i) );
+      window.setTimeout(function() { document.getElementById("typeCountsSuperiorSpan").innerHTML = Number(i+1)+' &times; '+icons[2]; }, 7800+10*ptsIncrease+Number(dtime*i) );
     }
 
     for(let i=0;i<brilliantCount;i++)
     {
       let dtime = Number(2000/brilliantCount);
-      window.setTimeout(function() { document.getElementById("typeCountsBrilliantSpan").innerHTML = Number(i+1)+' &times; '+icons[1]; }, 5000+10*ptsIncrease+Number(dtime*i) );
+      window.setTimeout(function() { document.getElementById("typeCountsBrilliantSpan").innerHTML = Number(i+1)+' &times; '+icons[1]; }, 7800+10*ptsIncrease+Number(dtime*i) );
     }
 
 
     for(let i=0;i<niceCount;i++)
     {
       let dtime = Number(2000/niceCount);
-      window.setTimeout(function() { document.getElementById("typeCountsBrilliantSpan").innerHTML = Number(i+1)+' &times; '+icons[0]; }, 5000+10*ptsIncrease+Number(dtime*i) );
+      window.setTimeout(function() { document.getElementById("typeCountsNiceSpan").innerHTML = Number(i+1)+' &times; '+icons[0]; }, 7800+10*ptsIncrease+Number(dtime*i) );
     }
 
 
