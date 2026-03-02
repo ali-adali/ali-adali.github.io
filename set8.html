@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-title" content="Set!">
+
+  <link rel="manifest" href="/site.webmanifest">
+
+  <meta name="theme-color" content="#3D2B1F">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>!Set!</title>
+  
+  <style>
+   
+
+    body
+    {
+      padding:0vmin;
+      margin: 0vmin;
+      top:0vmin;
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+
+      overscroll-behavior-y: contain;
+     
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* This keeps your sizes consistent */
+    }
+
+
+
+    .theTableClass
+    {
+      position: fixed;    
+      border: 0px solid blue;
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+    }
+
+    .cardClass
+    {
+      position: fixed;
+      border: 0.3vmin solid rgba(0, 0, 0, 0.8);
+      transition: height 0.1s, width 0.1s;
+
+      box-shadow: 0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.0) ;
+      border-radius: 3vmin;
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:9.8vmin;
+      background: ghostwhite;
+      
+    }
+
+    .scoreClass
+    {
+      position: fixed;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:10vmin;
+      font-weight: 700;
+
+      color: ghostwhite;
+
+    
+      
+      box-shadow: 0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.5), 0vmin 0.5vmin 0.5vmin rgba(0, 0, 0, 0.5),-0.5vmin 0vmin 0.5vmin rgba(0, 0, 0, 0.5),0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.5) ;
+
+      text-shadow: 0.3vmin 0vmin 0.3vmin black, 0vmin 0.3vmin 0.3vmin black,-0.3vmin 0vmin 0.3vmin black,0vmin -0.3vmin 0.3vmin black;
+
+      background: radial-gradient(circle, seagreen, seagreen 30%,#004346 100%);
+
+
+      border-radius: 50%;
+     
+      z-index: 31;
+    }
+
+    .epicClass
+    {
+      position: fixed;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:10vmin;
+
+      background: radial-gradient(circle, blueviolet, blueviolet 50%,ghostwhite 100%);
+
+    
+
+      border:0vmin solid darkblue;
+      border-radius: 50%;
+      box-shadow: 0.2vmin 0vmin 0.5vmin #2F3E46, 0vmin 0.2vmin 0.5vmin #2F3E46,-0.2vmin 0vmin 0.5vmin #2F3E46,0vmin -0.2vmin 0.5vmin #2F3E46 ;
+
+      z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
+
+    }
+
+    .epicCountClass
+    {
+      position: fixed;
+
+      height: 5vmin;
+      width: 5vmin;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:3.2vmin;
+      font-weight: 500;
+
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding-top: 0.5vmin;
+      padding-left: 0.1vmin;
+      z-index: 31;
+
+      border: 0.2vmin solid black;
+
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black; 
+    }
+
+    .superiorClass
+    {
+      position: fixed;
+  
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:10vmin;
+
+      background: radial-gradient(circle, blueviolet, blueviolet 50%,ghostwhite 100%);
+
+      
+      border-radius: 50%;
+      box-shadow: 0.2vmin 0vmin 0.5vmin #2F3E46, 0vmin 0.2vmin 0.5vmin #2F3E46,-0.2vmin 0vmin 0.5vmin #2F3E46,0vmin -0.2vmin 0.5vmin #2F3E46 ;
+
+      z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
+
+    }
+
+    .superiorCountClass
+    {
+      position: fixed;
+
+      height: 5vmin;
+      width: 5vmin;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:3.2vmin;
+      font-weight: 500;
+
+      background: red;
+      color: white;
+      border-radius: 50%;
+      
+      border: 0.2vmin solid black;
+      z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black; 
+
+    }
+
+    .brilliantClass
+    {
+      position: fixed;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:8vmin;
+
+      background: radial-gradient(circle, blueviolet, blueviolet 50%,ghostwhite 100%);
+
+     
+      border-radius: 50%;
+
+      box-shadow: 0.2vmin 0vmin 0.5vmin #2F3E46, 0vmin 0.2vmin 0.5vmin #2F3E46,-0.2vmin 0vmin 0.5vmin #2F3E46,0vmin -0.2vmin 0.5vmin #2F3E46 ;
+
+      z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
+
+    }
+
+    .brilliantCountClass
+    {
+      position: fixed;
+
+      height: 5vmin;
+      width: 5vmin;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:3.2vmin;
+      font-weight: 500;
+
+      background: red;
+      color: white;
+      border-radius: 50%;
+     
+      border: 0.2vmin solid black;
+      z-index: 31;
+
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
+
+    }
+
+    
+
+    .niceClass
+    {
+      position: fixed;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:8vmin;
+
+      
+      background: radial-gradient(circle, blueviolet, blueviolet 50%,ghostwhite 100%);
+      border-radius: 50%;
+
+      box-shadow: 0.2vmin 0vmin 0.5vmin #2F3E46, 0vmin 0.2vmin 0.5vmin #2F3E46,-0.2vmin 0vmin 0.5vmin #2F3E46,0vmin -0.2vmin 0.5vmin #2F3E46 ;
+
+      z-index: 31;
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
+
+    }
+
+
+    .niceCountClass
+    {
+      position: fixed;
+
+      height: 5vmin;
+      width: 5vmin;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:3.2vmin;
+      font-weight: 500;
+
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding-top: 0.5vmin;
+      padding-left: 0.1vmin;
+      border: 0.2vmin solid black;
+      z-index: 31;
+
+      text-shadow: 0.1vmin 0vmin 0.1vmin black, 0vmin 0.1vmin 0.1vmin black,-0.1vmin 0vmin 0.1vmin black,0vmin -0.1vmin 0.1vmin black,0.1vmin 0.1vmin 0.1vmin black, -0.1vmin -0.1vmin 0.1vmin black;
+
+    }
+
+    .reactionClass
+    {
+      position: fixed;
+      height: 30vmin;
+      width: 50vmin;
+      
+      top:calc(40% - 40vmin);
+      left:calc(50% - 25vmin );
+
+      color: greenyellow;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size: 7.5vmin;
+      font-weight: 600;
+      font-family: Georgia, serif;
+
+      -webkit-text-stroke: 0.2vmin ghostwhite;
+
+
+
+      
+      
+
+      border: 0.0vmin solid gray;
+      z-index: 31;
+
+      scale: 0;
+    }
+
+
+    .reactionIconClass
+    {
+      position: fixed;
+      height: 30vmin;
+      width: 30vmin;
+      top:calc(40% - 10vmin);
+      left:calc(50% - 15vmin);
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:18vmin;
+      font-weight: 500;
+
+      border: 0.0vmin solid gray;
+
+      text-shadow: 0.5vmin 0vmin 0.7vmin ghostwhite, 0vmin 0.5vmin 0.7vmin ghostwhite,-0.5vmin 0vmin 0.7vmin ghostwhite,0vmin -0.5vmin 0.7vmin ghostwhite;
+      z-index: 31;
+
+      scale: 0;
+      z-index: 31;
+
+
+
+    }
+
+
+  
+
+    .pointsClass
+    {
+      position: fixed;
+      height: 30vmin;
+      width: 30vmin;
+      
+      top:calc(40% + 10vmin);
+      left:calc(50% - 15vmin);
+
+      color: white;
+
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:13vmin;
+      font-weight: 600;
+
+      -webkit-text-stroke: 0.0vmin rgba(0, 0, 0, 0.9);
+
+      text-shadow: 0.5vmin 0vmin 0.7vmin black, 0vmin 0.5vmin 0.7vmin black,-0.5vmin 0vmin 0.7vmin black,0vmin -0.5vmin 0.7vmin black;
+
+      
+
+      
+
+      border: 0.0vmin solid black;
+      border-radius: 50%;
+      
+      z-index: 31;
+      scale: 0;
+    }
+
+    .curtainClass
+    {
+      position: fixed;
+      top:0;
+      left:0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      scale:0;
+      z-index: 30;
+
+    }
+
+
+
+
+    .checkButtonClass
+    {
+      position: fixed;
+      top:40vmin;
+      left:calc(100vmax - 20vmin);
+      width: 20vmin;
+      height: 20vmin;
+      border:2px solid silver;
+    }
+
+    .moreCardsClass
+    {
+      position: fixed;
+
+      border:0.3vmin solid rgba(0, 0, 0, 0.8);
+      border-radius: 3vmin;
+      background: silver;
+      opacity: 1;
+      color: #F0FFF0;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:5vmin;
+      font-weight: 700;
+      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black;
+
+      
+
+      background: radial-gradient(circle, #F4F1BB 0%, #1B4D3E 100%);
+    }
+
+    .cardsInDeckClass
+    {
+       height: 15vmin; 
+       width: 15vmin; 
+       border: 0.0vmin solid gray; 
+       display: flex; 
+       justify-content: center; 
+       align-items: center;
+       border-radius: 50%;
+       padding-top: 0.7vmin; 
+       padding-left: 0vmin;
+       background: none;
+       color: ghostwhite;
+
+       font-size: 12vmin;
+       font-weight: 800;
+
+       text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black; 
+
+
+
+    }
+
+    .newGameClass
+    {
+      position: fixed;
+      top:80vmin;
+      left:calc(100vmax - 20vmin);
+      width: 20vmin;
+      height: 20vmin;
+      border:2px solid silver;
+    }
+
+    .dealCardsClass
+    {
+      position: fixed;
+      top:0;
+      left:0;
+      width: 100%;
+      height: 100%;
+      
+      background: rgba(0, 0, 0, 0.8); 
+
+      display:flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:8vmin;
+      z-index: 50;
+     
+    }
+
+    .enterNameClass
+    {
+      scale: 0;
+      
+    }
+
+
+    .startButtonClass:disabled 
+    {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #player-manager 
+    {
+      width: 90vmin;
+      height: 96vmin;
+      text-align: center;
+      background: none;
+
+      border: 0.0vmin solid red;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .playerTitleClass
+    {
+      width: 100%;
+      height: 30vmin;
+      padding-right: 10vmin;
+      font-size: 25vmin;
+      color: gold;
+      text-shadow: 0.5vmin 0vmin 2vmin whitesmoke, -0.5vmin 0vmin 2vmin whitesmoke,0vmin 0.5vmin 2vmin whitesmoke,0vmin -0.5vmin 2vmin whitesmoke;
+      border: 0.0vmin solid black;
+    }
+
+    #existing-players-list
+    {
+      border: 0.0vmin solid greenyellow;
+      width: 90%;
+      height: 48vmin;
+      display: flex;
+      flex-direction: column;
+
+
+      align-content: stretch;
+
+      justify-content: flex-start;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+
+    .player-entry
+     {
+      height: 33%;
+      box-sizing: border-box;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0.0vmin solid pink;
+      flex: 1 0 auto;
+     
+    }
+
+    .player-btn {
+      height: 90%;
+      max-height: 14.5vmin;
+      width: 80%;
+      
+      background: burlywood;
+      color: #3D2B1F;
+      border: none;
+      border-radius: 8vmin;
+      font-size: 5.6vmin;
+      font-weight: 600;
+
+      border: 0.1vmin solid cyan;
+      font-family: monospace;
+    }
+
+
+    
+
+    .delete-btn {
+      background: #8b0000; /* Dark red */
+      color: ghostwhite;
+      border: none;
+      border-radius: 50%;
+      width: 12vmin;
+      height: 12vmin;
+      font-size: 8vmin;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    
+
+    #new-player-input
+    {
+      padding-left: 5vmin;
+      margin: 0;
+      width: auto;
+      height: 16vmin;
+
+      border: 0.0vmin solid blue;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+
+    }
+
+     #new-player-input > button
+     { 
+      margin: 0;
+      height: 15vmin;
+      width: 15vmin;
+      border-radius: 50%;
+      font-size: 8vmin;
+      font-weight: 700;
+
+      background: radial-gradient(seagreen, greenyellow);
+      color: black;
+     }
+
+     #player-name-field
+     {
+      height: 95%;
+      max-height: 14.5vmin;
+      
+      
+      border-radius: 8vmin;
+      border: 0.2vmin solid ghostwhite;
+      width: 64vmin;
+
+      background: none;
+      resize: none; /* 2. Remove the resize handle (bottom-right corner) */
+      border-radius: 8vmin;
+      font-size: 7.6vmin;
+      font-weight: 600;
+      color: white;
+      outline: none;  /* Extra: Removing the default blue outline on click */
+
+      padding-top: 2vmin;
+      
+      
+      display: flex;
+      justify-content: space-evenly;
+      text-align: center;
+      align-items: center;
+    }
+
+
+     
+
+    
+
+    
+
+
+    .currentSetsClass
+    {
+      position: fixed;
+      top:0;
+      right:0;
+      height: 15vmin;
+      width: 15vmin;
+      border: 0.1vmin solid black;
+      border-radius: 50%;
+
+      color: black;
+
+      display: flex;
+      scale:0.0;
+
+      
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      font-size:2vmin;
+      z-index: 1000;
+
+    }
+
+    .endGameScreenClass
+    {
+      position: fixed;
+      top:0;
+      left:0;
+      height: 100%;
+      width: 100%;
+
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      scale: 0;
+
+      z-index: 31;
+
+
+    }
+
+
+    
+
+    .endGameCardClass
+    {
+      
+
+      height: 98vmin;
+      width: 92vmin;
+
+      padding-block: 3vmin;
+
+      border: 0.15vmin solid blueviolet;
+      border-radius: 6vmin;
+      
+      display:flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+
+      box-shadow:0vmin 0vmin 1vmin 0.7vmin ghostwhite;
+      background: radial-gradient(circle, ghostwhite, blueviolet 100%);
+
+      text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black;
+      color: ghostwhite;
+      z-index: 31;
+      
+    }
+
+
+
+
+    .endGameNameNPointsClass
+    {
+      height: 10vmin;
+      width: 90%;
+      
+      margin-bottom:4vmin;
+
+      display:flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      border: 0.0vmin solid darkblue;
+      font-size: 9.6vmin;
+      font-weight: 600;
+    }
+
+    .endGameNameNPointsClass span
+    {
+      height: 100%;
+      width: 50%;
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 0.0vmin solid blanchedalmond;
+    }
+
+    .chartClass
+    {
+      height: 34vmin;
+      width: 84%;
+
+      padding: 0;
+      margin: 0;
+
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 0.0vmin solid darkseagreen;     
+    }
+
+    .dataClass
+    {     
+      width: 100%;
+      height: 88%;
+      display:flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 3vmin 3vmin  0vmin 0vmin;
+    }
+
+    .dataClass div
+    {
+      width: 16.6%;
+      height: 100%;
+      border: 0.0vmin solid darkcyan;
+      display:flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      padding-bottom: 1vmin;
+      padding-top: 0.5vmin;
+      border-right: 0.1vmin solid ghostwhite;
+    }
+
+    .dataClass div > span
+    {
+      margin: -0.4vmin;
+      font-size:3.7vmin;
+      scale: 0;
+    }
+
+
+
+    .intervalsClass
+    {
+  
+      width: 100%;
+      height: 12%;
+
+      display:flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0vmin;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 0vmin 0vmin  3vmin 3vmin;
+    }
+
+    .intervalsClass span
+    {
+      width: 16.6%;
+      height: 100%;
+      
+      border-top: 0.1vmin solid ghostwhite;
+      border-right: 0.1vmin solid ghostwhite;
+
+      font-size: 2.8vmin;
+
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    .typeCountsClass
+    {
+      
+      width: 80%;
+      height: 10%;
+
+      display:flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      border: 0.0vmin solid black;
+      
+
+      border-radius: 3vmin 3vmin 3vmin 3vmin;
+
+      scale: 0.9;
+    }
+
+    .typeCountsClass span
+    {
+      width: 22%;
+      height: 100%;
+      border: 0.0vmin solid black;
+
+      display:flex;
+      flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 4.7vmin;
+        font-weight: 700;
+
+        background: orange;
+
+        border-radius: 3vmin;
+        
+    }
+
+
+    .timeClass
+    {
+
+      width: 60%;
+      height: 24vmin;
+      
+
+      display:flex;
+      flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+      border: 0.0vmin solid darkcyan;
+      font-size: 3.0vmin;
+
+      
+
+      margin-left: 0vmin;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 3vmin;
+      
+    }
+
+    .timeClass div
+    {
+      width: 100%;
+      height: 27%;
+      
+
+      display:flex;
+      flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+      border: 0.0vmin solid red;
+    
+    }
+
+    .timeClass div > span
+    {
+      height: 100%;
+      width: 40%;
+
+    
+      border: 0.0vmin solid darkmagenta;
+      text-align: left;
+
+      display:flex;
+      flex-direction: column;
+        justify-content: center;
+        
+  
+
+    }
+
+    .endGameNewGameClass
+    {
+      height: 30vmin;
+      width: 30vmin;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 8vmin;
+
+      border-radius: 50%;
+
+      background: radial-gradient(circle, orangered,orange);
+      color:ghostwhite;
+
+      font-size: 7.5vmin;
+      font-weight: 600; 
+
+      
+      text-shadow: 0.3vmin 0vmin 0.2vmin darkgreen, 0vmin 0.3vmin 0.2vmin darkgreen,-0.3vmin 0vmin 0.2vmin darkgreen,0vmin -0.3vmin 0.2vmin darkgreen,0.3vmin 0.3vmin 0.2vmin darkgreen, -0.3vmin -0.3vmin 0.2vmin darkgreen; 
+      color:whitesmoke;
+
+      margin-top: 4vmin;
+    }
+
+
+
+
+   
+
+
+
+
+    .startButtonClass
+    {
+      position: fixed;
+      height: 60vmin;
+      width: 60vmin; 
+      border: 0.1vmin solid gray; 
+      border-radius: 50%; 
+
+      scale: 0.0;
+      
+      color:darkgreen;
+      cursor:pointer; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      text-align:center; 
+      padding-top: 0vmin; 
+      padding-left:0vmin;
+
+      font-size: 15vmin;
+      font-weight: 800; 
+
+      background: radial-gradient(circle, orange 0%, orangered 100%);
+
+
+      
+      text-shadow: 0.3vmin 0vmin 0.2vmin darkgreen, 0vmin 0.3vmin 0.2vmin darkgreen,-0.3vmin 0vmin 0.2vmin darkgreen,0vmin -0.3vmin 0.2vmin darkgreen,0.3vmin 0.3vmin 0.2vmin darkgreen, -0.3vmin -0.3vmin 0.2vmin darkgreen; 
+      color:whitesmoke; 
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+    @media (orientation: portrait)
+    {
+      .theTableClass
+      {    
+        top:0vmin;
+        left:0vmin;
+        height: calc(100vmax);
+        width: 100vmin;
+      }
+
+      .cardClass
+      {
+        width: 22.44vmin;
+        height: 33.66vmin;
+      }
+
+      .moreCardsClass
+      {
+        width: 22.44vmin;
+        height: 33.66vmin;
+      }
+
+      
+
+      .scoreClass
+      {
+        left:37.5vmin;
+        top:3vmin;
+        height: 25vmin;
+        width: 25vmin;
+        scale: 1.2;
+
+      }
+
+      
+
+      .epicClass
+      {
+        left:19.4vmin;
+        top:16.4vmin;
+        height: 15vmin;
+        width: 15vmin;
+         scale: 1.2;
+      }
+
+      .epicCountClass
+      {
+        left:17.2vmin;
+        top:16.5vmin;
+         scale: 1.2;
+      }
+
+      .superiorClass
+      {
+        left:65.6vmin;
+        top:16.4vmin;
+        height: 15vmin;
+        width: 15vmin;
+        scale: 1.2;
+      }
+
+      .superiorCountClass
+      {
+        left:78vmin;
+        top:14.5vmin;
+        scale: 1.2;
+      }
+
+      .brilliantClass
+      {
+        left:23.5vmin;
+        top:2.4vmin;
+        height: 11.25vmin;
+        width: 11.25vmin;
+        scale: 1.2;
+      }
+
+      .brilliantCountClass
+      {
+        left:19.5vmin;
+        top:1.0vmin;
+        scale: 1.2;
+      }
+
+      .niceClass
+      {
+        left:65.3vmin;
+        top:2.4vmin;
+        height: 11.25vmin;
+        width: 11.25vmin;
+        scale: 1.2;
+      }
+
+      .niceCountClass
+      {
+        left:75vmin;
+        top:1.0vmin;
+        scale: 1.2;
+      }
+
+      .clockClass
+      {
+        
+      }
+
+
+      .checkButtonClass
+      { 
+        left:30vmin;
+        top:90vmax;
+        height: 10vmax;
+        width: 40vmin;
+      }
+
+      .moreCardsClass
+      {
+        width: 22.44vmin;
+        height: 33.66vmin;
+      }
+
+     
+
+    }
+
+    @media (orientation: landscape)
+    {
+      .cardClass
+      {
+        height: 28.5vmin;
+        width: 19.0vmin;
+      }
+
+      .moreCardsClass
+      {
+        height: 28.5vmin;
+        width: 19.0vmin;
+        
+      }
+
+      .theTableClass
+      {
+        top:0;
+        left:0;
+        height: 100vmin;
+        width: calc(100vmax);
+      }
+
+      .scoreClass
+      {
+        top:2vmin;
+        left:calc(100vmax - 25vmin - 2vmin);
+        width: 25vmin;
+        height: 25vmin;
+      }
+
+      
+
+      .epicClass
+      {
+        left:calc(100vmax - 45vmin - 2.2vmin);
+        top:2vmin;
+        height: 20vmin;
+        width: 20vmin;
+      }
+
+      .epicCountClass
+      {
+        left:calc(100vmax - 46.0vmin );
+        top:17.6vmin;
+      }
+  
+
+      .superiorClass
+      {
+        left:calc(100vmax - 35vmin - 2vmin);
+        top:20.6vmin;
+        height: 15vmin;
+        width: 15vmin;
+      }
+
+      .superiorCountClass
+      {
+        left:calc(100vmax - 37vmin );
+        top:31.1vmin;
+      }
+
+      .brilliantClass
+      {
+        left:calc(100vmax - 20.5vmin - 2vmin);
+        top:27.1vmin;
+        height: 12vmin;
+        width: 12vmin;
+      }
+
+      .brilliantCountClass
+      {
+        left:calc(100vmax - 23vmin);
+        top:35.7vmin;
+      }
+
+      .niceClass
+      {
+        left:calc(100vmax - 10.7vmin );
+        top:24.8vmin;
+        height: 10vmin;
+        width: 10vmin;
+      }
+ 
+
+      .niceCountClass
+      {
+        left:calc(100vmax - 10vmin);
+        top:32.4vmin;
+      }
+
+
+      
+
+
+
+      .clockClass
+      {
+        
+      }
+
+      .checkButtonClass
+      {
+        top:40vmin;
+        left:calc(100vmax - 20vmin);
+        width: 20vmin;
+        height: 20vmin;
+      }
+
+      .endGameScreenClass
+      {
+        flex-direction: row;
+
+      }
+
+      .endGameNewGameClass
+      {
+        margin-left: 6vmin;
+      }
+
+
+
+      .enterNameClass
+      {
+        position: fixed;
+        top:20vmin;
+      }
+    }
+
+
+
+   
+
+    
+  </style>
+</head>
+
+<body>
+
+  <div class="theTableClass" id="theTable">
+    
+  </div>
+
+  <div class="scoreClass" id="scoreDiv" onclick="theLastStep();"> 0 </div>
+
+  <div class="niceClass" id="niceDiv"> </div>
+  <div class="niceCountClass" id="niceCountDiv">0</div>
+
+
+  <div class="brilliantClass" id="brilliantDiv">  </div>
+  <div class="brilliantCountClass" id="brilliantCountDiv">0</div>
+
+  <div class="superiorClass" id="superiorDiv"> </div>
+  <div class="superiorCountClass" id="superiorCountDiv">0</div>
+
+  <div class="epicClass" id="epicDiv">&#128293; </div>
+  <div class="epicCountClass" id="epicCountDiv">0</div>
+
+
+  
+  
+  <div class="pointsClass" id="pointsDiv" > </div>
+
+
+
+  <div class="curtainClass" id="curtainDiv">
+    <div class="reactionClass" id="reactionDiv">   </div>
+    <div class="reactionIconClass" id="reactionIconDiv"> </div>
+  </div>
+
+ 
+  <div class="moreCardsClass" id="moreCardsDiv" > <span>CARDS</span>  <span class="cardsInDeckClass" id="cardsInDeckSpan" >81</span> </div>
+
+  <div class="currentSetsClass" id="currentSetsDiv">0</div>
+
+ 
+
+
+  
+
+
+  <div class="dealCardsClass" id="dealCardsDiv" > 
+    <div id="player-manager">
+      <span class='playerTitleClass' >&#128100;</span>
+      
+
+      <div id="new-player-input">
+        <textarea id="player-name-field" placeholder="Yenisin"></textarea>
+        <button onclick="handleNewPlayer()"> &#9654; </button>
+      </div>
+
+      <div id="existing-players-list"></div>  
+    </div>
+     
+
+    
+    
+    
+   
+    <button class="startButtonClass" id="startButton" onclick='document.getElementById("dealCardsDiv").style.scale=0;dealCards(); ' disabled> Start</button>
+
+
+    <textarea class="enterNameClass" id='playerTA' placeholder="Enter Name" oninput='document.getElementById("startButton").disabled = false; document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value;  '></textarea> 
+  </div>
+
+  <div class="endGameScreenClass" id="endGameScreenDiv">
+    <div class="endGameCardClass" id="endGameCardDiv">
+      
+      <div class="endGameNameNPointsClass">
+        <span id = "endGameIdSpan">AADALI</span> <span id = "endGamePointsSpan">2168 pts</span>
+      </div>
+
+
+
+      <div class="chartClass">
+        <div class="dataClass">
+          <div id="time030"> </div> 
+
+          <div id="time3060"> </div> 
+
+          <div id="time6090"> </div> 
+
+          <div id="time90120"> </div> 
+
+          <div id="time120150"> </div> 
+
+          <div id="time150p" style="border-right: none;"> </div>
+        </div>
+
+
+
+        <div class="intervalsClass">
+          <span>0-5s </span> 
+          <span>5-15s </span>  
+          <span> 15-30s </span> 
+          <span> 30-60s </span> 
+          <span>60-120s </span> 
+          <span style="border-right: none;">120s+</span>
+        </div>
+      </div>
+
+      <div class="typeCountsClass">
+          <span id="typeCountsEpicSpan"></span> 
+          <span id="typeCountsSuperiorSpan"></span>
+          <span id="typeCountsBrilliantSpan"></span>
+          <span id="typeCountsNiceSpan"></span>  
+      </div>
+
+
+
+
+      <div class="timeClass">
+        <div style="background: rgba(0, 0, 0, 0.8);border-radius: 3vmin 3vmin 0vmin 0vmin;"> 
+          <span>Total Time</span>
+          <span id="endGameTotalTimeSpan" style="text-align: right;width: 28%;">436.288</span>
+          <span style="width: 22%;"> &nbsp; sec</span>
+        </div>
+
+        <div>
+          <span>Average Time</span>
+          <span id="endGameAverageTimeSpan" style="text-align: right;width: 28%;">40.813</span>
+          <span style="width: 22%;">&nbsp; sec/set</span>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.8);">
+          <span>Fastest Set</span>
+          <span id="endGameBestTimeSpan" style="text-align: right;width: 28%;">2.071</span>
+          <span style="width: 22%;" >&nbsp; sec</span>
+        </div>
+
+        <div style="border-radius: 0vmin 0vmin 3vmin 3vmin;">
+          <span>Efficiency</span>
+          <span id="endGameEfficiencySpan" style="text-align: right; width: 28%;">4.392</span>
+          <span style="width: 22%;">&nbsp; pts/sec</span>
+        </div>  
+      </div>
+
+
+      <div >
+        
+      </div>  
+    </div>
+
+    <div class="endGameNewGameClass" onclick="location.reload();"> New Game </div>
+    
+  </div>
+
+</body>
+
+
+
+<script>
+
+  let theDeck=[];
+  let theCards=[];
+  let cardPlaces=[];
+  let cardExtraPlaces=[];
+  let openPlaces=[];
+  let openExtraPlaces=[];
+  let extraCards = [];
+
+  let checkedCardsIndices=[];
+  let checkedCards = [];
+
+  let cardsOnTable=[];
+
+  let cardHeightLS=28.5;
+  let cardWidthLS=19.0;
+
+
+  let cardHeightPT=33.66;
+  let cardWidthPT=22.44;
+
+
+  let marginX = 1;
+  let marginY = 1;
+
+
+  let totalPoints = 0;
+
+  let epicCount=0;
+  let superiorCount=0;
+  let brilliantCount=0;
+  let niceCount=0;
+
+  let playerName='';
+
+  let setColors=['midnightblue','darkred','darkgreen'];
+
+
+  let currentTime;
+
+  let findSetDurations=[];
+
+  let timeStrings=['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;'];
+
+  // '&#127808;' 'Nice',  '&#127812;' 'Brilliant!', '&#127989;' 'Superior!!', '&#128293;' 'Epic!!!'  
+
+  let icons=['&#127812;','&#127808;','&#127989;','&#128293;'];
+  let reactions=['Nice','Brilliant!','Superior!!','Epic!!!'];
+
+  let gercekReactions=[ 'Aboov', 'Şahane!', 'İyi gördün!!','Vay vay vay!', 'OOooOO!!', 'Efsoo!!', 'Bunu beğendim', 'Ustalıque', 'Oha bee!!', 'Alım Kabul ettim','Çok Şükür' ];
+
+  document.getElementById("niceDiv").innerHTML = icons[0];
+  document.getElementById("brilliantDiv").innerHTML = icons[1];
+  document.getElementById("superiorDiv").innerHTML = icons[2];
+  document.getElementById("epicDiv").innerHTML = icons[3];
+
+  
+
+
+
+
+
+  
+
+  
+
+  class Card
+  {
+    constructor(original_index,properties_index,place)
+    {
+      this.place = place;
+      this.originalIndex = original_index;
+      let props = toProperties(properties_index);
+      this.properties = props;
+
+      let cardContent = document.createElement("DIV");
+      cardContent.classList.add("cardClass");
+
+      const cardSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+      cardSVG.setAttribute("viewBox", "0 0 540 240");
+
+      const cardDefs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+      const cardPattern = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
+
+      let cOpacity=Number(props[1]);
+      let cColor = setColors[props[0]];
+      let cPattern=Number(props[2]);
+      let cNumber=Number(props[3]);
+      
+
+
+
+      
+      cardPattern.setAttribute("patternUnits", "userSpaceOnUse");
+      cardPattern.setAttribute("width", "20");
+      cardPattern.setAttribute("height", "20");
+      cardPattern.setAttribute("patternTransform", "rotate(45)");
+
+      const rect1 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect1.setAttribute("width", "10");
+      rect1.setAttribute("height", "20");
+      
+
+      const rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect2.setAttribute("x", "10");
+      rect2.setAttribute("width", "10");
+      rect2.setAttribute("height", "20");
+      //rect2.setAttribute("fill", "whitesmoke");
+
+      let patternId = '';
+
+      switch(cOpacity)
+      {
+      case 0:
+        rect1.setAttribute("fill", "ghostwhite");
+        rect2.setAttribute("fill", "ghostwhite");
+        patternId = cColor+'Empty';
+        break;
+
+      case 1:
+        rect1.setAttribute("fill", cColor);
+        rect2.setAttribute("fill", "ghostwhite");
+        patternId = cColor+'Striped';
+        break;
+
+      case 2:
+        rect1.setAttribute("fill", cColor);
+        rect2.setAttribute("fill", cColor);
+        patternId = cColor+'Full';
+        break;
+      }
+      //rect1.setAttribute("fill", "darkred");
+
+
+
+      cardPattern.setAttribute("id", patternId);
+      cardPattern.appendChild(rect1);
+      cardPattern.appendChild(rect2);
+      cardDefs.appendChild(cardPattern);
+      cardSVG.appendChild(cardDefs);
+
+      let cardFigure;
+
+      switch(cPattern)
+      {
+      case 0:
+        cardFigure = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        cardFigure.setAttribute("points", "270,30 120,120 270,210 420,120");
+        break;
+
+      case 1:
+        cardFigure = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        cardFigure.setAttribute("d", "M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z");
+        break;
+
+      case 2:
+        cardFigure = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        cardFigure.setAttribute("d", "M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100");
+        break;
+      }
+
+
+
+      //const cardFigure = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      //cardFigure.setAttribute("points", "270,30 120,120 270,210 420,120");
+
+      Object.assign(cardFigure.style, {
+          fill: "url(#"+patternId+")",
+          stroke: cColor,
+          strokeWidth: "18",
+          strokeLinejoin: "round",
+          strokeLinecap: "round",
+      });
+
+      cardSVG.appendChild(cardFigure);
+
+
+
+      cardContent.appendChild(cardSVG);
+
+
+
+      
+
+      //let cPattern=setSymbols[props[2]];
+      for(let i = 0; i<cNumber;i++)
+      {
+        let copySVG = cardSVG.cloneNode(true);
+        cardContent.appendChild(copySVG);
+      }
+
+      
+
+
+ 
+
+
+
+
+      
+
+      
+
+      
+
+    
+      
+      
+      
+      cardContent.setAttribute("onclick", 'let ccc= checkedCards.indexOf(theCards['+this.originalIndex+']); if(ccc==-1){ if(checkedCards.length<3) {this.animate([{scale:1.07,transform:"rotate(4deg)",border: "1.3vmin solid blueviolet"  }],{duration: 150,easing: "ease-out", fill: "forwards", delay:0}); checkedCards.push(theCards['+this.originalIndex+']);} window.setTimeout(function() { checkSet(); }, 200);  } else {this.animate([{scale:1.00, boxShadow: "0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.7)",transform:"rotate(0deg)", border: "0.3vmin solid rgba(0, 0, 0, 0.8)" }],{duration: 200,easing: "ease-out", fill: "forwards", delay:0}); checkedCards.splice( checkedCards.indexOf(theCards['+this.originalIndex+']) ,1); } '  );
+
+     //box-shadow: 0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.0) ;
+      //boxShadow: "1.2vmin 0vmin 0.8vmin orangered, -1.2vmin 0vmin 0.8vmin orangered, 0vmin -1.2vmin 0.8vmin orangered,0vmin 1.2vmin 0.8vmin orangered"
+
+      this.content = cardContent;
+    }
+  }
+
+
+
+  //define the places:
+  for(let i=0;i<12;i++)
+  {
+    cardPlaces.push(i);
+    openPlaces.push(i);
+  }
+
+  for(let i=12;i<15;i++)
+  {
+    cardExtraPlaces.push(i);
+    openExtraPlaces.push(i);
+  }
+
+
+
+  
+
+  
+  let topCard = 80;
+  let bottomCard = 0;
+
+  
+  let cardPropertiesIndexes = secureShuffle(81);
+
+  
+  //Original deck:
+
+  
+  let dz = 0.10;
+
+  let orientationQueryLS = window.matchMedia("(orientation: landscape)");
+
+  for(let i=0;i<81;i++)
+  {
+    let newCard = new Card(i,cardPropertiesIndexes[i],-1);
+    theDeck.push(newCard);
+    theCards.push(newCard);
+  }
+
+  for(let i=0;i<81;i++)
+  {
+    let newCard = theDeck[i];
+    let newCardContent = newCard.content;
+    let cLeft;
+    let cTop;
+    let cHeight;
+    let cWidth;
+
+    if(orientationQueryLS.matches)
+    {
+      cHeight = cardHeightLS;
+      cWidth = cardWidthLS;
+
+      cLeft = 'calc(100vmax - '+cWidth+'vmin - 2vmin)';
+      cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin - 7.5vmin)';
+    }
+
+    else
+    {
+      cHeight = cardHeightPT;
+      cWidth = cardWidthPT;
+
+      cLeft = Number(4*Number(marginX) + 3*Number(cWidth)+2)+'vmin';
+      cTop = Number(35 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number(Number(i)*Number(dz)) + 'vmin';
+
+    }
+
+    document.getElementById("moreCardsDiv").style.left=cLeft;
+    document.getElementById("moreCardsDiv").style.top=cTop;
+
+    newCardContent.style.left=cLeft;
+    newCardContent.style.top=cTop; 
+    
+    document.getElementById("theTable").appendChild(newCardContent);
+  }
+
+  
+  
+
+
+  function dealCards()
+  {
+    currentTime = Date.now();
+
+
+
+    if(extraCards.length>0)
+    {
+      while(extraCards.length>0)
+      {
+        card = extraCards[0];
+        let coors;
+        if(orientationQueryLS.matches){ coors =  cardLocationsLS(openPlaces[0]);  }
+        else{coors =cardLocationsPT(openPlaces[0]);}
+        moveCard(card,coors);
+
+        openExtraPlaces.push(card.place);
+
+        card.place = openPlaces[0];
+
+        openPlaces.splice(0,1);
+
+
+        extraCards.splice(0,1);
+        
+      }
+
+    }
+
+    else
+    {
+      while(openPlaces.length>0)
+      {
+        let card = theDeck[0];
+        let coors;
+        
+        if(orientationQueryLS.matches){ coors =  cardLocationsLS(openPlaces[0]);  }
+        else{coors =cardLocationsPT(openPlaces[0]);}
+        moveCard(card,coors);
+        //border:'0.3vmin double black',
+        card.content.animate([{ boxShadow:'0.3vmin 0.3vmin 0.8vmin rgba(0, 0, 0, 0.7)' }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:0});
+        card.place = openPlaces[0];
+
+        openPlaces.splice(0,1);
+        cardsOnTable.push(card);
+        theDeck.splice(0,1);
+
+        window.setTimeout(function() { document.getElementById("cardsInDeckSpan").innerHTML = theDeck.length; }, 20);      
+      }
+
+
+    }
+
+
+    let crSets = findCurrentSets(cardsOnTable);
+    if(crSets.length>0)
+    {
+      let firstSet= crSets[0];
+      let n1= Number(firstSet[0].place)+1;
+      let n2= Number(firstSet[1].place)+1;
+      let n3= Number(firstSet[2].place)+1;
+      document.getElementById("currentSetsDiv").innerHTML = crSets.length+'P '+n1 +','+n2+','+n3; 
+    }
+
+    else
+    {
+      document.getElementById("currentSetsDiv").innerHTML = 'No Sets!';
+      putExtraCards();
+
+    }
+    
+    
+    
+  }
+
+   function checkSet()
+  {
+    let setFindTime = Number(Date.now()) - Number(currentTime);
+
+    let timeCoeff = Math.exp(1 / (1 + (setFindTime)/60000));
+
+
+    if(checkedCards.length==3)
+    {
+      let Card1Props=checkedCards[0].properties;
+      let Card2Props=checkedCards[1].properties;
+      let Card3Props=checkedCards[2].properties;
+
+
+      let remainders = [];
+      let pointsBase = 0;
+
+      for(let i =0;i<4;i++)
+      {
+        let rem = Number(Number(Card1Props[i])+Number(Card2Props[i])+Number(Card3Props[i]))%3;
+        remainders.push(rem);
+        let isPropertyDifferent = 1;
+        if(Number(Card1Props[i])!=Number(Card2Props[i]))
+        {
+          isPropertyDifferent = 2;
+        }
+        pointsBase+=isPropertyDifferent;
+      }
+
+      
+
+
+
+      if(remainders[0]==0&&remainders[1]==0&&remainders[2]==0&&remainders[3]==0)
+      {
+        let reactionIcon;
+        let reactionPhrase;
+        let iconTop;
+        let iconLeft;
+        let rSideLength;
+
+        //Portrait
+        let scoreLeft = '40vmin' ;
+        let scoreTop = '6vmin' ;
+        let scoreSideLength= '25vmin' ;
+        if(orientationQueryLS.matches)
+        {
+          scoreLeft = 'calc(100vmax - 25vmin - 2vmin)' ;
+          scoreTop = '2vmin' ;
+          scoreSideLength= '25vmin' ;
+        }
+
+        reactionIcon = icons[pointsBase-5];
+        //reactionPhrase= reactions[pointsBase-5];
+
+        let randomIndex = Math.floor(Math.random() * gercekReactions.length);
+        reactionPhrase = gercekReactions[randomIndex];
+
+
+
+
+       
+    
+
+        switch(pointsBase)
+        {
+        case 5:
+          
+          niceCount++;
+          
+          //Portrait
+          iconTop = '4.5vmin';
+          iconLeft='62vmin';
+          rSideLength = '11.25vmin';
+          if(orientationQueryLS.matches)
+          {
+            iconTop = 'top:24.5vmin';
+            iconLeft='calc(100vmax - 10.3vmin )';
+            rSideLength = '10vmin';
+          } 
+
+          
+          break;
+
+        case 6:
+          
+          brilliantCount++;
+          
+
+          //Portrait
+          iconTop = '3.5vmin';
+          iconLeft = '23vmin';
+          rSideLength='11.25vmin' ;
+
+          if(orientationQueryLS.matches)
+          {
+            iconTop = 'top:27vmin';
+            iconLeft='calc(100vmax - 20.2vmin - 2vmin)';
+            rSideLength = '12vmin';
+          }
+
+
+          break;
+
+        case 7:
+          
+          superiorCount++;
+          
+
+          //Portrait
+          iconTop = '17.5vmin';
+          iconLeft = '63.5vmin';
+          rSideLength='15vmin' ;
+
+          if(orientationQueryLS.matches)
+          {
+            iconTop = '20.6vmin';
+            iconLeft='calc(100vmax - 34.8vmin - 2vmin)';
+            rSideLength = '15vmin';
+          }
+
+
+          break;
+
+        case 8:
+          
+          epicCount++; 
+
+          //Portrait
+          iconTop = '16vmin';
+          iconLeft = '19vmin';
+          rSideLength='15vmin' ;
+          
+          if(orientationQueryLS.matches)
+          {
+            iconTop = '2vmin';
+            iconLeft='calc(100vmax - 45vmin - 2vmin)';
+            rSideLength = '20vmin';
+          }
+
+          break;
+        }
+
+
+
+        //let ptsIncrease = Number(pointsBase)*Number(pointsBase);
+
+        let ptsIncrease = Math.round( Number(pointsBase)*Number(pointsBase)*Number(timeCoeff) ); 
+        
+
+
+        document.getElementById("reactionIconDiv").innerHTML = reactionIcon;
+        document.getElementById("pointsDiv").innerHTML = '+'+ptsIncrease ;
+        document.getElementById("reactionDiv").innerHTML = reactionPhrase;
+
+        currentTime = Date.now();
+
+        findSetDurations.push(setFindTime);
+        let spanElement= document.createElement("SPAN");
+
+        spanElement.innerHTML = reactionIcon;
+
+        let timeIntervalDiv;
+
+        switch(true)
+        {
+        case setFindTime< 5000:
+          timeIntervalDiv = document.getElementById("time030");
+          break;
+
+        case setFindTime< 15000:
+          timeIntervalDiv =document.getElementById("time3060");
+          break;
+
+        case setFindTime<30000:
+          timeIntervalDiv = document.getElementById("time6090");
+          break;
+
+        case setFindTime<60000:
+          timeIntervalDiv = document.getElementById("time90120");
+          break;
+
+        case setFindTime<120000:
+          timeIntervalDiv = document.getElementById("time120150");
+          break;
+
+        case setFindTime>119999:
+          timeIntervalDiv =document.getElementById("time150p");
+          break;
+        }
+
+        timeIntervalDiv.appendChild(spanElement);
+
+        
+        while(checkedCards.length>0)
+        {
+          let card =  checkedCards[0];
+
+          let cLeft='37.5vmin'; 
+          let cTop='5vmin';
+
+
+          if(orientationQueryLS.matches){ cLeft = 'calc(100vmax - 25vmin - 2vmin )'; cTop='2vmin';    } 
+
+
+
+          card.content.animate([{ top:cTop, left:cLeft, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.7)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1000});
+
+
+
+          card.content.animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1500});
+
+          if( extraCards.indexOf(card)== -1 )
+          {
+            openPlaces.push(card.place);
+          }
+
+          
+            
+          checkedCards.splice(0,1);
+          cardsOnTable.splice( cardsOnTable.indexOf(card),1 );
+
+          if( extraCards.indexOf(card)> -1 )
+          {
+            extraCards.splice( extraCards.indexOf(card),1 );
+            openExtraPlaces.push(card.place);
+          }
+
+          card.place = 18;
+        }
+
+        //iterations:2,direction:'alternate', duration
+
+        //a curtain pops:
+
+         document.getElementById("curtainDiv").animate([{ scale:0 }, {scale:1}],{duration: 1,easing: 'ease-out', fill: 'forwards', delay:0});
+
+        //reaction pops:
+
+        document.getElementById("reactionDiv").animate([{ scale:0, offset:0 }, {scale:2.5,offset:0.7}, {scale:1.5,offset:1}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:10});
+
+
+        //reaction icon pops:
+
+        document.getElementById("reactionIconDiv").animate([{ scale:0, offset:0 }, {scale:1.5,offset:0.7}, {scale:1,offset:1}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:100});
+
+        
+
+        //points pops:
+
+        document.getElementById("pointsDiv").animate([{ scale:0, offset:0 }, {scale:1.5,offset:0.7}, {scale:1,offset:1}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:200});
+
+        
+
+        // reaction fades:
+        document.getElementById("reactionDiv").animate([{ scale:0 }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1000});
+
+        // reaction icon moves to its place
+        document.getElementById("reactionIconDiv").animate([{ top: iconTop ,left: iconLeft, height: rSideLength ,width: rSideLength }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1100});
+
+        //points move
+        document.getElementById("pointsDiv").animate([{ top:scoreTop, left: scoreLeft, height: scoreSideLength ,width: scoreSideLength,scale:0.6 }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:1200});
+
+        //points fade
+
+        document.getElementById("pointsDiv").animate([{scale:0}],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1500});
+
+        document.getElementById("pointsDiv").animate([{height: '30vmin', width: '30vmin', top:'calc(40% + 10vmin)', left:'calc(50% - 15vmin)'}],{duration: 1,easing: 'ease-out', fill: 'forwards', delay:3200});
+
+         //curtain fades:
+
+        document.getElementById("curtainDiv").animate([{ scale:0 }],{duration: 10,easing: 'ease-out', fill: 'forwards', delay:1600});
+
+        // points adding counter
+
+        for(let i =0;i<ptsIncrease;i++)
+         {window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1700+ 10*i);}
+
+
+        // reaction icon fades and returns to its original place:
+
+        document.getElementById("reactionIconDiv").animate([{ scale:0 }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:1500});
+
+        document.getElementById("reactionIconDiv").animate([{ height: '30vmin', width: '30vmin', top:'calc(40% - 10vmin)',left:'calc(50% - 15vmin)'}],{duration: 10,easing: 'ease-out', fill: 'forwards', delay:3000});
+        // height: 30vmin;width: 30vmin; top:calc(40% - 10vmin);left:calc(50% - 15vmin);
+
+         window.setTimeout(function() {  document.getElementById("niceCountDiv").innerHTML = niceCount; document.getElementById("brilliantCountDiv").innerHTML = brilliantCount; document.getElementById("superiorCountDiv").innerHTML = superiorCount; document.getElementById("epicCountDiv").innerHTML = epicCount;   }, 1750);
+
+        
+
+
+       
+
+
+        
+
+        window.setTimeout(function() { dealCards();  }, 1700+10*ptsIncrease);
+
+        window.setTimeout(function() { 
+          let crSets = findCurrentSets(cardsOnTable); 
+          if(crSets.length==0&&theDeck.length>0){ putExtraCards(); } 
+          if(crSets.length==0&&theDeck.length==0){ theLastStep(); } }, 2100+10*ptsIncrease);
+
+      }
+
+
+
+
+
+     else
+      {
+        while(checkedCards.length>0)
+        {
+          let card = checkedCards[0];
+          card.content.animate([{scale:1 ,boxShadow: "0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.7)",transform:"rotate(0deg)",border: "0.3vmin solid rgba(0, 0, 0, 0.8)"}],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+          checkedCards.splice(0,1);
+        }
+
+        //document.getElementById("currentSetsDiv").innerHTML ='';
+      }
+
+
+
+      
+
+    
+    }
+
+    let crSets = findCurrentSets(cardsOnTable);
+    if(crSets.length>0)
+    {
+      let firstSet= crSets[0];
+      let n1= Number(firstSet[0].place)+1;
+      let n2= Number(firstSet[1].place)+1;
+      let n3= Number(firstSet[2].place)+1;
+      document.getElementById("currentSetsDiv").innerHTML = crSets.length+'P '+n1 +','+n2+','+n3; 
+    }
+
+    else
+    {
+      document.getElementById("currentSetsDiv").innerHTML = 'No Sets!';
+
+    }
+
+    
+  }
+
+
+
+  function theLastStep()
+  {
+    let pointsBase = Number(cardsOnTable.length);
+    let ptsIncrease = Number(pointsBase)*Number(pointsBase);
+    document.getElementById("pointsDiv").innerHTML = '+'+ptsIncrease ;
+
+    let TTPts = totalPoints+ptsIncrease;
+
+    while(cardsOnTable.length>0)
+    {
+      let card =  cardsOnTable[0];
+      let cLeft='37.5vmin'; 
+      let cTop='5vmin';
+
+      if(orientationQueryLS.matches){ cLeft = 'calc(100vmax - 25vmin - 2vmin )'; cTop='2vmin';    } 
+
+      card.content.animate([{ top:cTop, left:cLeft, border:'0.0vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0)' }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:100});
+
+      card.content.animate([{ scale:0 }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:1000});
+ 
+      cardsOnTable.splice(0,1);
+          
+      card.place = 18;
+    }
+
+
+
+    document.getElementById("curtainDiv").animate([{ scale:1}],{duration: 10,easing: 'ease-out', fill: 'forwards', delay:0});
+
+    document.getElementById("currentSetsDiv").innerHTML = '<span>Sets</span> <span>Finished!!!</span>';
+    document.getElementById("currentSetsDiv").setAttribute('style','border:none; font-size:18vmin;font-weight:800; text-align:center;color:white; text-shadow: 0.5vmin 0vmin 0.7vmin black, 0vmin 0.5vmin 0.7vmin black,-0.5vmin 0vmin 0.7vmin black,0vmin -0.5vmin 0.7vmin black;height:100%;width:100%;display:flex; flex-direction:column;justify-content:center;align-items:center; ');
+
+    document.getElementById("currentSetsDiv").animate([{ scale:0,offset:0 }, {scale:1.0,offset:0.1},{scale:0.8,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:50});
+
+    document.getElementById("reactionDiv").innerHTML="Remaining Cards Bonus";
+
+    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.9},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:900});
+
+    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:1.2,offset:1}],{duration: 900,easing: 'ease-out', fill: 'forwards', delay:1200});
+
+
+    let vLeft='37.5vmin'; 
+    let vTop='5vmin';
+    if(orientationQueryLS.matches){ vLeft = 'calc(100vmax - 25vmin - 2vmin )'; vTop='2vmin';    } 
+
+
+    document.getElementById("pointsDiv").animate([{ scale:0.4, top:vTop, left:vLeft }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2100});
+    document.getElementById("pointsDiv").animate([{ scale:0}],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:2900});
+
+    
+    for(let i =0;i<ptsIncrease;i++)
+    {
+      window.setTimeout(function() { document.getElementById("scoreDiv").innerHTML = Number(totalPoints+1+i) ;}, 2900+ 10*i);
+    }
+
+
+
+    document.getElementById("moreCardsDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("niceDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("niceCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("brilliantDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("brilliantCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("superiorDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("superiorCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("epicDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+    document.getElementById("epicCountDiv").animate([{ scale:0 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:100});
+
+
+    window.setTimeout(function() {
+      document.getElementById("endGameIdSpan").innerHTML = playerName;
+      let totalTime = 0;
+
+      for(let i=0;i<findSetDurations.length;i++)
+      {
+        totalTime+= Number(findSetDurations[i]);
+      }
+      let averageTime = Math.trunc(Number(totalTime)/Number(findSetDurations.length))/1000;
+      let fastestSet = Math.min(...findSetDurations)/1000;
+
+      let gameEfficiency = Math.trunc(1000000*Number(TTPts)/Number(totalTime))/1000;
+
+      document.getElementById("endGameTotalTimeSpan").innerHTML =Number(totalTime/1000);
+      document.getElementById("endGameAverageTimeSpan").innerHTML =averageTime;
+      document.getElementById("endGameBestTimeSpan").innerHTML =fastestSet;
+      document.getElementById("endGameEfficiencySpan").innerHTML =gameEfficiency;
+      document.getElementById("endGamePointsSpan").innerHTML ='0'+' pts';
+
+      document.getElementById("typeCountsEpicSpan").innerHTML = '0'+' &times; '+icons[3];
+      document.getElementById("typeCountsSuperiorSpan").innerHTML ='0'+' &times; '+icons[2];
+      document.getElementById("typeCountsBrilliantSpan").innerHTML = '0'+' &times; '+icons[1];
+      document.getElementById("typeCountsNiceSpan").innerHTML = '0'+' &times; '+icons[0];
+
+      saveGameResult(playerName, TTPts, totalTime, averageTime, fastestSet,gameEfficiency);
+
+      //typeCountsEpicSpan typeCountsSuperiorSpan typeCountsBrilliantSpan typeCountsNiceSpan  3 &times; &#128293;
+
+      // "endGameCardDiv" "endGamePointsSpan"
+
+      // time030 time3060 time6090 time90120 time120150
+
+
+      }, 2900+10*ptsIncrease);
+
+    document.getElementById("scoreDiv").animate([{ scale:0 }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:2900+10*ptsIncrease });
+
+    document.getElementById("endGameScreenDiv").animate([{ scale:1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:3000+10*ptsIncrease });
+
+    //document.getElementById("endGamePointsSpan").innerHTML =TTPts+' pts';
+
+    for(let i=0;i<TTPts;i++)
+    {
+      let dtime = Number(1800/TTPts);
+      window.setTimeout(function() { document.getElementById("endGamePointsSpan").innerHTML = Number(i+1)+' pts'; }, 3000+10*ptsIncrease+Number(dtime*i) );
+    }
+
+    document.getElementById("endGamePointsSpan").animate([{ scale:0,offset:0 }, {scale:1.8,offset:0.8},{scale:1,offset:1}],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease});
+
+
+
+    // endGameIdSpan  endGamePointsSpan
+
+
+
+    let t1 = document.getElementById("time030");
+    let t2 = document.getElementById("time3060");
+    let t3 = document.getElementById("time6090");
+    let t4 = document.getElementById("time90120");
+    let t5 = document.getElementById("time120150");
+    let t6 = document.getElementById("time150p");
+
+    let allReactionIconSpans = [...t6.querySelectorAll('span'),...t5.querySelectorAll('span'),...t4.querySelectorAll('span'),...t3.querySelectorAll('span'),...t2.querySelectorAll('span'),...t1.querySelectorAll('span')  ];
+
+
+
+    for(let i=0;i<allReactionIconSpans.length;i++)
+    {
+      let dtime = Number(2500/allReactionIconSpans.length);
+
+      allReactionIconSpans[allReactionIconSpans.length-1-i].animate([{ scale:0,offset:0 }, {scale:1.6,offset:0.8},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:5300+10*ptsIncrease+Number(dtime*i)});
+    }
+
+
+    for(let i=0;i<epicCount;i++)
+    {
+      let dtime = Number(2000/epicCount);
+      window.setTimeout(function() { document.getElementById("typeCountsEpicSpan").innerHTML = Number(i+1)+' &times; '+icons[3]; }, 7800+10*ptsIncrease+Number(dtime*i) );
+    }
+
+    for(let i=0;i<superiorCount;i++)
+    {
+      let dtime = Number(2000/superiorCount);
+      window.setTimeout(function() { document.getElementById("typeCountsSuperiorSpan").innerHTML = Number(i+1)+' &times; '+icons[2]; }, 7800+10*ptsIncrease+Number(dtime*i) );
+    }
+
+    for(let i=0;i<brilliantCount;i++)
+    {
+      let dtime = Number(2000/brilliantCount);
+      window.setTimeout(function() { document.getElementById("typeCountsBrilliantSpan").innerHTML = Number(i+1)+' &times; '+icons[1]; }, 7800+10*ptsIncrease+Number(dtime*i) );
+    }
+
+
+    for(let i=0;i<niceCount;i++)
+    {
+      let dtime = Number(2000/niceCount);
+      window.setTimeout(function() { document.getElementById("typeCountsNiceSpan").innerHTML = Number(i+1)+' &times; '+icons[0]; }, 7800+10*ptsIncrease+Number(dtime*i) );
+    }
+
+
+
+    //document.getElementById("typeCountsSuperiorSpan").innerHTML = superiorCount+' &times; '+icons[2];
+    //document.getElementById("typeCountsBrilliantSpan").innerHTML = brilliantCount+' &times; '+icons[1];
+    //document.getElementById("typeCountsNiceSpan").innerHTML = niceCount+' &times; '+icons[0];
+  }
+  function toProperties(n)
+  {
+    let r1 = n % 3;
+    let d1 = (n-r1)/3
+    let r2 = d1 % 3;
+    let d2 = (d1-r2)/3;
+    let r3 = d2 % 3;
+    let d3 = (d2-r3)/3;
+    let res = [r1,r2,r3,d3];
+    return res;
+  }
+
+
+
+  function secureShuffle(n)
+  {
+    const arr = Array.from({ length: n }, (_, i) => i );
+    const randomValues = new Uint32Array(n);
+    window.crypto.getRandomValues(randomValues);
+    for (let i = arr.length - 1; i > 0; i--)
+    {
+      const j = randomValues[i] % (i + 1);
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+
+  function cardLocationsLS(n)
+  {
+    
+    let cardTop;
+    let cardLeft;
+
+    if(n<12)
+    {
+      let rem = n % 4;
+      let div = (n-rem)/4;
+
+      cardLeft = Number(marginX) + Number(rem)*Number(cardWidthLS+marginX) + 2;
+      cardTop = Number(marginY) + Number(div)*Number(cardHeightLS+marginY);
+    }
+    else if(n<15)
+    {
+      cardLeft = Number(marginX) + 4*Number(cardWidthLS+marginX) +2;
+      cardTop = Number(marginY) + Number(n-12)*Number(cardHeightLS+marginY);
+    }
+
+    let coordinates = [cardLeft,cardTop]
+    return coordinates;
+  }
+
+
+
+  function cardLocationsPT(n)
+  {
+    
+    let cardTop;
+    let cardLeft;
+    if(n<12)
+    {
+      let rem = n % 4;
+      let div = (n-rem)/4;
+
+      cardLeft = Number(marginX) + Number(rem)*Number(cardWidthPT+marginX) + 2;
+      cardTop = Number(marginY) + Number(div)*Number(cardHeightPT+marginY)+35;
+    }
+
+    else if(n<15)
+    {
+      cardLeft = Number(marginX) + Number(n-12)*Number(cardWidthPT+marginX) + 2;
+      cardTop = Number(marginY) + 3*Number(cardHeightPT+marginY)+35;
+    }
+    
+    let coordinates = [cardLeft,cardTop]
+    
+    return coordinates;
+  }
+
+  function moveCard(card,location)
+  {
+    card.content.animate([{ left:location[0]+'vmin', top:location[1]+'vmin' }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:100});
+  }
+
+
+  orientationQueryLS.addEventListener("change", (e) => {
+
+    for(let i=0;i<cardsOnTable.length;i++)
+    {
+      let crd = cardsOnTable[i];
+      let coors=cardLocationsPT(Number(crd.place));
+
+      if(e.matches){coors =cardLocationsLS(Number(crd.place));}
+      crd.content.animate([{ left:coors[0]+'vmin', top:coors[1]+'vmin'}],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
+      
+
+    }
+
+    for(let i=0;i<theDeck.length;i++)
+    {
+      let crd = theDeck[i];
+      let coors;
+
+      let cLeft;
+      let cTop;
+      let cHeight;
+      let cWidth;
+
+      if(e.matches)
+      {
+        cHeight = cardHeightLS;
+        cWidth = cardWidthLS;
+
+        cLeft = 'calc(100vmax - '+cWidth+'vmin - 2vmin)';
+        cTop= 'calc(100vmin - '+cHeight+'vmin - 1vmin - '+Number(Number(i)*Number(dz))+'vmin - 7.5vmin )';
+      }
+
+      else
+      {
+        cHeight = cardHeightPT;
+        cWidth = cardWidthPT;
+
+        cLeft = Number(4*Number(marginX) + 3*Number(cWidth)+2)+'vmin';
+        cTop = Number(35 + 81*dz +Number(marginY)+ 3*Number( Number(marginY)+Number(cHeight) )) -Number((Number(i)+81-theDeck.length)*Number(dz)) + 'vmin';
+        
+      }
+
+      crd.content.animate([{ left:cLeft, top:cTop, width:cWidth,height:cHeight }],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
+
+      document.getElementById("moreCardsDiv").animate([{ left:cLeft, top:cTop, width:cWidth,height:cHeight }],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:0});
+    }
+  });
+
+
+  function putExtraCards()
+  {
+    while(openExtraPlaces.length>0)
+    {
+      let card = theDeck[0];
+      let coors;
+
+      if(orientationQueryLS.matches){ coors =  cardLocationsLS(openExtraPlaces[0]);  }
+      else{coors =cardLocationsPT(openExtraPlaces[0]);}
+      card.place = openExtraPlaces[0];
+      moveCard(card,coors);
+      card.content.animate([{ border:'0.5vmin solid black',boxShadow:'0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.7)' }],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:0});
+      
+      openExtraPlaces.splice(0,1);
+      cardExtraPlaces.push(card); //??
+
+      extraCards.push(card);
+      cardsOnTable.push(card);
+      theDeck.splice(0,1);      
+    }
+
+    let crSets = findCurrentSets(cardsOnTable);
+
+    let firstSet= crSets[0];
+    document.getElementById("currentSetsDiv").innerHTML = crSets.length+'P '+firstSet[0].place +','+firstSet[1].place+','+firstSet[2].place;
+
+    document.getElementById("scoreDiv").style.zIndex=200;
+  }
+
+
+  function findCurrentSets(Cards)
+  {
+      let currentSets = [];
+      let compCardProp;
+
+      for(let i=0; i<Cards.length-2;i++ )
+      {
+        for(let j=i+1;j<Cards.length-1;j++)
+        {
+          let compCardProp = complementaryCardProperites(Cards[i],Cards[j]);
+          let n1 = propertiesToNumber(compCardProp);
+
+          for(let k=j+1;k<Cards.length;k++)
+          {
+            let n2 = propertiesToNumber(Cards[k].properties);
+            if(n1==n2)
+            {
+              let newSet = [];
+              newSet.push(Cards[i]);
+              newSet.push(Cards[j]);
+              newSet.push(Cards[k]);
+              currentSets.push(newSet);
+            }
+
+
+          }
+
+
+        }
+
+      }
+
+      return currentSets;
+  }
+
+
+  function complementaryCardProperites(Card1,Card2)
+  {
+    let res=[];
+    let cP1 = Card1.properties;
+    let cP2 = Card2.properties;
+
+    for(let i=0;i<4;i++)
+    {
+      let prop;
+
+      let n1=Number(cP1[i]);
+      let n2=Number(cP2[i]);
+      if( n1==n2 )
+      {
+        prop = n1;
+      }
+
+      else
+      {
+        prop = Number(3 - n1 - n2 );
+      }
+
+      res.push(prop);
+    }
+
+    return res;
+  }
+
+
+  function propertiesToNumber(cardProp)
+  {
+    let res=0;
+    for(let i=0;i<4;i++)
+    {
+      res+=Number(cardProp[i])*Number(3**i);
+    }
+    return res;
+  }
+
+  // Function to get all players
+  function getPlayers()
+  {
+    const players = localStorage.getItem('set_players');
+    return players ? JSON.parse(players) : []; // Return empty array if none found
+  }
+
+  function saveNewPlayer(name)
+  {
+    let players = getPlayers();
+    if (!players.includes(name))
+    {
+      players.push(name);
+      localStorage.setItem('set_players', JSON.stringify(players));
+    }
+  }
+
+
+  function saveGameResult(pName, score, time, averageTime, fstSet,efficiency)
+  {
+    const history = JSON.parse(localStorage.getItem('set_history')) || [];
+    
+    const newResult = {
+        name: pName,
+        score: score,
+        totalTime: time,
+        averageTime: averageTime,
+        fastestSet: fstSet,
+        efficiency: efficiency,
+        date: new Date().toLocaleDateString() // Stores date like "02/25/2026"
+    };
+
+    history.push(newResult);
+    localStorage.setItem('set_history', JSON.stringify(history));
+  }
+
+
+    // Run this when the page loads
+  window.onload = function()
+  {
+     renderPlayerList();
+  };
+
+  function renderPlayerList() 
+  {
+    const players = getPlayers(); // Using the function from our previous step
+    const listContainer = document.getElementById('existing-players-list');
+      
+    if (players.length === 0) {
+        listContainer.innerHTML = " ";
+        return;
+    }
+
+    let html = "";
+    players.forEach(name => {
+        html += `
+            <div class="player-entry">
+                <button class="player-btn" onclick="selectPlayer('${name}')">${name}</button>
+                <button class="delete-btn" onclick="confirmDelete('${name}')">×</button>
+            </div>`;
+    });
+    listContainer.innerHTML = html;
+  }
+
+  function handleNewPlayer() {
+      const nameField = document.getElementById('player-name-field');
+      const name = nameField.value.trim();
+
+      if (name) {
+          saveNewPlayer(name); // Saves to LocalStorage
+          selectPlayer(name);  // Sets as active player
+      } else {
+          alert("Please enter a name!");
+      }
+  }
+
+  function selectPlayer(name) {
+      // Store the active player name for this session
+      sessionStorage.setItem('currentPlayer', name);
+      
+      // Hide the manager and start your game logic
+      document.getElementById('player-manager').style.display = 'none';
+      playerName =  name;
+      document.getElementById("dealCardsDiv").style.scale=0;
+
+      dealCards(); 
+  }
+
+
+  function confirmDelete(name) {
+    if (confirm(`Gidiyor gozumun nuru ${name}`)) {
+        // 1. Remove from Players list
+        let players = getPlayers();
+        players = players.filter(p => p !== name);
+        localStorage.setItem('set_players', JSON.stringify(players));
+
+        // 2. Remove from History
+        let history = JSON.parse(localStorage.getItem('set_history')) || [];
+        history = history.filter(game => game.name !== name);
+        localStorage.setItem('set_history', JSON.stringify(history));
+
+        // 3. Refresh the UI
+        renderPlayerList();
+    }
+  }
+
+
+
+
+</script>
+
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered!'))
+        .catch(err => console.log('Service Worker failed:', err));
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+
+</html>
