@@ -382,7 +382,7 @@
       border: 0.0vmin solid black;
       border-radius: 50%;
       
-      z-index: 31;
+      z-index: 101;
       scale: 0;
     }
 
@@ -395,7 +395,7 @@
       width: 100%;
       background: rgba(0, 0, 0, 0.7);
       scale:0;
-      z-index: 30;
+      z-index: 100;
 
     }
 
@@ -508,7 +508,7 @@
       text-align: center;
       background: none;
 
-      border: 0.2vmin solid red;
+      border: 0.0vmin solid red;
 
       display: flex;
       flex-direction: column;
@@ -523,10 +523,10 @@
       height: 26vmin;
       padding-right: 10vmin;
       padding-top: 0vmin;
-      font-size: 23vmin;
+      font-size: 21vmin;
       color: gold;
       text-shadow: 0.5vmin 0vmin 2vmin whitesmoke, -0.5vmin 0vmin 2vmin whitesmoke,0vmin 0.5vmin 2vmin whitesmoke,0vmin -0.5vmin 2vmin whitesmoke;
-      border: 0.1vmin solid black;
+      border: 0.0vmin solid black;
     }
 
     #existing-players-list
@@ -549,7 +549,7 @@
 
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       border: 0.0vmin solid pink; 
       padding-inline: 1vmin; 
     }
@@ -579,25 +579,25 @@
       color: ghostwhite;
       border: none;
       border-radius: 50%;
-      width: 6vmin;
+      width: 12vmin;
       aspect-ratio: 1;
-      font-size: 5vmin;
+      font-size: 6.5vmin;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-left: -0.1vmin;
-      margin-top: -7vmin;
+      margin-left: 1vmin;
+      margin-top: 0vmin;
     }
 
     
 
     #new-player-input
     {
-      padding-left: 5vmin;
+      padding-left: 0vmin;
       margin: 0;
-      width: auto;
+      width: 84vmin;
       height: 14vmin;
 
       border: 0.0vmin solid blue;
@@ -626,12 +626,9 @@
      #player-name-field
      {
       height: 13.5vmin;
-      
-      
+      width: 80%; 
       border-radius: 8vmin;
       border: 0.5vmin solid ghostwhite;
-      width: 64vmin;
-
       background: none;
       resize: none; /* 2. Remove the resize handle (bottom-right corner) */
       border-radius: 8vmin;
@@ -641,7 +638,7 @@
       outline: none;  /* Extra: Removing the default blue outline on click */
 
       padding-top: 3vmin;
-      margin-right: 0.5vmin;
+      margin-right: 0.0vmin;
       
       
       display: flex;
@@ -709,7 +706,7 @@
     {
       
 
-      height: 96vmin;
+      height: 88vmin;
       width: 86vmin;
 
       padding-block: 3vmin;
@@ -2062,14 +2059,18 @@
 
 
         //points move
-        document.getElementById("pointsDiv").animate([{ top:scoreTop, left: scoreLeft, height: scoreSideLength ,width: scoreSideLength,scale:0.6 }],{duration: 300,easing: 'ease-out', fill: 'forwards', delay:1500});
+        document.getElementById("pointsDiv").animate([{ top:scoreTop, left: scoreLeft, height: scoreSideLength ,width: scoreSideLength,scale:0.6 }],{duration: 600,easing: 'ease-out', fill: 'forwards', delay:1900});
 
-        document.getElementById("pointsDiv").animate([{scale:0}],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:1800});
+        document.getElementById("pointsDiv").animate([{scale:0}],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:2500});
+
+         //curtain fades:
+
+        document.getElementById("curtainDiv").animate([{ scale:0 }],{duration: 0,easing: 'ease-out', fill: 'forwards', delay:2500});
 
         // points adding counter
 
         for(let i =0;i<ptsIncrease;i++)
-         {window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 1900+ 10*i);}
+         {window.setTimeout(function() { totalPoints++; document.getElementById("scoreDiv").innerHTML = totalPoints ; }, 2500+ 10*i);}
 
         
 
@@ -2092,9 +2093,7 @@
 
         document.getElementById("pointsDiv").animate([{height: '30vmin', width: '30vmin', top:'calc(40% + 10vmin)', left:'calc(50% - 15vmin)'}],{duration: 1,easing: 'ease-out', fill: 'forwards', delay:3200});
 
-         //curtain fades:
-
-        document.getElementById("curtainDiv").animate([{ scale:0 }],{duration: 10,easing: 'ease-out', fill: 'forwards', delay:2500});
+        
 
         
 
