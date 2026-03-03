@@ -31,7 +31,7 @@
       color: white;
       font-family: Arial, sans-serif;
 
-      overscroll-behavior-y: contain;
+      overscroll-behavior-y: none;
      
     }
 
@@ -64,7 +64,7 @@
       text-align: center;
       font-size:9.8vmin;
       background: ghostwhite;
-      overscroll-behavior-y: contain;
+      overscroll-behavior-y: none;
       
     }
 
@@ -94,6 +94,8 @@
      
       z-index: 31;
     }
+
+
 
     .epicClass
     {
@@ -474,7 +476,7 @@
       width: 100%;
       height: 100%;
       
-      background: rgba(0, 0, 0, 0.8); 
+      background: rgba(0, 0, 0, 0.9); 
 
       display:flex;
       justify-content: space-around;
@@ -502,39 +504,38 @@
     #player-manager 
     {
       width: 90vmin;
-      height: 96vmin;
+      height: 88vmin;
       text-align: center;
       background: none;
 
-      border: 0.0vmin solid red;
+      border: 0.2vmin solid red;
 
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+      margin-bottom: 12vmin;
     }
 
     .playerTitleClass
     {
       width: 100%;
-      height: 30vmin;
+      height: 26vmin;
       padding-right: 10vmin;
-      font-size: 25vmin;
+      padding-top: 0vmin;
+      font-size: 23vmin;
       color: gold;
       text-shadow: 0.5vmin 0vmin 2vmin whitesmoke, -0.5vmin 0vmin 2vmin whitesmoke,0vmin 0.5vmin 2vmin whitesmoke,0vmin -0.5vmin 2vmin whitesmoke;
-      border: 0.0vmin solid black;
+      border: 0.1vmin solid black;
     }
 
     #existing-players-list
     {
       border: 0.0vmin solid greenyellow;
-      width: 90%;
-      height: 48vmin;
+      width: 84vmin;
+      height: 45.5vmin;
       display: flex;
       flex-direction: column;
-
-
-      align-content: stretch;
 
       justify-content: flex-start;
       text-align: center;
@@ -543,30 +544,30 @@
 
     .player-entry
      {
-      height: 33%;
+      height: 15vmin;
       box-sizing: border-box;
 
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 0.0vmin solid pink;
-      flex: 1 0 auto;
-     
+      border: 0.0vmin solid pink; 
+      padding-inline: 1vmin; 
     }
 
     .player-btn {
-      height: 90%;
-      max-height: 14.5vmin;
+      height: 13vmin;
       width: 80%;
+
+      box-shadow: 0.1vmin 0vmin 1.2vmin ghostwhite, 0vmin 0.1vmin 1.2vmin ghostwhite,-0.1vmin 0vmin 1.2vmin ghostwhite,0vmin -0.1vmin 1.2vmin ghostwhite ;
       
-      background: burlywood;
+      background: radial-gradient( burlywood, burlywood 30%,#3D2B1F 100%);
       color: #3D2B1F;
       border: none;
       border-radius: 8vmin;
       font-size: 5.6vmin;
       font-weight: 600;
 
-      border: 0.0vmin solid cyan;
+      border: 0.1vmin solid #3D2B1F;
       font-family: monospace;
     }
 
@@ -578,14 +579,16 @@
       color: ghostwhite;
       border: none;
       border-radius: 50%;
-      width: 12vmin;
-      height: 12vmin;
-      font-size: 8vmin;
+      width: 6vmin;
+      aspect-ratio: 1;
+      font-size: 5vmin;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-left: -0.1vmin;
+      margin-top: -7vmin;
     }
 
     
@@ -595,7 +598,7 @@
       padding-left: 5vmin;
       margin: 0;
       width: auto;
-      height: 16vmin;
+      height: 14vmin;
 
       border: 0.0vmin solid blue;
 
@@ -610,35 +613,35 @@
      #new-player-input > button
      { 
       margin: 0;
-      height: 15vmin;
-      width: 15vmin;
+      height: 14vmin;
+      width: 14vmin;
       border-radius: 50%;
       font-size: 8vmin;
       font-weight: 700;
 
-      background: radial-gradient(seagreen, greenyellow);
+      background: radial-gradient( greenyellow, seagreen);
       color: black;
      }
 
      #player-name-field
      {
-      height: 95%;
-      max-height: 14.5vmin;
+      height: 13.5vmin;
       
       
       border-radius: 8vmin;
-      border: 0.2vmin solid ghostwhite;
+      border: 0.5vmin solid ghostwhite;
       width: 64vmin;
 
       background: none;
       resize: none; /* 2. Remove the resize handle (bottom-right corner) */
       border-radius: 8vmin;
-      font-size: 7.6vmin;
+      font-size: 6vmin;
       font-weight: 600;
       color: white;
       outline: none;  /* Extra: Removing the default blue outline on click */
 
-      padding-top: 2vmin;
+      padding-top: 3vmin;
+      margin-right: 0.5vmin;
       
       
       display: flex;
@@ -662,7 +665,7 @@
       right:0;
       height: 15vmin;
       width: 15vmin;
-      border: 0.1vmin solid black;
+      border: 0.0vmin solid black;
       border-radius: 50%;
 
       color: black;
@@ -706,8 +709,8 @@
     {
       
 
-      height: 98vmin;
-      width: 92vmin;
+      height: 96vmin;
+      width: 86vmin;
 
       padding-block: 3vmin;
 
@@ -863,7 +866,7 @@
 
     .typeCountsClass span
     {
-      width: 22%;
+      width: 23%;
       height: 100%;
       border: 0.0vmin solid black;
 
@@ -1478,7 +1481,7 @@
   let icons=['&#127812;','&#127808;','&#127989;','&#128293;'];
   let reactions=['Nice','Brilliant!','Superior!!','Epic!!!'];
 
-  let gercekReactions=[ 'Aboov', 'Şahane!', 'İyi gördün!!','Vay vay vay!', 'OOooOO!!', 'Efsoo!!', 'Bunu beğendim', 'Ustalıque', 'Oha bee!!', 'Alım Kabul ettim','Çok Şükür' ];
+  let gercekReactions=[ 'Aboov', 'Şahane!', 'İyi gördün!!','Vay vay vay!', 'OOooOO!!', 'Efsoo!!', 'Bunu beğendim', 'Ustalıque', 'Helal Olsun!!', 'Alım Kabul ettim','Çok Şükür', 'Güzeel' ];
 
   document.getElementById("niceDiv").innerHTML = icons[0];
   document.getElementById("brilliantDiv").innerHTML = icons[1];
@@ -2198,11 +2201,15 @@
 
     document.getElementById("currentSetsDiv").animate([{ scale:0,offset:0 }, {scale:1.0,offset:0.1},{scale:0.8,offset:0.99},{scale:0,offset:1}],{duration: 1000,easing: 'ease-out', fill: 'forwards', delay:50});
 
-    document.getElementById("reactionDiv").innerHTML="Kalan Kartlardan Kaptığın Puan";
+    document.getElementById("reactionDiv").animate([{ top:'calc(40% - 20vmin)'}],{duration: 1,easing: 'ease-out', fill: 'forwards', delay:0});
 
-    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.9},{scale:0,offset:1}],{duration: 1200,easing: 'ease-out', fill: 'forwards', delay:900});
 
-    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:1.2,offset:1}],{duration: 900,easing: 'ease-out', fill: 'forwards', delay:1200});
+
+    document.getElementById("reactionDiv").innerHTML="Kalan Kartlardan Puan";
+
+    document.getElementById("reactionDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.9},{scale:0,offset:1}],{duration: 1700,easing: 'ease-out', fill: 'forwards', delay:900});
+
+    document.getElementById("pointsDiv").animate([{ scale:0,offset:0 }, {scale:1.2,offset:0.1},{scale:1.2,offset:0.99},{scale:1.2,offset:1}],{duration: 1400,easing: 'ease-out', fill: 'forwards', delay:1200});
 
 
     let vLeft='37.5vmin'; 
