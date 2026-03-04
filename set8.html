@@ -92,7 +92,7 @@
 
       border-radius: 50%;
      
-      z-index: 31;
+      z-index: 51;
     }
 
 
@@ -307,9 +307,9 @@
       font-weight: 600;
       font-family: Georgia, serif;
 
-      -webkit-text-stroke: 0.0vmin orangered;
+      -webkit-text-stroke: 0.0vmin ghostwhite;
 
-      text-shadow: 2vmin 0vmin 3vmin ghostwhite, 0vmin 2vmin 3vmin ghostwhite,-2vmin 0vmin 3vmin ghostwhite,0vmin -2vmin 3vmin ghostwhite;
+      text-shadow: 0.6vmin 0vmin 0.8vmin ghostwhite, 0vmin 0.6vmin 0.8vmin ghostwhite,-0.6vmin 0vmin 0.8vmin ghostwhite,0vmin -0.6vmin 0.8vmin ghostwhite;
 
 
 
@@ -484,7 +484,7 @@
       flex-direction: column;
       text-align: center;
       font-size:8vmin;
-      z-index: 50;
+      z-index: 103;
      
     }
 
@@ -694,7 +694,7 @@
       text-align: center;
       scale: 0;
 
-      z-index: 31;
+      z-index: 101;
 
 
     }
@@ -706,12 +706,12 @@
     {
       
 
-      height: 88vmin;
+      height: 90vmin;
       width: 86vmin;
 
-      padding-block: 3vmin;
+      margin-block: 3vmin;
 
-      border: 0.15vmin solid blueviolet;
+      border: 0.0vmin solid blueviolet;
       border-radius: 6vmin;
       
       display:flex;
@@ -720,8 +720,10 @@
       flex-direction: column;
       text-align: center;
 
-      box-shadow:0vmin 0vmin 1vmin 0.7vmin ghostwhite;
-      background: radial-gradient(circle, ghostwhite, blueviolet 100%);
+      box-shadow:0vmin 0vmin 0.3vmin 0.8vmin ghostwhite;
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+
+      
 
       text-shadow: 0.3vmin 0vmin 0.2vmin black, 0vmin 0.3vmin 0.2vmin black,-0.3vmin 0vmin 0.2vmin black,0vmin -0.3vmin 0.2vmin black,0.3vmin 0.3vmin 0.2vmin black, -0.3vmin -0.3vmin 0.2vmin black;
       color: ghostwhite;
@@ -734,17 +736,15 @@
 
     .endGameNameNPointsClass
     {
-      height: 10vmin;
+      height: 12vmin;
       width: 90%;
-      
-      margin-bottom:4vmin;
 
       display:flex;
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
-      border: 0.0vmin solid darkblue;
-      font-size: 9.6vmin;
+      border: 0.0vmin solid lightblue;
+      font-size: 9.2vmin;
       font-weight: 600;
     }
 
@@ -761,7 +761,7 @@
 
     .chartClass
     {
-      height: 34vmin;
+      height: 32vmin;
       width: 84%;
 
       padding: 0;
@@ -777,7 +777,7 @@
     .dataClass
     {     
       width: 100%;
-      height: 88%;
+      height: 85%;
       display:flex;
       flex-direction: row;
       justify-content: center;
@@ -814,7 +814,7 @@
     {
   
       width: 100%;
-      height: 12%;
+      height: 15%;
 
       display:flex;
       flex-direction: row;
@@ -845,8 +845,8 @@
     .typeCountsClass
     {
       
-      width: 80%;
-      height: 10%;
+      width: 90%;
+      height: 15%;
 
       display:flex;
       flex-direction: row;
@@ -856,65 +856,75 @@
       border: 0.0vmin solid black;
       
 
-      border-radius: 3vmin 3vmin 3vmin 3vmin;
+      border-radius: 0vmin;
 
-      scale: 0.9;
+      scale: 1;
     }
 
     .typeCountsClass span
     {
-      width: 23%;
+      width: 23.8%;
       height: 100%;
-      border: 0.0vmin solid black;
+      border: 0.0vmin solid hotpink;
 
       display:flex;
-      flex-direction: column;
+      flex-direction: row;
         justify-content: center;
         align-items: center;
 
-        font-size: 4.7vmin;
-        font-weight: 700;
+        font-size: 4.8vmin;
+        font-weight: 600;
 
-        background: orange;
+        background: none;
 
-        border-radius: 3vmin;
+        border-radius: 8vmin;
         
+    }
+
+    .typeCountsClass span > span
+    {
+      width: 33%;
+      border: 0.0vmin solid lightcyan;
+      border-radius: 0vmin;
+      background: none;
     }
 
 
     .timeClass
     {
 
-      width: 60%;
-      height: 24vmin;
+      width: 48vmin;
+      height: 28vmin;
       
 
       display:flex;
       flex-direction: column;
-        justify-content: center;
-        align-items: center;
+      justify-content: center;
+      align-items: center;
 
       border: 0.0vmin solid darkcyan;
-      font-size: 3.0vmin;
+      font-size: 3.8vmin;
 
       
 
       margin-left: 0vmin;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.2);
       border-radius: 3vmin;
+
+      scale: 0;
       
     }
 
     .timeClass div
     {
       width: 100%;
-      height: 27%;
+      height: 25%;
       
 
       display:flex;
       flex-direction: row;
-        justify-content: center;
-        align-items: center;
+      justify-content: center;
+      align-items: center;
 
       border: 0.0vmin solid red;
     
@@ -923,15 +933,16 @@
     .timeClass div > span
     {
       height: 100%;
-      width: 40%;
+      width: 39%;
 
     
       border: 0.0vmin solid darkmagenta;
-      text-align: left;
+      text-align: center;
 
       display:flex;
       flex-direction: column;
-        justify-content: center;
+      justify-content: center;
+
         
   
 
@@ -1252,6 +1263,11 @@
 
       }
 
+      .endGameCardClass
+      {
+        margin-bottom: 10vmin;
+      }
+
       .endGameNewGameClass
       {
         margin-left: 6vmin;
@@ -1344,6 +1360,13 @@
 
   <div class="endGameScreenClass" id="endGameScreenDiv">
     <div class="endGameCardClass" id="endGameCardDiv">
+
+      <div class="typeCountsClass">
+          <span> <span id="typeCountsEpicSpan" style="justify-content: flex-end;"></span> <span style="text-align:left;">&times;</span>   <span>&#128293;</span> </span> 
+          <span> <span id="typeCountsSuperiorSpan" style="justify-content: flex-end;"></span> <span>&times;</span> <span>&#127989;</span> </span> 
+          <span> <span id="typeCountsBrilliantSpan" style="justify-content: flex-end;"></span> <span>&times;</span> <span>&#127808;</span> </span>
+          <span> <span id="typeCountsNiceSpan" style="justify-content: flex-end;"></span> <span>&times;</span> <span>&#127812;</span> </span> 
+      </div>
       
       <div class="endGameNameNPointsClass">
         <span id = "endGameIdSpan">AADALI</span> <span id = "endGamePointsSpan">2168 pts</span>
@@ -1378,39 +1401,34 @@
         </div>
       </div>
 
-      <div class="typeCountsClass">
-          <span id="typeCountsEpicSpan"></span> 
-          <span id="typeCountsSuperiorSpan"></span>
-          <span id="typeCountsBrilliantSpan"></span>
-          <span id="typeCountsNiceSpan"></span>  
-      </div>
+      
 
 
 
 
-      <div class="timeClass">
-        <div style="background: rgba(0, 0, 0, 0.8);border-radius: 3vmin 3vmin 0vmin 0vmin;"> 
-          <span>Total Time</span>
-          <span id="endGameTotalTimeSpan" style="text-align: right;width: 28%;">436.288</span>
-          <span style="width: 22%;"> &nbsp; sec</span>
+      <div class="timeClass" id="timeStatsDiv">
+        <div style="background: rgba(0, 0, 0, 0.3);border-radius: 3vmin 3vmin 0vmin 0vmin;"> 
+          <span>&#8987;&nbsp;</span>
+          <span id="endGameTotalTimeSpan" style="text-align: right;">436.288</span>
+          <span style="width: 22%;font-size: 2vmin"> &nbsp; sec</span>
         </div>
 
         <div>
-          <span>Average Time</span>
-          <span id="endGameAverageTimeSpan" style="text-align: right;width: 28%;">40.813</span>
-          <span style="width: 22%;">&nbsp; sec/set</span>
+          <span style="letter-spacing: -0.8vmin">&#9201;&nbsp; &nbsp; &#65295; &nbsp;  &nbsp; &#127136; &#127136; &#127136; &nbsp; &nbsp;</span>
+          <span id="endGameAverageTimeSpan" style="text-align: right;">40.813</span>
+          <span style="width: 22%;font-size: 2vmin">&nbsp; sec/set</span>
         </div>
 
-        <div style="background: rgba(0, 0, 0, 0.8);">
-          <span>Fastest Set</span>
-          <span id="endGameBestTimeSpan" style="text-align: right;width: 28%;">2.071</span>
-          <span style="width: 22%;" >&nbsp; sec</span>
+        <div style="background: rgba(0, 0, 0, 0.3);">
+          <span>&#9889;&nbsp;</span>
+          <span id="endGameBestTimeSpan" style="text-align: right;">2.071</span>
+          <span style="width: 22%;font-size: 2vmin" >&nbsp; sec</span>
         </div>
 
         <div style="border-radius: 0vmin 0vmin 3vmin 3vmin;">
-          <span>Efficiency</span>
-          <span id="endGameEfficiencySpan" style="text-align: right; width: 28%;">4.392</span>
-          <span style="width: 22%;">&nbsp; pts/sec</span>
+          <span>&#128200;</span>
+          <span id="endGameEfficiencySpan" style="text-align: right; ">4.392</span>
+          <span style="width: 22%;font-size: 2vmin">&nbsp; pts/sec</span>
         </div>  
       </div>
 
@@ -1478,7 +1496,7 @@
   let icons=['&#127812;','&#127808;','&#127989;','&#128293;'];
   let reactions=['Nice','Brilliant!','Superior!!','Epic!!!'];
 
-  let gercekReactions=[ 'Aboov', 'Şahane!', 'İyi gördün!!','Vay vay vay!', 'OOooOO!!', 'Efsoo!!', 'Bunu beğendim', 'Ustalıque', 'Helal Olsun!!', 'Alım Kabul ettim','Çok Şükür', 'Güzeel' ];
+  let gercekReactions=[ 'Aboov', 'Şahane!', 'İyi gördün!','Vay vay vay!', 'OOooOO!!', 'Efsoo!', 'Bunu beğendim', 'Ustalıque', 'Helal Olsun!!', 'Alım Kabul ettim','Çok Şükür', 'Güzeel', 'Maaşallah', 'Yapıyon Bu Sporu', 'Mükk' ];
 
   document.getElementById("niceDiv").innerHTML = icons[0];
   document.getElementById("brilliantDiv").innerHTML = icons[1];
@@ -2219,6 +2237,8 @@
     document.getElementById("pointsDiv").animate([{ scale:0.4, top:vTop, left:vLeft }],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:2100});
     document.getElementById("pointsDiv").animate([{ scale:0}],{duration: 100,easing: 'ease-out', fill: 'forwards', delay:2900});
 
+    window.setTimeout(function() { document.getElementById("scoreDiv").style.zIndex =101 ;}, 2900);
+
     
     for(let i =0;i<ptsIncrease;i++)
     {
@@ -2257,10 +2277,10 @@
       document.getElementById("endGameEfficiencySpan").innerHTML =gameEfficiency;
       document.getElementById("endGamePointsSpan").innerHTML ='0'+' pts';
 
-      document.getElementById("typeCountsEpicSpan").innerHTML = '0'+' &times; '+icons[3];
-      document.getElementById("typeCountsSuperiorSpan").innerHTML ='0'+' &times; '+icons[2];
-      document.getElementById("typeCountsBrilliantSpan").innerHTML = '0'+' &times; '+icons[1];
-      document.getElementById("typeCountsNiceSpan").innerHTML = '0'+' &times; '+icons[0];
+      document.getElementById("typeCountsEpicSpan").innerHTML = '0';
+      document.getElementById("typeCountsSuperiorSpan").innerHTML ='0';
+      document.getElementById("typeCountsBrilliantSpan").innerHTML = '0';
+      document.getElementById("typeCountsNiceSpan").innerHTML = '0';
 
       saveGameResult(playerName, TTPts, totalTime, averageTime, fastestSet,gameEfficiency);
 
@@ -2308,34 +2328,73 @@
     {
       let dtime = Number(2500/allReactionIconSpans.length);
 
-      allReactionIconSpans[allReactionIconSpans.length-1-i].animate([{ scale:0,offset:0 }, {scale:1.6,offset:0.8},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:5300+10*ptsIncrease+Number(dtime*i)});
+      let currentReaction = allReactionIconSpans[allReactionIconSpans.length-1-i].textContent;
+      let currentTypeCount;
+      //let icons=['&#127812;','&#127808;','&#127989;','&#128293;'];
+      //let reactions=['Nice','Brilliant!','Superior!!','Epic!!!'];
+
+      switch(currentReaction)
+      {
+        case '🔥':
+          currentTypeCount = document.getElementById("typeCountsEpicSpan");
+          break;
+
+        case '🏵':
+          currentTypeCount = document.getElementById("typeCountsSuperiorSpan");
+          break;
+
+        case '🍀':
+          currentTypeCount = document.getElementById("typeCountsBrilliantSpan");
+          break;
+
+        case '🍄':
+          currentTypeCount = document.getElementById("typeCountsNiceSpan");
+          break; 
+      }
+
+      allReactionIconSpans[allReactionIconSpans.length-1-i].animate([{ scale:0,offset:0 }, {scale:1.6,offset:0.8},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease+Number(dtime*i)});
+
+      window.setTimeout(function() { currentTypeCount.innerHTML = ""; }, 4800+10*ptsIncrease+Number(dtime*i) );
+      window.setTimeout(function() { currentTypeCount.innerHTML = Number(i+1); }, 4800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
     }
+
+    /*
 
 
     for(let i=0;i<epicCount;i++)
     {
-      let dtime = Number(2000/epicCount);
-      window.setTimeout(function() { document.getElementById("typeCountsEpicSpan").innerHTML = Number(i+1)+' &times; '+icons[3]; }, 7800+10*ptsIncrease+Number(dtime*i) );
+      let dtime = Number(1000/epicCount);
+      window.setTimeout(function() { document.getElementById("typeCountsEpicSpan").innerHTML = ""; }, 4800+10*ptsIncrease+Number(dtime*i) );
+      window.setTimeout(function() { document.getElementById("typeCountsEpicSpan").innerHTML = Number(i+1); }, 4800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
     }
 
     for(let i=0;i<superiorCount;i++)
     {
-      let dtime = Number(2000/superiorCount);
-      window.setTimeout(function() { document.getElementById("typeCountsSuperiorSpan").innerHTML = Number(i+1)+' &times; '+icons[2]; }, 7800+10*ptsIncrease+Number(dtime*i) );
+      let dtime = Number(1000/superiorCount);
+      window.setTimeout(function() { document.getElementById("typeCountsSuperiorSpan").innerHTML =""; }, 5800+10*ptsIncrease+Number(dtime*i) );
+
+      window.setTimeout(function() { document.getElementById("typeCountsSuperiorSpan").innerHTML = Number(i+1); }, 5800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
     }
 
     for(let i=0;i<brilliantCount;i++)
     {
-      let dtime = Number(2000/brilliantCount);
-      window.setTimeout(function() { document.getElementById("typeCountsBrilliantSpan").innerHTML = Number(i+1)+' &times; '+icons[1]; }, 7800+10*ptsIncrease+Number(dtime*i) );
+      let dtime = Number(1000/brilliantCount);
+      window.setTimeout(function() { document.getElementById("typeCountsBrilliantSpan").innerHTML = ""; }, 6800+10*ptsIncrease+Number(dtime*i) );
+
+      window.setTimeout(function() { document.getElementById("typeCountsBrilliantSpan").innerHTML = Number(i+1); }, 6800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
     }
 
 
     for(let i=0;i<niceCount;i++)
     {
-      let dtime = Number(2000/niceCount);
-      window.setTimeout(function() { document.getElementById("typeCountsNiceSpan").innerHTML = Number(i+1)+' &times; '+icons[0]; }, 7800+10*ptsIncrease+Number(dtime*i) );
+      let dtime = Number(1000/niceCount);
+      window.setTimeout(function() { document.getElementById("typeCountsNiceSpan").innerHTML = ""; }, 7800+10*ptsIncrease+Number(dtime*i) );
+
+      window.setTimeout(function() { document.getElementById("typeCountsNiceSpan").innerHTML = Number(i+1); }, 7800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
     }
+    */
+
+    document.getElementById("timeStatsDiv").animate([{ scale:1 }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:7300+10*ptsIncrease});
 
 
 
