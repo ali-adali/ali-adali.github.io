@@ -665,19 +665,24 @@
       border: 0.0vmin solid black;
       border-radius: 50%;
 
-      color: black;
+      color: ghostwhite;
 
       display: flex;
-      scale:1.0;
+      scale:0;
+      transition: scale 0.3s ease;
 
       
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:2vmin;
+      font-size:3vmin;
+      font-weight: 600;
       z-index: 1000;
 
     }
+
+    .currentSetsClass.is-visible {
+      scale: 1;}
 
     .endGameScreenClass
     {
@@ -1324,7 +1329,7 @@
   </div>
 
  
-  <div class="moreCardsClass" id="moreCardsDiv" > <span>CARDS</span>  <span class="cardsInDeckClass" id="cardsInDeckSpan" >81</span> </div>
+  <div class="moreCardsClass" id="moreCardsDiv" ondblclick='document.getElementById("currentSetsDiv").classList.toggle("is-visible")' > <span>CARDS</span>  <span class="cardsInDeckClass" id="cardsInDeckSpan" style="pointer-events: none;" >81</span> </div>
 
   <div class="currentSetsClass" id="currentSetsDiv">0</div>
 
@@ -2322,6 +2327,11 @@
 
     let allReactionIconSpans = [...t6.querySelectorAll('span'),...t5.querySelectorAll('span'),...t4.querySelectorAll('span'),...t3.querySelectorAll('span'),...t2.querySelectorAll('span'),...t1.querySelectorAll('span')  ];
 
+    let cEpic = 0;
+    let cSuperior = 0;
+    let cBrilliant = 0;
+    let cNice=0;
+
 
 
     for(let i=0;i<allReactionIconSpans.length;i++)
@@ -2333,29 +2343,41 @@
       //let icons=['&#127812;','&#127808;','&#127989;','&#128293;'];
       //let reactions=['Nice','Brilliant!','Superior!!','Epic!!!'];
 
+      
+      let cCount;
+
       switch(currentReaction)
       {
         case '🔥':
           currentTypeCount = document.getElementById("typeCountsEpicSpan");
+          cEpic=cEpic+1;
+          cCount = cEpic;
           break;
 
         case '🏵':
           currentTypeCount = document.getElementById("typeCountsSuperiorSpan");
+          cSuperior=cSuperior+1;
+          cCount = cSuperior;
           break;
 
         case '🍀':
           currentTypeCount = document.getElementById("typeCountsBrilliantSpan");
+          cBrilliant =cBrilliant +1;
+          cCount = cBrilliant ;
           break;
 
         case '🍄':
           currentTypeCount = document.getElementById("typeCountsNiceSpan");
+          cNice =cNice +1;
+          cCount = cNice ;
           break; 
       }
+
 
       allReactionIconSpans[allReactionIconSpans.length-1-i].animate([{ scale:0,offset:0 }, {scale:1.6,offset:0.8},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease+Number(dtime*i)});
 
       window.setTimeout(function() { currentTypeCount.innerHTML = ""; }, 4800+10*ptsIncrease+Number(dtime*i) );
-      window.setTimeout(function() { currentTypeCount.innerHTML = Number(i+1); }, 4800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
+      window.setTimeout(function() { currentTypeCount.innerHTML = cCount; }, 4800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
     }
 
     /*
