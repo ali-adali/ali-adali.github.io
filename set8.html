@@ -665,19 +665,28 @@
       border: 0.0vmin solid black;
       border-radius: 50%;
 
-      color: black;
+      color: ghostwhite;
 
       display: flex;
-      scale:0.0;
+      scale:0;
+      transition: scale 0.3s ease;
+
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none;
 
       
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      font-size:2vmin;
+      font-size:3vmin;
+      font-weight: 600;
       z-index: 1000;
 
     }
+
+    .currentSetsClass.is-visible {
+      scale: 1;}
 
     .endGameScreenClass
     {
@@ -706,16 +715,16 @@
     {
       
 
-      height: 90vmin;
-      width: 86vmin;
+      height: 100vmin;
+      width: 90vmin;
 
-      margin-block: 3vmin;
+      margin: 3vmin;
 
       border: 0.0vmin solid blueviolet;
       border-radius: 6vmin;
       
       display:flex;
-      justify-content: space-evenly;
+      justify-content: center;
       align-items: center;
       flex-direction: column;
       text-align: center;
@@ -737,7 +746,7 @@
     .endGameNameNPointsClass
     {
       height: 12vmin;
-      width: 90%;
+      width: 81vmin;
 
       display:flex;
       flex-direction: row;
@@ -750,8 +759,8 @@
 
     .endGameNameNPointsClass span
     {
-      height: 100%;
-      width: 50%;
+      height: 12vmin;
+      width: 40.5vmin;
       display:flex;
       flex-direction: column;
       justify-content: center;
@@ -762,7 +771,7 @@
     .chartClass
     {
       height: 32vmin;
-      width: 84%;
+      width: 75vmin;
 
       padding: 0;
       margin: 0;
@@ -776,8 +785,8 @@
 
     .dataClass
     {     
-      width: 100%;
-      height: 85%;
+      width: 75vmin;
+      height: 26vmin;
       display:flex;
       flex-direction: row;
       justify-content: center;
@@ -789,8 +798,8 @@
 
     .dataClass div
     {
-      width: 16.6%;
-      height: 100%;
+      width: 12.5vmin;
+      height: 26vmin;
       border: 0.0vmin solid darkcyan;
       display:flex;
       flex-direction: column;
@@ -813,8 +822,8 @@
     .intervalsClass
     {
   
-      width: 100%;
-      height: 15%;
+      width: 75vmin;
+      height: 6vmin;
 
       display:flex;
       flex-direction: row;
@@ -845,15 +854,15 @@
     .typeCountsClass
     {
       
-      width: 90%;
-      height: 15%;
+      width: 81vmin;
+      height: 12vmin;
 
       display:flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
 
-      border: 0.0vmin solid black;
+      outline: 0.0vmin solid black;
       
 
       border-radius: 0vmin;
@@ -861,32 +870,63 @@
       scale: 1;
     }
 
-    .typeCountsClass span
+    .egtcs0Class
     {
-      width: 23.8%;
-      height: 100%;
-      border: 0.0vmin solid hotpink;
+      width: 20vmin;
+      height: auto;
+      outline: 0.0vmin solid hotpink;
 
       display:flex;
       flex-direction: row;
-        justify-content: center;
-        align-items: center;
+      justify-content: center;
+      align-items: center;
 
-        font-size: 4.8vmin;
+        font-size: 5vmin;
         font-weight: 600;
 
         background: none;
-
-        border-radius: 8vmin;
         
     }
 
-    .typeCountsClass span > span
+  
+
+    .egtcs1Class
     {
-      width: 33%;
-      border: 0.0vmin solid lightcyan;
-      border-radius: 0vmin;
-      background: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      height: 8.4vmin;
+      width:8.4vmin;
+      border-radius: 50%;
+      background:radial-gradient(red,darkred);
+      font-size: 5vmin;
+      outline: 0.0vmin solid black;
+    }
+
+    .egtcs2Class
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 8.4vmin;
+      width:4vmin;
+      font-size: 5vmin;
+      outline: 0.0vmin solid green;
+    }
+
+    .egtcs3Class
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      height: 8.4vmin;
+      width:5vmin;
+      font-size: 5vmin;
+      outline: 0.0vmin solid green;
     }
 
 
@@ -894,7 +934,7 @@
     {
 
       width: 48vmin;
-      height: 28vmin;
+      height: 30vmin;
       
 
       display:flex;
@@ -908,7 +948,7 @@
       
 
       margin-left: 0vmin;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.0);
       border-radius: 3vmin;
 
       scale: 0;
@@ -917,8 +957,8 @@
 
     .timeClass div
     {
-      width: 100%;
-      height: 25%;
+      width: 48vmin;
+      height: 6.5vmin;
       
 
       display:flex;
@@ -927,13 +967,15 @@
       align-items: center;
 
       border: 0.0vmin solid red;
+
+      background: rgba(0, 0, 0, 0.3);
     
     }
 
     .timeClass div > span
     {
-      height: 100%;
-      width: 39%;
+      height: 7vmin;
+      width: 19.2vmin;
 
     
       border: 0.0vmin solid darkmagenta;
@@ -948,31 +990,49 @@
 
     }
 
+    .yeniOyunNShareClass
+    {
+      width: 80vmin;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+       outline: 0.0vmin solid red;
+    }
+
     .endGameNewGameClass
     {
-      height: 30vmin;
-      width: 30vmin;
+      height: 27vmin;
+      width: 27vmin;
+
+      box-shadow:0vmin 0vmin 0.2vmin 0.8vmin ghostwhite;
 
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
 
-      font-size: 8vmin;
+      font-size: 7.2vmin;
 
       border-radius: 50%;
 
-      background: radial-gradient(circle, orangered,orange);
-      color:ghostwhite;
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+      color:#3D2B1F;
 
-      font-size: 7.5vmin;
-      font-weight: 600; 
+      border: 0.3vmin outset #3D2B1F;
+
+      font-size: 7.0vmin;
+      font-weight: 700; 
 
       
-      text-shadow: 0.3vmin 0vmin 0.2vmin darkgreen, 0vmin 0.3vmin 0.2vmin darkgreen,-0.3vmin 0vmin 0.2vmin darkgreen,0vmin -0.3vmin 0.2vmin darkgreen,0.3vmin 0.3vmin 0.2vmin darkgreen, -0.3vmin -0.3vmin 0.2vmin darkgreen; 
-      color:whitesmoke;
+      
 
-      margin-top: 4vmin;
+     
+    }
+
+    .paylasClass
+    {
+      height: 30;
     }
 
 
@@ -1260,17 +1320,19 @@
       .endGameScreenClass
       {
         flex-direction: row;
+        justify-content: flex-start;
 
       }
 
       .endGameCardClass
       {
-        margin-bottom: 10vmin;
+        scale: 0.9;
+        margin-bottom: 6vmin;
       }
 
       .endGameNewGameClass
       {
-        margin-left: 6vmin;
+        
       }
 
 
@@ -1324,7 +1386,7 @@
   </div>
 
  
-  <div class="moreCardsClass" id="moreCardsDiv" > <span>CARDS</span>  <span class="cardsInDeckClass" id="cardsInDeckSpan" >81</span> </div>
+  <div class="moreCardsClass" id="moreCardsDiv" onclick='document.getElementById("currentSetsDiv").classList.toggle("is-visible")' > <span>CARDS</span>  <span class="cardsInDeckClass" id="cardsInDeckSpan" style="pointer-events: none;" >81</span> </div>
 
   <div class="currentSetsClass" id="currentSetsDiv">0</div>
 
@@ -1362,11 +1424,32 @@
     <div class="endGameCardClass" id="endGameCardDiv">
 
       <div class="typeCountsClass">
-          <span> <span id="typeCountsEpicSpan" style="justify-content: flex-end;"></span> <span style="text-align:left;">&times;</span>   <span>&#128293;</span> </span> 
-          <span> <span id="typeCountsSuperiorSpan" style="justify-content: flex-end;"></span> <span>&times;</span> <span>&#127989;</span> </span> 
-          <span> <span id="typeCountsBrilliantSpan" style="justify-content: flex-end;"></span> <span>&times;</span> <span>&#127808;</span> </span>
-          <span> <span id="typeCountsNiceSpan" style="justify-content: flex-end;"></span> <span>&times;</span> <span>&#127812;</span> </span> 
+          <span class="egtcs0Class"> 
+            <span class="egtcs1Class" id="typeCountsEpicSpan"></span> 
+            <span class="egtcs2Class" style="text-align:left;">&times;</span>   
+            <span class="egtcs3Class">&#128293;</span>
+          </span> 
+          
+          <span class="egtcs0Class"> 
+            <span class="egtcs1Class" id="typeCountsSuperiorSpan"></span> 
+            <span class="egtcs2Class">&times;</span> 
+            <span class="egtcs3Class">&#127989;</span> 
+          </span>
+
+          <span class="egtcs0Class"> 
+            <span class="egtcs1Class" id="typeCountsBrilliantSpan"></span>
+            <span class="egtcs2Class">&times;</span> 
+            <span class="egtcs3Class">&#127808;</span> 
+          </span>
+
+          <span class="egtcs0Class">
+            <span class="egtcs1Class" id="typeCountsNiceSpan"></span> 
+            <span class="egtcs2Class">&times;</span> 
+            <span class="egtcs3Class">&#127812;</span> 
+          </span> 
       </div>
+
+
       
       <div class="endGameNameNPointsClass">
         <span id = "endGameIdSpan">AADALI</span> <span id = "endGamePointsSpan">2168 pts</span>
@@ -1407,7 +1490,7 @@
 
 
       <div class="timeClass" id="timeStatsDiv">
-        <div style="background: rgba(0, 0, 0, 0.3);border-radius: 3vmin 3vmin 0vmin 0vmin;"> 
+        <div style="background: rgba(0, 0, 0, 0.6);border-radius: 3vmin 3vmin 0vmin 0vmin;"> 
           <span>&#8987;&nbsp;</span>
           <span id="endGameTotalTimeSpan" style="text-align: right;">436.288</span>
           <span style="width: 22%;font-size: 2vmin"> &nbsp; sec</span>
@@ -1419,7 +1502,7 @@
           <span style="width: 22%;font-size: 2vmin">&nbsp; sec/set</span>
         </div>
 
-        <div style="background: rgba(0, 0, 0, 0.3);">
+        <div style="background: rgba(0, 0, 0, 0.6);">
           <span>&#9889;&nbsp;</span>
           <span id="endGameBestTimeSpan" style="text-align: right;">2.071</span>
           <span style="width: 22%;font-size: 2vmin" >&nbsp; sec</span>
@@ -1432,13 +1515,27 @@
         </div>  
       </div>
 
-
-      <div >
-        
-      </div>  
+ 
     </div>
 
-    <div class="endGameNewGameClass" onclick="location.reload();"> Yeni Oyun </div>
+    <div class="yeniOyunNShareClass">  
+      <div class="endGameNewGameClass" onclick="location.reload();"> Yeni Oyun </div>
+
+
+      <div class="endGameNewGameClass" onclick="shareReport();">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" viewbox="10 0 190 180">
+          <line style="stroke: #3D2B1F;; stroke-width: 18;" x1="50.0" x2="140.0" y1="90.0" y2="40.0"/>
+          <line style="stroke: #3D2B1F;; stroke-width: 18;" x1="50.0" x2="140.0" y1="90.0" y2="140.0"/>
+          <circle style="stroke: none; fill: #3D2B1F;;" cx="50.0" cy="90.0" r = "30.0"/>
+          <circle style="stroke: none; fill: #3D2B1F;;" cx="140.0" cy="40.0" r = "30.0"/>
+          <circle style="stroke: none; fill: #3D2B1F;;" cx="140.0" cy="140.0" r = "30.0"/>
+        </svg>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> 
+    </div>
+
+   
+
     
   </div>
 
@@ -1617,7 +1714,7 @@
       Object.assign(cardFigure.style, {
           fill: "url(#"+patternId+")",
           stroke: cColor,
-          strokeWidth: "18",
+          strokeWidth: "20",
           strokeLinejoin: "round",
           strokeLinecap: "round",
       });
@@ -2322,6 +2419,11 @@
 
     let allReactionIconSpans = [...t6.querySelectorAll('span'),...t5.querySelectorAll('span'),...t4.querySelectorAll('span'),...t3.querySelectorAll('span'),...t2.querySelectorAll('span'),...t1.querySelectorAll('span')  ];
 
+    let cEpic = 0;
+    let cSuperior = 0;
+    let cBrilliant = 0;
+    let cNice=0;
+
 
 
     for(let i=0;i<allReactionIconSpans.length;i++)
@@ -2333,29 +2435,43 @@
       //let icons=['&#127812;','&#127808;','&#127989;','&#128293;'];
       //let reactions=['Nice','Brilliant!','Superior!!','Epic!!!'];
 
+      
+      let cCount;
+
       switch(currentReaction)
       {
         case '🔥':
           currentTypeCount = document.getElementById("typeCountsEpicSpan");
+          cEpic=cEpic+1;
+          cCount = cEpic;
           break;
 
         case '🏵':
           currentTypeCount = document.getElementById("typeCountsSuperiorSpan");
+          cSuperior=cSuperior+1;
+          cCount = cSuperior;
           break;
 
         case '🍀':
           currentTypeCount = document.getElementById("typeCountsBrilliantSpan");
+          cBrilliant =cBrilliant +1;
+          cCount = cBrilliant ;
           break;
 
         case '🍄':
           currentTypeCount = document.getElementById("typeCountsNiceSpan");
+          cNice =cNice +1;
+          cCount = cNice ;
           break; 
       }
 
+
       allReactionIconSpans[allReactionIconSpans.length-1-i].animate([{ scale:0,offset:0 }, {scale:1.6,offset:0.8},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease+Number(dtime*i)});
 
+      currentTypeCount.animate([{ scale:1,offset:0 }, {scale:1.3,offset:0.4},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease+Number(dtime*i)});
+
       window.setTimeout(function() { currentTypeCount.innerHTML = ""; }, 4800+10*ptsIncrease+Number(dtime*i) );
-      window.setTimeout(function() { currentTypeCount.innerHTML = Number(i+1); }, 4800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
+      window.setTimeout(function() { currentTypeCount.innerHTML = cCount; }, 4800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
     }
 
     /*
@@ -2770,6 +2886,99 @@
     container.innerHTML = html;
   }
 
+  //const reportElement = document.getElementById('endGameCardDiv');
+
+
+  async function shareReport() 
+  {
+    const reportSource = document.getElementById('endGameCardDiv');
+
+    // 1. Clone & Setup
+    const clone = reportSource.cloneNode(true);
+    clone.style.position = "absolute";
+    clone.style.left = "-9999px";
+    clone.style.display = "flex";
+    clone.style.height = "100vmin";
+    clone.style.width = "80vmin";
+    clone.style.paddingTop = "6vmin";
+    document.body.appendChild(clone);
+
+    // 2. Surgical Strip
+    function stripAnimations(node) {
+        if (node.nodeType === 1) {
+            node.style.transform = "none";
+            node.style.transition = "none";
+            node.style.animation = "none";
+            node.style.opacity = "1";
+            node.style.scale = "1";
+            for (let child of node.children) stripAnimations(child);
+        }
+    }
+    stripAnimations(clone);
+
+   const capturedCanvas = await html2canvas(clone, {
+    scale: 2,
+    backgroundColor: "black"
+  });
+
+  // 1. Increase space to accommodate two lines of text
+  const finalCanvas = document.createElement('canvas');
+  const extraSpace = 180; // Increased from 100 for more room
+  finalCanvas.width = capturedCanvas.width;
+  finalCanvas.height = capturedCanvas.height + extraSpace;
+
+  const ctx = finalCanvas.getContext('2d');
+
+  // 2. Background
+  ctx.fillStyle = "#black";
+  ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+
+  // 3. Draw original report
+  ctx.drawImage(capturedCanvas, 0, 0);
+
+  // 4. DRAW THE TIMESTAMP
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+  const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  const datePart = now.toISOString().split('T')[0]; // Gives: 2026-03-07
+  const timePart = now.toTimeString().split(' ')[0].replace(/:/g, ''); // Gives: 233256
+  const fileName = `set-report-${datePart}-${timePart}.png`;
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#FFFFFF"; // Changed back to white for the final version
+  ctx.font = "bold 36px monospace";
+  // Position Time in the upper half of the extra space
+  ctx.fillText(`${dateStr} @ ${timeStr}`, finalCanvas.width / 2, capturedCanvas.height + 60);
+
+  // 5. DRAW THE WEBSITE URL
+  ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; // Subtle/dimmed white for the URL
+  ctx.font = "42px monospace";
+  // Position URL in the lower half of the extra space
+  ctx.fillText("ali-adali.github.io/set.html", finalCanvas.width / 2, capturedCanvas.height + 126);
+
+  // 6. Cleanup & Share
+  document.body.removeChild(clone);
+
+  finalCanvas.toBlob(blob => {
+      const file = new File([blob], "set-game-report.png", { type: "image/png" });
+      
+      // Check for native sharing first
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+              files: [file],
+              title: 'Set Raporu',
+              text: 'Yapıyoz bu sporu! oynamak istersen -> https://ali-adali.github.io/set.html '
+          });
+      } else {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = fileName;
+          link.click();
+      }
+  }, 'image/png');
+  }
+
 
 
 
@@ -2789,6 +2998,9 @@
     });
   }
 </script>
+
+
+
 
 
 
