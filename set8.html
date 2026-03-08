@@ -2953,7 +2953,7 @@
 
   // 5. DRAW THE WEBSITE URL
   ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; // Subtle/dimmed white for the URL
-  ctx.font = "42px monospace";
+  ctx.font = "37px monospace";
   // Position URL in the lower half of the extra space
   ctx.fillText("ali-adali.github.io/set.html", finalCanvas.width / 2, capturedCanvas.height + 126);
 
@@ -2961,14 +2961,14 @@
   document.body.removeChild(clone);
 
   finalCanvas.toBlob(blob => {
-      const file = new File([blob], "set-game-report.png", { type: "image/png" });
+      const file = new File([blob], fileName, { type: "image/png" });
       
       // Check for native sharing first
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
           navigator.share({
               files: [file],
-              title: 'Set Raporu',
-              text: 'Yapıyoz bu sporu! oynamak istersen -> https://ali-adali.github.io/set.html '
+              title: 'Puanlara Gel!',
+              text: 'Yapıyoz bu sporu!! https://ali-adali.github.io/set.html '
           });
       } else {
           const link = document.createElement('a');
