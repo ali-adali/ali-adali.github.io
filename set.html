@@ -29,8 +29,7 @@
       top:0vmin;
       background-color: black;
       color: white;
-      font-family: Arial, sans-serif;
-
+      
       overscroll-behavior-y: none;
      
     }
@@ -647,6 +646,235 @@
       align-items: center;
     }
 
+    #helpButtonSpan
+    {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 2vmin ;
+      right: 5vmin;
+      bottom: 5vmin;
+      height: 27vmin;
+      aspect-ratio: 1/1;
+      outline: 0.0vmin solid olivedrab;
+      border-radius: 50%;
+
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+      color:#3D2B1F;
+
+      border: 0.0vmin outset #3D2B1F;
+      font-size: 18vmin;
+      font-weight: 700;
+
+      box-shadow: 1vmin 1vmin 1.6vmin ghostwhite, -1vmin 1vmin 1.6vmin ghostwhite, 1vmin -1vmin 1.6vmin ghostwhite, -1vmin -1vmin 1.6vmin ghostwhite;
+
+    }
+
+
+    .howToPlayScreenClass
+    {
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-y:auto;
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+      color: ghostwhite;
+      z-index: 1000;
+      transition: scale 0.2s ease-out;
+      font-family: Tahoma, sans-serif;
+      scale: 0;
+    }
+
+
+    .howToPlayBasliklarClass
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      color: #3D2B1F;
+
+
+      height: 5vmin;
+      width: 30vmin;
+      text-align: center; 
+      font-size: 4.0vmin; 
+      font-weight: 900;
+      outline: 0.0vmin solid orangered;
+
+      margin-top: 3vmin;
+    }
+
+     .howToPlayRulesClass
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      height: auto;
+      width: 96vmin;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      outline: 0.0vmin solid darkcyan;
+      border-radius: 3vmin;
+      padding-inline: 0.5vmin;
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0.1vmin 0vmin 0.6vmin ghostwhite, 0vmin 0.1vmin 0.6vmin ghostwhite,-0.1vmin 0vmin 0.6vmin ghostwhite,0vmin -0.1vmin 0.6vmin ghostwhite ;
+      
+    }
+
+    .howToPlayRulesClass span,li
+    {
+      font-size: 2.7vmin;
+    }
+
+    .howToPlayRulesClass li
+    {
+      text-align: left;
+    }
+
+    .howToPlaySampleSetsClass
+    {
+      width: 96vmin;
+      height: 50vmin;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      outline: 0.0vmin solid pink;
+      padding-left: 1.3vmin;
+      padding-bottom: 4vmin;
+    }
+
+    .howToPlayCloseSpanClass
+    {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      right: 1vmin;
+      bottom: 5vmin;
+      height: 17vmin;
+      aspect-ratio: 1/1;
+      outline: 0.0vmin solid olivedrab;
+      border-radius: 50%;
+
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+      color:#3D2B1F;
+
+      border: 0.0vmin outset #3D2B1F;
+      padding-bottom: 2vmin;
+      font-size: 12vmin;
+      font-weight: 700;
+
+      box-shadow: 0.5vmin 0vmin 1vmin ghostwhite, 0vmin 0.5vmin 1vmin ghostwhite,-0.5vmin 0vmin 1vmin ghostwhite,0vmin -0.5vmin 1vmin ghostwhite ;
+    }
+
+
+
+
+     .smallCardClass
+    {
+
+      border: 0.1vmin solid rgba(0, 0, 0, 0.8);
+      height: 12vmin;
+      aspect-ratio: 2/3;
+      transition: height 0.1s, width 0.1s;
+      box-shadow: 0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.0) ;
+      border-radius: 1.7vmin;
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      background: whitesmoke;
+    }
+
+    
+
+    .sampleSetNTableClass
+    {
+      height: auto;
+      width: 46vmin;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      outline: 0.0vmin solid red;
+      border-radius: 2vmin;
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0.1vmin 0vmin 0.5vmin ghostwhite, 0vmin 0.1vmin 0.5vmin ghostwhite,-0.1vmin 0vmin 0.5vmin ghostwhite,0vmin -0.1vmin 0.5vmin ghostwhite ;
+    }
+
+    .sampleSetClass
+    {
+      height: 15vmin;
+      width: 25vmin;
+      display:flex; 
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      outline: 0.0vmin solid blue;
+
+    }
+
+    .desciptionTableClass
+    {
+      outline: 0.0vmin solid green;
+      height: 12vmin;
+      width: 17vmin;
+    }
+
+    .desciptionTableClass td
+    {
+      font-size: 1.8vmin;
+    }
+
+   
+
+    .hepsiAyniClass
+    {
+      background: darkgreen;
+      color:ghostwhite; 
+      font-weight: bold;
+      padding: 0.2vmin 0.5vmin;
+      border-radius: 2vmin;
+      text-align: center;
+    }
+
+    .hepsiFarkliClass
+    {
+
+      background: midnightblue;
+      color:ghostwhite;
+      font-weight: bold;
+      padding: 0.2vmin 0.5vmin;
+      border-radius: 2vmin;
+      text-align: ;
+    }
+
+    .setFeaturesClass
+    {
+      font-weight: bold;
+      padding: 0.2vmin;
+      border: 0.0vmin double black;
+      text-decoration: underline;
+
+    }
+
+
+
 
      
 
@@ -658,18 +886,23 @@
     .currentSetsClass
     {
       position: fixed;
-      top:0;
-      right:0;
-      height: 15vmin;
-      width: 15vmin;
+      left:0;
+      bottom:0;
+      
       border: 0.0vmin solid black;
-      border-radius: 50%;
+      
+      outline: 0.0vmin solid red;
 
       color: ghostwhite;
 
       display: flex;
       scale:0;
       transition: scale 0.3s ease;
+
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none;
+      margin: 0.5vmin;
 
       
       justify-content: center;
@@ -711,21 +944,21 @@
     {
       
 
-      height: 90vmin;
-      width: 86vmin;
+      height: 100vmin;
+      width: 96vmin;
 
-      margin-block: 3vmin;
+      margin: 3vmin;
 
       border: 0.0vmin solid blueviolet;
       border-radius: 6vmin;
       
       display:flex;
-      justify-content: space-evenly;
+      justify-content: space-around;
       align-items: center;
       flex-direction: column;
       text-align: center;
 
-      box-shadow:0vmin 0vmin 0.3vmin 0.8vmin ghostwhite;
+      box-shadow:0vmin 0.5vmin 1.8vmin ghostwhite, 0vmin -0.5vmin 1.8vmin ghostwhite, -0.5vmin 0vmin 1.8vmin ghostwhite, 0.5vmin 0vmin 1.8vmin ghostwhite;
       background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
 
       
@@ -741,22 +974,22 @@
 
     .endGameNameNPointsClass
     {
-      height: 12vmin;
-      width: 90%;
+      height: 13vmin;
+      width: 81vmin;
 
       display:flex;
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
-      border: 0.0vmin solid lightblue;
-      font-size: 9.2vmin;
+      outline: 0.0vmin solid lightblue;
+      font-size: 9.6vmin;
       font-weight: 600;
     }
 
     .endGameNameNPointsClass span
     {
-      height: 100%;
-      width: 50%;
+      height: 12vmin;
+      width: 40.5vmin;
       display:flex;
       flex-direction: column;
       justify-content: center;
@@ -767,7 +1000,7 @@
     .chartClass
     {
       height: 32vmin;
-      width: 84%;
+      width: 75vmin;
 
       padding: 0;
       margin: 0;
@@ -781,8 +1014,8 @@
 
     .dataClass
     {     
-      width: 100%;
-      height: 85%;
+      width: 75vmin;
+      height: 26vmin;
       display:flex;
       flex-direction: row;
       justify-content: center;
@@ -794,8 +1027,8 @@
 
     .dataClass div
     {
-      width: 16.6%;
-      height: 100%;
+      width: 12.5vmin;
+      height: 26vmin;
       border: 0.0vmin solid darkcyan;
       display:flex;
       flex-direction: column;
@@ -818,8 +1051,8 @@
     .intervalsClass
     {
   
-      width: 100%;
-      height: 15%;
+      width: 75vmin;
+      height: 6vmin;
 
       display:flex;
       flex-direction: row;
@@ -832,8 +1065,8 @@
 
     .intervalsClass span
     {
-      width: 16.6%;
-      height: 100%;
+      width: 12.5vmin;
+      height: 6vmin;
       
       border-top: 0.1vmin solid ghostwhite;
       border-right: 0.1vmin solid ghostwhite;
@@ -850,15 +1083,15 @@
     .typeCountsClass
     {
       
-      width: 90%;
-      height: 15%;
+      width: 76vmin;
+      height: 12vmin;
 
       display:flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: space-evenly;
       align-items: center;
 
-      border: 0.0vmin solid black;
+      outline: 0.0vmin solid black;
       
 
       border-radius: 0vmin;
@@ -866,40 +1099,67 @@
       scale: 1;
     }
 
-    .typeCountsClass span
+    .egtcs0Class
     {
-      width: 23.8%;
-      height: 100%;
-      border: 0.0vmin solid hotpink;
+      width: auto;
+      height: auto;
+      outline: 0.0vmin solid hotpink;
 
       display:flex;
       flex-direction: row;
-        justify-content: center;
-        align-items: center;
+      justify-content: center;
+      align-items: center;
 
-        font-size: 4.8vmin;
-        font-weight: 600;
-
-        background: none;
-
-        border-radius: 8vmin;
         
     }
 
-    .typeCountsClass span > span
+  
+
+    .egtcs1Class
     {
-      width: 33%;
-      border: 0.0vmin solid lightcyan;
-      border-radius: 0vmin;
-      background: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      height: 10vmin;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      background:radial-gradient(red,darkred);
+      font-size: 5.4vmin;
+      outline: 0.0vmin solid black;
+    }
+
+    .egtcs2Class
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      width:auto;
+      font-size: 5vmin;
+      outline: 0.0vmin solid green;
+    }
+
+    .egtcs3Class
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      height: auto;
+      width:auto;
+      font-size: 5.5vmin;
+      outline: 0.0vmin solid green;
     }
 
 
     .timeClass
     {
 
-      width: 48vmin;
-      height: 28vmin;
+      width: 54vmin;
+      height: 34vmin;
       
 
       display:flex;
@@ -907,13 +1167,13 @@
       justify-content: center;
       align-items: center;
 
-      border: 0.0vmin solid darkcyan;
-      font-size: 3.8vmin;
+      outline: 0.0vmin solid darkcyan;
+      font-size: 4.5vmin;
 
       
 
       margin-left: 0vmin;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.0);
       border-radius: 3vmin;
 
       scale: 0;
@@ -922,8 +1182,8 @@
 
     .timeClass div
     {
-      width: 100%;
-      height: 25%;
+      width: 54vmin;
+      height: 8.0vmin;
       
 
       display:flex;
@@ -931,17 +1191,19 @@
       justify-content: center;
       align-items: center;
 
-      border: 0.0vmin solid red;
+      outline: 0.0vmin solid red;
+
+      background: rgba(0, 0, 0, 0.3);
     
     }
 
     .timeClass div > span
     {
-      height: 100%;
-      width: 39%;
+      height: 8vmin;
+      width: 23vmin;
 
     
-      border: 0.0vmin solid darkmagenta;
+      outline: 0.0vmin solid darkmagenta;
       text-align: center;
 
       display:flex;
@@ -953,32 +1215,46 @@
 
     }
 
+    .yeniOyunNShareClass
+    {
+      width: 80vmin;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+       outline: 0.0vmin solid red;
+    }
+
     .endGameNewGameClass
     {
-      height: 30vmin;
-      width: 30vmin;
+      height: 32vmin;
+      aspect-ratio: 1/1;
+
+      box-shadow:0vmin 0.3vmin 1.2vmin ghostwhite, 0vmin -0.3vmin 1.2vmin ghostwhite, 0.3vmin 0vmin 1.2vmin ghostwhite, -0.3vmin 0vmin 1.2vmin ghostwhite;
 
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
 
-      font-size: 8vmin;
+      font-size: 8.0vmin;
+      font-weight: 800;
+      font-family: monospace;
+      letter-spacing: -0.2vmin; 
 
       border-radius: 50%;
 
-      background: radial-gradient(circle, orangered,orange);
-      color:ghostwhite;
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+      color:#3D2B1F;
 
-      font-size: 7.5vmin;
-      font-weight: 600; 
+      border: 0.0vmin outset #3D2B1F;
 
+      scale: 0;
       
-      text-shadow: 0.3vmin 0vmin 0.2vmin darkgreen, 0vmin 0.3vmin 0.2vmin darkgreen,-0.3vmin 0vmin 0.2vmin darkgreen,0vmin -0.3vmin 0.2vmin darkgreen,0.3vmin 0.3vmin 0.2vmin darkgreen, -0.3vmin -0.3vmin 0.2vmin darkgreen; 
-      color:whitesmoke;
-
-      margin-top: 4vmin;
+     
     }
+
+    
 
 
 
@@ -1031,6 +1307,55 @@
 
     @media (orientation: portrait)
     {
+      .howToPlaySampleSetsClass
+      {
+        height: auto;
+        wrap:nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 96vmin;
+        outline: 0.0vmin solid pink;
+      }
+
+      .sampleSetNTableClass
+      {
+        height: 25vmin;
+        width: 76vmin;
+        justify-content: space-around;
+        margin-top: 1.5vmin;
+        
+      }
+
+      .sampleSetClass
+      {
+        width: auto;
+        height: auto;
+      }
+
+       .smallCardClass
+      {
+
+        border: 0.3vmin solid rgba(0, 0, 0, 0.8);
+        height: 22.5vmin;
+        margin: 0.3vmin;
+        
+        
+      }
+
+      .desciptionTableClass
+      {
+        outline: 0.0vmin solid green;
+        height: auto;
+        width: auto;
+      }
+
+      .desciptionTableClass td, td>span
+      {
+        font-size: 2.7vmin;
+
+      }
+
+
       .theTableClass
       {    
         top:0vmin;
@@ -1265,18 +1590,17 @@
       .endGameScreenClass
       {
         flex-direction: row;
+        justify-content: flex-start;
 
       }
 
       .endGameCardClass
       {
-        margin-bottom: 10vmin;
+        scale: 0.9;
+        margin-bottom: 6vmin;
       }
 
-      .endGameNewGameClass
-      {
-        margin-left: 6vmin;
-      }
+      
 
 
 
@@ -1284,6 +1608,14 @@
       {
         position: fixed;
         top:20vmin;
+      }
+
+      .yeniOyunNShareClass
+      {
+        width: 40vmin;
+        height: 80vmin;
+        flex-direction: column;
+        outline: 0.0vmin solid lightcoral;
       }
     }
 
@@ -1333,11 +1665,6 @@
 
   <div class="currentSetsClass" id="currentSetsDiv">0</div>
 
- 
-
-
-  
-
 
   <div class="dealCardsClass" id="dealCardsDiv" > 
     <div id="player-manager">
@@ -1349,7 +1676,8 @@
         <button onclick="handleNewPlayer()"> &#9654; </button>
       </div>
 
-      <div id="existing-players-list"></div>  
+      <div id="existing-players-list"></div>
+      <span id="helpButtonSpan" onclick="document.getElementById('howToPlayScreenDiv').style.scale=1;"> ? </span>  
     </div>
      
 
@@ -1363,15 +1691,498 @@
     <textarea class="enterNameClass" id='playerTA' placeholder="Enter Name" oninput='document.getElementById("startButton").disabled = false; document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value;  '></textarea> 
   </div>
 
+  <div class="howToPlayScreenClass" id="howToPlayScreenDiv">
+    <span class="howToPlayCloseSpanClass" onclick=" document.getElementById('howToPlayScreenDiv').style.scale=0; "> &times; </span>
+
+    <span class="howToPlayBasliklarClass">Nasıl Oynanır?</span>
+    
+  
+    <div class="howToPlayRulesClass" >
+      
+      <span> Her turda 3 kar seçilir. Seçilen bu 3 kartın <span style="background: none;color:orangered; font-size: 2.7vmin; font-weight: bolder; border-radius: 2vmin;">SET</span> oluşturması için kartlardaki figürlerin</span>
+
+      <ol style="margin: 1vmin; "> 
+        <li style="margin: 1vmin;"> <span class="setFeaturesClass">renklerinin</span> ya <span class="hepsiAyniClass">hepsi aynı</span>  ya da <span class="hepsiFarkliClass" >hepsi farklı</span>  olmalı, ayrıca</li>
+
+        <li style="margin: 1vmin;"> <span class="setFeaturesClass">şekillerinin</span> ya <span class="hepsiAyniClass">hepsi aynı</span>  ya da <span class="hepsiFarkliClass">hepsi farklı</span>  olmalı, ayrıca</li>
+
+        <li style="margin: 1vmin;">  <span class="setFeaturesClass">sayılarının</span> ya <span class="hepsiAyniClass">hepsi aynı</span>  ya da <span class="hepsiFarkliClass">hepsi farklı</span>  olmalı, ayrıca</li>
+
+        <li style="margin: 1vmin;"> <span class="setFeaturesClass">desenlerinin</span> ya <span class="hepsiAyniClass">hepsi aynı</span>  ya da <span class="hepsiFarkliClass">hepsi farklı</span>  olmaldır.</li>
+      </ol>
+
+      <span>Bu özellikler <span style="font-weight: bold;">aynı anda</span>  sağlanmalıdır. Hedef tüm setleri bulmak. Masaya 12 kart açılır. Set bulundukça yeni kartlar eklenir. Tüm setler bitince oyun son bulur.</span>
+    </div>
+
+    <span class="howToPlayBasliklarClass" style="margin-right: 8vmin;" >Örnek Setler</span>
+
+    <div class="howToPlaySampleSetsClass">
+
+      
+
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>  
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>  
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>     
+          </div>
+          
+        </div>
+
+        
+
+        <table class="desciptionTableClass" >
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td><span class="hepsiFarkliClass">hepsi farklı</span>  </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :none; fill-opacity: 1; stroke-width:22; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :none; fill-opacity: 1; stroke-width:22; stroke:midnightblue; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>  
+   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :none; fill-opacity: 1; stroke-width:22; stroke:darkgreen; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>       
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span> </td> 
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+              <defs>
+                <pattern id="stripesDarkRed" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(20)">
+                  <rect width="20" height="20" fill="whitesmoke" />
+                      <rect x="20" width="20" height="40" fill="darkred" />
+                  </pattern>
+                </defs>
+
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesDarkRed); 
+                  stroke: darkred; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <defs>
+                <pattern id="stripesMidnightBlue" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(20)">
+                  <rect width="20" height="40" fill="whitesmoke" />
+                      <rect x="20" width="20" height="40" fill="midnightBlue" />
+                  </pattern>
+                </defs>
+
+
+              <path style="fill: url(#stripesMidnightBlue); stroke-width:22; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: url(#stripesMidnightBlue); stroke-width:22; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>   
+          </div>
+
+
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <defs>
+                <pattern id="stripesDarkGreen" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(20)">
+                  <rect width="20" height="40" fill="whitesmoke" />
+                      <rect x="20" width="20" height="40" fill="darkgreen" />
+                  </pattern>
+               </defs>
+              <path style="fill: url(#stripesDarkGreen); stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: url(#stripesDarkGreen); stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: url(#stripesDarkGreen); stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>     
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td><span class="hepsiFarkliClass">hepsi farklı</span>  </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass">
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>
+
+               
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: none; stroke-width:22; stroke:darkred; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: none; stroke-width:22; stroke:darkred; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+            
+
+             
+          </div>
+
+
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesMidnightBlue); 
+                  stroke: midnightblue; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesMidnightBlue); 
+                  stroke: midnightblue; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesMidnightBlue); 
+                  stroke: midnightblue; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>     
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td><span class="hepsiFarkliClass">hepsi farklı</span>  </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span> </td> 
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass">
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>
+
+               
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: none; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: none; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+            
+
+             
+          </div>
+
+
+
+          <div class="smallCardClass"> 
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesDarkGreen); 
+                  stroke: darkgreen; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesDarkGreen); 
+                  stroke: darkgreen; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>     
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td><span class="hepsiAyniClass">hepsi aynı</span>  </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span> </td> 
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass">
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: midnightblue; stroke-width:22; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            
+
+               
+          </div>
+
+          <div class="smallCardClass"> 
+            
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkred; stroke-width:22; stroke:darkred; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkred; stroke-width:22; stroke:darkred; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+            
+
+             
+          </div>
+
+
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+               
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td>  <span class="hepsiFarkliClass">hepsi farklı</span>   </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı</span> </td> 
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span> </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı</span>  </td>  
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <div class="endGameScreenClass" id="endGameScreenDiv">
     <div class="endGameCardClass" id="endGameCardDiv">
 
       <div class="typeCountsClass">
-          <span> <span id="typeCountsEpicSpan" style="justify-content: flex-end;"></span> <span style="text-align:left;">&times;</span>   <span>&#128293;</span> </span> 
-          <span> <span id="typeCountsSuperiorSpan" style="justify-content: flex-end;"></span> <span>&times;</span> <span>&#127989;</span> </span> 
-          <span> <span id="typeCountsBrilliantSpan" style="justify-content: flex-end;"></span> <span>&times;</span> <span>&#127808;</span> </span>
-          <span> <span id="typeCountsNiceSpan" style="justify-content: flex-end;"></span> <span>&times;</span> <span>&#127812;</span> </span> 
+          <span class="egtcs0Class"> 
+            <span class="egtcs1Class" id="typeCountsEpicSpan"></span> 
+            <span class="egtcs2Class" style="text-align:left;">&times;</span>   
+            <span class="egtcs3Class">&#128293;</span>
+          </span> 
+          
+          <span class="egtcs0Class"> 
+            <span class="egtcs1Class" id="typeCountsSuperiorSpan"></span> 
+            <span class="egtcs2Class">&times;</span> 
+            <span class="egtcs3Class">&#127989;</span> 
+          </span>
+
+          <span class="egtcs0Class"> 
+            <span class="egtcs1Class" id="typeCountsBrilliantSpan"></span>
+            <span class="egtcs2Class">&times;</span> 
+            <span class="egtcs3Class">&#127808;</span> 
+          </span>
+
+          <span class="egtcs0Class">
+            <span class="egtcs1Class" id="typeCountsNiceSpan"></span> 
+            <span class="egtcs2Class">&times;</span> 
+            <span class="egtcs3Class">&#127812;</span> 
+          </span> 
       </div>
+
+
       
       <div class="endGameNameNPointsClass">
         <span id = "endGameIdSpan">AADALI</span> <span id = "endGamePointsSpan">2168 pts</span>
@@ -1412,7 +2223,7 @@
 
 
       <div class="timeClass" id="timeStatsDiv">
-        <div style="background: rgba(0, 0, 0, 0.3);border-radius: 3vmin 3vmin 0vmin 0vmin;"> 
+        <div style="background: rgba(0, 0, 0, 0.6);border-radius: 3vmin 3vmin 0vmin 0vmin;"> 
           <span>&#8987;&nbsp;</span>
           <span id="endGameTotalTimeSpan" style="text-align: right;">436.288</span>
           <span style="width: 22%;font-size: 2vmin"> &nbsp; sec</span>
@@ -1424,7 +2235,7 @@
           <span style="width: 22%;font-size: 2vmin">&nbsp; sec/set</span>
         </div>
 
-        <div style="background: rgba(0, 0, 0, 0.3);">
+        <div style="background: rgba(0, 0, 0, 0.6);">
           <span>&#9889;&nbsp;</span>
           <span id="endGameBestTimeSpan" style="text-align: right;">2.071</span>
           <span style="width: 22%;font-size: 2vmin" >&nbsp; sec</span>
@@ -1437,14 +2248,24 @@
         </div>  
       </div>
 
-
-      <div >
-        
-      </div>  
+ 
     </div>
 
-    <div class="endGameNewGameClass" onclick="location.reload();"> Yeni Oyun </div>
-    
+    <div class="yeniOyunNShareClass">  
+      <div class="endGameNewGameClass" id="yeniOyunDiv" onclick="location.reload();"> Yeni Oyun </div>
+
+
+      <div class="endGameNewGameClass" id="shareReportDiv" onclick="shareReport();">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" viewbox="10 0 190 180">
+          <line style="stroke: #3D2B1F;; stroke-width: 18;" x1="50.0" x2="140.0" y1="90.0" y2="40.0"/>
+          <line style="stroke: #3D2B1F;; stroke-width: 18;" x1="50.0" x2="140.0" y1="90.0" y2="140.0"/>
+          <circle style="stroke: none; fill: #3D2B1F;;" cx="50.0" cy="90.0" r = "30.0"/>
+          <circle style="stroke: none; fill: #3D2B1F;;" cx="140.0" cy="40.0" r = "30.0"/>
+          <circle style="stroke: none; fill: #3D2B1F;;" cx="140.0" cy="140.0" r = "30.0"/>
+        </svg>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> 
+    </div>
   </div>
 
 </body>
@@ -1622,7 +2443,7 @@
       Object.assign(cardFigure.style, {
           fill: "url(#"+patternId+")",
           stroke: cColor,
-          strokeWidth: "18",
+          strokeWidth: "20",
           strokeLinejoin: "round",
           strokeLinecap: "round",
       });
@@ -2280,7 +3101,7 @@
       document.getElementById("endGameAverageTimeSpan").innerHTML =averageTime;
       document.getElementById("endGameBestTimeSpan").innerHTML =fastestSet;
       document.getElementById("endGameEfficiencySpan").innerHTML =gameEfficiency;
-      document.getElementById("endGamePointsSpan").innerHTML ='0'+' pts';
+      document.getElementById("endGamePointsSpan").innerHTML ='0';
 
       document.getElementById("typeCountsEpicSpan").innerHTML = '0';
       document.getElementById("typeCountsSuperiorSpan").innerHTML ='0';
@@ -2307,7 +3128,7 @@
     for(let i=0;i<TTPts;i++)
     {
       let dtime = Number(1800/TTPts);
-      window.setTimeout(function() { document.getElementById("endGamePointsSpan").innerHTML = Number(i+1)+' pts'; }, 3000+10*ptsIncrease+Number(dtime*i) );
+      window.setTimeout(function() { document.getElementById("endGamePointsSpan").innerHTML = Number(i+1); }, 3000+10*ptsIncrease+Number(dtime*i) );
     }
 
     document.getElementById("endGamePointsSpan").animate([{ scale:1,offset:0 }, {scale:1.5,offset:0.8},{scale:1,offset:1}],{duration: 500,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease});
@@ -2376,6 +3197,8 @@
 
       allReactionIconSpans[allReactionIconSpans.length-1-i].animate([{ scale:0,offset:0 }, {scale:1.6,offset:0.8},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease+Number(dtime*i)});
 
+      currentTypeCount.animate([{ scale:1,offset:0 }, {scale:1.3,offset:0.4},{scale:1,offset:1}],{duration: dtime,easing: 'ease-out', fill: 'forwards', delay:4800+10*ptsIncrease+Number(dtime*i)});
+
       window.setTimeout(function() { currentTypeCount.innerHTML = ""; }, 4800+10*ptsIncrease+Number(dtime*i) );
       window.setTimeout(function() { currentTypeCount.innerHTML = cCount; }, 4800+10*ptsIncrease+Number(dtime*i)+0.1*dtime );
     }
@@ -2417,6 +3240,12 @@
     */
 
     document.getElementById("timeStatsDiv").animate([{ scale:1 }],{duration: 400,easing: 'ease-out', fill: 'forwards', delay:7300+10*ptsIncrease});
+
+    document.getElementById("yeniOyunDiv").animate([{ scale:1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:7600+10*ptsIncrease});
+
+    document.getElementById("shareReportDiv").animate([{ scale:1 }],{duration: 200,easing: 'ease-out', fill: 'forwards', delay:7700+10*ptsIncrease});
+
+    // yeniOyunDiv shareReportDiv
 
 
 
@@ -2792,6 +3621,99 @@
     container.innerHTML = html;
   }
 
+  //const reportElement = document.getElementById('endGameCardDiv');
+
+
+  async function shareReport() 
+  {
+    const reportSource = document.getElementById('endGameCardDiv');
+
+    // 1. Clone & Setup
+    const clone = reportSource.cloneNode(true);
+    clone.style.position = "absolute";
+    clone.style.left = "-9999px";
+    clone.style.display = "flex";
+    clone.style.height = "100vmin";
+    clone.style.width = "80vmin";
+    clone.style.paddingTop = "6vmin";
+    document.body.appendChild(clone);
+
+    // 2. Surgical Strip
+    function stripAnimations(node) {
+        if (node.nodeType === 1) {
+            node.style.transform = "none";
+            node.style.transition = "none";
+            node.style.animation = "none";
+            node.style.opacity = "1";
+            node.style.scale = "1";
+            for (let child of node.children) stripAnimations(child);
+        }
+    }
+    stripAnimations(clone);
+
+   const capturedCanvas = await html2canvas(clone, {
+    scale: 2,
+    backgroundColor: "black"
+  });
+
+  // 1. Increase space to accommodate two lines of text
+  const finalCanvas = document.createElement('canvas');
+  const extraSpace = 150; // Increased from 100 for more room
+  finalCanvas.width = capturedCanvas.width;
+  finalCanvas.height = capturedCanvas.height + extraSpace;
+
+  const ctx = finalCanvas.getContext('2d');
+
+  // 2. Background
+  ctx.fillStyle = "#black";
+  ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+
+  // 3. Draw original report
+  ctx.drawImage(capturedCanvas, 0, 0);
+
+  // 4. DRAW THE TIMESTAMP
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+  const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  const datePart = now.toISOString().split('T')[0]; // Gives: 2026-03-07
+  const timePart = now.toTimeString().split(' ')[0].replace(/:/g, ''); // Gives: 233256
+  const fileName = `set-report-${datePart}-${timePart}.png`;
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#FFFFFF"; // Changed back to white for the final version
+  ctx.font = "bold 36px monospace";
+  // Position Time in the upper half of the extra space
+  ctx.fillText(`${dateStr} @ ${timeStr}`, finalCanvas.width / 2, capturedCanvas.height + 50);
+
+  // 5. DRAW THE WEBSITE URL
+  ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; // Subtle/dimmed white for the URL
+  ctx.font = "32px monospace";
+  // Position URL in the lower half of the extra space
+  ctx.fillText("ali-adali.github.io/set.html", finalCanvas.width / 2, capturedCanvas.height + 100);
+
+  // 6. Cleanup & Share
+  document.body.removeChild(clone);
+
+  finalCanvas.toBlob(blob => {
+      const file = new File([blob], fileName, { type: "image/png" });
+      
+      // Check for native sharing first
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+              files: [file],
+              title: 'Puanlara Gel!',
+              text: 'Yapıyoz bu sporu!! https://ali-adali.github.io/set.html '
+          });
+      } else {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = fileName;
+          link.click();
+      }
+  }, 'image/png');
+  }
+
 
 
 
@@ -2811,6 +3733,9 @@
     });
   }
 </script>
+
+
+
 
 
 
