@@ -29,8 +29,7 @@
       top:0vmin;
       background-color: black;
       color: white;
-      font-family: Arial, sans-serif;
-
+      
       overscroll-behavior-y: none;
      
     }
@@ -647,6 +646,233 @@
       align-items: center;
     }
 
+    #helpButtonSpan
+    {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 2vmin ;
+      right: 5vmin;
+      bottom: 5vmin;
+      height: 27vmin;
+      aspect-ratio: 1/1;
+      outline: 0.0vmin solid olivedrab;
+      border-radius: 50%;
+
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+      color:#3D2B1F;
+
+      border: 1.75vmin outset #3D2B1F;
+      font-size: 18vmin;
+      font-weight: 700;
+
+      box-shadow: 1vmin 1vmin 1.6vmin ghostwhite, -1vmin 1vmin 1.6vmin ghostwhite, 1vmin -1vmin 1.6vmin ghostwhite, -1vmin -1vmin 1.6vmin ghostwhite;
+
+    }
+
+
+    .howToPlayScreenClass
+    {
+      position: fixed;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-y:auto;
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+      color: ghostwhite;
+      z-index: 1000;
+      transition: scale 0.2s ease-out;
+      font-family: Tahoma, sans-serif;
+      scale: 0;
+    }
+
+
+    .howToPlayBasliklarClass
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      color: #3D2B1F;
+
+
+      height: 5vmin;
+      width: 30vmin;
+      text-align: center; 
+      font-size: 4.0vmin; 
+      font-weight: 900;
+      outline: 0.0vmin solid orangered;
+
+      margin-top: 3vmin;
+    }
+
+     .howToPlayRulesClass
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      height: 30vmin;
+      width: 94vmin;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      outline: 0.0vmin solid darkcyan;
+      border-radius: 3vmin;
+      padding-inline: 0.5vmin;
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0.1vmin 0vmin 0.6vmin ghostwhite, 0vmin 0.1vmin 0.6vmin ghostwhite,-0.1vmin 0vmin 0.6vmin ghostwhite,0vmin -0.1vmin 0.6vmin ghostwhite ;
+      
+    }
+
+    .howToPlayRulesClass span,li
+    {
+      font-size: 2.4vmin;
+    }
+
+    .howToPlayRulesClass li
+    {
+      text-align: left;
+    }
+
+    .howToPlaySampleSetsClass
+    {
+      width: 96vmin;
+      height: 50vmin;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      outline: 0.0vmin solid pink;
+      padding-left: 1.3vmin;
+    }
+
+    .howToPlayCloseSpanClass
+    {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      right: 1vmin;
+      bottom: 5vmin;
+      height: 17vmin;
+      aspect-ratio: 1/1;
+      outline: 0.0vmin solid olivedrab;
+      border-radius: 50%;
+
+      background: radial-gradient( burlywood, burlywood 35%,#3D2B1F 100%);
+      color:#3D2B1F;
+
+      border: 1.75vmin outset #3D2B1F;
+      font-size: 12vmin;
+      font-weight: 700;
+
+      box-shadow: 0.5vmin 0vmin 1vmin ghostwhite, 0vmin 0.5vmin 1vmin ghostwhite,-0.5vmin 0vmin 1vmin ghostwhite,0vmin -0.5vmin 1vmin ghostwhite ;
+    }
+
+
+
+
+     .smallCardClass
+    {
+
+      border: 0.1vmin solid rgba(0, 0, 0, 0.8);
+      height: 12vmin;
+      width: 8vmin;
+      transition: height 0.1s, width 0.1s;
+      box-shadow: 0.25vmin 0.25vmin 0.7vmin rgba(0, 0, 0, 0.0) ;
+      border-radius: 1.7vmin;
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      background: whitesmoke;
+    }
+
+    
+
+    .sampleSetNTableClass
+    {
+      height: 15vmin;
+      width: 46vmin;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      outline: 0.0vmin solid red;
+      border-radius: 2vmin;
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0.1vmin 0vmin 0.5vmin ghostwhite, 0vmin 0.1vmin 0.5vmin ghostwhite,-0.1vmin 0vmin 0.5vmin ghostwhite,0vmin -0.1vmin 0.5vmin ghostwhite ;
+    }
+
+    .sampleSetClass
+    {
+      height: 15vmin;
+      width: 25vmin;
+      display:flex; 
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      outline: 0.0vmin solid blue;
+
+    }
+
+    .desciptionTableClass
+    {
+      outline: 0.0vmin solid green;
+      height: 12vmin;
+      width: 17vmin;
+    }
+
+    .desciptionTableClass td
+    {
+      font-size: 1.8vmin;
+    }
+
+   
+
+    .hepsiAyniClass
+    {
+      background: darkgreen;
+      color:ghostwhite; 
+      font-weight: bold;
+      padding: 0.2vmin 0.5vmin;
+      border-radius: 2vmin;
+      text-align: center;
+    }
+
+    .hepsiFarkliClass
+    {
+
+      background: midnightblue;
+      color:ghostwhite;
+      font-weight: bold;
+      padding: 0.2vmin 0.5vmin;
+      border-radius: 2vmin;
+      text-align: ;
+    }
+
+    .setFeaturesClass
+    {
+      font-weight: bold;
+      padding: 0.2vmin;
+      border: 0.0vmin double black;
+      text-decoration: underline;
+
+    }
+
+
+
 
      
 
@@ -655,7 +881,7 @@
     
 
 
-   .currentSetsClass
+    .currentSetsClass
     {
       position: fixed;
       left:0;
@@ -1087,6 +1313,52 @@
 
     @media (orientation: portrait)
     {
+      .howToPlaySampleSetsClass
+      {
+        height: 115vmin;
+        wrap:nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 80vmin;
+        outline: 0.0vmin solid pink;
+      }
+
+      .sampleSetNTableClass
+      {
+        height: 18vmin;
+        width: 68vmin;
+        justify-content: space-between;
+        margin-top: 1vmin; 
+      }
+
+      .sampleSetClass
+      {
+        width: 36vmin;
+        height: 18vmin;
+      }
+
+       .smallCardClass
+      {
+
+        border: 0.3vmin solid rgba(0, 0, 0, 0.8);
+        height: 16.5vmin;
+        width: 11vmin;
+      }
+
+      .desciptionTableClass
+      {
+        outline: 0.0vmin solid green;
+        height: 16vmin;
+        width: 30vmin;
+      }
+
+      .desciptionTableClass td, td>span
+      {
+        font-size: 2.7vmin;
+
+      }
+
+
       .theTableClass
       {    
         top:0vmin;
@@ -1391,11 +1663,6 @@
 
   <div class="currentSetsClass" id="currentSetsDiv">0</div>
 
- 
-
-
-  
-
 
   <div class="dealCardsClass" id="dealCardsDiv" > 
     <div id="player-manager">
@@ -1407,7 +1674,8 @@
         <button onclick="handleNewPlayer()"> &#9654; </button>
       </div>
 
-      <div id="existing-players-list"></div>  
+      <div id="existing-players-list"></div>
+      <span id="helpButtonSpan" onclick="document.getElementById('howToPlayScreenDiv').style.scale=1;"> ? </span>  
     </div>
      
 
@@ -1419,6 +1687,468 @@
 
 
     <textarea class="enterNameClass" id='playerTA' placeholder="Enter Name" oninput='document.getElementById("startButton").disabled = false; document.getElementById("endGameIdSpan").innerHTML = document.getElementById("playerTA").value;  '></textarea> 
+  </div>
+
+  <div class="howToPlayScreenClass" id="howToPlayScreenDiv">
+    <span class="howToPlayCloseSpanClass" onclick=" document.getElementById('howToPlayScreenDiv').style.scale=0; "> &times; </span>
+
+    <span class="howToPlayBasliklarClass">Nasıl Oynanır?</span>
+    
+  
+    <div class="howToPlayRulesClass" >
+      
+      <span> Her turda 3 kar seçilir. Seçilen bu 3 kartın <span style="background: none;color:red; font-size: 2.7vmin; font-weight: bolder; border-radius: 2vmin;">SET</span> oluşturması için kartlardaki figürlerin</span>
+
+      <ol style="margin: 1vmin; "> 
+        <li style="margin: 1vmin;"> <span class="setFeaturesClass">renklerinin</span> ya <span class="hepsiAyniClass">hepsi aynı</span>  ya da <span class="hepsiFarkliClass" >hepsi farklı</span>  olmalı, ayrıca</li>
+
+        <li style="margin: 1vmin;"> <span class="setFeaturesClass">şekillerinin</span> ya <span class="hepsiAyniClass">hepsi aynı</span>  ya da <span class="hepsiFarkliClass">hepsi farklı</span>  olmalı, ayrıca</li>
+
+        <li style="margin: 1vmin;">  <span class="setFeaturesClass">sayılarının</span> ya <span class="hepsiAyniClass">hepsi aynı</span>  ya da <span class="hepsiFarkliClass">hepsi farklı</span>  olmalı, ayrıca</li>
+
+        <li style="margin: 1vmin;"> <span class="setFeaturesClass">desenlerinin</span> ya <span class="hepsiAyniClass">hepsi aynı</span>  ya da <span class="hepsiFarkliClass">hepsi farklı</span>  olmaldır.</li>
+      </ol>
+
+      <span>Bu özellikler <span style="font-weight: bold;">aynı anda</span>  sağlanmalıdır. Hedef tüm setleri bulmak. Masaya 12 kart açılır. Set bulundukça yeni kartlar eklenir. Tüm setler bitince oyun son bulur.</span>
+    </div>
+
+    <span class="howToPlayBasliklarClass" style="margin-right: 8vmin;" >Örnek Setler</span>
+
+    <div class="howToPlaySampleSetsClass">
+
+      
+
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>  
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>  
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :darkred; fill-opacity: 1; stroke-width:16; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>     
+          </div>
+          
+        </div>
+
+        
+
+        <table class="desciptionTableClass" >
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td><span class="hepsiFarkliClass">hepsi farklı</span>  </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :none; fill-opacity: 1; stroke-width:22; stroke:darkred; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :none; fill-opacity: 1; stroke-width:22; stroke:midnightblue; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>  
+   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 540 240"  >
+              <polygon style="stroke-linejoin:round; fill :none; fill-opacity: 1; stroke-width:22; stroke:darkgreen; stroke-dasharray:699.71; stroke-linecap:round; stroke-linejoin:round;" points="270.0,30.0 270.0,30.0 120.0,120.0 270.0,210.0 420.0,120.0"  />
+            </svg>       
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span> </td> 
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+              <defs>
+                <pattern id="stripesDarkRed" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(20)">
+                  <rect width="20" height="20" fill="whitesmoke" />
+                      <rect x="20" width="20" height="40" fill="darkred" />
+                  </pattern>
+                </defs>
+
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesDarkRed); 
+                  stroke: darkred; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>   
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <defs>
+                <pattern id="stripesMidnightBlue" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(20)">
+                  <rect width="20" height="40" fill="whitesmoke" />
+                      <rect x="20" width="20" height="40" fill="midnightBlue" />
+                  </pattern>
+                </defs>
+
+
+              <path style="fill: url(#stripesMidnightBlue); stroke-width:22; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: url(#stripesMidnightBlue); stroke-width:22; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>   
+          </div>
+
+
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <defs>
+                <pattern id="stripesDarkGreen" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(20)">
+                  <rect width="20" height="40" fill="whitesmoke" />
+                      <rect x="20" width="20" height="40" fill="darkgreen" />
+                  </pattern>
+               </defs>
+              <path style="fill: url(#stripesDarkGreen); stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: url(#stripesDarkGreen); stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: url(#stripesDarkGreen); stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>     
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td><span class="hepsiFarkliClass">hepsi farklı</span>  </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı </span> </td>  
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass">
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>
+
+               
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: none; stroke-width:22; stroke:darkred; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: none; stroke-width:22; stroke:darkred; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+            
+
+             
+          </div>
+
+
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesMidnightBlue); 
+                  stroke: midnightblue; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesMidnightBlue); 
+                  stroke: midnightblue; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesMidnightBlue); 
+                  stroke: midnightblue; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>     
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td><span class="hepsiFarkliClass">hepsi farklı</span>  </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span> </td> 
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass">
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 210.00 45.00 A 60,60 0 0,0 210.00,195.00 L  330.00 195.00 A 60,60 0 0,0 330.00, 45.00 Z" />
+            </svg>
+
+               
+          </div>
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: none; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: none; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+            
+
+             
+          </div>
+
+
+
+          <div class="smallCardClass"> 
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesDarkGreen); 
+                  stroke: darkgreen; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240">
+                <polygon 
+                points="270,30 120,120 270,210 420,120" 
+                style="
+                  fill: url(#stripesDarkGreen); 
+                  stroke: darkgreen; 
+                  stroke-width: 22; 
+                  stroke-linejoin: round; 
+                  stroke-linecap: round;
+                  stroke-dasharray: 699.71;"/>
+            </svg>     
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span>  </td>  
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td><span class="hepsiAyniClass">hepsi aynı</span>  </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span> </td> 
+          </tr>
+        </table>
+      </div>
+
+      <div class="sampleSetNTableClass">
+        <div class="sampleSetClass">
+          <div class="smallCardClass">
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: midnightblue; stroke-width:22; stroke:MidnightBlue; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            
+
+               
+          </div>
+
+          <div class="smallCardClass"> 
+            
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkred; stroke-width:22; stroke:darkred; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkred; stroke-width:22; stroke:darkred; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+            
+
+             
+          </div>
+
+
+
+          <div class="smallCardClass"> 
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 540 240">
+              <path style="fill: darkgreen; stroke-width:22; stroke:darkgreen; stroke-linecap:round; stroke-linejoin:round;" d="M 135,100  A 30,30 0 0,0 195,120 A 15,15 0 0,1 225,120 A 90,90 0 0,0 405,120 A 30,30 0 1,0 345,120  A 15,15 0 1,1 315,120 A 90,90 0 1,0 135,100" />
+            </svg>
+               
+          </div>
+          
+        </div>
+
+        <table class="desciptionTableClass">
+          <tr>
+            <td>Renk</td>
+            <td>  <span class="hepsiFarkliClass">hepsi farklı</span>   </td>  
+          </tr>
+
+          <tr>
+            <td>Şekil</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı</span> </td> 
+          </tr>
+
+          <tr>
+            <td>Sayı</td>
+            <td> <span class="hepsiFarkliClass">hepsi farklı</span> </td> 
+          </tr>
+
+          <tr>
+            <td>Desen</td>
+            <td> <span class="hepsiAyniClass">hepsi aynı</span>  </td>  
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 
   <div class="endGameScreenClass" id="endGameScreenDiv">
@@ -1534,10 +2264,6 @@
       </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> 
     </div>
-
-   
-
-    
   </div>
 
 </body>
