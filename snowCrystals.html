@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnowFlakeGen: Unified Console</title>
+  <style>
+    :root { --accent: seagreen; --panel-bg: rgba(255, 255, 255, 0.98); }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; height: 100vh; width: 100vw;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle, #2d5a5a, #1a3a3a);
+      overflow: hidden; color: white;
+      display: flex;
+    }
+
+    /* Left Console Sidebar */
+    #console-left {
+      width: 40vmin; background: transparent;
+      border-right: 0.1vmin solid #444; 
+      overflow-y: auto;
+      padding: 2vmin; 
+      flex-shrink: 0; 
+      display: flex; flex-direction: column; 
+      gap: 2vmin;
+    }
+
+    .console-section { border-bottom: 0.1vmin solid #333; padding-bottom: 2vmin; }
+    .console-label { font-size: 2.5vmin; font-weight: 900; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5vmin; letter-spacing: -0.1vmin; }
+
+    /* UI Panels */
+    .ui-panel {
+      position: fixed; background: var(--panel-bg);
+      border-radius: 1.5vmin; color: #333;
+      box-shadow: 0 1.5vmin 5vmin rgba(0,0,0,0.5);
+      z-index: 10; font-size: 2vmin;
+    }
+
+    .ui-panel-alt {
+      margin-left:0.4vmin;
+      width: 80vmin;
+      overflow-y: auto;
+      
+      background: transparent;
+      border-radius: 1.5vmin;
+      color: #333;
+      box-shadow: 0 0px 0px rgba(0,0,0,0.5);
+      z-index: 10; 
+      font-size: 2vmin;
+    }
+
+    .drag-handle {
+      background: #333; 
+      height: 6vmin;
+      border-radius: 1.5vmin 1.5vmin 0 0;
+      font-size: 2.5vmin; 
+      font-weight: light; 
+      color: snow;
+      user-select: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .collapsed { display: none !important; }
+
+    .panel-content { padding: 0.1vmin; display: flex; flex-direction: column; gap: 1vmin; }
+
+    input[type="number"] { width: auto; padding: 0.1vmin; border: 0.1vmin solid #ccc; border-radius: 0.5vmin; font-size: 2.0vmin; }
+    input[type="range"] { width: 100%; margin: 0.3vmin 0; accent-color: var(--accent); }
+    
+    table { width: 100%; border-collapse: collapse; font-size: 2vmin; }
+    th { background: #f0f0f0; padding: 0.2vmin; border: 0.1vmin solid #ddd; }
+    td { border: 0.1vmin solid #ddd; padding: 0.2vmin; text-align: center; }
+
+    button { border: none; border-radius: 1vmin; cursor: pointer; font-weight: bold; font-size: 2.5vmin; transition: 0.2s; height: 6vmin; }
+    .btn-main { background: var(--accent); color: white; width: 90%;  margin-left: 5%; }
+    .btn-outline { background: var(--accent); color: white; flex: 1; }
+    .btn-del { background: #ff4d4d; color: white; border-radius:20%; aspect-ratio:1; height:
+    3.0vmin; font-size:2.5vmin; font-weight:bold;display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .col-input{ height:4.5vmin; width: 4.5vmin; border:none; border-radius: 50%; margin-left: 1vmin; background:none;  }
+    
+    .history-item { 
+      background: #1a1a1a; border: 0.1vmin solid #444; padding: 1vmin; 
+      border-radius: 0.7vmin; margin-bottom: 0.6vmin; cursor: pointer; font-size: 2vmin; 
+    }
+    .history-item:hover { border-color: var(--accent); background: #222; }
+
+    #mainSVG { display: block; margin-left: 0vmin; height: 100vh; width: auto; filter: drop-shadow(0 0 20px rgba(0,0,0,0.5)); scale:0.98; border-radius:10%; }
+    .palette { display: flex; gap: 0.5vmin; flex-wrap: wrap; margin-top: 1vmin; }
+    .swatch { width: 3.5vmin; height: 3.5vmin; border-radius: 0.5vmin; cursor: pointer; border: 0.2vmin solid rgba(255,255,255,0.2); }
+    .swatch.active { border: 0.5vmin solid orangered; transform: scale(1.2); }
+
+    .hidden { visibility: hidden; }
+    
+    select { width: 100%; padding: 0.2vmin; background: #222; color: white; border: 0.2vmin solid #444; border-radius: 0.5vmin; font-size: 2.5vmin; }
+  </style>
+</head>
+<body>
+
+<div id="console-left">
+  <div class="console-section">
+    <div class="console-label">Quick Designer</div>
+      <div style="display:flex; align-items:center; gap:0.5vmin;">
+        <input type="checkbox" id="preCheck" onchange="live()" checked>
+        <label for="preCheck" style="font-size:2.5vmin; color:#aaa; cursor:pointer;">Preview</label>
+      </div>
+    <select id="typeSelect" style="font-size:2.5vmin;" onchange="toggleRInputs(); live();">
+      <option value="1">T&#8321; (6)</option>
+      <option value="2">T&#8322; (18)</option>
+      <option value="3">T&#8323; (54)</option>
+    </select>
+    <div style="margin-top:1.5vmin;">
+
+        <div style="display:flex; justify-content:space-between; align-items: center; font-size:2.5vmin; color:#aaa">
+          <span style="width:4vmin;">D</span>
+          <input type="range" style="width:28vmin" id="dIn" min="0" max="450" value="120" oninput="live()">
+          <span style="width:5vmin;text-align: right;" id="lbl-d">120</span>
+        </div>
+        
+        
+
+        <div id="rInputs">
+          <div style="display:flex; justify-content:space-between; align-items: center; font-size:2.5vmin;">
+            <span style="width:4vmin;">R<sub>1</sub></span>
+            <input type="range" style="width:28vmin" id="r1In" min="5" max="150" value="30" oninput="live()">
+            <span style="width:5vmin;text-align: right;" id="lbl-r1">30</span>
+          </div>
+          
+          
+          <div id="r2Area" style="display:none; justify-content:space-between; align-items: center; font-size:2.5vmin;">
+            <span style="width:4vmin;">R<sub>2</sub></span>
+            <input type="range" style="width:28vmin" id="r2In" min="2" max="80" value="15" oninput="live()">
+            <span style="width:5vmin;text-align: right;" id="lbl-r2">30</span>
+          </div>
+
+          <div id="r3Area" style="display:none;justify-content:space-between; align-items: center; font-size:2.5vmin;">
+            <span style="width:4vmin;">R<sub>3</sub></span>
+            <input type="range" style="width:28vmin" id="r3In" min="2" max="40" value="5" oninput="live()">
+            <span style="width:5vmin;text-align: right;" id="lbl-r3">5</span>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items: center; font-size:2.5vmin; color:#aaa">
+          <span style="width:4vmin;">Op</span>
+          <input type="range" style="width:28vmin" id="oIn" min="0" max="1" step="0.1" value="0.5" oninput="live()">
+          <span style="width:5vmin;text-align: right;" id="lbl-o">0.5</span>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items: center; font-size:2.5vmin; color:#aaa">
+          <span style="width:4vmin;">SW</span>
+          <input type="range" style="width:28vmin" id="swIn" min="0" max="10" value="1" oninput="live()">
+          <span style="width:5vmin;text-align: right;" id="lbl-sw">1</span>
+        </div>
+
+
+    </div>
+
+    <div class="palette" id="fillPalette"></div>
+    <button class="btn-main" onclick="addObj()" style="margin-top:2vmin;">ADD</button>
+  </div>
+
+  <div class="console-section">
+    <div class="console-label">Global Style</div>
+    <div style="display:flex; flex-direction: row; justify-content:space-between; align-items:center; margin-bottom:1vmin;">
+      <label style="font-size:2.5vmin;"><input type="checkbox" id="outCheck" onchange="render(true)" checked> Outline</label>
+      <input type="color" id="outColor" class="col-input" value="#000000" oninput="render(false)" >
+      <input style="width:15vmin;" type="range" id="outWeight" min="0" max="15" value="2" oninput="render(false)">
+    </div>
+
+    <select id="bgSelect" onchange="updateBG()" style="margin-top:0.5vmin;">
+      <option value="gradient">Midnight Rose</option>
+      <option value="white">White</option>
+      <option value="transparent">Transparent</option>
+    </select>
+
+  </div>
+
+
+  <div class="console-section">
+    <div class="console-label">Randomize & Play</div>
+    <div style="display:flex; gap:1vmin; margin-top:0.5vmin;">
+      <button class="btn-outline" onclick="randomize(); playAnimation(); ">🎲 Random</button>
+      <button class="btn-outline" onclick="playAnimation()">▶ Play</button>
+    </div>
+  </div>
+
+  <div class="console-section" >
+    <div class="console-label">Export & Config </div>
+    <div style="display:flex; gap:1vmin">
+        <button class="btn-outline" onclick="saveSVG()">⤓ SVG</button>
+        <button class="btn-outline" onclick="savePNG()">⤓ PNG</button>
+    </div>
+
+    <div style="display:flex; gap:1vmin; margin-top: 1vmin;">
+        <button class="btn-outline" onclick="downloadConfig()" style="display: flex; flex-direction: row; align-items: center; justify-content: center;"> <span style=" margin-right: 0.5vmin; padding-bottom: 1vmin;">⤓</span> <span>JSON</span> </button>
+        <button class="btn-outline" onclick="document.getElementById('configUpload').click()" style="display: flex; flex-direction: row; align-items: center; justify-content: center; "> <span style="margin-right: 0.5vmin; padding-bottom: 1vmin;">⤒</span> <span>JSON</span> </button>
+    </div>
+    <input type="file" id="configUpload" style="display:none" accept=".json" onchange="uploadConfig(this)">
+  </div>
+
+
+  <div class="console-section" style="border:none">
+    <div class="console-label">History</div>
+    <div id="historyList"></div>  
+  </div>
+
+
+</div>
+
+<svg id="mainSVG" viewBox="0 0 900 900">
+  <defs id="svgDefs">
+    <mask id="holeMask" maskUnits="userSpaceOnUse" style="mask-type: alpha;">
+    <rect x="-500" y="-500" width="2000" height="2000" fill="white" />
+    <g id="maskHoles" transform="rotate(30, 450, 450)"></g>
+
+  </defs>
+  <rect id="bgRect" width="2000" height="2000" x="-500" y="-500" />
+  <g transform="rotate(30, 450, 450)" id="outlineG"></g>
+  <g transform="rotate(30, 450, 450)" id="savedG"></g>
+  <g transform="rotate(30, 450, 450)" id="previewG"></g>
+</svg>
+
+<div id="layerPanel" class="ui-panel-alt" >
+  <div class="drag-handle"> <span></span> <span style="font-size:4.5vmin; font-weight: light;"> ❄ ❅ ❆</span> 
+    <button onclick="togglePanel();" style="float:right; padding:0 0.5vmin; width: 2vmin; margin-right: 2vmin; background:transparent; color:#eee;">_</button>
+  </div>
+  
+  <div id="layerContent" class="panel-content" style="max-height: 85vh; overflow-y: auto;">
+    <table>
+      <thead>
+        <tr>
+          <th style=" font-weight: 700;"> ⇅ </th>
+          <th></th>
+          <th>D</th>
+          <th>R<sub>1</sub></th>
+          <th>R<sub>2</sub></th>
+          <th>R<sub>3</sub></th>
+          <th>Op</th>
+          <th>StW</th>
+          <th>In</th>
+          <th>Out</th>
+          <th>St</th>
+          <th>&times;</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    
+  </div>
+  <button class="btn-main" style=" width:90%; margin-left: 5%;" onclick="clearAll()">RESET DESIGN</button>
+</div>
+
+<script>
+  const colors = ["#FFFFFF", "#A2D2FF", "#BDE0FE", "#CAF0F8", "#90E0EF", "#00B4D8", "#B6D5F3", "#F7D7D4", "#D8BFD8", "#EEF6F7"];
+  let selectedFill = colors[1], objects = [], history = [], isAnimating = false;
+  const svgNS = "http://www.w3.org/2000/svg", CX = 450, CY = 450;
+
+  function togglePanel() {
+    const content = document.getElementById("layerContent");
+    const btn = event.target;
+    content.classList.toggle("collapsed");
+    btn.innerText = content.classList.contains("collapsed") ? "□" : "_";
+  }
+
+  function toggleRInputs() {
+    const v = document.getElementById("typeSelect").value;
+    document.getElementById("r2Area").style.display = v >= 2 ? "flex" : "none";
+    document.getElementById("r3Area").style.display = v == 3 ? "flex" : "none";
+  }
+
+  function updateBG() {
+    const sel = document.getElementById("bgSelect").value;
+    const rect = document.getElementById("bgRect");
+    const defs = document.getElementById("svgDefs");
+    if (sel === "white") { rect.setAttribute("fill", "white"); rect.setAttribute("fill-opacity", "1"); }
+    else if (sel === "transparent") { rect.setAttribute("fill-opacity", "0"); }
+    else {
+      let grad = document.getElementById("bgGrad");
+      if(!grad) {
+        grad = document.createElementNS(svgNS, "radialGradient");
+        grad.id = "bgGrad";
+        defs.appendChild(grad);
+      }
+      grad.innerHTML = `<stop offset="0%" stop-color="mistyrose"/><stop offset="100%" stop-color="midnightblue"/>`;
+      rect.setAttribute("fill", "url(#bgGrad)");
+      rect.setAttribute("fill-opacity", "1");
+    }
+  }
+
+  function getHexPath(x, y, r) {
+    let d = "";
+    for (let i = 0; i < 6; i++) {
+      let a = (i * Math.PI) / 3;
+      d += (i === 0 ? "M " : " L ") + (x + r * Math.cos(a)).toFixed(1) + "," + (y + r * Math.sin(a)).toFixed(1);
+    }
+    return d + " Z";
+  }
+
+  function createHex(parent, x, y, r, obj, gradId, isPreview, isOutline, strokeCol, outW) {
+  const p = document.createElementNS(svgNS, "path");
+  p.setAttribute("d", getHexPath(x, y, r));
+  
+  if (isOutline) {
+    // For the outline layer, we make it slightly larger than the hexagon
+    // and fill it with the outline color. The mask handles the "hole".
+    p.setAttribute("d", getHexPath(x, y, r )); 
+    p.setAttribute("fill", "none");
+    p.setAttribute("stroke", strokeCol);
+    p.setAttribute("stroke-width", Number(outW) * 2);
+    p.style.paintOrder = "fill";
+  } else {
+    p.setAttribute("fill", gradId ? `url(#${gradId})` : "none");
+    p.setAttribute("fill-opacity", isPreview ? 0.3 : obj.o);
+    p.setAttribute("stroke", isPreview ? "red" : (obj.sc || "#fff"));
+    p.setAttribute("stroke-width", obj.sw);
+  }
+  parent.appendChild(p);
+}
+  // drawGroup(pg, ghost, null, true);
+
+  function drawGroup(parent, obj, gradId, isPreview = false, isOutline = false, strokeCol = "#000", outW = 3) {
+    for (let i = 0; i < 6; i++) {
+      const a = (i * Math.PI) / 3;
+      const cX = CX + obj.d * Math.cos(a), cY = CY + obj.d * Math.sin(a);
+      const steps = obj.type === 1 ? [0] : [-1, 0, 1];
+      steps.forEach(s1 => {
+        const a2 = ((i + s1) * Math.PI) / 3;
+        const x2 = obj.type === 1 ? cX : cX + obj.r1 * Math.cos(a2);
+        const y2 = obj.type === 1 ? cY : cY + obj.r1 * Math.sin(a2);
+        if (obj.type === 3) {
+          [-1, 0, 1].forEach(s2 => {
+            const a3 = ((i + s1 + s2) * Math.PI) / 3;
+            createHex(parent, x2 + obj.r2 * Math.cos(a3), y2 + obj.r2 * Math.sin(a3), obj.r3, obj, gradId, isPreview, isOutline, strokeCol, outW);
+          });
+        } else {
+          createHex(parent, x2, y2, (obj.type === 2 ? obj.r2 : obj.r1), obj, gradId, isPreview, isOutline, strokeCol, outW);
+        }
+      });
+    }
+  }
+
+  function live() {
+    if (isAnimating) return;
+    const pg = document.getElementById("previewG");
+    const isVisible = document.getElementById("preCheck").checked;
+
+    pg.innerHTML = "";
+      if (!isVisible) {
+      pg.classList.add("hidden");
+      return;
+    }
+    pg.classList.remove("hidden");
+
+    document.getElementById("lbl-d").innerText = document.getElementById("dIn").value;
+    document.getElementById("lbl-r1").innerText = document.getElementById("r1In").value;
+    document.getElementById("lbl-r2").innerText = document.getElementById("r2In").value;
+    document.getElementById("lbl-r3").innerText = document.getElementById("r3In").value;
+    document.getElementById("lbl-o").innerText = document.getElementById("oIn").value;
+    document.getElementById("lbl-sw").innerText = document.getElementById("swIn").value;
+
+
+    const ghost = {
+      type: +document.getElementById("typeSelect").value,
+      d: +document.getElementById("dIn").value,
+      r1: +document.getElementById("r1In").value,
+      r2: +document.getElementById("r2In").value,
+      r3: +document.getElementById("r3In").value,
+      o: +document.getElementById("oIn").value,
+      sw: +document.getElementById("swIn").value
+    };
+    drawGroup(pg, ghost, null, true);
+  }
+
+  function addObj() {
+    objects.push({
+      type: +document.getElementById("typeSelect").value,
+      d: +document.getElementById("dIn").value,
+      r1: +document.getElementById("r1In").value,
+      r2: +document.getElementById("r2In").value,
+      r3: +document.getElementById("r3In").value,
+      o: +document.getElementById("oIn").value, 
+      sw: +document.getElementById("swIn").value, 
+      c1: "#ffffff", 
+      c2: selectedFill, 
+      sc: "#ffffff"
+    });
+
+    // Keep the "Background to Foreground" sorting
+    objects.sort((a, b) => {
+      const radA = a.type === 3 ? a.r3 : (a.type === 2 ? a.r2 : a.r1);
+      const radB = b.type === 3 ? b.r3 : (b.type === 2 ? b.r2 : b.r1);
+      return radB - radA;
+    });
+
+    saveToHistory();
+    render(true);
+  }
+
+
+  //outCheck
+
+  function render(full) {
+  const g = document.getElementById("savedG"), 
+        outG = document.getElementById("outlineG"),
+        maskHoles = document.getElementById("maskHoles"), // The new mask group
+        defs = document.getElementById("svgDefs");
+  
+  g.innerHTML = ""; outG.innerHTML = ""; maskHoles.innerHTML = "";
+  
+  const existingGrads = defs.querySelectorAll('radialGradient:not(#bgGrad)');
+  existingGrads.forEach(el => el.remove());
+
+  updateBG(); 
+  const showOut = document.getElementById("outCheck").checked;
+  const oCol = document.getElementById("outColor").value;
+  const oWeight = document.getElementById("outWeight").value;
+
+  objects.forEach((obj, i) => {
+    const gid = "grad-" + i;
+    const grad = document.createElementNS(svgNS, "radialGradient");
+    grad.id = gid;
+    grad.innerHTML = `<stop offset="0%" stop-color="${obj.c1}"/><stop offset="100%" stop-color="${obj.c2}"/>`;
+    defs.appendChild(grad);
+
+    // 1. Draw the "Hole" into the mask (in Black)
+    drawGroup(maskHoles, obj, null, false, false, "black", 0);
+
+    // 2. Draw the "Shadow" into the outline group
+    if (showOut) {
+      drawGroup(outG, obj, null, false, true, oCol, oWeight);
+    }
+
+    // 3. Draw the actual hexagon
+    drawGroup(g, obj, gid);
+  });
+  
+  if (full) updateTable();
+}
+
+  function updateTable() {
+    const tb = document.getElementById("tableBody");
+    tb.innerHTML = "";
+    objects.forEach((obj, i) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+          <td style="white-space:nowrap;">
+            <button onclick="move(${i}, -1)">▲</button>
+            <button onclick="move(${i}, 1)">▼</button>
+          </td>
+          <td style="font-weight:bold; color:#2A9D8F;">T<sub>${obj.type}</sub></td>
+          <td><input type="number" value="${obj.d}" size="2" step="1" oninput="upd(${i},'d',this.value)"></td>
+          <td><input type="number" value="${obj.r1}" size="2" step="1" oninput="upd(${i},'r1',this.value)"></td>
+          <td>${obj.type >= 2 ? `<input type="number" value="${obj.r2}" size="1" step="1" oninput="upd(${i},'r2',this.value)">` : '-'}</td>
+          <td>${obj.type === 3 ? `<input type="number" value="${obj.r3}" size="1" step="1" oninput="upd(${i},'r3',this.value)">` : '-'}</td>   
+          <td><input type="number" step="0.1" size="1" value="${obj.o}" oninput="upd(${i},'o',this.value)"></td>
+          <td><input type="number" value="${obj.sw}" size="1" step="1" oninput="upd(${i},'sw',this.value)"></td>
+          <td><input type="color" class="col-input" value="${obj.c1}" oninput="upd(${i},'c1',this.value)"></td>
+          <td><input type="color" class="col-input" value="${obj.c2}" oninput="upd(${i},'c2',this.value)"></td>
+          <td><input type="color" class="col-input" value="${obj.sc}" oninput="upd(${i},'sc',this.value)"></td>
+          <td><button class="btn-del" onclick="del(${i})">&times;</button></td>
+        `;
+      tb.appendChild(tr);
+    });
+  }
+
+
+  function del(index) {
+    objects.splice(index, 1);
+    render(true);
+    //saveToHistory();
+  }
+
+  function move(index, direction) {
+    const newIndex = index + direction;
+    if (newIndex >= 0 && newIndex < objects.length) {
+      // Swap the elements in the array
+      const temp = objects[index];
+      objects[index] = objects[newIndex];
+      objects[newIndex] = temp;
+      
+      // Re-render the whole thing (true forces table update)
+      render(true);
+      //saveToHistory();
+    }
+  }
+
+
+
+  function upd(i, p, v) { 
+    objects[i][p] = (p==='c2'||p==='sc'||p==='c1' ? v : +v); 
+    if(p==='type') updateTable();
+    render(false); 
+  }
+
+  function clearAll() { if(confirm("Clear design?")) { objects = []; render(true); } }
+
+  function saveToHistory() {
+    const snap = JSON.stringify(objects);
+    history.unshift(snap);
+    if (history.length > 5) history.pop();
+    updateHistoryUI();
+  }
+
+  function updateHistoryUI() {
+    const list = document.getElementById("historyList"); list.innerHTML = "";
+    history.forEach((h, i) => {
+      const div = document.createElement("div");
+      div.className = "history-item";
+      const layers = JSON.parse(h);
+      div.innerHTML = `<strong>Snapshot ${history.length - i}</strong> (${layers.length} Layers)`;
+      div.onclick = () => { objects = layers; render(true); };
+      list.appendChild(div);
+    });
+  }
+
+  function playAnimation() {
+    if (objects.length === 0 || isAnimating) return;
+    isAnimating = true;
+    const duration = 1500, 
+    startTime = performance.now();
+    const animQueue = [...objects].sort((a, b) => a.d - b.d);
+    
+    function frame(currentTime) {
+      const elapsed = currentTime - startTime;
+      const g = document.getElementById("savedG"), outG = document.getElementById("outlineG"), defs = document.getElementById("svgDefs");
+      
+      // Clear specific elements without touching background
+      g.innerHTML = ""; outG.innerHTML = "";
+      const existingGrads = defs.querySelectorAll('radialGradient:not(#bgGrad)');
+      existingGrads.forEach(el => el.remove());
+
+      let allFinished = true;
+      objects.forEach((obj, idx) => {
+        const qIdx = animQueue.indexOf(obj);
+        let start = (qIdx * 200);
+        let curD = 0, curR1 = 0;
+        if (elapsed > start) {
+          const progress = Math.min((elapsed - start) / 1000, 1);
+          curD = obj.d * progress;
+          curR1 = obj.r1 * (0.1 + progress * 0.9);
+          if(progress < 1) allFinished = false;
+        } else { allFinished = false; }
+
+        const temp = { ...obj, d: curD, r1: curR1 };
+        const gid = "ani-" + idx;
+        const grad = document.createElementNS(svgNS, "radialGradient");
+        grad.id = gid; grad.innerHTML = `<stop offset="0%" stop-color="${obj.c1}"/><stop offset="100%" stop-color="${obj.c2}"/>`;
+        defs.appendChild(grad);
+        if (document.getElementById("outCheck").checked) drawGroup(outG, temp, null, false, true, document.getElementById("outColor").value, document.getElementById("outWeight").value);
+        drawGroup(g, temp, gid);
+      });
+
+      if (!allFinished && elapsed < duration + 1000) requestAnimationFrame(frame);
+      else { isAnimating = false; render(true); }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function randomize() {
+    objects = [];
+    const count = Math.floor(Math.random() * 6) + 4;
+
+    let t3Count = 0; // Guard for Type 3
+
+
+
+    for (let i = 0; i < count; i++) {
+
+      let type = 1;
+      const rand = Math.random();
+      
+      if (rand > 0.8 && t3Count < 2) { 
+        type = 3; t3Count++; 
+      } else if (rand > 0.4) { 
+        type = 2; 
+      }
+
+      objects.push({
+        type: Math.floor(Math.random() * 3) + 1,
+        d: Math.floor(Math.random() * 350), 
+        r1: Math.floor( Math.random() * 100) + 10, 
+        r2: Math.floor(Math.random() * 50)  + 5, 
+        r3: Math.floor(Math.random() * 18) + 2,
+        o: (0.7 + (0.1)*Math.floor(Math.random() * 4)).toFixed(1) ,
+        sw: Math.floor(Math.random() * 3), 
+        c1: "#F0F8FF", c2: colors[Math.floor(Math.random() * colors.length)], sc: "#ffffff"
+      });
+    }
+
+    objects.sort((a, b) => (b.type === 2 ? b.r2 : b.r1) - (a.type === 2 ? a.r2 : a.r1));
+    saveToHistory();
+    render(true);
+
+  }
+
+  function saveSVG() {
+    const xml = new XMLSerializer().serializeToString(document.getElementById("mainSVG"));
+    const blob = new Blob([xml], {type: 'image/svg+xml'});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = `snowflake_${Date.now()}.svg`; a.click();
+  }
+
+  function savePNG() {
+    const svg = document.getElementById("mainSVG");
+    const canvas = document.createElement("canvas");
+    canvas.width = 1800; canvas.height = 1800;
+    const ctx = canvas.getContext("2d");
+    const xml = new XMLSerializer().serializeToString(svg);
+    const svgBlob = new Blob([xml], {type: "image/svg+xml;charset=utf-8"});
+    const url = URL.createObjectURL(svgBlob);
+    const image = new Image();
+    image.src = url;
+    image.onload = () => {
+      ctx.drawImage(image, 0, 0, 1800, 1800);
+      const link = document.createElement("a");
+      link.download = `snowflake_${Date.now()}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      URL.revokeObjectURL(url);
+    };
+  }
+
+  function downloadConfig() {
+    if (objects.length === 0) {
+      alert("Nothing to save yet!");
+      return;
+    }
+
+    // We bundle the objects AND the current global outline/BG settings
+    const config = {
+      version: "1.0",
+      timestamp: new Date().toISOString(),
+      bg: document.getElementById("bgSelect").value,
+      outline: {
+        show: document.getElementById("outCheck").checked,
+        weight: document.getElementById("outWeight").value,
+        color: document.getElementById("outColor").value
+      },
+      layers: objects
+    };
+
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(config, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", getFileName("json"));
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
+
+  function uploadConfig(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const config = JSON.parse(e.target.result);
+        
+        // 1. Restore Layers
+        objects = config.layers || [];
+        
+        // 2. Restore Global Settings
+        if (config.bg) {
+          document.getElementById("bgSelect").value = config.bg;
+          updateBG(); 
+        }
+        if (config.outline) {
+          document.getElementById("outCheck").checked = config.outline.show;
+          document.getElementById("outWeight").value = config.outline.weight;
+          document.getElementById("outColor").value = config.outline.color;
+        }
+
+        // 3. Refresh UI and SVG
+        render(true);
+        saveToHistory();
+        alert("Snowflake loaded successfully!");
+      } catch (err) {
+        alert("Error parsing config file. Make sure it's a valid Snowflake JSON.");
+        console.error(err);
+      }
+      // Clear input so you can upload the same file again if edited
+      input.value = '';
+    };
+    reader.readAsText(file);
+  }
+
+  function getFileName(ext) {
+    const now = new Date();
+    const ts = now.toISOString().replace(/[:T-]/g, '').split('.')[0];
+    return `snow_crystal_${ts}.${ext}`;
+  }
+
+  // Draggable with Boundary Constraints
+  let dragEl=null, grab={x:0,y:0};
+  document.addEventListener('mousedown', e => {
+    const h = e.target.closest('.drag-handle');
+    if(h){ 
+      dragEl=h.closest('.ui-panel'); 
+      grab={x:e.clientX-dragEl.offsetLeft,y:e.clientY-dragEl.offsetTop};
+    }
+  });
+  document.addEventListener('mousemove', e => { 
+    if(dragEl){ 
+      let newX = e.clientX - grab.x;
+      let newY = Math.max(0, e.clientY - grab.y);
+      dragEl.style.left = newX + 'px'; 
+      dragEl.style.top = newY + 'px'; 
+    }
+  });
+  document.addEventListener('mouseup', () => dragEl=null);
+
+  // Palette
+  const fPal = document.getElementById("fillPalette");
+  colors.forEach(c => {
+    const s = document.createElement("div");
+    s.className = "swatch" + (c === selectedFill ? " active" : "");
+    s.style.background = c;
+    s.onclick = () => { 
+      fPal.querySelectorAll('.swatch').forEach(x => x.classList.remove('active'));
+      s.classList.add('active'); selectedFill = c; live(); 
+    };
+    fPal.appendChild(s);
+  });
+
+  updateBG();
+  live();
+</script>
+
+</body>
+</html>
