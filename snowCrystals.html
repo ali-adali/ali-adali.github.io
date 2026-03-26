@@ -38,8 +38,11 @@
     }
 
     .ui-panel-alt {
-      margin-left:0.4vmin;
-      width: 80vmin;
+      position: absolute;
+      bottom:16vmin;
+      left:140vmin;
+      max-height: 38vmin;
+      max-width: 80vmin;
       overflow-y: auto;
       
       background: transparent;
@@ -88,12 +91,49 @@
     }
     .history-item:hover { border-color: var(--accent); background: #222; }
 
-    #mainSVG { display: block; margin-left: 0vmin; height: 100vh; width: auto; filter: drop-shadow(0 0 20px rgba(0,0,0,0.5)); border-radius:8vmin; }
-    .palette { display: flex; gap: 0.5vmin; flex-wrap: wrap; margin-top: 1vmin; }
-    .swatch { width: 3.5vmin; height: 3.5vmin; border-radius: 0.5vmin; cursor: pointer; border: 0.2vmin solid rgba(255,255,255,0.2); }
-    .swatch.active { border: 0.5vmin solid orangered; transform: scale(1.2); }
+    #mainSVG { position: absolute; left:40vmin ; display: block; margin-left: 0vmin; height: 100vh; width: 100vh; filter: drop-shadow(0 0 20px rgba(0,0,0,0.5)); scale:0.98; border-radius:6vmin; }
+
+    .palette,.palette-c1,.palette-sw { display: flex; flex-direction: row; width: 28vmin; gap: 0.5vmin; flex-wrap: wrap; margin-top: 1vmin; }
+
+    .swatch,.swatch-c1,.swatch-sc { width: 3.5vmin; height: 3.5vmin; border-radius: 0.5vmin; cursor: pointer; border: 0.2vmin solid rgba(255,255,255,0.2); }
+
+    .swatch.active,.swatch-c1.active,.swatch-sc.active { border: 0.5vmin solid orangered; transform: scale(1.2); }
 
     .hidden { visibility: hidden; }
+
+    #layer-selector {
+      display: flex;
+      gap: 1vmin;
+      padding: 1vmin;
+      background: rgba(0,0,0,0.2);
+      border-radius: 1vmin;
+      margin-bottom: 1.5vmin;
+      overflow-x: auto;
+    }
+    .layer-card {
+      min-width: 8vmin;
+      height: 8vmin;
+      background: #444;
+      border-radius: 1vmin;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      border: 0.3vmin solid transparent;
+      transition: 0.2s;
+      color: white;
+      flex-direction: column;
+      font-size: 1.8vmin;
+    }
+    .layer-card.active {
+      border-color: orangered;
+      background: var(--accent);
+    }
+    .layer-card.add-card {
+      background: #222;
+      border: 0.3vmin dashed #666;
+    }
     
     select { width: 100%; padding: 0.2vmin; background: #222; color: white; border: 0.2vmin solid #444; border-radius: 0.5vmin; font-size: 2.5vmin; }
   </style>
@@ -155,12 +195,26 @@
           <span style="width:5vmin;text-align: right;" id="lbl-sw">1</span>
         </div>
 
+      </div>
 
+      <div style="display:flex; justify-content:space-between; align-items: center; font-size:2.5vmin; color:#aaa">
+        <span style="width:4vmin;">In</span>
+        <div class="palette" id="c1Palette"></div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items: center; font-size:2.5vmin; color:#aaa">
+        <span style="width:4vmin;">Out</span>
+        <div class="palette" id="c2Palette"></div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items: center; font-size:2.5vmin; color:#aaa">
+        <span style="width:4vmin;">St</span>
+        <div class="palette" id="scPalette"></div>
+      </div>
+
+
+      <button class="btn-main" onclick="addObj()" style="margin-top:2vmin;">ADD</button>
     </div>
-
-    <div class="palette" id="fillPalette"></div>
-    <button class="btn-main" onclick="addObj()" style="margin-top:2vmin;">ADD</button>
-  </div>
 
   <div class="console-section">
     <div class="console-label">Global Style</div>
@@ -223,12 +277,18 @@
   <g transform="rotate(30, 450, 450)" id="previewG"></g>
 </svg>
 
+<div id="layer-selector" style="position: absolute;left:140vmin; display: flex;flex-direction: column;max-height: 50vmin; width: 30vmin;flex-wrap: wrap;"></div>
+
 <div id="layerPanel" class="ui-panel-alt" >
+  
+
   <div class="drag-handle"> <span></span> <span style="font-size:4.5vmin; font-weight: light;"> ❄ ❅ ❆</span> 
     <button onclick="togglePanel();" style="float:right; padding:0 0.5vmin; width: 2vmin; margin-right: 2vmin; background:transparent; color:#eee;">_</button>
   </div>
   
   <div id="layerContent" class="panel-content" style="max-height: 85vh; overflow-y: auto;">
+    
+
     <table>
       <thead>
         <tr>
@@ -250,12 +310,20 @@
     </table>
     
   </div>
-  <button class="btn-main" style=" width:90%; margin-left: 5%;" onclick="clearAll()">RESET DESIGN</button>
+  
 </div>
+
+<button class="btn-main" style=" width:30vmin; height: 10vmin; position: absolute;left:131vmin;bottom: 5vmin;" onclick="clearAll()">RESET DESIGN</button>
 
 <script>
   const colors = ["#FFFFFF", "#A2D2FF", "#BDE0FE", "#CAF0F8", "#90E0EF", "#00B4D8", "#B6D5F3", "#F7D7D4", "#D8BFD8", "#EEF6F7"];
-  let selectedFill = colors[1], objects = [], history = [], isAnimating = false;
+
+  const c2Colors = ["#FFFFFF", "#A2D2FF", "#BDE0FE", "#CAF0F8", "#90E0EF", "#00B4D8", "#B6D5F3", "#F7D7D4", "#D8BFD8", "#EEF6F7"];
+
+  const scColors = ["#FFFFFF", "#A2D2FF", "#BDE0FE", "#CAF0F8", "#90E0EF", "#00B4D8", "#B6D5F3", "#F7D7D4", "#D8BFD8", "#EEF6F7"];
+
+
+  let selectedFill = colors[1], selectedC1=c2Colors[0],selectedSc=scColors[0] , objects = [], history = [], isAnimating = false;
   const svgNS = "http://www.w3.org/2000/svg", CX = 450, CY = 450;
 
   function togglePanel() {
@@ -290,6 +358,8 @@
     }
   }
 
+
+
   function getHexPath(x, y, r) {
     let d = "";
     for (let i = 0; i < 6; i++) {
@@ -315,7 +385,7 @@
     p.setAttribute("fill", gradId ? `url(#${gradId})` : "none");
     p.setAttribute("fill-opacity", isPreview ? 0.3 : obj.o);
     p.setAttribute("stroke", isPreview ? "red" : (obj.sc || "#fff"));
-    p.setAttribute("stroke-width", obj.sw);
+    p.setAttribute("stroke-width", isPreview ? 3 : obj.sw);
   }
   parent.appendChild(p);
 }
@@ -342,36 +412,79 @@
     }
   }
 
-  function live() {
+  let selectedIndex = -1; // -1 = Add Mode, 0+ = Edit Mode
+
+  function selectLayer(index) {
+    selectedIndex = index;
+    
+    if (index === -1) {
+      // RESET TO DEFAULTS for Add Mode (Optional: or keep last used)
+      document.querySelector(".btn-main[onclick='addObj()']").innerText = "ADD LAYER";
+    } else {
+      // LOCK INPUTS to the selected object's values
+      const obj = objects[index];
+      document.getElementById("typeSelect").value = obj.type;
+      document.getElementById("dIn").value = obj.d;
+      document.getElementById("r1In").value = obj.r1;
+      document.getElementById("r2In").value = obj.r2 || 15;
+      document.getElementById("r3In").value = obj.r3 || 5;
+      document.getElementById("oIn").value = obj.o;
+      document.getElementById("swIn").value = obj.sw;
+      
+      // Update color globals to match selected layer
+      selectedC1 = obj.c1;
+      selectedFill = obj.c2;
+      selectedSc = obj.sc;
+      
+      document.querySelector(".btn-main[onclick='addObj()']").innerText = "EDITING LAYER " + (index + 1);
+      toggleRInputs();
+    }
+    
+    updateTable(); // This will refresh our selector UI
+    live();
+  }
+
+   function live() {
     if (isAnimating) return;
     const pg = document.getElementById("previewG");
-    const isVisible = document.getElementById("preCheck").checked;
+    pg.innerHTML = ""; // Clear old ghost
+    
+    // Update UI Labels (The text numbers next to sliders)
+    const labels = ["d", "r1", "r2", "r3", "o", "sw"];
+    labels.forEach(l => {
+      const el = document.getElementById("lbl-" + l);
+      const input = document.getElementById(l + "In");
+      if(el && input) el.innerText = input.value;
+    });
 
-    pg.innerHTML = "";
-      if (!isVisible) {
-      pg.classList.add("hidden");
-      return;
-    }
-    pg.classList.remove("hidden");
-
-    document.getElementById("lbl-d").innerText = document.getElementById("dIn").value;
-    document.getElementById("lbl-r1").innerText = document.getElementById("r1In").value;
-    document.getElementById("lbl-r2").innerText = document.getElementById("r2In").value;
-    document.getElementById("lbl-r3").innerText = document.getElementById("r3In").value;
-    document.getElementById("lbl-o").innerText = document.getElementById("oIn").value;
-    document.getElementById("lbl-sw").innerText = document.getElementById("swIn").value;
-
-
-    const ghost = {
+    // DATA GATHERING: Get current slider values
+    const currentVals = {
       type: +document.getElementById("typeSelect").value,
       d: +document.getElementById("dIn").value,
       r1: +document.getElementById("r1In").value,
       r2: +document.getElementById("r2In").value,
       r3: +document.getElementById("r3In").value,
       o: +document.getElementById("oIn").value,
-      sw: +document.getElementById("swIn").value
+      sw: +document.getElementById("swIn").value,
+      c1: selectedC1,
+      c2: selectedFill,
+      sc: selectedSc
     };
-    drawGroup(pg, ghost, null, true);
+
+    // IF EDIT MODE: Sync those values into the actual object
+    if (selectedIndex !== -1 && objects[selectedIndex]) {
+      Object.assign(objects[selectedIndex], currentVals);
+      render(false); // Update the real snowflake (false = don't rebuild table)
+    }
+
+    // PREVIEW LOGIC: Always draw the red ghost if checkbox is checked
+    const isVisible = document.getElementById("preCheck").checked;
+    if (isVisible) {
+      pg.classList.remove("hidden");
+      drawGroup(pg, currentVals, null, true); // true = isPreview (Red)
+    } else {
+      pg.classList.add("hidden");
+    }
   }
 
   function addObj() {
@@ -383,9 +496,9 @@
       r3: +document.getElementById("r3In").value,
       o: +document.getElementById("oIn").value, 
       sw: +document.getElementById("swIn").value, 
-      c1: "#ffffff", 
+      c1: selectedC1, 
       c2: selectedFill, 
-      sc: "#ffffff"
+      sc: selectedSc
     });
 
     // Keep the "Background to Foreground" sorting
@@ -442,8 +555,26 @@
 
   function updateTable() {
     const tb = document.getElementById("tableBody");
+    const selector = document.getElementById("layer-selector");
     tb.innerHTML = "";
+    selector.innerHTML = "";
+
+    // 1. Add the "Add New" Card
+    const addCard = document.createElement("div");
+    addCard.className = `layer-card add-card ${selectedIndex === -1 ? 'active' : ''}`;
+    addCard.innerHTML = `<span>+</span><span style="font-size:1.2vmin">NEW</span>`;
+    addCard.onclick = () => selectLayer(-1);
+    selector.appendChild(addCard);
+
+
     objects.forEach((obj, i) => {
+      // 2. Build the Swatch Card
+      const card = document.createElement("div");
+      card.className = `layer-card ${selectedIndex === i ? 'active' : ''}`;
+      card.style.background = `linear-gradient(45deg, ${obj.c1}, ${obj.c2})`;
+      card.innerHTML = `<span style="text-shadow: 0 0 3px black">T<sub>${obj.type}</sub></span>`;
+      card.onclick = () => selectLayer(i);
+      selector.appendChild(card);
       const tr = document.createElement("tr");
       tr.innerHTML = `
           <td style="white-space:nowrap;">
@@ -469,6 +600,7 @@
 
   function del(index) {
     objects.splice(index, 1);
+    selectLayer(-1); // Go back to Add mode
     render(true);
     //saveToHistory();
   }
@@ -519,7 +651,7 @@
   function playAnimation() {
     if (objects.length === 0 || isAnimating) return;
     isAnimating = true;
-    const duration = 1500, 
+    const duration = 2500, 
     startTime = performance.now();
     const animQueue = [...objects].sort((a, b) => a.d - b.d);
     
@@ -581,9 +713,9 @@
       objects.push({
         type: Math.floor(Math.random() * 3) + 1,
         d: Math.floor(Math.random() * 350), 
-        r1: Math.floor( Math.random() * 100) + 10, 
-        r2: Math.floor(Math.random() * 50)  + 5, 
-        r3: Math.floor(Math.random() * 18) + 2,
+        r1: Math.floor( Math.random() * 100) + 30, 
+        r2: Math.floor(Math.random() * 50)  + 15, 
+        r3: Math.floor(Math.random() * 18) + 5,
         o: (0.7 + (0.1)*Math.floor(Math.random() * 4)).toFixed(1) ,
         sw: Math.floor(Math.random() * 3), 
         c1: "#F0F8FF", c2: colors[Math.floor(Math.random() * colors.length)], sc: "#ffffff"
@@ -713,17 +845,45 @@
   });
   document.addEventListener('mouseup', () => dragEl=null);
 
+  //c1 Palette
+  const c1Pal = document.getElementById("c1Palette");
+  colors.forEach(c => {
+    const s = document.createElement("div");
+    s.className = "swatch-c1" + (c === selectedC1 ? " active" : "");
+    s.style.background = c;
+    s.onclick = () => { 
+      c1Pal.querySelectorAll('.swatch-c1').forEach(x => x.classList.remove('active'));
+      s.classList.add('active'); selectedC1 = c; live(); 
+    };
+    c1Pal.appendChild(s);
+  });
+
   // Palette
-  const fPal = document.getElementById("fillPalette");
+  const c2Pal = document.getElementById("c2Palette");
   colors.forEach(c => {
     const s = document.createElement("div");
     s.className = "swatch" + (c === selectedFill ? " active" : "");
     s.style.background = c;
     s.onclick = () => { 
-      fPal.querySelectorAll('.swatch').forEach(x => x.classList.remove('active'));
+      c2Pal.querySelectorAll('.swatch').forEach(x => x.classList.remove('active'));
       s.classList.add('active'); selectedFill = c; live(); 
     };
-    fPal.appendChild(s);
+    c2Pal.appendChild(s);
+  });
+
+  
+
+  //sc Palette
+  const stPal = document.getElementById("scPalette");
+  colors.forEach(c => {
+    const s = document.createElement("div");
+    s.className = "swatch-sc" + (c === selectedSc ? " active" : "");
+    s.style.background = c;
+    s.onclick = () => { 
+      stPal.querySelectorAll('.swatch-sc').forEach(x => x.classList.remove('active'));
+      s.classList.add('active'); selectedSc = c; live(); 
+    };
+    stPal.appendChild(s);
   });
 
   updateBG();
