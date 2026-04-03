@@ -2227,7 +2227,7 @@ function downloadInvitation() {
     const node = document.querySelector('.invitation-container');
     const scale = 3;
 
-    const buffer = 60; 
+    const buffer = 34; 
 
     domtoimage.toPng(node, {
         width: (node.clientWidth + buffer) * scale,
@@ -2239,7 +2239,8 @@ function downloadInvitation() {
             fontFamily: "'Great Vibes', cursive", 
             width: node.clientWidth + 'px',
             height: node.clientHeight + 'px',
-            margin: (buffer / 2) + 'px'
+            marginLeft:(8+ buffer) + 'px',
+            marginTop: (8+ buffer) + 'px'
 
         }
     })
