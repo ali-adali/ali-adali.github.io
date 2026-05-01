@@ -81,7 +81,22 @@
     {
       position: relative;
       
-      width: 93vw;  
+      width: 700px;  
+      aspect-ratio: calc(1 / var(--phi));
+      outline: 2vmin solid antiquewhite;
+      border: 0.1vmin solid darkgray;
+      margin: auto;
+      border-radius: 0.5vmin;
+      overflow-y: auto;
+      box-shadow: 3vmin 3vmin 2vmin rgba(0,0,0,0.7);
+
+    }
+
+    .invitation-container2
+    {
+      position: relative;
+      
+      width: 760px;  
       aspect-ratio: calc(1 / var(--phi));
       outline: 2vmin solid antiquewhite;
       border: 0.1vmin solid darkgray;
@@ -370,9 +385,9 @@
     {
       position: absolute;
       width: 70% ;
-      aspect-ratio: var(--phi) / 1 ;
+      aspect-ratio: 1.42 / 1 ;
       left:15%;
-      top:52%;  
+      top:48%;  
       
       outline: 0.0vmin solid green;
 
@@ -400,7 +415,7 @@
       
       opacity: 1;
 
-      font-size: 4.2vmin;
+      font-size: 2.4rem;
         
       
       outline: 0.0vmin solid green;
@@ -455,7 +470,7 @@
       
       opacity: 1;
 
-      font-size: 4.5vmin;
+      font-size: 2rem;
       font-weight: 600;
         
       
@@ -477,7 +492,7 @@
     .yer
     {
       position: absolute;
-      width: 43% ;
+      width: 45% ;
       aspect-ratio: var(--phi) / 1;
       right:3.5%;
       bottom:5.5%;
@@ -503,14 +518,14 @@
     .yer-ici
     {
       position: absolute;
-      width: 94% ;
-      height: 92%;
+      width: 93% ;
+      height: 91%;
       
      
       
       opacity: 1;
 
-      font-size: 2.4vmin;
+      font-size: 1.3rem;
       
       outline: 0.0vmin solid green;
 
@@ -527,6 +542,46 @@
        z-index: 90;
     }
 
+
+
+    .davet-ici-2
+    {
+      font-size: 5.1rem;
+      font-weight: 600;
+    }
+
+    .davet-ici-3
+    {
+      font-size:3.5rem;
+    }
+
+    .davet-ici-4
+    {
+      font-size: 3rem; 
+      font-weight: 600;
+      color: transparent; 
+      -webkit-text-stroke: 0.4vmin black; 
+      text-stroke: 0.4vmin black;
+    }
+
+    .davet-ici-5
+    {
+      font-size: 2.0rem;
+      margin-top:-2px;
+    }
+
+    .tarihyer-ici-2
+    {
+      font-size:1.7rem;
+      font-weight: normal;
+    }
+    
+    .yer-ici-2
+    {
+      font-size:2.7rem;
+      font-weight: bolder;
+    }
+
     .download-btn {
       position: relative;
       
@@ -536,7 +591,7 @@
       
       padding: 12px 24px;
       background: antiquewhite;
-      font-size: 6vmin;
+      font-size: 4.5rem;
       color: black;
       border: none;
       border-radius: 5px;
@@ -546,6 +601,8 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.4);
       font-family: 'Great Vibes', cursive;
     }
+
+
     .download-btn:hover { background: antiquewhite; }
 
     @media print {
@@ -1574,12 +1631,21 @@
 
     <div class="davet">
         <div class="davet-ici paper">
-          <span> <span style="font-size: 10vmin; font-weight: 600;">H</span> <span style="font-size:6.5vmin;" >ale</span> <span style="font-size: 7vmin; font-weight: 600;color: transparent; -webkit-text-stroke: 0.4vmin black; text-stroke: 0.4vmin black;">&#10084;</span>  <span style="font-size: 10vmin; font-weight: 600;font-family: 'Alex Brush', cursive;">A</span><span style="font-size: 6.5vmin;margin-left:-0.5vmin;">li </span> </span>
-          <span> ve ailelerimiz</span>
-          <span>sizi</span>
-          <span> düğünümüze davet ediyoruz.</span>     
+          <span> <span class="davet-ici-2">H</span> 
+          <span class="davet-ici-3">ale</span> 
+          <span class="davet-ici-4">&#10084;</span>  
+          <span class="davet-ici-2" style="font-family: 'Alex Brush', cursive;">A</span>
+          <span class="davet-ici-3" style="margin-left:-5px;">li </span> </span>
+          <span class="davet-ici-5" style="margin-top: -15px;"> ve ailelerimiz</span>
+          <span class="davet-ici-5">Rukiye & Fikret <span style="font-family: 'Alex Brush', cursive;" >Ada</span>lı</span>
+          <span class="davet-ici-5">Selvet & Şaban Kazaçeşme</span>
+          <span class="davet-ici-5">sizi düğünümüze davet ediyoruz.</span>
+          <span class="davet-ici-5" > (Düğünümüz yemeklidir)</span>     
         </div>
     </div>
+
+    
+
 
     <div class="yer">
       
@@ -1587,7 +1653,7 @@
 
     <div class="tarih">
       <div class="tarih-ici paper" >
-        <span style="font-size:3vmin; font-weight: normal;">Tarih</span>
+        <span class="tarihyer-ici-2">Tarih</span>
         <span>12 Temmuz 2026</span>
         <span></span>
         <span>Pazar, 13:00</span> 
@@ -1598,9 +1664,9 @@
 
     <div class="yer">
       <div class="yer-ici paper" >
-        <span style="font-size:3vmin; font-weight: normal; margin-top: 5px;">Yer</span>
+        <span class="tarihyer-ici-2" style="margin-top: 5px;">Yer</span>
         <a href="https://maps.app.goo.gl/UTYY5Ty2hesJzZzSA" target="_blank" style="text-decoration: none;">
-        <span style="font-size:5vmin; font-weight: bolder;">Heybeli Otel</span>     
+        <span class="yer-ici-2" >Heybeli Otel</span>     
         </a>
         <span style="margin-left: -20%;">Çağrışan</span>
         <span style="margin-left: -20%;"> Saygı Sokak 3/<span style="font-family: 'Alex Brush', cursive;" >A</span></span>
@@ -2291,7 +2357,8 @@
 <script>
 function downloadInvitation() {
     const node = document.querySelector('.invitation-container');
-    const scale = 3;
+    //node.classList.replace('invitation-container', 'invitation-container2');
+    const scale = 2;
 
     const buffer = 34; 
 
@@ -2324,6 +2391,10 @@ function downloadInvitation() {
     .catch(function (error) {
         console.error('Font or Render Error:', error);
     });
+
+    //node.classList.replace('invitation-container2', 'invitation-container');
+
+
 }
 
 </script>
