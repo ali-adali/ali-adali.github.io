@@ -1142,7 +1142,7 @@
       spanElement.innerHTML = text;
       SVGElement.appendChild(spanElement);
       if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-          MathJax.typesetPromise([obj.SVGElement]) // Tell it exactly which element to format
+          MathJax.typesetPromise([SVGElement]) // Tell it exactly which element to format
             .catch((err) => console.log('MathJax formatting error:', err));
       } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
           try {
