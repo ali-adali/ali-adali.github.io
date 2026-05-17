@@ -665,6 +665,2905 @@
     // Bootstrapping initialization launch
     initUI();
     loadTheorem(0); // Auto-loads the first item in your dashboard list on load
+
+     class basePoint
+  {
+    constructor(objectIndex, cx, cy )
+    {
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
+      SVGElement.style.cursor= 'pointer';
+      SVGElement.setAttribute("r", 3);
+      SVGElement.setAttribute("stroke-width",1);
+      SVGElement.setAttribute("fill-opacity",0);
+      SVGElement.setAttribute("opacity",1);
+      SVGElement.setAttribute("stroke",'black');
+      SVGElement.setAttribute("fill",'black');
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      this.cx = cx;
+      this.cy = cy;
+    
+      this.type = 'pt';
+
+      let objectRow = document.createElement("TR");
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      
+      let cxCell = document.createElement("TD");
+      let cyCell = document.createElement("TD");
+
+      
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+
+      this.checkbox = newCheckBox;
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+
+      this.displayType = '&#9675;';
+
+      typeCell.innerHTML = this.displayType;
+      objectRow.appendChild(typeCell);
+
+      propertyCell.innerHTML =  'base';
+      objectRow.appendChild(propertyCell);
+
+      
+      let xInput = numberInput(objectIndex,'2','0','','1');
+      xInput.value = cx;
+      xInput.setAttribute("oninput", "objects["+objectIndex+"].cx = this.value; render();");
+      cxCell.appendChild(xInput);
+      objectRow.appendChild(cxCell);
+      this.xInput = xInput;
+
+
+      
+      let yInput = numberInput(objectIndex,'2','0','','1');
+      yInput.value = cy;
+      yInput.setAttribute("oninput", "objects["+objectIndex+"].cy = this.value; render();");
+      cyCell.appendChild(yInput);
+      objectRow.appendChild(cyCell);
+      this.yInput = yInput;
+
+
+      this.rowElement = objectRow;
+
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = (this.index+1)+`. (${this.displayType})`;
+      indexSpan.style='text-align:right';
+      let coorsSpan = document.createElement("SPAN");
+      coorsSpan.style.fontSize='12px';
+      coorsSpan.style='text-align:right';
+      coorsSpan.innerHTML = `(${this.cx},${this.cy})`;
+
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(coorsSpan);
+      divElement.appendChild(this.checkbox);
+
+
+
+      this.divElement = divElement;
+      this.coorsSpan=coorsSpan;
+
+
+      this.initialState = { 
+        cx: this.cx+'px',
+        cy: this.cy+'px',
+        opacity:0};
+
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);    
+    }
+
+
+    updateDIVElement()
+    {
+      this.coorsSpan.innerHTML = `(${this.cx},${this.cy})`;
+    }
+
+   
+
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+          cx: this.cx+'px',
+          cy: this.cy+'px',
+          opacity:0
+      };
+
+      return stateSnapshot;
+    }
+
+    setInitialState()
+    {
+      this.initialState = { cx: this.cx+'px',
+        cy: this.cy+'px',
+        opacity:0
+      };
+    }
+
+    syncInputs() 
+    {
+      if (this.xInput) this.xInput.value = this.cx;
+      if (this.yInput) this.yInput.value = this.cy;
+    }
+  }
+
+
+
+  class point
+  {
+    constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale )
+    {
+      //svg object
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      //SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
+      //SVGElement.style.cursor= 'pointer';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.style.pointerEvents = 'none';
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      this.cx = cx;
+      this.cy = cy;
+      this.r = r;
+      this.strokeWidth = strokeWidth;
+      this.fillOpacity = fillOpacity;
+      this.opacity = opacity;
+      this.scale=scale;
+      this.strokeColor = strokeColor;
+      this.fillColor = fillColor;
+      this.type = 'ptc';
+
+      
+      this.property = 'point';
+
+
+      let objectRow = document.createElement("TR");
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      
+      let cxCell = document.createElement("TD");
+      let cyCell = document.createElement("TD");
+      let rCell = document.createElement("TD");
+      let strokeWidthCell = document.createElement("TD");
+      let strokeColorCell = document.createElement("TD");
+      let fillOpacityCell = document.createElement("TD");
+      let fillColorCell = document.createElement("TD");
+      let scaleCell = document.createElement("TD");
+      let opacityCell = document.createElement("TD");
+      
+
+      //table row (with inputs)
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+
+      this.checkbox = newCheckBox;
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+
+      let displayType = '&#9679;';
+      this.displayType = displayType;
+
+      typeCell.innerHTML = displayType;
+      objectRow.appendChild(typeCell);
+
+      propertyCell.innerHTML =  this.property;
+      objectRow.appendChild(propertyCell);
+
+      
+      let xInput = numberInput(objectIndex,'2','0','','1');
+      xInput.value = cx;
+      xInput.setAttribute("oninput", "objects["+objectIndex+"].cx = this.value; render();");
+      cxCell.appendChild(xInput);
+      objectRow.appendChild(cxCell);
+      this.xInput = xInput;
+
+
+      
+      let yInput = numberInput(objectIndex,'2','0','','1');
+      yInput.value = cy;
+      yInput.setAttribute("oninput", "objects["+objectIndex+"].cy = this.value; render();");
+      cyCell.appendChild(yInput);
+      objectRow.appendChild(cyCell);
+      this.yInput = yInput;
+
+
+      
+      let rInput = numberInput(objectIndex,'1','0','','1');
+      rInput.value = r;
+      rInput.setAttribute("oninput", "objects["+objectIndex+"].r = this.value; render();");
+      rCell.appendChild(rInput);
+      objectRow.appendChild(rCell);
+      this.rInput = rInput;
+
+
+
+
+      
+      let strokeWidthInput = numberInput(objectIndex,'1','0','','1');
+      strokeWidthInput.value = strokeWidth;
+      strokeWidthInput.setAttribute("oninput", "objects["+objectIndex+"].strokeWidth = this.value; render();");
+      strokeWidthCell.appendChild(strokeWidthInput);
+      objectRow.appendChild(strokeWidthCell);
+      this.strokeWidthInput = strokeWidthInput;
+
+
+      
+      let fillOpacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      fillOpacityInput.value = fillOpacity;
+      fillOpacityInput.setAttribute("oninput", "objects["+objectIndex+"].fillOpacity = this.value; render();");
+      fillOpacityCell.appendChild(fillOpacityInput);
+      objectRow.appendChild(fillOpacityCell);
+      this.fillOpacityInput=fillOpacityInput;
+
+
+
+      let opacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      opacityInput.value = opacity;
+      opacityInput.setAttribute("oninput", "objects["+objectIndex+"].opacity = this.value; render();");
+      opacityCell.appendChild(opacityInput);
+      objectRow.appendChild(opacityCell);
+      this.opacityInput = opacityInput;
+
+
+      let scaleInput = numberInput(objectIndex,'1','0','','0.05');
+      scaleInput.value = scale;
+      scaleInput.setAttribute("oninput", "objects["+objectIndex+"].scale = this.value; render();");
+      scaleCell.appendChild(scaleInput);
+      objectRow.appendChild(scaleCell);
+      this.scaleInput = scaleInput;
+
+
+      let strokeColorSelect = strokecolorselect(objectIndex);
+      strokeColorSelect.value = strokeColor;
+      strokeColorSelect.setAttribute("oninput", "objects["+objectIndex+"].strokeColor = this.value; render();");
+      strokeColorCell.appendChild(strokeColorSelect);
+      objectRow.appendChild(strokeColorCell);
+      this.strokeColorSelect = strokeColorSelect;
+
+
+      let fillColorSelect = fillcolorselect(objectIndex);
+      fillColorSelect.value = fillColor;
+      fillColorSelect.setAttribute("oninput", "objects["+objectIndex+"].fillColor = this.value; render();");
+      fillColorCell.appendChild(fillColorSelect);
+      objectRow.appendChild(fillColorCell);
+      this.fillColorSelect = fillColorSelect;
+
+
+
+      this.rowElement = objectRow;
+
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = (this.index+1)+`. (${this.displayType})`;
+      indexSpan.style='text-align:right';
+      let coorsSpan = document.createElement("SPAN");
+      coorsSpan.style.fontSize='12px';
+      coorsSpan.innerHTML = `(${this.cx},${this.cy})`;
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(coorsSpan);
+      divElement.appendChild(this.checkbox);
+
+      this.coorsSpan = coorsSpan;
+      this.divElement = divElement;
+
+      this.initialState = { cx: this.cx+'px',
+        cy: this.cy+'px', 
+        r: this.r+'px', 
+        strokeWidth:this.strokeWidth+'px', 
+        fillOpacity:this.fillOpacity,
+        opacity: this.opacity,
+        scale: this.scale,
+        strokeColor:this.strokeColor,
+        fillColor: this.fillColor};
+
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);
+      this.SVGElement.setAttribute("r", this.r);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+    }
+
+
+    updateDIVElement()
+    {
+      this.coorsSpan.innerHTML = `(${this.cx},${this.cy})`;
+    }
+
+   
+
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+          cx: this.cx+'px',
+          cy: this.cy+'px',
+          r: this.r+'px',
+          opacity: this.opacity,
+          scale: this.scale,
+          strokeWidth: this.strokeWidth+'px',
+          stroke: this.strokeColor,
+          fill: this.fillColor,
+          fillOpacity: this.fillOpacity
+      };
+
+      return stateSnapshot;
+    }
+
+    setInitialState()
+    {
+      this.initialState = { cx: this.cx+'px',
+        cy: this.cy+'px', 
+        r: this.r+'px', 
+        strokeWidth:this.strokeWidth+'px', 
+        fillOpacity:this.fillOpacity,
+        opacity: this.opacity,
+        scale: this.scale,
+        strokeColor:this.strokeColor,
+        fillColor: this.fillColor};
+    }
+
+    syncInputs() 
+    {
+      if (this.xInput) this.xInput.value = this.cx;
+      if (this.yInput) this.yInput.value = this.cy;
+      if (this.rInput) this.rInput.value = this.r;
+      if (this.strokeWidthInput) this.strokeWidthInput.value = this.strokeWidth;
+      if (this.fillOpacityInput) this.fillOpacityInput.value = this.fillOpacity;
+      if (this.opacityInput) this.opacityInput.value = this.opacity;
+      if (this.scaleInput) this.scaleInput.value = this.scale;
+      if (this.strokeColorSelect) this.strokeColorSelect.value = this.strokeColor;
+      if (this.fillColorSelect) this.fillColorSelect.value = this.fillColor;
+    }
+  }
+
+
+
+  class text
+  { 
+    constructor(objectIndex,x, y, text, opacity, scale, textColor, fontSize,rotate)
+    {
+      this.index=objectIndex;
+      this.x = x;
+      this.y = y;
+
+      this.dx=0;
+      this.dy=0;
+
+      this.text = text;
+      this.opacity = opacity;
+      this.scale=scale;
+      this.textColor = textColor;
+      this.fontSize = fontSize;
+      this.rotate = rotate;
+      
+
+      this.type = 'txt';
+      this.fontWeight= 400;
+
+      this.displayType = 'tx';
+      
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+      SVGElement.setAttribute("id",'SVGText'+objectIndex);
+      SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.color = textColor;
+      SVGElement.style.fontWeight = this.fontWeight;
+      SVGElement.style.fontSize=fontSize;
+
+      let spanElement0 = document.createElement("SPAN");
+      spanElement0.style.fontSize = this.fontSize+'px';
+      spanElement0.style.fontWeight = this.fontWeight;
+      spanElement0.style.color = this.textColor;
+      spanElement0.innerHTML = this.text;
+      spanElement0.style.height='auto';
+      spanElement0.style.width='auto';
+      document.body.appendChild(spanElement0);
+      MathJax.typesetPromise();
+
+      const rect = spanElement0.getBoundingClientRect();
+      const fOWidth = Math.ceil(rect.width) ;
+      const fOHeight = Math.ceil(rect.height) ;
+      document.body.removeChild(spanElement0);
+
+      this.height = fOHeight;
+      this.width = fOWidth;
+
+
+      let spanElement = document.createElement("SPAN");
+      spanElement.style.whiteSpace = 'nowrap';
+      spanElement.style.display = 'inline-block';
+      spanElement.style.textAlign = 'left';
+      spanElement.innerHTML = text;
+      SVGElement.appendChild(spanElement);
+      MathJax.typesetPromise();
+      
+
+      this.SVGElement = SVGElement;
+      this.spanElement = spanElement;
+
+      
+
+      let objectRow = document.createElement("TR");
+      
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      let xCell = document.createElement("TD");
+      let yCell = document.createElement("TD");
+      let rCell = document.createElement("TD");
+      let fontSizeCell = document.createElement("TD");
+      let fillOpacityCell = document.createElement("TD");
+      let opacityCell = document.createElement("TD");
+      let scaleCell = document.createElement("TD");
+      let textColorCell = document.createElement("TD");  
+      let fontWeightCell = document.createElement("TD");
+
+      let offsetCell = document.createElement("TD");
+     
+
+      let dxCell = document.createElement("TD");
+      let dyCell = document.createElement("TD");
+      
+      
+  
+      let stateCell = document.createElement("TD");
+      let animationTimeCell = document.createElement("TD");
+
+
+
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+
+
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+      this.checkbox = newCheckBox;
+      
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+      typeCell.innerHTML = this.type;
+      objectRow.appendChild(typeCell);
+
+      
+      let textInput = document.createElement("INPUT");
+      textInput.type = 'text';
+      textInput.value = text;
+      textInput.size='2';
+      textInput.setAttribute("oninput", "objects["+objectIndex+"].text = this.value; render();this.focus();");
+      propertyCell.appendChild(textInput);
+      objectRow.appendChild(propertyCell);
+      this.textInput = textInput;
+
+      
+      let xInput = numberInput(objectIndex,'2','0','','1');
+      xInput.value = x;
+      xInput.setAttribute("oninput", "objects["+objectIndex+"].x = this.value; render();");
+      xCell.appendChild(xInput);
+      objectRow.appendChild(xCell);
+      this.xInput = xInput;
+
+
+      let yInput = numberInput(objectIndex,'2','0','','1');
+      yInput.value = y;
+      yInput.setAttribute("oninput", "objects["+objectIndex+"].y = this.value; render();");
+      yCell.appendChild(yInput);
+      objectRow.appendChild(yCell);
+      this.yInput = yInput;
+
+
+      let rotateInput = numberInput(objectIndex,'1','','','1');
+      rotateInput.value = rotate;
+      rotateInput.setAttribute("oninput", "objects["+objectIndex+"].rotate = this.value; render();");
+      rCell.appendChild(rotateInput);
+      objectRow.appendChild(rCell);
+
+      this.rInput = rotateInput;
+
+
+      
+      
+
+
+      let fontSizeInput = numberInput(objectIndex,'2','0','','1');
+      fontSizeInput.value= fontSize;
+      fontSizeInput.setAttribute("oninput", "objects["+objectIndex+"].fontSize = this.value; render();");
+
+      fontSizeCell.appendChild(fontSizeInput);
+      objectRow.appendChild(fontSizeCell);
+      this.fontSizeInput = fontSizeInput;
+
+
+      fillOpacityCell.innerHTML='-';
+      objectRow.appendChild(fillOpacityCell);
+
+
+
+      let opacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      opacityInput.value = opacity;
+      opacityInput.setAttribute("oninput", "objects["+objectIndex+"].opacity = this.value; render();");
+      opacityCell.appendChild(opacityInput);
+      objectRow.appendChild(opacityCell);
+      this.opacityInput = opacityInput;
+
+
+      let scaleInput = numberInput(objectIndex,'1','0','','0.05');
+      scaleInput.value = scale;
+      scaleInput.setAttribute("oninput", "objects["+objectIndex+"].scale = this.value; render();");
+      scaleCell.appendChild(scaleInput);
+      objectRow.appendChild(scaleCell);
+      this.scaleInput=scaleInput;
+
+      let textColorSel = strokecolorselect(objectIndex);
+      textColorSel.value = textColor;
+      textColorSel.setAttribute("oninput", "objects["+objectIndex+"].textColor = this.value; render();");
+      textColorCell.appendChild(textColorSel);
+      objectRow.appendChild(textColorCell);
+      this.textColorSelect = textColorSel;
+
+
+
+
+      
+      let fontWeightInput = numberInput(objectIndex,'2','200','','100');
+      fontWeightInput.value= this.fontWeight;
+      fontWeightInput.setAttribute("oninput", "objects["+objectIndex+"].fontWeight = this.value; render();");
+
+      fontWeightCell.appendChild(fontWeightInput);
+      objectRow.appendChild(fontWeightCell);
+      this.fontWeightInput = fontWeightInput;
+
+
+      offsetCell.innerHTML='-';
+      objectRow.appendChild(offsetCell);
+
+
+      let dxInput = numberInput(objectIndex,'2','','','1');
+      dxInput.value = this.width;
+      dxInput.setAttribute("oninput", "objects["+objectIndex+"].width = this.value; render();");
+      dxCell.appendChild(dxInput);
+      objectRow.appendChild(dxCell);
+      this.dxInput = dxInput;
+
+
+
+
+      
+      let dyInput = numberInput(objectIndex,'2','','','1');
+      dyInput.value = this.height;
+      dyInput.setAttribute("oninput", "objects["+objectIndex+"].height = this.value; render();");
+      dyCell.appendChild(dyInput);
+      objectRow.appendChild(dyCell);
+      this.dyInput = dyInput;
+      
+      
+
+
+      this.rowElement = objectRow;
+      
+
+
+
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = (this.index+1)+`. (${this.displayType})`;
+      indexSpan.style='text-align:right';
+      let textSpan = document.createElement("SPAN");
+      textSpan.innerHTML = this.text;
+      
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(textSpan);
+      divElement.appendChild(this.checkbox);
+
+      this.textSpan = textSpan;
+      this.divElement = divElement;
+
+      
+      this.initialState = {
+        x:this.x+'px',
+        y:this.y+'px',
+        transform:`rotate(${this.rotate}deg) scale(${this.scale})`,
+        fontSize:this.fontSize+'px',
+        opacity: this.opacity,
+        color: this.textColor,
+        height:this.height+'px',
+        width:this.width+'px'
+        };
+      
+
+    }
+
+    updateSVG()
+    {
+
+      this.spanElement.innerHTML = this.text;
+      this.spanElement.style.fontSize=this.fontSize+'px';
+
+      this.SVGElement.style.color = this.textColor;
+      this.SVGElement.style.color = this.textColor;
+      this.SVGElement.style.fontWeight = this.fontWeight;
+      this.SVGElement.style.fontSize=this.fontSize;
+
+      
+
+      this.SVGElement.setAttribute("height",this.height);
+      this.SVGElement.setAttribute("width",this.width);
+
+      this.SVGElement.setAttribute("x", this.x);
+      this.SVGElement.setAttribute("y", this.y);
+      
+      this.SVGElement.style.transformOrigin = "center";
+      this.SVGElement.style.transformBox = "fill-box"; 
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+      this.SVGElement.setAttribute("opacity",this.opacity);    
+    }
+
+    updateDIVElement()
+    {
+      this.textSpan.innerHTML = this.text;
+    }
+
+   
+
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+        x:this.x+'px',
+        y:this.y+'px',
+        fontSize:this.fontSize+'px',
+        transform:`rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        color: this.textColor,
+        height:this.height+'px',
+        width:this.width+'px'
+      };
+  
+      return stateSnapshot;
+    }
+
+    setInitialState()
+    {
+      this.initialState = {
+        x:this.x+'px',
+        y:this.y+'px',
+        fontSize:this.fontSize+'px',
+        transform:`rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        color: this.textColor,
+        height:this.height+'px',
+        width:this.width+'px',
+        };
+    }
+
+    syncInputs() 
+    {
+      if (this.xInput) this.xInput.value = this.x;
+      if (this.yInput) this.yInput.value = this.y;
+      if (this.rInput) this.rInput.value = this.rotate;
+      if (this.fontSizeInput) this.fontSizeInput.value = this.fontSize;
+      if (this.opacityInput) this.opacityInput.value = this.opacity;
+      if (this.scaleInput) this.scaleInput.value = this.scale;
+      if (this.textColorSelect) this.textColorSelect.value = this.textColor;
+      if (this.fontWeightInput) this.fontWeightInput.value = this.fontWeight;
+      if (this.dxInput) this.dxInput.value = this.width;
+      if (this.dyInput) this.dyInput.value = this.height;
+    }
+  }
+
+
+  class polygon
+  {
+    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale,rotate)
+    {
+      this.index = objectIndex;
+      this.pointsIndices=pointsIndices;
+  
+      this.dx = dx;
+      this.dy = dy;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.fillOpacity = fillOpacity;
+      this.fillColor = fillColor;
+      this.scale=scale;
+      this.rotate = rotate;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+      this.type='pgn';
+
+
+
+
+
+      
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      SVGElement.setAttribute("points", pts);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.style.pointerEvents = 'none';
+
+      this.SVGElement = SVGElement;
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+
+
+      let objectRow = document.createElement("TR");
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      
+      let dxCell = document.createElement("TD");
+      let dyCell = document.createElement("TD");
+      let rCell = document.createElement("TD");
+      let strokeWidthCell = document.createElement("TD");
+      let strokeColorCell = document.createElement("TD");
+      let fillOpacityCell = document.createElement("TD");
+      let fillColorCell = document.createElement("TD");
+      let scaleCell = document.createElement("TD");
+      let opacityCell = document.createElement("TD");
+      let strokeDashoffsetCell =  document.createElement("TD");
+      
+      let stateCell = document.createElement("TD");
+      let animationTimeCell = document.createElement("TD");
+
+      //table row (with inputs)
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+      this.checkbox = newCheckBox;
+
+    
+      
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+      let displayType = '&#9439';
+      switch(this.pointsIndices.length)
+      {
+      case 3:
+        displayType='△';
+        break;
+
+      case 4:
+        displayType='⏢';
+        break;
+
+      case 5:
+        displayType='⭔';
+        break;
+
+      case 6:
+        displayType = '⬡';
+        break;
+      }
+
+      this.displayType = displayType; 
+
+      typeCell.innerHTML = displayType;
+      objectRow.appendChild(typeCell);
+
+      propertyCell.innerHTML =  this.property;
+      objectRow.appendChild(propertyCell);
+
+      
+      let xInput = numberInput(objectIndex,'2','','','1');
+      xInput.value = dx;
+      xInput.setAttribute("oninput", "objects["+objectIndex+"].dx = this.value; render();");
+      dxCell.appendChild(xInput);
+      objectRow.appendChild(dxCell);
+      this.xInput = xInput;
+
+
+
+
+      
+      let yInput = numberInput(objectIndex,'2','','','1');
+      yInput.value = dy;
+      yInput.setAttribute("oninput", "objects["+objectIndex+"].dy = this.value; render();");
+      dyCell.appendChild(yInput);
+      objectRow.appendChild(dyCell);
+      this.yInput = yInput;
+
+
+      let rotateInput = numberInput(objectIndex,'1','','','1');
+      rotateInput.value = rotate;
+      rotateInput.setAttribute("oninput", "objects["+objectIndex+"].rotate = this.value; render();");
+      rCell.appendChild(rotateInput);
+      objectRow.appendChild(rCell);
+      this.rInput = rotateInput;
+
+
+
+      
+      let strokeWidthInput = numberInput(objectIndex,'1','0','','1');
+      strokeWidthInput.value = strokeWidth;
+      strokeWidthInput.setAttribute("oninput", "objects["+objectIndex+"].strokeWidth = this.value; render();");
+      strokeWidthCell.appendChild(strokeWidthInput);
+      objectRow.appendChild(strokeWidthCell);
+
+      this.strokeWidthInput = strokeWidthInput;
+
+
+      
+      let fillOpacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      fillOpacityInput.value = fillOpacity;
+      fillOpacityInput.setAttribute("oninput", "objects["+objectIndex+"].fillOpacity = this.value; render();");
+      fillOpacityCell.appendChild(fillOpacityInput);
+      objectRow.appendChild(fillOpacityCell);
+
+      this.fillOpacityInput = fillOpacityInput;
+
+
+
+      let opacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      opacityInput.value = opacity;
+      opacityInput.setAttribute("oninput", "objects["+objectIndex+"].opacity = this.value; render();");
+      opacityCell.appendChild(opacityInput);
+      objectRow.appendChild(opacityCell);
+      this.opacityInput = opacityInput;
+
+
+      let scaleInput = numberInput(objectIndex,'1','0','','0.05');
+      scaleInput.value = scale;
+      scaleInput.setAttribute("oninput", "objects["+objectIndex+"].scale = this.value; render();");
+      scaleCell.appendChild(scaleInput);
+      objectRow.appendChild(scaleCell);
+      this.scaleInput = scaleInput;
+
+      let strokeColorSelect = strokecolorselect(objectIndex);
+      strokeColorSelect.value = strokeColor;
+      strokeColorSelect.setAttribute("oninput", "objects["+objectIndex+"].strokeColor = this.value; render();");
+      strokeColorCell.appendChild(strokeColorSelect);
+      objectRow.appendChild(strokeColorCell);
+      this.strokeColorSelect = strokeColorSelect;
+
+
+      let fillColorSel = fillcolorselect(objectIndex);
+      fillColorSel.value = fillColor;
+      fillColorSel.setAttribute("oninput", "objects["+objectIndex+"].fillColor = this.value; render();");
+      fillColorCell.appendChild(fillColorSel);
+      objectRow.appendChild(fillColorCell);
+      this.fillColorSelect = fillColorSel;
+
+
+      let strokeDashoffsetInput = numberInput(objectIndex,'2',0, this.totalLength.toFixed(0) ,'1');
+      strokeDashoffsetInput.value = this.totalLength.toFixed(0);
+      strokeDashoffsetInput.setAttribute("oninput", ` objects[${objectIndex}].strokeDashoffset = parseFloat(objects[${objectIndex}].totalLength) * (this.value / parseFloat(objects[${objectIndex}].totalLength.toFixed(0))); render();` );
+      strokeDashoffsetCell.appendChild(strokeDashoffsetInput);
+      objectRow.appendChild(strokeDashoffsetCell);
+      this.strokeDashoffsetInput = strokeDashoffsetInput;
+
+      this.rowElement = objectRow;
+
+      
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = (this.index+1)+`. (${this.displayType})`;
+      indexSpan.style='text-align:right';
+
+      let propSpan = document.createElement("SPAN");
+      propSpan.style.fontSize='12px';
+      propSpan.innerHTML = this.property;
+
+      let lengthSpan = document.createElement("SPAN");
+      lengthSpan.style.fontSize='10px';
+      lengthSpan.innerHTML = this.totalLength.toFixed(0);
+
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(propSpan);
+      divElement.appendChild(lengthSpan);
+      divElement.appendChild(this.checkbox);
+
+      this.lengthSpan = lengthSpan;
+      this.divElement = divElement;
+
+
+      this.initialState = {
+        transform:` translate(${this.dx}px ,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        fill: this.fillColor,
+        fillOpacity:this.fillOpacity,
+        stroke:this.strokeColor,
+        strokeWidth:this.strokeWidth+'px',
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'
+      };
+      
+    }
+
+
+
+    updateSVG()
+    {
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      this.SVGElement.setAttribute("points", pts);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+
+      this.totalLength = this.SVGElement.getTotalLength();
+
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+    }
+
+    updateDIVElement()
+    {
+      this.lengthSpan.innerHTML = this.totalLength.toFixed(0);  
+    }
+ 
+
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+          transform:` translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+          opacity: this.opacity,
+          fill: this.fillColor,
+          fillOpacity: this.fillOpacity,
+          stroke: this.strokeColor,
+          strokeWidth: this.strokeWidth+'px',
+          strokeDasharray:this.totalLength+'px',
+          strokeDashoffset: this.strokeDashoffset + 'px'
+      };
+
+      return stateSnapshot;
+    }
+
+    setInitialState()
+    {
+      this.initialState = {
+        transform:` translate(${this.dx}px ,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        fill: this.fillColor,
+        fillOpacity:this.fillOpacity,
+        stroke:this.strokeColor,
+        strokeWidth:this.strokeWidth+'px',
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'
+      };
+    }
+
+    syncInputs() 
+    {
+      if (this.xInput) this.xInput.value = this.dx;
+      if (this.yInput) this.yInput.value = this.dy;
+      if (this.rInput) this.rInput.value = this.rotate;
+      if (this.strokeWidthInput) this.strokeWidthInput.value = this.strokeWidth;
+      if (this.fillOpacityInput) this.fillOpacityInput.value = this.fillOpacity;
+      if (this.opacityInput) this.opacityInput.value = this.opacity;
+      if (this.scaleInput) this.scaleInput.value = this.scale;
+      if (this.strokeColorSelect) this.strokeColorSelect.value = this.strokeColor;
+      if (this.fillColorSelect) this.fillColorSelect.value = this.fillColor;
+      if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.value = this.strokeDashoffset;
+    }
+  }
+
+  class polyline
+  {
+    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
+    {
+      this.index = objectIndex;
+      
+      this.pointsIndices=pointsIndices; 
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+      
+      this.dx = dx;
+      this.dy = dy;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.scale=scale;
+      this.rotate=rotate;
+
+      this.type='pln';
+
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      SVGElement.setAttribute("points", pts);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.setAttribute("stroke-linecap",'round');
+      SVGElement.setAttribute("fill",'none');
+
+      
+      this.SVGElement = SVGElement;
+      
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+      
+
+      let objectRow = document.createElement("TR");
+      // let checkCell = document.createElement("TD");
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      
+      let dxCell = document.createElement("TD");
+      let dyCell = document.createElement("TD");
+      let rCell = document.createElement("TD");
+      let strokeWidthCell = document.createElement("TD");
+      let strokeColorCell = document.createElement("TD");
+      let fillOpacityCell = document.createElement("TD");
+      let fillColorCell = document.createElement("TD");
+      let scaleCell = document.createElement("TD");
+      let opacityCell = document.createElement("TD");
+      
+      let stateCell = document.createElement("TD");
+      let animationTimeCell = document.createElement("TD");
+
+      let strokeDashoffsetCell =  document.createElement("TD");
+
+      //table row (with inputs)
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+      //checkCell.appendChild(newCheckBox);
+      //objectRow.appendChild(checkCell);
+      this.checkbox = newCheckBox;
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+      let displayType = '●⎯●⎯●';
+      switch(this.pointsIndices.length)
+      {
+      case 2:
+        displayType='&#10719;';
+        break;
+      }
+
+      this.displayType = displayType; 
+
+      typeCell.innerHTML = displayType;
+      objectRow.appendChild(typeCell);
+
+      propertyCell.innerHTML =  this.property;
+      objectRow.appendChild(propertyCell);
+
+      
+      let xInput = numberInput(objectIndex,'2','','','1');
+      xInput.value = dx;
+      xInput.setAttribute("oninput", "objects["+objectIndex+"].dx = this.value; render();");
+      dxCell.appendChild(xInput);
+      objectRow.appendChild(dxCell);
+      this.xInput=xInput;
+
+      
+      let yInput = numberInput(objectIndex,'2','','','1');
+      yInput.value = dy;
+      yInput.setAttribute("oninput", "objects["+objectIndex+"].dy = this.value; render();");
+      dyCell.appendChild(yInput);
+      objectRow.appendChild(dyCell);
+      this.yInput=yInput;
+
+
+      
+      let rotateInput = numberInput(objectIndex,'1','','','1');
+      rotateInput.value = rotate;
+      rotateInput.setAttribute("oninput", "objects["+objectIndex+"].rotate = this.value; render();");
+      rCell.appendChild(rotateInput);
+      objectRow.appendChild(rCell);
+      this.rotateInput=rotateInput;
+
+
+      
+      let strokeWidthInput = numberInput(objectIndex,'1','0','','1');
+      strokeWidthInput.value = strokeWidth;
+      strokeWidthInput.setAttribute("oninput", "objects["+objectIndex+"].strokeWidth = this.value; render();");
+      strokeWidthCell.appendChild(strokeWidthInput);
+      objectRow.appendChild(strokeWidthCell);
+      this.strokeWidthInput=strokeWidthInput;
+
+      
+      
+      fillOpacityCell.innerHTML='-';
+      objectRow.appendChild(fillOpacityCell);
+
+
+
+      let opacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      opacityInput.value = opacity;
+      opacityInput.setAttribute("oninput", "objects["+objectIndex+"].opacity = this.value; render();");
+      opacityCell.appendChild(opacityInput);
+      objectRow.appendChild(opacityCell);
+      this.opacityInput=opacityInput;
+
+
+      let scaleInput = numberInput(objectIndex,'1','0','','0.05');
+      scaleInput.value = scale;
+      scaleInput.setAttribute("oninput", "objects["+objectIndex+"].scale = this.value; render();");
+      scaleCell.appendChild(scaleInput);
+      objectRow.appendChild(scaleCell);
+      this.scaleInput=scaleInput;
+
+
+      let strokeColorSelect = strokecolorselect(objectIndex);
+      strokeColorSelect.value = strokeColor;
+      strokeColorSelect.setAttribute("oninput", "objects["+objectIndex+"].strokeColor = this.value; render();");
+      strokeColorCell.appendChild(strokeColorSelect);
+      objectRow.appendChild(strokeColorCell);
+      this.strokeColorSelect=strokeColorSelect;
+
+      fillColorCell.innerHTML='-';
+      objectRow.appendChild(fillColorCell);
+
+      let strokeDashoffsetInput = numberInput(objectIndex,'2',0, this.totalLength.toFixed(0) ,'1');
+      strokeDashoffsetInput.value = this.totalLength.toFixed(0);
+      strokeDashoffsetInput.setAttribute("oninput", ` objects[${objectIndex}].strokeDashoffset = parseFloat(objects[${objectIndex}].totalLength) * (this.value / parseFloat(objects[${objectIndex}].totalLength.toFixed(0))); render();` );
+      //strokeDashoffsetInput.setAttribute("oninput", "objects["+objectIndex+"].strokeDashoffset = this.value; render();");
+      strokeDashoffsetCell.appendChild(strokeDashoffsetInput);
+      objectRow.appendChild(strokeDashoffsetCell);
+      this.strokeDashoffsetInput=strokeDashoffsetInput;
+
+      this.rowElement = objectRow;
+
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = (this.index+1)+`. ${this.displayType}`;
+
+      let propSpan = document.createElement("SPAN");
+      let lengthSpan = document.createElement("SPAN");
+      propSpan.style.fontSize='12px';
+      propSpan.innerHTML = this.property;
+
+      lengthSpan.style.fontSize='10px';
+      lengthSpan.innerHTML = this.totalLength.toFixed(0);
+
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(propSpan);
+      divElement.appendChild(lengthSpan);
+      divElement.appendChild(this.checkbox);
+
+      this.lengthSpan=lengthSpan;
+      this.divElement = divElement;
+
+      
+      this.initialState = { 
+        transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        strokeWidth:this.strokeWidth+'px',
+        opacity: this.opacity,
+        stroke:this.strokeColor, 
+        
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'};     
+    }
+
+
+
+    updateSVG()
+    {
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      this.SVGElement.setAttribute("points", pts);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+    }
+
+    updateDIVElement()
+    {
+      this.lengthSpan.innerHTML = this.totalLength.toFixed(0);
+    }
+
+  
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+        transform:` translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        strokeWidth: this.strokeWidth,
+        opacity: this.opacity,
+        stroke: this.strokeColor,
+        strokeDasharray:this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset + 'px'
+      };
+    
+      
+
+      return stateSnapshot;
+    }
+
+    setInitialState()
+    {
+      this.initialState = { 
+        transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        strokeWidth:this.strokeWidth+'px',
+        opacity: this.opacity,
+        stroke:this.strokeColor, 
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px'}; 
+    }
+
+    syncInputs() 
+    {
+      if (this.xInput) this.xInput.value = this.dx;
+      if (this.yInput) this.yInput.value = this.dy;
+      if (this.rInput) this.rInput.value = this.rotate;
+      if (this.strokeWidthInput) this.strokeWidthInput.value = this.strokeWidth;
+      if (this.opacityInput) this.opacityInput.value = this.opacity;
+      if (this.scaleInput) this.scaleInput.value = this.scale;
+      if (this.strokeColorSelect) this.strokeColorSelect.value = this.strokeColor;
+      if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.value = this.strokeDashoffset;
+    }
+  }
+
+  class circle
+  {
+    constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, property )
+    {
+
+      //svg object
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute("cx", cx);
+      SVGElement.setAttribute("cy", cy);
+      SVGElement.setAttribute("r", r);
+      this.totalLength = SVGElement.getTotalLength();
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength );
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      this.cx = cx;
+      this.cy = cy;
+      this.center={cx:this.cx,cy:this.cy};
+      this.r = r;
+      this.strokeWidth = strokeWidth;
+      this.fillOpacity = fillOpacity;
+      this.opacity = opacity;
+      this.scale=scale;
+      this.strokeColor = strokeColor;
+      this.fillColor = fillColor;
+      this.type = 'cr';
+
+      this.property = property;
+      
+      
+      this.strokeDashoffset = this.totalLength;
+
+
+      
+
+
+      let objectRow = document.createElement("TR");
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      
+      let cxCell = document.createElement("TD");
+      let cyCell = document.createElement("TD");
+      let rCell = document.createElement("TD");
+      let strokeWidthCell = document.createElement("TD");
+      let strokeColorCell = document.createElement("TD");
+      let fillOpacityCell = document.createElement("TD");
+      let fillColorCell = document.createElement("TD");
+      let scaleCell = document.createElement("TD");
+      let opacityCell = document.createElement("TD");
+      let strokeDashoffsetCell = document.createElement("TD");
+      
+
+      //table row (with inputs)
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+
+      
+      this.checkbox = newCheckBox;
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+
+      let displayType = '&#9711;';
+      this.displayType = displayType;
+
+      typeCell.innerHTML = displayType;
+      objectRow.appendChild(typeCell);
+
+      propertyCell.innerHTML =  property;
+      objectRow.appendChild(propertyCell);
+
+      
+      let xInput = numberInput(objectIndex,'2','0','','1');
+      xInput.value = cx;
+      xInput.setAttribute("oninput", "objects["+objectIndex+"].cx = this.value; render();");
+      cxCell.appendChild(xInput);
+      objectRow.appendChild(cxCell);
+      this.xInput = xInput;
+
+
+      
+      let yInput = numberInput(objectIndex,'2','0','','1');
+      yInput.value = cy;
+      yInput.setAttribute("oninput", "objects["+objectIndex+"].cy = this.value; render();");
+      cyCell.appendChild(yInput);
+      objectRow.appendChild(cyCell);
+      this.yInput = yInput;
+
+
+      
+      let rInput = numberInput(objectIndex,'1','0','','1');
+      rInput.value = r;
+      rInput.setAttribute("oninput", "objects["+objectIndex+"].r = this.value; render();");
+      rCell.appendChild(rInput);
+      objectRow.appendChild(rCell);
+      this.rInput = rInput;
+
+
+
+
+      
+      let strokeWidthInput = numberInput(objectIndex,'1','0','','1');
+      strokeWidthInput.value = strokeWidth;
+      strokeWidthInput.setAttribute("oninput", "objects["+objectIndex+"].strokeWidth = this.value; render();");
+      strokeWidthCell.appendChild(strokeWidthInput);
+      objectRow.appendChild(strokeWidthCell);
+      this.strokeWidthInput = strokeWidthInput;
+
+
+      
+      let fillOpacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      fillOpacityInput.value = fillOpacity;
+      fillOpacityInput.setAttribute("oninput", "objects["+objectIndex+"].fillOpacity = this.value; render();");
+      fillOpacityCell.appendChild(fillOpacityInput);
+      objectRow.appendChild(fillOpacityCell);
+
+      this.fillOpacityInput=fillOpacityInput;
+
+
+
+      let opacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      opacityInput.value = opacity;
+      opacityInput.setAttribute("oninput", "objects["+objectIndex+"].opacity = this.value; render();");
+      opacityCell.appendChild(opacityInput);
+      objectRow.appendChild(opacityCell);
+      this.opacityInput = opacityInput;
+
+
+      let scaleInput = numberInput(objectIndex,'1','0','','0.05');
+      scaleInput.value = scale;
+      scaleInput.setAttribute("oninput", "objects["+objectIndex+"].scale = this.value; render();");
+      scaleCell.appendChild(scaleInput);
+      objectRow.appendChild(scaleCell);
+      this.scaleInput = scaleInput;
+
+
+      let strokeColorSelect = strokecolorselect(objectIndex);
+      strokeColorSelect.value = strokeColor;
+      strokeColorSelect.setAttribute("oninput", "objects["+objectIndex+"].strokeColor = this.value; render();");
+      strokeColorCell.appendChild(strokeColorSelect);
+      objectRow.appendChild(strokeColorCell);
+      this.strokeColorSelect = strokeColorSelect;
+
+
+      let fillColorSelect = fillcolorselect(objectIndex);
+      fillColorSelect.value = fillColor;
+      fillColorSelect.setAttribute("oninput", "objects["+objectIndex+"].fillColor = this.value; render();");
+      fillColorCell.appendChild(fillColorSelect);
+      objectRow.appendChild(fillColorCell);
+      this.fillColorSelect = fillColorSelect;
+
+      let strokeDashoffsetInput = numberInput(objectIndex,'2',0, this.totalLength.toFixed(0) ,'1');
+      strokeDashoffsetInput.value = this.totalLength.toFixed(0);
+      strokeDashoffsetInput.setAttribute("oninput", ` objects[${objectIndex}].strokeDashoffset = parseFloat(objects[${objectIndex}].totalLength) * (this.value / parseFloat(objects[${objectIndex}].totalLength.toFixed(0))); render();` );
+      strokeDashoffsetCell.appendChild(strokeDashoffsetInput);
+      objectRow.appendChild(strokeDashoffsetCell);
+      this.strokeDashoffsetInput = strokeDashoffsetInput;
+
+
+
+      this.rowElement = objectRow;
+
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = (this.index+1)+`. (${this.displayType})`;
+      indexSpan.style='text-align:right';
+
+      let coorsSpan = document.createElement("SPAN");
+      coorsSpan.style.fontSize='12px';
+      coorsSpan.innerHTML = `(${this.cx},${this.cy})`;
+
+      let lengthSpan = document.createElement("SPAN");
+
+      lengthSpan.style.fontSize='10px';
+      lengthSpan.innerHTML ='r:'+this.r+ ',l:'+ this.totalLength.toFixed(0);
+
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(coorsSpan);
+      divElement.appendChild(lengthSpan);
+      divElement.appendChild(this.checkbox);
+
+
+      this.coorsSpan=coorsSpan;
+      this.lengthSpan=lengthSpan;
+      this.divElement = divElement;
+
+
+      this.initialState = { 
+        cx: this.cx+'px', 
+        cy: this.cy+'px', 
+        r: this.r+'px',
+        scale: this.scale,
+        opacity: this.opacity,
+        fill: this.fillColor,
+        fillOpacity:this.fillOpacity,
+        stroke:this.strokeColor, 
+        strokeWidth:this.strokeWidth+'px', 
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px'};
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);
+      this.SVGElement.setAttribute("r", this.r);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
+      
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.totalLength = this.SVGElement.getTotalLength();
+
+      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
+    }
+
+
+    updateDIVElement()
+    {
+      this.coorsSpan.innerHTML = `(${this.cx},${this.cy})`;
+      this.lengthSpan.innerHTML ='r:'+this.r+ ','+ this.totalLength.toFixed(0);
+    }
+
+   
+
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+          cx: this.cx+'px',
+          cy: this.cy+'px',
+          r: this.r+'px',
+          strokeWidth: this.strokeWidth,
+          fillOpacity: this.fillOpacity,
+          opacity: this.opacity,
+          scale: this.scale,
+          stroke: this.strokeColor,
+          fill: this.fillColor, 
+          strokeDasharray:this.totalLength+'px',
+          strokeDashoffset: this.strokeDashoffset + 'px'
+      };
+
+      return stateSnapshot;
+    }
+
+    setInitialState()
+    {
+      this.initialState = { 
+        cx: this.cx+'px', 
+        cy: this.cy+'px', 
+        r: this.r+'px',
+        strokeWidth:this.strokeWidth+'px',
+        fillOpacity:this.fillOpacity,
+        opacity: this.opacity,
+        scale: this.scale,
+        stroke:this.strokeColor,
+        fill: this.fillColor,
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'};
+    }
+
+    syncInputs() 
+    {
+      if (this.xInput) this.xInput.value = this.cx;
+      if (this.yInput) this.yInput.value = this.cy;
+      if (this.rInput) this.rInput.value = this.r;
+      if (this.strokeWidthInput) this.strokeWidthInput.value = this.strokeWidth;
+      if (this.fillOpacityInput) this.fillOpacityInput.value = this.fillOpacity;
+      if (this.opacityInput) this.opacityInput.value = this.opacity;
+      if (this.scaleInput) this.scaleInput.value = this.scale;
+      if (this.strokeColorSelect) this.strokeColorSelect.value = this.strokeColor;
+      if (this.fillColorSelect) this.fillColorSelect.value = this.fillColor;
+      if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.value = this.strokeDashoffset;
+    }
+  }
+
+  class ellipse
+  {
+    constructor(objectIndex, cx, cy, rx,ry, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rotate )
+    {
+
+      //svg object
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute("cx", cx);
+      SVGElement.setAttribute("cy", cy);
+      SVGElement.setAttribute("rx", rx);
+      SVGElement.setAttribute("ry", ry);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      this.cx = cx;
+      this.cy = cy;
+      this.rx = rx;
+      this.ry = ry;
+      this.opacity = opacity;
+
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.fillOpacity = fillOpacity;
+      this.fillColor = fillColor;
+      this.scale=scale;
+      this.rotate = rotate;
+      
+      this.type = 'elp';
+
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+
+
+      let objectRow = document.createElement("TR");
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      
+      let cxCell = document.createElement("TD");
+      let cyCell = document.createElement("TD");
+      let rCell = document.createElement("TD");
+      let strokeWidthCell = document.createElement("TD");
+      let strokeColorCell = document.createElement("TD");
+      let fillOpacityCell = document.createElement("TD");
+      let fillColorCell = document.createElement("TD");
+      let scaleCell = document.createElement("TD");
+      let opacityCell = document.createElement("TD");
+      let strokeDashoffsetCell = document.createElement("TD");
+      let rxCell = document.createElement("TD");
+      let ryCell = document.createElement("TD");
+      
+
+      //table row (with inputs)
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+
+      
+      this.checkbox = newCheckBox;
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+
+      let displayType = '⬭';
+      this.displayType = displayType;
+
+      typeCell.innerHTML = displayType;
+      objectRow.appendChild(typeCell);
+
+      propertyCell.innerHTML =  '-';
+      objectRow.appendChild(propertyCell);
+
+      
+      let xInput = numberInput(objectIndex,'2','0','','1');
+      xInput.value = cx;
+      xInput.setAttribute("oninput", "objects["+objectIndex+"].cx = this.value; render();");
+      cxCell.appendChild(xInput);
+      objectRow.appendChild(cxCell);
+      this.xInput = xInput;
+
+
+      
+      let yInput = numberInput(objectIndex,'2','0','','1');
+      yInput.value = cy;
+      yInput.setAttribute("oninput", "objects["+objectIndex+"].cy = this.value; render();");
+      cyCell.appendChild(yInput);
+      objectRow.appendChild(cyCell);
+      this.yInput = yInput;
+
+
+      
+      let rInput = numberInput(objectIndex,'1','','','1');
+      rInput.value = rotate;
+      rInput.setAttribute("oninput", "objects["+objectIndex+"].rotate = this.value; render();");
+      rCell.appendChild(rInput);
+      objectRow.appendChild(rCell);
+      this.rInput = rInput;
+
+
+
+
+      
+      let strokeWidthInput = numberInput(objectIndex,'1','0','','1');
+      strokeWidthInput.value = strokeWidth;
+      strokeWidthInput.setAttribute("oninput", "objects["+objectIndex+"].strokeWidth = this.value; render();");
+      strokeWidthCell.appendChild(strokeWidthInput);
+      objectRow.appendChild(strokeWidthCell);
+      this.strokeWidthInput = strokeWidthInput;
+
+
+      
+      let fillOpacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      fillOpacityInput.value = fillOpacity;
+      fillOpacityInput.setAttribute("oninput", "objects["+objectIndex+"].fillOpacity = this.value; render();");
+      fillOpacityCell.appendChild(fillOpacityInput);
+      objectRow.appendChild(fillOpacityCell);
+
+      this.fillOpacityInput=fillOpacityInput;
+
+
+
+      let opacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      opacityInput.value = opacity;
+      opacityInput.setAttribute("oninput", "objects["+objectIndex+"].opacity = this.value; render();");
+      opacityCell.appendChild(opacityInput);
+      objectRow.appendChild(opacityCell);
+      this.opacityInput = opacityInput;
+
+
+      let scaleInput = numberInput(objectIndex,'1','0','','0.05');
+      scaleInput.value = scale;
+      scaleInput.setAttribute("oninput", "objects["+objectIndex+"].scale = this.value; render();");
+      scaleCell.appendChild(scaleInput);
+      objectRow.appendChild(scaleCell);
+      this.scaleInput = scaleInput;
+
+
+      let strokeColorSelect = strokecolorselect(objectIndex);
+      strokeColorSelect.value = strokeColor;
+      strokeColorSelect.setAttribute("oninput", "objects["+objectIndex+"].strokeColor = this.value; render();");
+      strokeColorCell.appendChild(strokeColorSelect);
+      objectRow.appendChild(strokeColorCell);
+      this.strokeColorSelect = strokeColorSelect;
+
+
+      let fillColorSelect = fillcolorselect(objectIndex);
+      fillColorSelect.value = fillColor;
+      fillColorSelect.setAttribute("oninput", "objects["+objectIndex+"].fillColor = this.value; render();");
+      fillColorCell.appendChild(fillColorSelect);
+      objectRow.appendChild(fillColorCell);
+      this.fillColorSelect = fillColorSelect;
+
+      let strokeDashoffsetInput = numberInput(objectIndex,'2',0, this.totalLength.toFixed(0) ,'1');
+      strokeDashoffsetInput.value = this.totalLength.toFixed(0);
+      strokeDashoffsetInput.setAttribute("oninput", ` objects[${objectIndex}].strokeDashoffset = parseFloat(objects[${objectIndex}].totalLength) * (this.value / parseFloat(objects[${objectIndex}].totalLength.toFixed(0))); render();` );
+      strokeDashoffsetCell.appendChild(strokeDashoffsetInput);
+      objectRow.appendChild(strokeDashoffsetCell);
+      this.strokeDashoffsetInput = strokeDashoffsetInput;
+
+      
+
+      let rxInput = numberInput(objectIndex,'1','0','','1');
+      rxInput.value = rx;
+      rxInput.setAttribute("oninput", "objects["+objectIndex+"].rx = this.value; render();");
+      rxCell.appendChild(rxInput);
+      objectRow.appendChild(rxCell);
+      this.rxInput = rxInput;
+
+      let ryInput = numberInput(objectIndex,'1','0','','1');
+      ryInput.value = ry;
+      ryInput.setAttribute("oninput", "objects["+objectIndex+"].ry = this.value; render();");
+      ryCell.appendChild(ryInput);
+      objectRow.appendChild(ryCell);
+      this.ryInput = ryInput;
+
+
+
+      this.rowElement = objectRow;
+
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = (this.index+1)+`. (${this.displayType})`;
+      indexSpan.style='text-align:right';
+
+      let coorsSpan = document.createElement("SPAN");
+      coorsSpan.style.fontSize='12px';
+      coorsSpan.innerHTML = `(${this.cx},${this.cy})`;
+
+      let lengthSpan = document.createElement("SPAN");
+
+      lengthSpan.style.fontSize='10px';
+      lengthSpan.innerHTML ='('+this.ry+','+this.rx+'),'+ this.totalLength.toFixed(0);
+
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(coorsSpan);
+      divElement.appendChild(lengthSpan);
+      divElement.appendChild(this.checkbox);
+
+      this.lengthSpan = lengthSpan;
+      this.coorsSpan = coorsSpan;
+      this.divElement = divElement;
+     
+
+      this.initialState = { 
+        cx: this.cx+'px',
+        cy: this.cy+'px',
+        transform:`rotate(${this.rotate}deg) scale(${this.scale})`,
+        strokeWidth:this.strokeWidth+'px',
+        fillOpacity:this.fillOpacity,
+        opacity: this.opacity,
+        stroke:this.strokeColor,
+        fill: this.fillColor,
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px',
+        rx: this.rx+'px',
+        ry: this.ry+'px'};
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);
+      this.SVGElement.setAttribute("rx", this.rx);
+      this.SVGElement.setAttribute("ry", this.ry);
+      this.SVGElement.setAttribute("transform",' rotate('+this.rotate+')'+'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth); 
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.totalLength = this.SVGElement.getTotalLength();
+
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);   
+    }
+
+
+    updateDIVElement()
+    {
+      this.coorsSpan.innerHTML = `(${this.cx},${this.cy})`;
+      this.lengthSpan.innerHTML ='('+this.ry+','+this.rx+'),'+ this.totalLength.toFixed(0);
+    }
+
+   
+
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+          cx: this.cx+'px',
+          cy: this.cy+'px',
+          transform:`rotate(${this.rotate}deg) scale(${this.scale})`,
+          strokeWidth: this.strokeWidth+'px',
+          fillOpacity: this.fillOpacity,
+          opacity: this.opacity,
+          stroke: this.strokeColor,
+          fill: this.fillColor,
+          strokeDasharray:this.totalLength+'px',
+          strokeDashoffset: this.strokeDashoffset + 'px',
+          rx: this.rx+'px',
+          ry: this.ry+'px'};
+
+      return stateSnapshot;
+
+
+    }
+
+    setInitialState()
+    {
+      this.initialState = { 
+        cx: this.cx+'px',
+        cy: this.cy+'px',
+        transform:`rotate(${this.rotate}deg) scale(${this.scale})`,
+        strokeWidth:this.strokeWidth+'px',
+        fillOpacity:this.fillOpacity,
+        opacity: this.opacity,
+        stroke:this.strokeColor,
+        fill: this.fillColor,
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px',
+        rx: this.rx+'px',
+        ry: this.ry+'px'
+      };
+    }
+
+    syncInputs() 
+    {
+      if (this.xInput) this.xInput.value = this.cx;
+      if (this.yInput) this.yInput.value = this.cy;
+      if (this.rInput) this.rInput.value = this.r;
+      if (this.strokeWidthInput) this.strokeWidthInput.value = this.strokeWidth;
+      if (this.fillOpacityInput) this.fillOpacityInput.value = this.fillOpacity;
+      if (this.opacityInput) this.opacityInput.value = this.opacity;
+      if (this.scaleInput) this.scaleInput.value = this.scale;
+      if (this.strokeColorSelect) this.strokeColorSelect.value = this.strokeColor;
+      if (this.fillColorSelect) this.fillColorSelect.value = this.fillColor;
+      if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.value = this.strokeDashoffset;
+      if (this.rxInput) this.rxInput.value = this.rx;
+      if (this.ryInput) this.ryInput.value = this.ry;    
+    }
+  }
+
+  class angle
+  {
+    constructor(objectIndex, pointsIndices, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rightAngle )
+    {
+      this.index = objectIndex;
+
+      this.r = r;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.fillOpacity = fillOpacity;
+      this.fillColor = fillColor;
+      this.scale=scale;
+      
+      this.rightAngle = rightAngle;
+      this.pointsIndices= pointsIndices;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+
+      this.type = 'ang';
+
+      this.dx = 0;
+      this.dy = 0;
+
+      let pathAngleIn = angleInPath(this.pointsIndices,r,rightAngle);
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute('d',pathAngleIn);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.style.pointerEvents = 'none';
+
+
+      this.SVGElement = SVGElement;
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      let objectRow = document.createElement("TR");
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      
+      let dxCell = document.createElement("TD");
+      let dyCell = document.createElement("TD");
+      let rCell = document.createElement("TD");
+      let strokeWidthCell = document.createElement("TD");
+      let strokeColorCell = document.createElement("TD");
+      let fillOpacityCell = document.createElement("TD");
+      let fillColorCell = document.createElement("TD");
+      let scaleCell = document.createElement("TD");
+      let opacityCell = document.createElement("TD");
+      let strokeDashoffsetCell = document.createElement("TD");
+      let rightAngleCell = document.createElement("TD");
+
+  
+      
+
+      
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+
+      
+      this.checkbox = newCheckBox;
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+
+      let displayType = '&#8737;';
+      if(rightAngle)
+      {
+        displayType='&#8735;'
+      }
+      this.displayType = displayType;
+
+      typeCell.innerHTML = displayType;
+      objectRow.appendChild(typeCell);
+
+      propertyCell.innerHTML =  this.property;
+      objectRow.appendChild(propertyCell);
+
+      
+      let dxInput = numberInput(objectIndex,'2','0','','1');
+      dxInput.value = this.dx;
+      dxInput.setAttribute("oninput", "objects["+objectIndex+"].dx = this.value; render();");
+      dxCell.appendChild(dxInput);
+      objectRow.appendChild(dxCell);
+      this.dxInput = dxInput;
+
+
+
+      let dyInput = numberInput(objectIndex,'2','0','','1');
+      dyInput.value = this.dy;
+      dyInput.setAttribute("oninput", "objects["+objectIndex+"].dy = this.value; render();");
+      dyCell.appendChild(dyInput);
+      objectRow.appendChild(dyCell);
+      this.dyInput = dyInput;
+      
+ 
+      let rInput = numberInput(objectIndex,'1','0','','1');
+      rInput.value = r;
+      rInput.setAttribute("oninput", "objects["+objectIndex+"].r = this.value; render();");
+      rCell.appendChild(rInput);
+      objectRow.appendChild(rCell);
+      this.rInput = rInput;
+
+   
+      let strokeWidthInput = numberInput(objectIndex,'1','0','','1');
+      strokeWidthInput.value = strokeWidth;
+      strokeWidthInput.setAttribute("oninput", "objects["+objectIndex+"].strokeWidth = this.value; render();");
+      strokeWidthCell.appendChild(strokeWidthInput);
+      objectRow.appendChild(strokeWidthCell);
+      this.strokeWidthInput = strokeWidthInput;
+
+
+      
+      let fillOpacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      fillOpacityInput.value = fillOpacity;
+      fillOpacityInput.setAttribute("oninput", "objects["+objectIndex+"].fillOpacity = this.value; render();");
+      fillOpacityCell.appendChild(fillOpacityInput);
+      objectRow.appendChild(fillOpacityCell);
+
+      this.fillOpacityInput=fillOpacityInput;
+
+
+
+      let opacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      opacityInput.value = opacity;
+      opacityInput.setAttribute("oninput", "objects["+objectIndex+"].opacity = this.value; render();");
+      opacityCell.appendChild(opacityInput);
+      objectRow.appendChild(opacityCell);
+      this.opacityInput = opacityInput;
+
+
+      let scaleInput = numberInput(objectIndex,'1','0','','0.05');
+      scaleInput.value = scale;
+      scaleInput.setAttribute("oninput", "objects["+objectIndex+"].scale = this.value; render();");
+      scaleCell.appendChild(scaleInput);
+      objectRow.appendChild(scaleCell);
+      this.scaleInput = scaleInput;
+
+
+      let strokeColorSelect = strokecolorselect(objectIndex);
+      strokeColorSelect.value = strokeColor;
+      strokeColorSelect.setAttribute("oninput", "objects["+objectIndex+"].strokeColor = this.value; render();");
+      strokeColorCell.appendChild(strokeColorSelect);
+      objectRow.appendChild(strokeColorCell);
+      this.strokeColorSelect = strokeColorSelect;
+
+
+      let fillColorSelect = fillcolorselect(objectIndex);
+      fillColorSelect.value = fillColor;
+      fillColorSelect.setAttribute("oninput", "objects["+objectIndex+"].fillColor = this.value; render();");
+      fillColorCell.appendChild(fillColorSelect);
+      objectRow.appendChild(fillColorCell);
+      this.fillColorSelect = fillColorSelect;
+
+      let strokeDashoffsetInput = numberInput(objectIndex,'2',0, this.totalLength.toFixed(0) ,'1');
+      strokeDashoffsetInput.value = this.totalLength.toFixed(0);
+      strokeDashoffsetInput.setAttribute("oninput", ` objects[${objectIndex}].strokeDashoffset = parseFloat(objects[${objectIndex}].totalLength) * (this.value / parseFloat(objects[${objectIndex}].totalLength.toFixed(0))); render();` );
+      strokeDashoffsetCell.appendChild(strokeDashoffsetInput);
+      objectRow.appendChild(strokeDashoffsetCell);
+      this.strokeDashoffsetInput = strokeDashoffsetInput;
+
+
+      let rightAngleCheckbox = document.createElement("INPUT");
+      rightAngleCheckbox.setAttribute('type','checkbox');
+      rightAngleCheckbox.onchange = (e) => {
+        this.rightAngle = e.target.checked; // This is a real boolean!
+        render();
+      };
+      rightAngleCell.appendChild(rightAngleCheckbox);
+      objectRow.appendChild(rightAngleCell);
+      this.rightAngleCheckbox=rightAngleCheckbox;
+
+
+
+
+
+      this.rowElement = objectRow;
+
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = (this.index+1)+`. (${this.displayType})`;
+      indexSpan.style='text-align:right';
+
+      let coorsSpan = document.createElement("SPAN");
+      coorsSpan.style.fontSize='12px';
+      coorsSpan.innerHTML = this.property;
+
+      let lengthSpan = document.createElement("SPAN");
+
+      lengthSpan.style.fontSize='10px';
+      lengthSpan.innerHTML =`&#8735;${this.rightAngle} (${this.totalLength.toFixed(0)})`;
+
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(coorsSpan);
+      divElement.appendChild(lengthSpan);
+      divElement.appendChild(this.checkbox);
+
+      this.lengthSpan = lengthSpan;
+      this.divElement = divElement;
+      
+
+
+      this.initialState = { r: this.r+'px',
+        opacity: this.opacity,
+        transform:` translate(${this.dx}px,${this.dy}px) scale(${this.scale})`,
+        fill: this.fillColor,
+        fillOpacity:this.fillOpacity,
+        stroke:this.strokeColor,
+        strokeWidth:this.strokeWidth+'px',
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px'};
+    }
+
+    updateSVG()
+    {
+      let rA = String(this.rightAngle) === "true";
+
+      let pathAngleIn = angleInPath(this.pointsIndices,this.r,rA);
+
+      this.SVGElement.setAttribute('d',pathAngleIn);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+
+      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
+    }
+
+
+    updateDIVElement()
+    {
+      this.lengthSpan.innerHTML =`&#8735;${this.rightAngle} (${this.totalLength.toFixed(0)})`;
+    }
+
+   
+
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+          transform:` translate(${this.dx}px,${this.dy}px) scale(${this.scale})`,
+          opacity: this.opacity,
+          fill: this.fillColor,
+          fillOpacity: this.fillOpacity,
+          stroke: this.strokeColor,
+          strokeWidth: this.strokeWidth+'px',
+          strokeDasharray:this.totalLength+'px',
+          strokeDashoffset: this.strokeDashoffset + 'px'
+      };
+
+      return stateSnapshot;
+    }
+
+    setInitialState()
+    {
+      this.initialState = {
+        transform:` translate(${this.dx}px,${this.dy}px) scale(${this.scale})`,
+        opacity: this.opacity,
+        fill: this.fillColor,
+        fillOpacity:this.fillOpacity,
+        stroke:this.strokeColor,
+        strokeWidth:this.strokeWidth+'px',
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'};
+    }
+
+    syncInputs() 
+    {   
+      if (this.rInput) this.rInput.value = this.r;
+      if (this.dxInput) this.dxInput.value = this.dx;
+      if (this.dyInput) this.dyInput.value = this.dy;
+      if (this.strokeWidthInput) this.strokeWidthInput.value = this.strokeWidth;
+      if (this.fillOpacityInput) this.fillOpacityInput.value = this.fillOpacity;
+      if (this.opacityInput) this.opacityInput.value = this.opacity;
+      if (this.scaleInput) this.scaleInput.value = this.scale;
+      if (this.strokeColorSelect) this.strokeColorSelect.value = this.strokeColor;
+      if (this.fillColorSelect) this.fillColorSelect.value = this.fillColor;
+      if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.value = this.strokeDashoffset;
+      if (this.rightAngleCheckbox) this.rightAngleCheckbox.value = this.rightAngle;
+    }
+  }
+
+
+
+  class qcurve
+  {
+    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
+    {
+      this.index = objectIndex;
+      this.pointsIndices= pointsIndices;
+      this.dx = dx;
+      this.dy = dy;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.scale=scale;
+      this.rotate=rotate;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+
+      this.type='qcrv';
+
+
+      //svg object
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+
+      let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      
+      SVGElement.setAttribute("d", d);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.setAttribute("stroke-linecap",'round');
+      SVGElement.setAttribute("fill",'none');
+
+      
+      
+      this.SVGElement = SVGElement;
+      
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+      
+
+      let objectRow = document.createElement("TR");
+      
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      
+      let dxCell = document.createElement("TD");
+      let dyCell = document.createElement("TD");
+      let rCell = document.createElement("TD");
+      let strokeWidthCell = document.createElement("TD");
+      let strokeColorCell = document.createElement("TD");
+      let fillOpacityCell = document.createElement("TD");
+      let fillColorCell = document.createElement("TD");
+      let scaleCell = document.createElement("TD");
+      let opacityCell = document.createElement("TD");
+      
+      let stateCell = document.createElement("TD");
+      let animationTimeCell = document.createElement("TD");
+
+      let strokeDashoffsetCell =  document.createElement("TD");
+
+      //table row (with inputs)
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+      //checkCell.appendChild(newCheckBox);
+      //objectRow.appendChild(checkCell);
+      this.checkbox = newCheckBox;
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+      let displayType = '◠';
+
+
+      this.displayType = displayType; 
+      typeCell.innerHTML = displayType;
+      objectRow.appendChild(typeCell);
+
+      propertyCell.innerHTML =  this.property;
+      objectRow.appendChild(propertyCell);
+
+      
+      let xInput = numberInput(objectIndex,'2','','','1');
+      xInput.value = dx;
+      xInput.setAttribute("oninput", "objects["+objectIndex+"].dx = this.value; render();");
+      dxCell.appendChild(xInput);
+      objectRow.appendChild(dxCell);
+      this.xInput = xInput;
+
+
+      
+      let yInput = numberInput(objectIndex,'2','','','1');
+      yInput.value = dy;
+      yInput.setAttribute("oninput", "objects["+objectIndex+"].dy = this.value; render();");
+      dyCell.appendChild(yInput);
+      objectRow.appendChild(dyCell);
+      this.yInput=yInput;
+
+
+
+      
+      let rotateInput = numberInput(objectIndex,'1','','','1');
+      rotateInput.value = rotate;
+      rotateInput.setAttribute("oninput", "objects["+objectIndex+"].rotate = this.value; render();");
+      rCell.appendChild(rotateInput);
+      objectRow.appendChild(rCell);
+      this.rotateInput=rotateInput;
+
+
+      
+      let strokeWidthInput = numberInput(objectIndex,'1','0','','1');
+      strokeWidthInput.value = strokeWidth;
+      strokeWidthInput.setAttribute("oninput", "objects["+objectIndex+"].strokeWidth = this.value; render();");
+      strokeWidthCell.appendChild(strokeWidthInput);
+      objectRow.appendChild(strokeWidthCell);
+      this.strokeWidthInput=strokeWidthInput;
+
+      
+      
+      fillOpacityCell.innerHTML='-';
+      objectRow.appendChild(fillOpacityCell);
+
+
+
+      let opacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      opacityInput.value = opacity;
+      opacityInput.setAttribute("oninput", "objects["+objectIndex+"].opacity = this.value; render();");
+      opacityCell.appendChild(opacityInput);
+      objectRow.appendChild(opacityCell);
+      this.opacityInput=opacityInput;
+
+
+      let scaleInput = numberInput(objectIndex,'1','0','','0.05');
+      scaleInput.value = scale;
+      scaleInput.setAttribute("oninput", "objects["+objectIndex+"].scale = this.value; render();");
+      scaleCell.appendChild(scaleInput);
+      objectRow.appendChild(scaleCell);
+      this.scaleInput=scaleInput;
+
+      let strokeColorSelect = strokecolorselect(objectIndex);
+      strokeColorSelect.value = strokeColor;
+      strokeColorSelect.setAttribute("oninput", "objects["+objectIndex+"].strokeColor = this.value; render();");
+      strokeColorCell.appendChild(strokeColorSelect);
+      objectRow.appendChild(strokeColorCell);
+      this.strokeColorSelect = strokeColorSelect;
+
+      fillColorCell.innerHTML='-';
+      objectRow.appendChild(fillColorCell);
+
+      let strokeDashoffsetInput = numberInput(objectIndex,'2',0, this.totalLength.toFixed(0) ,'1');
+      strokeDashoffsetInput.value = this.totalLength.toFixed(0);
+      strokeDashoffsetInput.setAttribute("oninput", ` objects[${objectIndex}].strokeDashoffset = parseFloat(objects[${objectIndex}].totalLength) * (this.value / parseFloat(objects[${objectIndex}].totalLength.toFixed(0))); render();` );
+      strokeDashoffsetCell.appendChild(strokeDashoffsetInput);
+      objectRow.appendChild(strokeDashoffsetCell);
+
+      this.strokeDashoffsetInput = strokeDashoffsetInput;
+
+
+
+      this.rowElement = objectRow;
+
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = `${(this.index+1)}. (${this.displayType})`;
+      indexSpan.style='text-align:right';
+
+      let propSpan = document.createElement("SPAN");
+      let lengthSpan = document.createElement("SPAN");
+      propSpan.style.fontSize='12px';
+      propSpan.innerHTML = this.property;
+
+      lengthSpan.style.fontSize='10px';
+      lengthSpan.innerHTML = this.totalLength.toFixed(0);
+
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(propSpan);
+      divElement.appendChild(lengthSpan);
+      divElement.appendChild(this.checkbox);
+
+      this.lengthSpan=lengthSpan;
+      this.divElement = divElement;
+
+      
+      this.initialState = { 
+        transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        stroke:this.strokeColor, 
+        strokeWidth:this.strokeWidth+'px', 
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'};     
+    }
+
+
+
+    updateSVG()
+    {
+      let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      
+      this.SVGElement.setAttribute("d", d);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+    }
+
+    updateDIVElement()
+    {
+      this.lengthSpan.innerHTML = this.totalLength.toFixed(0);
+    }
+
+  
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+        transform:` translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        stroke: this.strokeColor,
+        strokeWidth: this.strokeWidth+'px',
+        strokeDasharray:this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset + 'px'
+      };
+    
+      
+
+      return stateSnapshot;
+    }
+
+    setInitialState()
+    {
+      this.initialState = { 
+        transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        stroke:this.strokeColor, 
+        strokeWidth:this.strokeWidth+'px', 
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px'}; 
+    }
+
+    syncInputs() 
+    {
+      if (this.xInput) this.xInput.value = this.dx;
+      if (this.yInput) this.yInput.value = this.dy;
+      if (this.rInput) this.rInput.value = this.rotate;
+      if (this.strokeWidthInput) this.strokeWidthInput.value = this.strokeWidth;
+      if (this.opacityInput) this.opacityInput.value = this.opacity;
+      if (this.scaleInput) this.scaleInput.value = this.scale;
+      if (this.strokeColorSelect) this.strokeColorSelect.value = this.strokeColor;
+      if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.value = this.strokeDashoffset;
+    }
+  }
+  
+
+  class arrow
+  {
+    constructor(objectIndex,pointsIndices, r , opacity, strokeWidth, strokeColor, scale,rotate)
+    {
+      this.index = objectIndex;
+      this.pointsIndices= pointsIndices;
+      this.r = r;
+      this.dx = 0;
+      this.dy = 0;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.scale=scale;
+      this.rotate=rotate;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+
+      this.type='arw';
+
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+      let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
+      for (let i = 1; i < this.pointsIndices.length; i++) 
+      {
+        d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
+      }
+
+      if(this.pointsIndices.length==3)
+      {
+        d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      }
+
+      let ah = arrowHeadPath(this.pointsIndices,r);
+      d+=ah;
+
+      SVGElement.setAttribute("d", d);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.setAttribute("stroke-linecap",'round');
+      SVGElement.setAttribute("fill",'none');
+
+      this.SVGElement = SVGElement;
+      
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+      
+
+      let objectRow = document.createElement("TR");
+      let objIndexCell = document.createElement("TD");
+      let typeCell = document.createElement("TD");
+      let propertyCell = document.createElement("TD");
+      
+      let dxCell = document.createElement("TD");
+      let dyCell = document.createElement("TD");
+      let rotateCell = document.createElement("TD");
+      let strokeWidthCell = document.createElement("TD");
+      let strokeColorCell = document.createElement("TD");
+      let fillOpacityCell = document.createElement("TD");
+      let fillColorCell = document.createElement("TD");
+      let scaleCell = document.createElement("TD");
+      let opacityCell = document.createElement("TD");
+
+      let rCell = document.createElement("TD");
+      
+      let stateCell = document.createElement("TD");
+      let animationTimeCell = document.createElement("TD");
+
+      let strokeDashoffsetCell =  document.createElement("TD");
+
+      //table row (with inputs)
+      let newCheckBox = document.createElement("INPUT");
+      newCheckBox.setAttribute('type','checkbox');
+      newCheckBox.setAttribute('id','checkbox'+objectIndex );
+      newCheckBox.addEventListener('change', (event) => { if (event.target.checked) {checkObject(objectIndex);} else {uncheckObject(objectIndex);}
+      });
+      //checkCell.appendChild(newCheckBox);
+      //objectRow.appendChild(checkCell);
+      this.checkbox = newCheckBox;
+
+      objIndexCell.innerHTML = objectIndex + 1;
+      objectRow.appendChild(objIndexCell);
+
+      let displayType = '→';
+      
+
+      this.displayType = displayType; 
+
+      typeCell.innerHTML = displayType;
+      objectRow.appendChild(typeCell);
+
+      propertyCell.innerHTML =  this.property;
+      objectRow.appendChild(propertyCell);
+
+      
+      let xInput = numberInput(objectIndex,'2','','','1');
+      xInput.value = this.dx;
+      xInput.setAttribute("oninput", "objects["+objectIndex+"].dx = this.value; render();");
+      dxCell.appendChild(xInput);
+      objectRow.appendChild(dxCell);
+
+
+      
+      let yInput = numberInput(objectIndex,'2','','','1');
+      yInput.value = this.dy;
+      yInput.setAttribute("oninput", "objects["+objectIndex+"].dy = this.value; render();");
+      dyCell.appendChild(yInput);
+      objectRow.appendChild(dyCell);
+
+
+      
+      let rotateInput = numberInput(objectIndex,'1','','','1');
+      rotateInput.value = rotate;
+      rotateInput.setAttribute("oninput", "objects["+objectIndex+"].rotate = this.value; render();");
+      rotateCell.appendChild(rotateInput);
+      objectRow.appendChild(rotateCell);
+
+
+      
+      let strokeWidthInput = numberInput(objectIndex,'1','0','','1');
+      strokeWidthInput.value = strokeWidth;
+      strokeWidthInput.setAttribute("oninput", "objects["+objectIndex+"].strokeWidth = this.value; render();");
+      strokeWidthCell.appendChild(strokeWidthInput);
+      objectRow.appendChild(strokeWidthCell);
+
+      
+      
+      fillOpacityCell.innerHTML='-';
+      objectRow.appendChild(fillOpacityCell);
+
+
+
+      let opacityInput = numberInput(objectIndex,'1','0','1','0.05');
+      opacityInput.value = opacity;
+      opacityInput.setAttribute("oninput", "objects["+objectIndex+"].opacity = this.value; render();");
+      opacityCell.appendChild(opacityInput);
+      objectRow.appendChild(opacityCell);
+
+
+      let scaleInput = numberInput(objectIndex,'1','0','','0.05');
+      scaleInput.value = scale;
+      scaleInput.setAttribute("oninput", "objects["+objectIndex+"].scale = this.value; render();");
+      scaleCell.appendChild(scaleInput);
+      objectRow.appendChild(scaleCell);
+
+      let strokeColorSel = strokecolorselect(objectIndex);
+      strokeColorSel.value = strokeColor;
+      strokeColorSel.setAttribute("oninput", "objects["+objectIndex+"].strokeColor = this.value; render();");
+      strokeColorCell.appendChild(strokeColorSel);
+      objectRow.appendChild(strokeColorCell);
+
+      fillColorCell.innerHTML='-';
+      objectRow.appendChild(fillColorCell);
+
+      let strokeDashoffsetInput = numberInput(objectIndex,'2',0, this.totalLength.toFixed(0) ,'1');
+      strokeDashoffsetInput.value = this.totalLength.toFixed(0);
+      strokeDashoffsetInput.setAttribute("oninput", ` objects[${objectIndex}].strokeDashoffset = parseFloat(objects[${objectIndex}].totalLength) * (this.value / parseFloat(objects[${objectIndex}].totalLength.toFixed(0))); render();` );
+
+      strokeDashoffsetCell.appendChild(strokeDashoffsetInput);
+      objectRow.appendChild(strokeDashoffsetCell);
+      this.strokeDashoffsetInput=strokeDashoffsetInput;
+
+      let rInput = numberInput(objectIndex,'1','0','','1');
+      rInput.value = r;
+      rInput.setAttribute("oninput", "objects["+objectIndex+"].r = this.value; render();");
+      rCell.appendChild(rInput);
+      objectRow.appendChild(rCell);
+      this.rInput = rInput;
+
+
+
+
+      this.rowElement = objectRow;
+
+      let divElement = document.createElement("DIV");
+      divElement.classList.add('div-element');
+
+      let indexSpan = document.createElement("SPAN");
+      indexSpan.innerHTML = `${(this.index+1)}. (${this.displayType})`;
+      indexSpan.style='text-align:right';
+
+      let propSpan = document.createElement("SPAN");
+      let lengthSpan = document.createElement("SPAN");
+      propSpan.style.fontSize='12px';
+      propSpan.innerHTML = this.property;
+
+      lengthSpan.style.fontSize='10px';
+      lengthSpan.innerHTML = this.totalLength.toFixed(0);
+
+      divElement.appendChild(indexSpan);
+      divElement.appendChild(propSpan);
+      divElement.appendChild(lengthSpan);
+      divElement.appendChild(this.checkbox);
+
+      this.lengthSpan=lengthSpan;
+      this.divElement = divElement;
+
+
+      this.initialState = { 
+        transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        stroke:this.strokeColor, 
+        strokeWidth:this.strokeWidth+'px', 
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'};     
+    }
+
+
+
+    updateSVG()
+    {
+      let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
+      for (let i = 1; i < this.pointsIndices.length; i++) 
+      {
+        d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
+      }
+
+      if(this.pointsIndices.length==3)
+      {
+        d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      }
+
+      let ah = arrowHeadPath(this.pointsIndices,this.r);
+      d+=ah;
+
+      this.SVGElement.setAttribute("d", d);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
+    }
+
+    updateDIVElement()
+    {
+      this.lengthSpan.innerHTML = this.totalLength.toFixed(0);
+    }
+
+  
+    checkSVG()
+    {
+      this.SVGElement.style.outline = '2px solid red';
+      theTable.appendChild(this.rowElement);
+    }
+
+    uncheckSVG()
+    {
+      this.SVGElement.style.outline = '0px solid red';
+      this.rowElement.remove();
+    }
+
+    recordState() 
+    {
+      const stateSnapshot = {
+        transform:` translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        stroke: this.strokeColor,
+        strokeWidth: this.strokeWidth+'px',
+        strokeDasharray:this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px'
+      };
+    
+      
+
+      return stateSnapshot;
+    }
+
+    setInitialState()
+    {
+      this.initialState = { 
+        transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        stroke:this.strokeColor, 
+        strokeWidth:this.strokeWidth+'px', 
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px'}; 
+    }
+
+    syncInputs() 
+    {
+      if (this.xInput) this.xInput.value = this.dx;
+      if (this.yInput) this.yInput.value = this.dy;
+      if (this.rInput) this.rInput.value = this.rotate;
+      if (this.strokeWidthInput) this.strokeWidthInput.value = this.strokeWidth;
+      if (this.opacityInput) this.opacityInput.value = this.opacity;
+      if (this.scaleInput) this.scaleInput.value = this.scale;
+      if (this.strokeColorSelect) this.strokeColorSelect.value = this.strokeColor;
+      if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.value = this.strokeDashoffset;
+      //this.strokeDashoffsetInput
+    }
+  }
   </script>
 </body>
 </html>
