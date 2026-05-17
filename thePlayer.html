@@ -3638,6 +3638,192 @@
 
     return rASelect;
   }
+
+    function sideLength(Point1,Point2)
+  {
+    return Math.hypot(Point1.cx - Point2.cx, Point1.cy - Point2.cy);
+  }
+
+  function weightedPoint(A,B,x,y)
+  {
+    let Px= (Number(A.cx)*Number(y) + Number(B.cx)*Number(x))/Number(x+y);
+    let Py= (Number(A.cy)*Number(y) + Number(B.cy)*Number(x))/Number(x+y);
+    return {cx:Px, cy:Py};
+  }
+
+  function perpendicularPoint(C,A,B)
+  {
+    let a = sideLength(B,C);
+    let b = sideLength(A,C);
+    let c = sideLength(A,B);
+
+    let wb = parseFloat(a*a + c*c - b*b);
+    let wa = parseFloat(-a*a + c*c + b*b);
+
+    let P = weightedPoint(A,B,wa,wb);
+    return P;
+  }
+
+  function angleInPath(pI,r,rightAngle)
+  {
+
+    let A = objects[pI[0]];
+    let B = objects[pI[1]];
+    let C = objects[pI[2]];
+
+    let a = sideLength(B,A);
+    let c = sideLength(B,C);
+
+    let Bs = weightedPoint(B,A,Number(r),Number(a-r));
+    let Be = weightedPoint(B,C,Number(r),Number(c-r));
+    let pth='';
+    if(rightAngle===true)
+    {
+      let Px= Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
+      let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
+
+      pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+    }
+    //
+
+    else
+    {
+      pth='M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+    }
+    
+    return pth; 
+  }
+
+
+  function angleBoundaryPath(points,r,rightAngle)
+  {
+    let A = points[0];
+    let B = points[1];
+    let C = points[2];
+
+    let a = sideLength(B,A);
+    let c = sideLength(B,C);
+
+    let Bs = weightedPoint(B,A,Number(r),Number(a-r));
+    let Be = weightedPoint(B,C,Number(r),Number(c-r));
+    let pth='M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy;
+
+    if(rightAngle)
+    {
+      let Px= Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
+      let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
+
+      pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy;
+    }
+    
+    return pth; 
+  }
+
+  function arrowHeadPath(pointsIndices,r)
+  {
+    let P = objects[pointsIndices[pointsIndices.length-2]];
+    let Q = objects[pointsIndices[pointsIndices.length-1]];
+
+    
+
+    let a = Q.cx - P.cx;
+    let b = Q.cy - P.cy;
+
+    let dPQ = Math.sqrt(a * a + b * b);
+
+    let xx = (b*r)/dPQ;
+    let yy = (a*r)/dPQ;
+
+    let T1x = (Number(Q.cx) + Number(xx)).toFixed(0);
+    let T1y = (Number(Q.cy) - Number(yy)).toFixed(0);
+
+    let T3x = (Number(Q.cx) - Number(xx)).toFixed(0);
+    let T3y = (Number(Q.cy) + Number(yy)).toFixed(0);
+
+    let T2= weightedPoint(Q,P,-2 * r,dPQ + 2 * r);
+
+    return `L ${T1x} ${T1y} L ${T2.cx} ${T2.cy} L ${T3x} ${T3y} L ${Q.cx} ${Q.cy}`;
+  }
+
+  function specialPoint(A,B,C,alpha,beta,theta)
+  {
+    let T = parseFloat(alpha+beta+theta);
+
+    let Px = (alpha/T)*parseFloat(A.cx) + (beta/T)*parseFloat(B.cx) + (theta/T)*parseFloat(C.cx);
+    let Py = (alpha/T)*parseFloat(A.cy) + (beta/T)*parseFloat(B.cy) + (theta/T)*parseFloat(C.cy);
+
+
+    return {cx:Px,cy:Py};
+  }
+
+  function distanceToPoint(P,A,C)
+  {
+    let d = sideLength(A,C);
+    return ( (C.cy-A.cy)*(P.cx - A.cx) - (C.cx-A.cx)*(P.cy - A.cy) )/d;
+  }
+
+  function intersectionPoint(A,C,B,D)
+  {
+    let wB = distanceToPoint(B,A,C);
+    let wD = distanceToPoint(D,A,C);
+    let iPt1 = weightedPoint(B,D,wB,wD);
+
+    let wA = distanceToPoint(A,B,D);
+    let wC = distanceToPoint(C,B,D);
+    let iPt2 = weightedPoint(A,C,wA,wC);
+
+    let iPt;
+    let dd = sideLength(iPt1,iPt2);
+
+    if(dd<2)
+    {
+      iPt=iPt1;
+    }
+
+    else
+    {
+      if(wB > wD)
+      {
+        iPt = weightedPoint(B,D,wB,-wD);
+      }
+
+      else
+      {
+        iPt = weightedPoint(B,D,-wB,wD);
+      }
+    }
+
+    return iPt;
+  }
+
+  function tangentPoint (P,A,O,r)
+  {
+    let d=sideLength(P,O);
+    let ct = r/d;
+    let st = Math.sqrt(d*d-r*r)/d;
+    let cg = parseFloat(P.cx - O.cx)/d;
+    let sg = parseFloat(P.cy - O.cy)/d;
+
+
+    
+    let A1nx = O.cx +r*(ct*cg+st*sg)
+    let A1ny = O.cy + r*(sg*ct - cg*st);
+    let A1={cx:A1nx,cy:A1ny};
+
+    let A2nx = O.cx +r*(cg*ct-st*sg);
+    let A2ny = O.cy + r*(sg*ct+cg*st);
+    let A2={cx:A2nx,cy:A2ny};
+
+    let d1 = sideLength(A,A1);
+    let d2 = sideLength(A,A2);
+
+    let Areal = A1;
+
+    if(d2<d1){Areal = A2;}
+
+    return Areal;  
+
+  }
   </script>
 
   <script>
