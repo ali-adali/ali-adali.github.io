@@ -499,6 +499,7 @@
 
       // 3. Immediately Bake structural animations into memory so it's ready for scrubbing or instant play
       render();
+      hideAllBasePoints();
       bakeAnimations();
       
       // Optional: Trigger MathJax typeset parsing post-render for expressions
@@ -509,7 +510,7 @@
 
     // --- 5. Unified Animation & Playback Console Controls ---
     function bakeAnimations() {
-      hideAllBasePoints();
+      
       animations.forEach(anim => anim.cancel());
       animations = [];
 
@@ -3842,13 +3843,10 @@
 
       function render()
   {
-   
-
   
     for(let i=0;i<aliveObjects.length;i++)
     {
       let obj = aliveObjects[i];
-      obj.updateSVG();
       document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
     }
 
@@ -3856,6 +3854,19 @@
         MathJax.typesetPromise();
     }
 
+  }
+
+    function hideAllBasePoints()
+  {
+    for(let i=0;i<objects.length;i++)
+    {
+      let obj=objects[i];
+      if (obj?.type !== 'pt') continue;
+      if(obj.type=='pt')
+      {
+        obj.SVGElement.setAttribute("opacity",0);
+      }
+    }
   }
   </script>
 
