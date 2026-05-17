@@ -3835,6 +3835,27 @@
     return Areal;  
 
   }
+
+      function render()
+  {
+    theItemsDiv.innerHTML='';
+
+  
+    for(let i=0;i<aliveObjects.length;i++)
+    {
+      let obj = aliveObjects[i];
+      obj.updateSVG();
+      obj.updateDIVElement();
+      SVGCanvas.appendChild(obj.SVGElement);
+
+      theItemsDiv.appendChild(obj.divElement);
+    }
+
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+
+  }
   </script>
 
   <script>
