@@ -3564,6 +3564,73 @@
       //this.strokeDashoffsetInput
     }
   }
+     function numberInput(objectIndex,size,min,max,step)
+  {
+    let numberInput = document.createElement("INPUT");
+    numberInput.type = 'number';
+    numberInput.size=size;
+    numberInput.min=min;
+    numberInput.max=max;
+    numberInput.step=step; 
+    return numberInput;
+  }
+
+      
+
+  function strokecolorselect(index)
+  {
+    let strokeColorSelect = document.createElement("SELECT");
+    strokeColorSelect.id = "sC"+index;
+    strokeColorSelect.style.width='50px';
+
+    for(let i=0;i<strokeColors.length;i++)
+    {
+      let scOpt = document.createElement("OPTION");
+      scOpt.text = strokeColors[i];
+      scOpt.value = strokeColors[i];
+      scOpt.style.color= strokeColors[i];
+      strokeColorSelect.add(scOpt);
+    }
+    return strokeColorSelect;
+  }
+
+
+  function fillcolorselect(index)
+  {
+    let fillColorSelect = document.createElement("SELECT");
+    fillColorSelect.id = "fC"+index;
+    fillColorSelect.style.width='50px';
+
+    for(let i=0;i<fillColors.length;i++)
+    {
+      let scOpt = document.createElement("OPTION");
+      scOpt.text = fillColors[i];
+      scOpt.value = fillColors[i];
+      scOpt.style.color= fillColors[i];
+      fillColorSelect.add(scOpt);
+    }
+    return fillColorSelect;
+  }
+
+  function rightangleselect(index)
+  {
+    let rASelect = document.createElement("SELECT");
+    rASelect.id = "rA"+index;
+    rASelect.style.width='50px';
+
+    rAFalse = document.createElement("OPTION");
+    rAFalse.value=false;
+    rAFalse.textContent='∡';
+
+    rATrue = document.createElement("OPTION");
+    rATrue.value=true;
+    rATrue.textContent='∟';
+
+    rASelect.add(rAFalse);
+    rASelect.add(rATrue);
+
+    return rASelect;
+  }
   </script>
 </body>
 </html>
