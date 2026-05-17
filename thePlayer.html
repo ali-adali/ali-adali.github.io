@@ -1116,8 +1116,12 @@
       spanElement0.style.height='auto';
       spanElement0.style.width='auto';
       document.body.appendChild(spanElement0);
-      MathJax.typesetPromise();
-
+      
+      if (typeof MathJax !== 'undefined' && MathJax.typeset) {
+            MathJax.typeset();
+        } else {
+            console.log("MathJax is not loaded yet; formatting deferred.");
+        }
       const rect = spanElement0.getBoundingClientRect();
       const fOWidth = Math.ceil(rect.width) ;
       const fOHeight = Math.ceil(rect.height) ;
