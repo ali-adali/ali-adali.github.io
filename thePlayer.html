@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geometry Theorems Player</title>
+  <style>
+    :root {
+      --bg-main: #0f172a;        /* Deep midnight */
+      --bg-panel: #1e293b;       /* Soft slate navy */
+      --bg-card: #334155;        /* Active item background */
+      --text-main: #f8fafc;      /* Crisp off-white */
+      --text-muted: #94a3b8;     /* Secondary soft text */
+      --accent: #10b981;         /* Sophisticated Sage/Emerald highlight */
+      --accent-hover: #059669;
+      --canvas-bg: #ffffff;      /* Keep your geometric canvas pure white */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Outer Navigation Breadcrumb Strip */
+    .out-nav-div {
+      background-color: var(--bg-panel);
+      padding: 12px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .out-nav-div a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .out-nav-div a:hover {
+      color: var(--accent);
+    }
+
+    /* Core Layout Container */
+    .app-container {
+      display: grid;
+      flex: 1;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    /* === PORTRAIT / MOBILE INITIAL STYLES === */
+    @media (orientation: portrait) {
+      .app-container {
+        grid-template-rows: auto auto auto 1fr;
+        grid-template-columns: 100%;
+        overflow-y: auto;
+      }
+
+      .screen-container {
+        justify-self: center;
+        width: 100vw;
+        max-width: 500px;
+        padding: 15px;
+      }
+
+      .control-console {
+        padding: 0 20px 15px 20px;
+      }
+
+      .nav-in-div {
+        padding: 15px 20px;
+      }
+
+      .thms-div {
+        padding: 15px 20px;
+      }
+    }
+
+    /* === LANDSCAPE / DESKTOP STYLES === */
+    @media (min-width: 768px) and (orientation: landscape) {
+      .app-container {
+        grid-template-columns: 320px 1fr 320px;
+        grid-template-rows: 100%;
+      }
+
+      .thms-div {
+        grid-column: 1;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .screen-container {
+        grid-column: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .nav-in-div {
+        grid-column: 3;
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 30px 20px;
+        gap: 20px;
+      }
+
+      .control-console {
+        width: 100%;
+        max-width: 600px;
+        margin-top: 15px;
+      }
+    }
+
+    /* Component: Theorem Browser Grid */
+    .thms-div {
+      background-color: var(--bg-panel);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+    }
+    .thm-item-card {
+      background-color: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .thm-item-card:hover {
+      background-color: #475569;
+      transform: translateX(2px);
+    }
+    /* Dynamic active class state */
+    .thm-item-card.active {
+      background-color: rgba(16, 185, 129, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Component: The Player Canvas */
+    .screen-div {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: var(--canvas-bg);
+      border-radius: 12px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+    .screen-div svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Component: Combined Controls Block */
+    .control-console {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Advanced Custom Timline & Touch Tracker */
+    .progress-wrapper {
+      position: relative;
+      width: 100%;
+      height: 24px; /* Expanded interaction target area */
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background-color: #475569;
+      border-radius: 3px;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent);
+      border-radius: 3px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .progress-thumb {
+      width: 16px;
+      height: 16px;
+      background-color: var(--text-main);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: transform 0.1s, background-color 0.1s;
+    }
+    .progress-wrapper:hover .progress-thumb {
+      transform: translate(-50%, -50%) scale(1.25);
+      background-color: var(--accent);
+    }
+
+    /* Consolidated Control Buttons Row */
+    .button-group-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+    .btn-control {
+      background-color: var(--bg-panel);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-control:hover {
+      background-color: var(--bg-card);
+      border-color: var(--text-muted);
+    }
+    .btn-control#togglePlayBtn {
+      background-color: var(--accent);
+      color: #064e3b;
+      font-weight: 600;
+      border: none;
+    }
+    .btn-control#togglePlayBtn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    /* Component: Inner Multi-directional Navigation */
+    .nav-in-div {
+      background-color: var(--bg-panel);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-step-btn {
+      background-color: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .nav-step-btn:hover:not(:disabled) {
+      background-color: #475569;
+      border-color: var(--accent);
+    }
+    .nav-step-btn:disabled {
+      opacity: 0;
+      pointer-events: none; /* Safely hides it if it's edge of playlist */
+    }
+    .current-thm-banner {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+      flex: 1.2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="out-nav-div">
+    <a href="https://yourwebsite.com">Home</a> &rarr; 
+    <a href="#">Geometry</a> &rarr; 
+    <span>Theorems & Proofs</span>
+  </div>
+
+  <div class="app-container">
+    
+    <div class="thms-div" id="theoremsSidebar">
+      </div>
+
+    <div class="screen-container">
+      <div class="screen-div">
+        <svg class="svg-frame" id="playerSVG" xmlns="http://www.w3.org/2000/svg" width="750" height="750" viewbox="0 0 750 750" >
+          <defs>
+            <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
+            </pattern>
+
+            <pattern id="halfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="lightgray" stroke-width="0.8"/>
+            </pattern>
+          </defs>
+          <rect width="750" height="750" fill="url(#wholeGrid)" />
+          <rect width="750" height="750" fill="url(#halfGrid)" />
+          <g id="mainSVGGroup">
+          </g>
+        </svg>
+      </div>
+
+      <div class="control-console">
+        <div class="progress-wrapper" id="timelineScrubber">
+          <div class="progress-track">
+            <div class="progress-fill" id="timelineProgress"></div>
+            <div class="progress-thumb" id="timelineThumb"></div>
+          </div>
+        </div>
+        
+        <div class="button-group-row">
+          <button class="btn-control" id="stopBtn">⏹️ Stop</button>
+          <button class="btn-control" id="togglePlayBtn">▶️ Play</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-in-div">
+      <button class="nav-step-btn" id="prevThmBtn">&larr; Previous</button>
+      <div class="current-thm-banner" id="currentThmTitle">Loading...</div>
+      <button class="nav-step-btn" id="nextThmBtn">Next &rarr;</button>
+    </div>
+
+  </div>
+
+  <script>
+   // --- 1. SPA Playlist Configuration ---
+    const theoremPlaylist = [
+      { id: 1, title: "Pythagorean Theorem", file: "pyth-7-cont2.json" },
+      { id: 2, title: "Thales' Theorem", file: "GeoPr2sol.json" },
+      { id: 3, title: "Incenter Coordinates", file: "incenter.json" }
+    ];
+
+    // --- 2. Core Player State ---
+    let currentActiveIndex = 0;
+    let objects = [];
+    let aliveObjects = [];
+    let globalPlaylist = [];
+    let animations = []; 
+    let animationDuration = 0; 
+    let isPlaying = false;
+    let isScrubbing = false;
+
+    // DOM Elements mapped from the new layout IDs
+    const playerSVG = document.getElementById("playerSVG");
+    const timelineScrubber = document.getElementById("timelineScrubber");
+    const timelineProgress = document.getElementById("timelineProgress");
+    const timelineThumb = document.getElementById("timelineThumb");
+    const togglePlayBtn = document.getElementById("togglePlayBtn");
+    const stopBtn = document.getElementById("stopBtn");
+
+    // --- 3. UI Synchronization & Navigation ---
+    function initUI() {
+      const sidebar = document.getElementById('theoremsSidebar');
+      sidebar.innerHTML = '';
+
+      theoremPlaylist.forEach((thm, idx) => {
+        const card = document.createElement('div');
+        card.className = `thm-item-card ${idx === currentActiveIndex ? 'active' : ''}`;
+        card.innerText = `${thm.id}. ${thm.title}`;
+        card.onclick = () => loadTheorem(idx);
+        sidebar.appendChild(card);
+      });
+
+      // Handle boundary limits for inner nav buttons
+      document.getElementById('prevThmBtn').disabled = currentActiveIndex === 0;
+      document.getElementById('nextThmBtn').disabled = currentActiveIndex === theoremPlaylist.length - 1;
+      
+      if (currentActiveIndex > 0) {
+        document.getElementById('prevThmBtn').innerText = `← ${theoremPlaylist[currentActiveIndex - 1].title}`;
+      }
+      if (currentActiveIndex < theoremPlaylist.length - 1) {
+        document.getElementById('nextThmBtn').innerText = `${theoremPlaylist[currentActiveIndex + 1].title} →`;
+      }
+
+      document.getElementById('currentThmTitle').innerText = theoremPlaylist[currentActiveIndex].title;
+    }
+
+    // Intercepts next/prev clicks
+    document.getElementById('prevThmBtn').onclick = () => { if (currentActiveIndex > 0) loadTheorem(currentActiveIndex - 1); };
+    document.getElementById('nextThmBtn').onclick = () => { if (currentActiveIndex < theoremPlaylist.length - 1) loadTheorem(currentActiveIndex + 1); };
+
+    // --- 4. Web-Native JSON Loader ---
+    function loadTheorem(index) {
+      currentActiveIndex = index;
+      initUI();
+      resetPlayerState();
+
+      const fileName = theoremPlaylist[index].file;
+      console.log(`Loading theorem data via fetch: ${fileName}`);
+
+      // Fetch the JSON dynamically over HTTP/HTTPS instead of a local FileReader
+      fetch(fileName)
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          parseProjectData(data);
+        })
+        .catch(error => {
+          console.error("Failed to load geometry data file:", error);
+        });
+    }
+
+    function resetPlayerState() {
+      animations.forEach(anim => anim.cancel());
+      animations = [];
+      objects = [];
+      aliveObjects = [];
+      globalPlaylist = [];
+      animationDuration = 0;
+      isPlaying = false;
+      isScrubbing = false;
+      togglePlayBtn.innerHTML = "▶️ Play";
+      playerSVG.innerHTML = ""; // Complete DOM clear of the old canvas canvas
+      updateProgressBarUI(0);
+    }
+
+    function parseProjectData(data) {
+      // 1. Recreate Objects and instantiate them directly into the player SVG
+      data.initialObjects.forEach(objData => {
+        let newObj;
+        
+        if (objData.type === "pt") {
+            newObj = new basePoint(objData.index, objData.cx, objData.cy);
+        } else if (objData.type === "ptc") {
+            newObj = new point(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale);
+        } else if (objData.type === "txt") {
+            newObj = new text(objData.index, objData.x, objData.y, objData.text, objData.opacity, objData.scale, objData.textColor, objData.fontSize, objData.rotate);
+        } else if (objData.type === "pgn") {
+            newObj = new polygon(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "pln") {
+            newObj = new polyline(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "cr") {
+            newObj = new circle(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.property);
+        } else if (objData.type === "elp") {
+            newObj = new ellipse(objData.index, objData.cx, objData.cy, objData.rx, objData.ry, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "ang") {
+            newObj = new angle(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rightAngle);
+        } else if (objData.type === "qcrv") {
+            newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "arw") {
+            newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        }
+
+        // Isolate pure rendering data properties
+        const { SVGElement, spanElement, rowElement, divElement, checkbox, textInput, xInput, yInput, rInput, fontSizeInput, opacityInput, scaleInput, textColorSelect, ...cleanData } = objData;
+        Object.assign(newObj, cleanData);
+        
+        // In the player, shapes directly append themselves to playerSVG during their class constructors
+        objects[newObj.index] = newObj;
+        aliveObjects.push(newObj);
+      });
+
+      // 2. Re-link Playlist timeline instructions
+      data.playlist.forEach(stepData => {
+        const targetObj = objects[stepData.objIndex];
+        if (targetObj) {
+          globalPlaylist.push({
+            element: targetObj,
+            wait: stepData.wait,
+            dur: stepData.dur,
+            type: stepData.type,
+            state: stepData.state 
+          });
+        }
+      });
+
+      // 3. Immediately Bake structural animations into memory so it's ready for scrubbing or instant play
+      bakeAnimations();
+      
+      // Optional: Trigger MathJax typeset parsing post-render for expressions
+      if (window.MathJax && MathJax.typeset) {
+        MathJax.typeset();
+      }
+    }
+
+    // --- 5. Unified Animation & Playback Console Controls ---
+    function bakeAnimations() {
+      hideAllBasePoints();
+      animations.forEach(anim => anim.cancel());
+      animations = [];
+
+      if (globalPlaylist.length === 0) return;
+
+      let endPause = 0.5;
+      let totalSeconds = 0;
+      globalPlaylist.forEach(step => {
+        totalSeconds += (parseFloat(step.wait) + parseFloat(step.dur));
+      });
+
+      totalSeconds += endPause;
+      if (totalSeconds <= 0) totalSeconds = 0.001;
+      animationDuration = totalSeconds * 1000;
+
+      let masterMap = new Map();
+      let runningTime = 0;
+
+      globalPlaylist.forEach(step => {
+        let stepDur = parseFloat(step.dur) || 0;
+        let stepWait = parseFloat(step.wait) || 0;
+        let obj = step.element;
+
+        if (!masterMap.has(obj)) {
+          masterMap.set(obj, [{ ...obj.initialState, offset: 0 }]);
+        }
+
+        let frames = masterMap.get(obj);
+        runningTime += stepWait;
+        let endOfWaitOffset = runningTime / totalSeconds;
+
+        let lastRecordedState = frames[frames.length - 1];
+        frames.push({ ...lastRecordedState, offset: endOfWaitOffset });
+
+        runningTime += stepDur;
+        let endOfMoveOffset = runningTime / totalSeconds;
+        frames.push({ ...step.state, offset: endOfMoveOffset });
+      });
+
+      masterMap.forEach((frames, obj) => {
+        let lastFrame = frames[frames.length - 1];
+        if (lastFrame.offset < 1) {
+          frames.push({ ...lastFrame, offset: 1 });
+        }
+
+        // Direct binding to the underlying geometry DOM node instance
+        if (obj.SVGElement) {
+          const player = obj.SVGElement.animate(frames, {
+            duration: animationDuration,
+            fill: 'forwards',
+            easing: 'linear'
+          });
+          player.pause(); 
+          animations.push(player);
+        }
+      });
+    }
+
+    function playAnimation() {
+      if (animations.length === 0) bakeAnimations();
+      animations.forEach(anim => anim.play());
+      isPlaying = true;
+      togglePlayBtn.innerHTML = "⏸️ Pause";
+      requestAnimationFrame(syncUI);
+    }
+
+    function pauseAnimation() {
+      animations.forEach(anim => anim.pause());
+      isPlaying = false;
+      togglePlayBtn.innerHTML = "▶️ Play";
+    }
+
+    function rewindAnimation() {
+      animations.forEach(anim => {
+        anim.pause();
+        anim.currentTime = 0;
+      });
+      isPlaying = false;
+      togglePlayBtn.innerHTML = "▶️ Play";
+      updateProgressBarUI(0);
+    }
+
+    // Combined Play/Pause Switch Element Handling
+    togglePlayBtn.onclick = function() {
+      if (isPlaying) {
+        pauseAnimation();
+      } else {
+        // Loop reset back to beginning if player finished playing natural sequence duration
+        if (animations.length > 0 && animations[0].currentTime >= animationDuration) {
+          rewindAnimation();
+        }
+        playAnimation();
+      }
+    };
+
+    stopBtn.onclick = function() {
+      rewindAnimation(); // Seamless cosmetic replacement handling rewind action behavior
+    };
+
+    // --- 6. Core Timeline Scrubbing Math Engine ---
+    function syncUI() {
+      if (animations.length > 0 && isPlaying && !isScrubbing) {
+        const master = animations[0];
+        const percent = (master.currentTime / animationDuration) * 100;
+        
+        updateProgressBarUI(percent);
+
+        if (master.playState !== 'finished') {
+          requestAnimationFrame(syncUI);
+        } else {
+          isPlaying = false;
+          togglePlayBtn.innerHTML = "▶️ Play";
+        }
+      }
+    }
+
+    function scrub(e) {
+      if (animationDuration <= 0 || animations.length === 0) return;
+      
+      const rect = timelineScrubber.getBoundingClientRect();
+      let percentage = (e.clientX - rect.left) / rect.width;
+      percentage = Math.max(0, Math.min(1, percentage)); 
+
+      const seekTime = percentage * animationDuration;
+
+      animations.forEach(anim => {
+        anim.currentTime = seekTime;
+      });
+
+      updateProgressBarUI(percentage * 100);
+    }
+
+    function updateProgressBarUI(percent) {
+      timelineProgress.style.width = percent + '%';
+      timelineThumb.style.left = percent + '%'; // Updates thumb translation coordinates precisely
+    }
+
+    // Scrubber Pointer Listeners
+    timelineScrubber.addEventListener('mousedown', (e) => {
+      if (animations.length === 0) return;
+      isScrubbing = true;
+      pauseAnimation();
+      scrub(e);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isScrubbing) scrub(e);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isScrubbing = false;
+    });
+
+    // --- 7. Geometry Engine Fallback Stubs ---
+    // Safely maps structure dependencies if base points toggle configurations are not loaded
+    if (typeof hideAllBasePoints !== 'function') {
+      function hideAllBasePoints() { console.log("Hiding operational reference anchors."); }
+    }
+
+    // Bootstrapping initialization launch
+    initUI();
+    loadTheorem(0); // Auto-loads the first item in your dashboard list on load
+  </script>
+</body>
+</html>
