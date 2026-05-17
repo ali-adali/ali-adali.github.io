@@ -440,7 +440,10 @@
       isPlaying = false;
       isScrubbing = false;
       togglePlayBtn.innerHTML = "▶️ Play";
-      playerSVG.innerHTML = ""; // Complete DOM clear of the old canvas canvas
+      const mainGroup = document.getElementById("mainSVGGroup");
+        if (mainGroup) {
+          mainGroup.innerHTML = ""; 
+        }
       updateProgressBarUI(0);
     }
 
