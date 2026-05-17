@@ -499,9 +499,7 @@
 
       // 3. Immediately Bake structural animations into memory so it's ready for scrubbing or instant play
       render();
-      hideAllBasePoints();
       bakeAnimations();
-      
       // Optional: Trigger MathJax typeset parsing post-render for expressions
       if (window.MathJax && MathJax.typeset) {
         MathJax.typeset();
@@ -510,6 +508,7 @@
 
     // --- 5. Unified Animation & Playback Console Controls ---
     function bakeAnimations() {
+      hideAllBasePoints();
       
       animations.forEach(anim => anim.cancel());
       animations = [];
