@@ -3842,17 +3842,14 @@
 
       function render()
   {
-    theItemsDiv.innerHTML='';
+   
 
   
     for(let i=0;i<aliveObjects.length;i++)
     {
       let obj = aliveObjects[i];
       obj.updateSVG();
-      obj.updateDIVElement();
-      playerSVG.appendChild(obj.SVGElement);
-
-      theItemsDiv.appendChild(obj.divElement);
+      document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
     }
 
     if (window.MathJax) {
