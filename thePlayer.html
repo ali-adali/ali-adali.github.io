@@ -3875,6 +3875,7 @@
     for(let i=0;i<aliveObjects.length;i++)
     {
       let obj = aliveObjects[i];
+      obj.updateSVG();
       document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
     }
 
