@@ -595,6 +595,7 @@
     }
 
     function playAnimation() {
+      requestWakeLock();
       if (animations.length === 0) bakeAnimations();
       animations.forEach(anim => anim.play());
       isPlaying = true;
@@ -603,6 +604,7 @@
     }
 
     function pauseAnimation() {
+      releaseWakeLock();
       animations.forEach(anim => anim.pause());
       isPlaying = false;
       togglePlayBtn.innerHTML = "&#9654;";
@@ -648,6 +650,7 @@
         } else {
           isPlaying = false;
           togglePlayBtn.innerHTML = "&#9654;";
+          releaseWakeLock();
         }
       }
     }
@@ -689,11 +692,71 @@
       isScrubbing = false;
     });
 
+    timelineScrubber.addEventListener('touchstart', (e) => {
+      if (animations.length === 0) return;
+      isScrubbing = true;
+      pauseAnimation();
+      scrubTouch(e);
+    }, { passive: false }); // passive: false allows us to prevent screen scrolling
+    
+    window.addEventListener('touchmove', (e) => {
+      if (isScrubbing) {
+        e.preventDefault(); // STOPS the phone screen from bouncing/scrolling while scrubbing
+        scrubTouch(e);
+      }
+    }, { passive: false });
+    
+    window.addEventListener('touchend', () => {
+      isScrubbing = false;
+    });
+    
+    // Helper function to extract coordinates from a finger touch
+    function scrubTouch(e) {
+      if (e.touches.length === 0) return;
+      // e.touches[0] represents the first finger touching the glass
+      const fakeMouseEvent = {
+        clientX: e.touches[0].clientX
+      };
+      scrub(fakeMouseEvent); // Reuses your brilliant existing math cleanly!
+    }
+
     // --- 7. Geometry Engine Fallback Stubs ---
     // Safely maps structure dependencies if base points toggle configurations are not loaded
     if (typeof hideAllBasePoints !== 'function') {
       function hideAllBasePoints() { console.log("Hiding operational reference anchors."); }
     }
+
+    async function requestWakeLock() {
+      // Only try if the browser natively supports the Wake Lock API (Safari iOS 14+, Chrome Android)
+      if ('wakeLock' in navigator) {
+        try {
+          if (!wakeLock) {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log('Screen Wake Lock active. Device will stay awake.');
+          }
+        } catch (err) {
+          console.log(`Wake Lock request failed: ${err.name}, ${err.message}`);
+        }
+      }
+    }
+    
+    function releaseWakeLock() {
+      if (wakeLock !== null) {
+        wakeLock.release()
+          .then(() => {
+            wakeLock = null;
+            console.log('Screen Wake Lock released.');
+          });
+      }
+    }
+    
+    // Automatically re-request lock if the user tabs out and tabs back in
+    document.addEventListener('visibilitychange', async () => {
+      if (wakeLock !== null && document.visibilityState === 'visible') {
+        await requestWakeLock();
+      }
+    });
+    
 
     // Bootstrapping initialization launch
     initUI();
