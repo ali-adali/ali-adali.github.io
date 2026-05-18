@@ -499,11 +499,13 @@
 
       // 3. Immediately Bake structural animations into memory so it's ready for scrubbing or instant play
       render();
-      bakeAnimations();
+      
       // Optional: Trigger MathJax typeset parsing post-render for expressions
       if (window.MathJax && MathJax.typeset) {
         MathJax.typeset();
       }
+
+      bakeAnimations();
     }
 
     // --- 5. Unified Animation & Playback Console Controls ---
@@ -1141,6 +1143,7 @@
       spanElement.style.textAlign = 'left';
       spanElement.innerHTML = text;
       SVGElement.appendChild(spanElement);
+      MathJax.typesetPromise();
      
       
 
