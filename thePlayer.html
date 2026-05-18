@@ -1422,6 +1422,31 @@
     }
 
   }
+
+     function sideLength(Point1,Point2)
+  {
+    return Math.hypot(Point1.cx - Point2.cx, Point1.cy - Point2.cy);
+  }
+
+  function weightedPoint(A,B,x,y)
+  {
+    let Px= (Number(A.cx)*Number(y) + Number(B.cx)*Number(x))/Number(x+y);
+    let Py= (Number(A.cy)*Number(y) + Number(B.cy)*Number(x))/Number(x+y);
+    return {cx:Px, cy:Py};
+  }
+
+  function perpendicularPoint(C,A,B)
+  {
+    let a = sideLength(B,C);
+    let b = sideLength(A,C);
+    let c = sideLength(A,B);
+
+    let wb = parseFloat(a*a + c*c - b*b);
+    let wa = parseFloat(-a*a + c*c + b*b);
+
+    let P = weightedPoint(A,B,wa,wb);
+    return P;
+  }
   
     
 
