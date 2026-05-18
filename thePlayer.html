@@ -69,27 +69,28 @@
       .screen-container {
         justify-self: center;
         width: 100vw;
-        max-width: 500px;
-        padding: 15px;
+        
+        padding: 10px;
+
       }
 
       .control-console {
-        padding: 0 20px 15px 20px;
+        padding: 10px 15px 10px 15px;
       }
 
       .nav-in-div {
-        padding: 15px 20px;
+        padding: 10px 10px;
       }
 
       .thms-div {
-        padding: 15px 20px;
+        padding: 10px 10px;
       }
     }
 
     /* === LANDSCAPE / DESKTOP STYLES === */
     @media (min-width: 768px) and (orientation: landscape) {
       .app-container {
-        grid-template-columns: 320px 1fr 320px;
+        grid-template-columns: 240px 1fr 240px;
         grid-template-rows: 100%;
       }
 
@@ -102,9 +103,10 @@
         grid-column: 2;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        padding: 20px;
+        padding: 2px;
+
       }
 
       .nav-in-div {
@@ -119,7 +121,7 @@
 
       .control-console {
         width: 100%;
-        max-width: 600px;
+        
         margin-top: 15px;
       }
     }
@@ -131,7 +133,8 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 20px;
+      padding: 12px;
+      min-height: 100px;
     }
     .thm-item-card {
       background-color: var(--bg-card);
@@ -158,12 +161,13 @@
 
     /* Component: The Player Canvas */
     .screen-div {
-      width: 100%;
+     
       aspect-ratio: 1 / 1;
       background-color: var(--canvas-bg);
       border-radius: 12px;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
       overflow: hidden;
+      outline: 0px solid orange;
     }
     .screen-div svg {
       width: 100%;
@@ -189,7 +193,7 @@
     }
     .progress-track {
       width: 100%;
-      height: 6px;
+      height: 16px;
       background-color: #475569;
       border-radius: 3px;
       position: relative;
@@ -204,11 +208,11 @@
       top: 0;
     }
     .progress-thumb {
-      width: 16px;
-      height: 16px;
+      width: 36px;
+      height: 36px;
       background-color: var(--text-main);
-      border: 2px solid var(--accent);
-      border-radius: 50%;
+      border: 5px solid var(--accent);
+      border-radius: 40%;
       position: absolute;
       top: 50%;
       left: 0%;
@@ -233,13 +237,23 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-main);
       padding: 10px 20px;
-      border-radius: 8px;
+      height: 80px;
+      aspect-ratio: 1/1;
+      border-radius: 10px;
       cursor: pointer;
-      font-weight: 500;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: all 0.2s;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      font-size: 50px;
     }
     .btn-control:hover {
       background-color: var(--bg-card);
@@ -290,13 +304,6 @@
       text-align: center;
       flex: 1.2;
     }
-
-    #playerSVG text, 
-    #playerSVG foreignObject,
-    #playerSVG d jx-container {
-      text-anchor: middle !important;
-      dominant-baseline: central !important;
-    }
   </style>
 </head>
 <body>
@@ -340,8 +347,8 @@
         </div>
         
         <div class="button-group-row">
-          <button class="btn-control" id="stopBtn">⏹️ Stop</button>
-          <button class="btn-control" id="togglePlayBtn">▶️ Play</button>
+          <button class="btn-control" id="togglePlayBtn">&#9654;</button>
+          <button class="btn-control" id="stopBtn">&#8617; </button>
         </div>
       </div>
     </div>
@@ -446,7 +453,7 @@
       animationDuration = 0;
       isPlaying = false;
       isScrubbing = false;
-      togglePlayBtn.innerHTML = "▶️ Play";
+      togglePlayBtn.innerHTML = "&#9654;";
       const mainGroup = document.getElementById("mainSVGGroup");
         if (mainGroup) {
           mainGroup.innerHTML = ""; 
@@ -591,14 +598,14 @@
       if (animations.length === 0) bakeAnimations();
       animations.forEach(anim => anim.play());
       isPlaying = true;
-      togglePlayBtn.innerHTML = "⏸️ Pause";
+      togglePlayBtn.innerHTML = "&#10073;&#10073;";
       requestAnimationFrame(syncUI);
     }
 
     function pauseAnimation() {
       animations.forEach(anim => anim.pause());
       isPlaying = false;
-      togglePlayBtn.innerHTML = "▶️ Play";
+      togglePlayBtn.innerHTML = "&#9654;";
     }
 
     function rewindAnimation() {
@@ -607,7 +614,7 @@
         anim.currentTime = 0;
       });
       isPlaying = false;
-      togglePlayBtn.innerHTML = "▶️ Play";
+      togglePlayBtn.innerHTML = "&#9654;";
       updateProgressBarUI(0);
     }
 
@@ -640,7 +647,7 @@
           requestAnimationFrame(syncUI);
         } else {
           isPlaying = false;
-          togglePlayBtn.innerHTML = "▶️ Play";
+          togglePlayBtn.innerHTML = "&#9654;";
         }
       }
     }
