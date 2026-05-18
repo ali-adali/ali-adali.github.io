@@ -501,9 +501,19 @@
       render();
       
       // Optional: Trigger MathJax typeset parsing post-render for expressions
-      if (window.MathJax && MathJax.typeset) {
-        MathJax.typeset();
-      }
+      //if (window.MathJax && MathJax.typeset) {MathJax.typeset();}
+      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
+            MathJax.typesetPromise([obj.SVGElement]) // Tell it exactly which element to format
+              .catch((err) => console.log('MathJax formatting error:', err));
+        } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
+            try {
+                MathJax.typeset();
+            } catch(err) {
+                console.log('MathJax fallback typeset failed:', err);
+            }
+        } else {
+            console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
+        }
 
       bakeAnimations();
     }
@@ -1143,7 +1153,19 @@
       spanElement.style.textAlign = 'left';
       spanElement.innerHTML = text;
       SVGElement.appendChild(spanElement);
-      MathJax.typesetPromise();
+      //MathJax.typesetPromise();
+      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
+            MathJax.typesetPromise([obj.SVGElement]) // Tell it exactly which element to format
+              .catch((err) => console.log('MathJax formatting error:', err));
+        } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
+            try {
+                MathJax.typeset();
+            } catch(err) {
+                console.log('MathJax fallback typeset failed:', err);
+            }
+        } else {
+            console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
+        }
      
       
 
@@ -3835,6 +3857,19 @@
     {
       let obj = aliveObjects[i];
       document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
+    }
+
+    if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
+        MathJax.typesetPromise([obj.SVGElement]) // Tell it exactly which element to format
+          .catch((err) => console.log('MathJax formatting error:', err));
+    } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
+        try {
+            MathJax.typeset();
+        } catch(err) {
+            console.log('MathJax fallback typeset failed:', err);
+        }
+    } else {
+        console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
     }
 
   
