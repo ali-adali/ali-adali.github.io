@@ -594,6 +594,8 @@
       });
     }
 
+    let wakeLock = null;
+
     function playAnimation() {
       requestWakeLock();
       if (animations.length === 0) bakeAnimations();
