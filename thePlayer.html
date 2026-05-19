@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geometry Theorems Player</title>
+  <title>Geometry Theorems & Proofs </title>
   <style>
     :root {
       --bg-main: #0f172a;        /* Deep midnight */
@@ -307,6 +307,14 @@
       text-align: center;
       flex: 1.2;
     }
+
+    .app-container:fullscreen
+    {
+      background-color: var(--bg-main); /* Ensure the dark backdrop remains solid */
+      padding: 10px;                   /* Prevents elements from hugging device bezels */
+      width: 100vw;
+      height: 100vh;
+    }
   </style>
 </head>
 <body>
@@ -352,6 +360,12 @@
         <div class="button-group-row">
           <button class="btn-control" id="togglePlayBtn">&#9654;</button>
           <button class="btn-control" id="stopBtn">&#8617; </button>
+          <button class="btn-control" id="fullscreenBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+            </svg>
+            Full Screen
+          </button>
         </div>
       </div>
     </div>
@@ -779,6 +793,56 @@
         await requestWakeLock();
       }
     });
+
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const appContainer = document.querySelector('.app-container');
+    
+    fullscreenBtn.onclick = function() {
+      // Check if anything on the page is currently full screen
+      if (!document.fullscreenElement) {
+        // Request fullscreen on the entire layout wrapper
+        appContainer.requestFullscreen()
+          .then(() => {
+            updateFullscreenButtonUI(true);
+          })
+          .catch((err) => {
+            console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+          });
+      } else {
+        // If already full screen, exit cleanly
+        document.exitFullscreen();
+        updateFullscreenButtonUI(false);
+      }
+    };
+    
+    // Listen for system-level escape keys or swipe-to-exits to keep the button label accurate
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        updateFullscreenButtonUI(true);
+      } else {
+        updateFullscreenButtonUI(false);
+      }
+    });
+    
+    function updateFullscreenButtonUI(isFullScreen) {
+      if (isFullScreen) {
+        // Switch icon to "Minimize/Exit Full Screen" brackets
+        fullscreenBtn.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+            <path d="M4 14h6v6m10-6h-6v6M4 10h6V4m10 6h-6V4"/>
+          </svg>
+          Exit Full Screen
+        `;
+      } else {
+        // Switch icon back to regular "Maximize" expand brackets
+        fullscreenBtn.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+          </svg>
+          Full Screen
+        `;
+      }
+    }
     
 
     // Bootstrapping initialization launch
