@@ -492,7 +492,8 @@
         }
 
         // Isolate pure rendering data properties
-        const { SVGElement, spanElement, rowElement, divElement, checkbox, textInput, xInput, yInput, rInput, fontSizeInput, opacityInput, scaleInput, textColorSelect, ...cleanData } = objData;
+        const { SVGElement, spanElement, ...cleanData } = objData;
+        //const { SVGElement, spanElement, rowElement, divElement, checkbox, textInput, xInput, yInput, rInput, fontSizeInput, opacityInput, scaleInput, textColorSelect, ...cleanData } = objData;
         Object.assign(newObj, cleanData);
         
         // In the player, shapes directly append themselves to playerSVG during their class constructors
@@ -524,19 +525,27 @@
       bakeAnimations();
 
       if (window.MathJax && MathJax.typesetPromise) {
-        // Hide the main group text elements for a clean transition if desired,
-        // or rely on MathJax's internal promise to quickly update the DOM container.
-        MathJax.typesetPromise([playerSVG])
-          .then(() => {
-             console.log("Theorem typesetting complete.");
-             // This ensures your animations and text alignment boxes sync perfectly
-             // up with the freshly minted MathJax SVG containers!
-             if(animations.length > 0) {
-               // Quickly force a layout sync frame recalculation if needed
-               animations.forEach(anim => anim.pause());
-             }
-          })
-          .catch((err) => console.log("MathJax typesetting promise rejected:", err));
+          MathJax.typesetPromise([playerSVG])
+            .then(() => {
+               console.log("Theorem typesetting complete. Revealing text elements.");
+               
+               // Find all text elements we hid and make them visible
+               const allTexts = playerSVG.querySelectorAll('text');
+               allTexts.forEach(txt => {
+                 txt.style.visibility = "visible";
+               });
+      
+               // Make sure animations sync up correctly
+               if(animations.length > 0) {
+                 animations.forEach(anim => anim.pause());
+               }
+            })
+            .catch((err) => console.log("MathJax typesetting promise rejected:", err));
+        } else {
+           // Fallback if MathJax isn't present
+           const allTexts = playerSVG.querySelectorAll('text');
+           allTexts.forEach(txt => txt.style.visibility = "visible");
+        }
       }
     }
 
@@ -831,9 +840,12 @@
       SVGElement.style.transformOrigin = "center";
       SVGElement.style.transformBox = "fill-box";
       SVGElement.style.pointerEvents = 'none';
+      
 
       this.SVGElement = SVGElement;
       this.index = objectIndex;
+
+      this.SVGElement.style.visibility = "hidden";
 
       this.cx = cx;
       this.cy = cy;
