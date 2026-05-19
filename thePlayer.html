@@ -458,7 +458,7 @@
       isScrubbing = false;
       togglePlayBtn.innerHTML = "&#9654;";
       const mainGroup = document.getElementById("mainSVGGroup");
-      mainGroup.style.visibility = "hidden";
+     
         if (mainGroup) {
           mainGroup.innerHTML = ""; 
         }
@@ -784,6 +784,7 @@
     // Bootstrapping initialization launch
   function launchPlayer()
   {
+    document.getElementById("mainSVGGroup").style.visibility = "hidden" ;
     initUI();
     loadTheorem(0); // Safely runs now that all styles and fonts are loaded
     setTimeout(() => { document.getElementById("mainSVGGroup").style.visibility = "visible" ;}, 100);
