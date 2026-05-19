@@ -519,20 +519,25 @@
       
       // Optional: Trigger MathJax typeset parsing post-render for expressions
       //if (window.MathJax && MathJax.typeset) {MathJax.typeset();}
-      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-            MathJax.typesetPromise() // Tell it exactly which element to format
-              .catch((err) => console.log('MathJax formatting error:', err));
-        } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
-            try {
-                MathJax.typeset();
-            } catch(err) {
-                console.log('MathJax fallback typeset failed:', err);
-            }
-        } else {
-            console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
-        }
+    
 
       bakeAnimations();
+
+      if (window.MathJax && MathJax.typesetPromise) {
+        // Hide the main group text elements for a clean transition if desired,
+        // or rely on MathJax's internal promise to quickly update the DOM container.
+        MathJax.typesetPromise([playerSVG])
+          .then(() => {
+             console.log("Theorem typesetting complete.");
+             // This ensures your animations and text alignment boxes sync perfectly
+             // up with the freshly minted MathJax SVG containers!
+             if(animations.length > 0) {
+               // Quickly force a layout sync frame recalculation if needed
+               animations.forEach(anim => anim.pause());
+             }
+          })
+          .catch((err) => console.log("MathJax typesetting promise rejected:", err));
+      }
     }
 
     // --- 5. Unified Animation & Playback Console Controls ---
@@ -764,10 +769,26 @@
     
 
     // Bootstrapping initialization launch
+  function launchPlayer()
+  {
     initUI();
-    loadTheorem(0); // Auto-loads the first item in your dashboard list on load
+    loadTheorem(0); // Safely runs now that all styles and fonts are loaded
+  }
 
-     class basePoint
+// Check if MathJax is already completely initialized
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
+    MathJax.startup.promise.then(() => {
+      console.log("MathJax is fully booted. Launching geometry engine safely.");
+      launchPlayer();
+    });
+  } else {
+    // Fallback: If MathJax script fails or isn't used, launch anyway after DOM settles
+    window.addEventListener('DOMContentLoaded', launchPlayer);
+  }
+
+  
+
+  class basePoint
   {
     constructor(objectIndex, cx, cy )
     {
