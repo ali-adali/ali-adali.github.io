@@ -458,6 +458,7 @@
       isScrubbing = false;
       togglePlayBtn.innerHTML = "&#9654;";
       const mainGroup = document.getElementById("mainSVGGroup");
+      mainGroup.style.visibility = "hidden";
         if (mainGroup) {
           mainGroup.innerHTML = ""; 
         }
@@ -784,8 +785,8 @@
   function launchPlayer()
   {
     initUI();
-    //loadTheorem(0); // Safely runs now that all styles and fonts are loaded
-    setTimeout(() => {loadTheorem(0);}, 100);
+    loadTheorem(0); // Safely runs now that all styles and fonts are loaded
+    setTimeout(() => { mainGroup.style.visibility = "visible" ;}, 100);
   }
 
 // Check if MathJax is already completely initialized
