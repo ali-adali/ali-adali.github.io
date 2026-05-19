@@ -786,7 +786,7 @@
   {
     initUI();
     loadTheorem(0); // Safely runs now that all styles and fonts are loaded
-    setTimeout(() => { mainGroup.style.visibility = "visible" ;}, 100);
+    setTimeout(() => { document.getElementById("mainSVGGroup").style.visibility = "visible" ;}, 100);
   }
 
 // Check if MathJax is already completely initialized
