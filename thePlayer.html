@@ -920,6 +920,7 @@
       spanElement0.style.height='auto';
       spanElement0.style.width='auto';
       document.body.appendChild(spanElement0);
+      /*
       if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
             MathJax.typesetPromise([spanElement0]) // Tell it exactly which element to format
               .catch((err) => console.log('MathJax formatting error:', err));
@@ -932,6 +933,7 @@
         } else {
             console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
         }
+        */
       
       
       const rect = spanElement0.getBoundingClientRect();
@@ -950,6 +952,7 @@
       spanElement.innerHTML = text;
       SVGElement.appendChild(spanElement);
       //MathJax.typesetPromise();
+      /*
       if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
             MathJax.typesetPromise([spanElement]) // Tell it exactly which element to format
               .catch((err) => console.log('MathJax formatting error:', err));
@@ -962,6 +965,7 @@
         } else {
             console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
         }
+        */
      
       
 
@@ -1588,11 +1592,7 @@
       document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
     }
 
-    if (window.MathJax) {
-        MathJax.typesetPromise();
-    }
-
-    /*
+   
 
     if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
         MathJax.typesetPromise() // Tell it exactly which element to format
@@ -1606,7 +1606,7 @@
     } else {
         console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
     }
-    */
+ 
 
   
 
