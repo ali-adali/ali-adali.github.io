@@ -524,6 +524,8 @@
 
       bakeAnimations();
 
+      /*
+
       if (window.MathJax && MathJax.typesetPromise) {
           MathJax.typesetPromise([playerSVG])
             .then(() => {
@@ -546,6 +548,7 @@
            const allTexts = playerSVG.querySelectorAll('text');
            allTexts.forEach(txt => txt.style.visibility = "visible");
         }
+        */
       
     }
 
@@ -781,7 +784,8 @@
   function launchPlayer()
   {
     initUI();
-    loadTheorem(0); // Safely runs now that all styles and fonts are loaded
+    //loadTheorem(0); // Safely runs now that all styles and fonts are loaded
+    setTimeout(() => {loadTheorem(0);}, 50);
   }
 
 // Check if MathJax is already completely initialized
@@ -1584,6 +1588,12 @@
       document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
     }
 
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+
+    /*
+
     if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
         MathJax.typesetPromise() // Tell it exactly which element to format
           .catch((err) => console.log('MathJax formatting error:', err));
@@ -1596,6 +1606,7 @@
     } else {
         console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
     }
+    */
 
   
 
