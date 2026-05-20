@@ -1577,7 +1577,8 @@
       let Px= Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
       let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
 
-      pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+      //pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+      pth=`M ${parseFloat(B.cx)} ${parseFloat(B.cy)} L ${parseFloat(Bs.cx)} ${parseFloat(Bs.cy)} L ${parseFloat(Px)} ${parseFloat(Py)} L ${parseFloat(Be.cx)} ${parseFloat(Be.cy)} Z`
     }
     //
 
