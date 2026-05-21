@@ -568,7 +568,7 @@
 
     // --- 5. Unified Animation & Playback Console Controls ---
     function bakeAnimations() {
-      //hideAllBasePoints();
+      hideAllBasePoints();
       
       animations.forEach(anim => anim.cancel());
       animations = [];
@@ -758,9 +758,11 @@
 
     // --- 7. Geometry Engine Fallback Stubs ---
     // Safely maps structure dependencies if base points toggle configurations are not loaded
+    /*
     if (typeof hideAllBasePoints !== 'function') {
       function hideAllBasePoints() { console.log("Hiding operational reference anchors."); }
     }
+    */
 
     async function requestWakeLock() {
       // Only try if the browser natively supports the Wake Lock API (Safari iOS 14+, Chrome Android)
