@@ -544,105 +544,86 @@
 
       bakeAnimations();
 
-      /*
-
-      if (window.MathJax && MathJax.typesetPromise) {
-          MathJax.typesetPromise([playerSVG])
-            .then(() => {
-               console.log("Theorem typesetting complete. Revealing text elements.");
-               
-               // Find all text elements we hid and make them visible
-               const allTexts = playerSVG.querySelectorAll('text');
-               allTexts.forEach(txt => {
-                 txt.style.visibility = "visible";
-               });
-      
-               // Make sure animations sync up correctly
-               if(animations.length > 0) {
-                 animations.forEach(anim => anim.pause());
-               }
-            })
-            .catch((err) => console.log("MathJax typesetting promise rejected:", err));
-        } else {
-           // Fallback if MathJax isn't present
-           const allTexts = playerSVG.querySelectorAll('text');
-           allTexts.forEach(txt => txt.style.visibility = "visible");
-        }
-        */
+      globalCurrentTime = 0;
+      renderStateAtTime(0);
+      updateProgressBarUI(0);
       
     }
 
     // --- 5. Unified Animation & Playback Console Controls ---
    // Global state matrices to track absolute values
-let masterTimelineMatrix = []; 
+let masterTimelineMatrix = [];
 
 function bakeAnimations() {
   hideAllBasePoints();
-  animations = []; // Clear WAAPI references
-  masterTimelineMatrix = []; // Reset our frame-by-frame snapshot engine
+  animations = []; 
+  masterTimelineMatrix = []; 
 
   if (globalPlaylist.length === 0) return;
 
-  // 1. Calculate clean absolute duration integers
-  let endPause = 0.5;
-  let totalSeconds = 0;
-  globalPlaylist.forEach(step => {
-      totalSeconds += (parseFloat(step.wait) + parseFloat(step.dur));
-  });
-  totalSeconds += endPause;
-  animationDuration = Math.round(totalSeconds * 1000);
-
-  // 2. Build the structural timeline frame milestones for every object
-  // Instead of passing this to WAAPI, we keep the frame arrays stored natively
+  // Initialize every object's timeline frame array with its frame-0 milestone
   objects.forEach(obj => {
-      if (!obj) return;
-      
-      let objSteps = globalPlaylist.filter(step => step.element === obj);
-      let timeline = [];
-      let cumulativeTime = 0;
+    if (!obj) return;
+    obj.timelineFrames = [{
+      time: 0,
+      state: { ...obj.initialState }
+    }];
+  });
 
-      // Base starting layer state (Frame zero milestone)
-      // Extract every property you wish to track (cx, cy, opacity, transform, x, y, etc.)
-      timeline.push({
-          time: 0,
-          state: { ...obj.initialState }
-      });
+  // FIX #3: Track a sequential running clock instead of re-starting at 0 for every object
+  let globalSequenceTime = 0;
 
-      objSteps.forEach(step => {
-          // Wait milestone segment block
-          cumulativeTime += (parseFloat(step.wait) * 1000);
-          timeline.push({
-              time: cumulativeTime,
-              state: { ...timeline[timeline.length - 1].state }
-          });
+  globalPlaylist.forEach(step => {
+    const obj = step.element;
+    
+    // 1. Calculate step milestones relative to the sequential global running clock
+    let stepStartTime = globalSequenceTime + (parseFloat(step.wait) * 1000);
+    let stepEndTime = stepStartTime + (parseFloat(step.dur) * 1000);
 
-          // Action milestone duration block
-          cumulativeTime += (parseFloat(step.dur) * 1000);
-          
-          // Merge step changes over prior positions securely
-          let mergedState = { ...timeline[timeline.length - 1].state, ...step.state };
-          timeline.push({
-              time: cumulativeTime,
-              state: mergedState
-          });
-      });
+    // 2. Advance the master clock sequence forward
+    globalSequenceTime = stepEndTime;
 
-      // Ensure timeline stretches gracefully to match full presentation runtime bounds
-      if (cumulativeTime < animationDuration) {
-          timeline.push({
-              time: animationDuration,
-              state: { ...timeline[timeline.length - 1].state }
-          });
-      }
+    // 3. Update the specific target object's timeline structure
+    let frames = obj.timelineFrames;
+    let lastKnownState = frames[frames.length - 1].state;
 
-      // Map this structure reference back onto the target item instance property cache
-      obj.timelineFrames = timeline;
+    // Create a holding state milestone at the start of this action block
+    frames.push({
+      time: stepStartTime,
+      state: { ...lastKnownState }
     });
-  
-    console.log(`State-driven engine compiled successfully. Duration: ${animationDuration}ms`);
-  }
 
-    function renderStateAtTime(ms) {
+    // Merge new active properties safely over preceding frame variables
+    let mergedState = { ...lastKnownState, ...step.state };
+    frames.push({
+      time: stepEndTime,
+      state: mergedState
+    });
+  });
+
+  // Pad the final duration limits
+  let endPause = 500; // 0.5s operational padding
+  animationDuration = Math.round(globalSequenceTime + endPause);
+
+  // Pad out every individual object track to stretch cleanly to the terminal timeline edge
+  objects.forEach(obj => {
+    if (!obj) return;
+    let frames = obj.timelineFrames;
+    let lastState = frames[frames.length - 1].state;
+    if (frames[frames.length - 1].time < animationDuration) {
+      frames.push({
+        time: animationDuration,
+        state: { ...lastState }
+      });
+    }
+  });
+
+  console.log(`State-driven engine compiled successfully. Duration: ${animationDuration}ms`);
+}
+
+
+    
+function renderStateAtTime(ms) {
   // 1. Clamp time within execution bounds safely
   ms = Math.max(0, Math.min(animationDuration, ms));
 
