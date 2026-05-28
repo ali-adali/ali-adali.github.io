@@ -670,7 +670,7 @@ function renderStateAtTime(ms) {
   if (key === 'scale' && obj.type === 'ptc') {
     // Convert loose scale property updates into supported SVG element transform properties
     obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
-    obj.SVGElement.style.transformOrigin = `${parseNum(prev.state.cx || objData.cx)}px ${parseNum(prev.state.cy || objData.cy)}px`;
+    //obj.SVGElement.style.transformOrigin = `${parseNum(prev.state.cx || objData.cx)}px ${parseNum(prev.state.cy || objData.cy)}px`;
   } else if (key === 'cx' || key === 'cy' || key === 'r') {
     // Write pure unitless numbers directly onto core circle parameters
     obj.SVGElement.setAttribute(key, interpolatedNum);
