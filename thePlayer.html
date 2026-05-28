@@ -665,6 +665,20 @@ function renderStateAtTime(ms) {
       if (v2 === undefined) v2 = v1;
       if (v1 === undefined) return;
 
+      if (key === 'width' && (obj.type === 'txt' || obj.SVGElement.tagName === 'g')) {
+        // SAFARI FIX: Instead of writing a non-spec width attribute directly onto an SVG group (<g>),
+        // we apply a standard CSS clip-path rectangle to create the exact left-to-right appearing wipe effect.
+        
+        let currentHeight = prev.state.height || obj.height || "100px";
+        let hNum = parseNum(currentHeight);
+        
+        // Create a clip rectangle tracking from 0px to the animated interpolated width value
+        obj.SVGElement.style.clipPath = `inset(0px ${Math.max(0, parseNum(v2) - interpolatedNum).toFixed(2)}px 0px 0px)`;
+        
+        // Keep your fallback attribute update for browsers like Firefox that tolerate it
+        obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
+      }                  
+
       // --- Category 1: String Constants & Color Swaps ---
       if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'color') {
         let activeValue = t < 0.5 ? v1 : v2;
