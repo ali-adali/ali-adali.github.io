@@ -660,6 +660,28 @@ function renderStateAtTime(ms) {
     let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
 
     allKeys.forEach(key => {
+  let v1 = prev.state[key];
+  let v2 = next.state[key];
+  
+  let n1 = parseNum(v1);
+  let n2 = parseNum(v2);
+  let interpolatedNum = n1 + (n2 - n1) * t;
+
+  if (key === 'scale' && objData.type === 'ptc') {
+    // Convert loose scale property updates into supported SVG element transform properties
+    obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
+    obj.SVGElement.style.transformOrigin = `${parseNum(prev.state.cx || objData.cx)}px ${parseNum(prev.state.cy || objData.cy)}px`;
+  } else if (key === 'cx' || key === 'cy' || key === 'r') {
+    // Write pure unitless numbers directly onto core circle parameters
+    obj.SVGElement.setAttribute(key, interpolatedNum);
+  } else {
+    // Standard property handling code...
+    let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+    obj.SVGElement.setAttribute(svgAttributeName, interpolatedNum);
+  }
+});
+
+    allKeys.forEach(key => {
       let v1 = prev.state[key];
       let v2 = next.state[key];
 
@@ -1018,6 +1040,13 @@ function rewindAnimation() {
     // Fallback: If MathJax script fails or isn't used, launch anyway after DOM settles
     window.addEventListener('DOMContentLoaded', launchPlayer);
   }
+
+function parseNum(val) {
+  if (typeof val === 'string') {
+    return parseFloat(val.replace(/px/g, '')) || 0;
+  }
+  return parseFloat(val) || 0;
+}
 
   
 
