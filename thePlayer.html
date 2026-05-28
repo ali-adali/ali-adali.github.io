@@ -448,18 +448,28 @@
       currentActiveIndex = index;
       initUI();
       resetPlayerState();
-
+    
       const fileName = theoremPlaylist[index].file;
       console.log(`Loading theorem data via fetch: ${fileName}`);
-
-      // Fetch the JSON dynamically over HTTP/HTTPS instead of a local FileReader
+    
       fetch(fileName)
         .then(response => {
           if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
           return response.json();
         })
         .then(data => {
-          parseProjectData(data);
+          // Wait until the elements are drawn AND completely typeset by MathJax
+          return parseProjectData(data);
+        })
+        .then(() => {
+          console.log("MathJax typesetting locked. Safe to bake animation properties.");
+          
+          // Now it's safe to bake and clamp to time zero
+          bakeAnimations();
+    
+          globalCurrentTime = 0;
+          renderStateAtTime(0);
+          updateProgressBarUI(0);
         })
         .catch(error => {
           console.error("Failed to load geometry data file:", error);
@@ -540,13 +550,12 @@
       
       // Optional: Trigger MathJax typeset parsing post-render for expressions
       //if (window.MathJax && MathJax.typeset) {MathJax.typeset();}
-    
-
-      bakeAnimations();
-
-      globalCurrentTime = 0;
-      renderStateAtTime(0);
-      updateProgressBarUI(0);
+      // Return a promise that resolves only when MathJax has completely finished typesetting the newly injected nodes
+      if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+        return MathJax.typesetPromise();
+      } else {
+        return Promise.resolve();
+      }
       
     }
 
@@ -740,10 +749,13 @@ function renderStateAtTime(ms) {
         let hNum = parseNum(currentHeight);
         
         // Create a clip rectangle tracking from 0px to the animated interpolated width value
-        obj.SVGElement.style.clipPath = `inset(0px ${Math.max(0, parseNum(v2) - interpolatedNum).toFixed(2)}px 0px 0px)`;
+        let maxW = parseNum(v2);
+        let maskOffset = Math.max(0, maxW - interpolatedNum).toFixed(2);
         
+        obj.SVGElement.style.clipPath = `inset(0px ${maskOffset}px 0px 0px)`;
         // Keep your fallback attribute update for browsers like Firefox that tolerate it
         obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
+        return;
       } 
 
       // Custom Point Point-Pop (ptc type) scaling center locking
