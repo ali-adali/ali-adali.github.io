@@ -740,21 +740,25 @@ function renderStateAtTime(ms) {
       let n1 = parseNum(v1);
       let n2 = parseNum(v2);
       let interpolatedNum = n1 + (n2 - n1) * t;
-
-      if (key === 'width' && (obj.type === 'txt' || obj.SVGElement.tagName === 'g')) {
-        // SAFARI FIX: Instead of writing a non-spec width attribute directly onto an SVG group (<g>),
-        // we apply a standard CSS clip-path rectangle to create the exact left-to-right appearing wipe effect.
+      
+      if (key === 'width' && (obj.type === 'txt' || obj.SVGElement.tagName === 'foreignObject' || obj.SVGElement.tagName === 'g')) {
+        // 1. Fetch the absolute total text width from your JSON base configurations
+        let maxW = parseNum(obj.width || v2);
         
-        let currentHeight = prev.state.height || obj.height || "100px";
-        let hNum = parseNum(currentHeight);
+        // 2. Ensure the underlying SVG element wrapper keeps its full structural bounds 
+        // so the clip-path coordinates are evaluated against a stable layout context.
+        obj.SVGElement.setAttribute('width', maxW);
         
-        // Create a clip rectangle tracking from 0px to the animated interpolated width value
-        let maxW = parseNum(v2);
-        let maskOffset = Math.max(0, maxW - interpolatedNum).toFixed(2);
+        // 3. Compute how much width to reveal from the left side.
+        // The right mask inset = total box width MINUS current layout width
+        let rightInset = Math.max(0, maxW - interpolatedNum);
         
-        obj.SVGElement.style.clipPath = `inset(0px ${maskOffset}px 0px 0px)`;
-        // Keep your fallback attribute update for browsers like Firefox that tolerate it
-        obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
+        // 4. Apply the precise inset mask string cleanly across all rendering engines
+        let clipPathString = `inset(0px ${rightInset.toFixed(2)}px 0px 0px)`;
+        
+        obj.SVGElement.style.clipPath = clipPathString;
+        obj.SVGElement.setAttribute('clip-path', clipPathString);
+        
         return;
       } 
 
