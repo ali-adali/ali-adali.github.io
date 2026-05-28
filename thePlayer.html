@@ -667,7 +667,7 @@ function renderStateAtTime(ms) {
   let n2 = parseNum(v2);
   let interpolatedNum = n1 + (n2 - n1) * t;
 
-  if (key === 'scale' && objData.type === 'ptc') {
+  if (key === 'scale' && obj.type === 'ptc') {
     // Convert loose scale property updates into supported SVG element transform properties
     obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
     obj.SVGElement.style.transformOrigin = `${parseNum(prev.state.cx || objData.cx)}px ${parseNum(prev.state.cy || objData.cy)}px`;
