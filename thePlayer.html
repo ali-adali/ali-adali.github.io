@@ -777,14 +777,7 @@ function bakeAnimations() {
 
     let wakeLock = null;
 
-    function playAnimation() {
-      requestWakeLock();
-      if (animations.length === 0) bakeAnimations();
-      animations.forEach(anim => anim.play());
-      isPlaying = true;
-      togglePlayBtn.innerHTML = "&#10073;&#10073;";
-      requestAnimationFrame(syncUI);
-    }
+    
 
       let globalCurrentTime = 0;
 let lastTickTime = 0;
@@ -794,6 +787,7 @@ function playAnimation() {
   if (!masterTimelineMatrix.length) bakeAnimations();
 
   isPlaying = true;
+  togglePlayBtn.innerHTML = "&#10073;&#10073;";
   lastTickTime = performance.now();
   requestAnimationFrame(playbackLoop);
 }
