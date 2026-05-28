@@ -1009,14 +1009,37 @@ if (fullscreenBtn && appContainer) {
 
 // Check if MathJax is already completely initialized
   if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
-    MathJax.startup.promise.then(() => {
-      console.log("MathJax is fully booted. Launching geometry engine safely.");
-      launchPlayer();
-    });
-  } else {
-    // Fallback: If MathJax script fails or isn't used, launch anyway after DOM settles
-    window.addEventListener('DOMContentLoaded', launchPlayer);
-  }
+  MathJax.startup.promise.then(() => {
+    console.log("MathJax is fully booted. Launching geometry engine configuration.");
+    
+    // 1. Core structural setup (parses objects, attaches nodes to DOM, runs initial render())
+    launchPlayer(); 
+
+    // 2. SAFARI HOOK: Wait for MathJax to finish formatting the newly appended DOM nodes
+    return MathJax.typesetPromise();
+  }).then(() => {
+    console.log("MathJax initial compilation complete. Securing frame layouts for Safari.");
+    
+    // 3. Bake your core animation matrices now that all bounding heights and scales are locked in
+    bakeAnimations();
+    
+    // 4. Set the initial state cleanly at time 0
+    globalCurrentTime = 0;
+    renderStateAtTime(0);
+    updateProgressBarUI(0);
+  }).catch((err) => {
+    console.error("Initialization loop exception:", err);
+  });
+} else {
+  // Fallback: If MathJax script fails or isn't used, launch anyway after DOM settles
+  window.addEventListener('DOMContentLoaded', () => {
+    launchPlayer();
+    bakeAnimations();
+    globalCurrentTime = 0;
+    renderStateAtTime(0);
+    updateProgressBarUI(0);
+  });
+}
 
 function parseNum(val) {
   if (typeof val === 'string') {
@@ -1810,7 +1833,7 @@ function parseNum(val) {
 
 
 
-      function render()
+  function render()
   {
   
     for(let i=0;i<aliveObjects.length;i++)
