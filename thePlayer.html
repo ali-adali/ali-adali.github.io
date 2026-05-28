@@ -643,82 +643,136 @@ function bakeAnimations() {
   }
 
     function renderStateAtTime(ms) {
-  // Enforce boundary clamping limits safely
+  // 1. Clamp time within execution bounds safely
   ms = Math.max(0, Math.min(animationDuration, ms));
 
   objects.forEach(obj => {
-      if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
+    if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
 
-      // Find bounded timeline frames for this specific item block
-      let frames = obj.timelineFrames;
-      let prev = frames[0];
-      let next = frames[frames.length - 1];
+    let frames = obj.timelineFrames;
+    let prev = frames[0];
+    let next = frames[frames.length - 1];
 
-      for (let i = 0; i < frames.length - 1; i++) {
-          if (ms >= frames[i].time && ms <= frames[i + 1].time) {
-              prev = frames[i];
-              next = frames[i + 1];
-              break;
-          }
+    // Find the current keyframe interval block
+    for (let i = 0; i < frames.length - 1; i++) {
+      if (ms >= frames[i].time && ms <= frames[i + 1].time) {
+        prev = frames[i];
+        next = frames[i + 1];
+        break;
       }
-
-      // Calculate localized ratio completion value
-      let t = 0;
-      let delta = next.time - prev.time;
-      if (delta > 0) t = (ms - prev.time) / delta;
-
-      // --- APPLY PROPERTIES EXPLICITLY PER COMPONENT TYPE ---
-      
-      // 1. Handle Opacity globally for all elements smoothly
-      if (prev.state.opacity !== undefined && next.state.opacity !== undefined) {
-          let op1 = parseFloat(prev.state.opacity);
-          let op2 = parseFloat(next.state.opacity);
-          obj.SVGElement.style.opacity = op1 + (op2 - op1) * t;
-      }
-
-      // 2. Handle standard point/circle geometry (cx, cy, r)
-      if (obj.type === 'pt' || obj.type === 'ptc' || obj.type === 'cr' || obj.type === 'elp') {
-          ['cx', 'cy', 'rx', 'ry', 'r'].forEach(attr => {
-              if (prev.state[attr] !== undefined && next.state[attr] !== undefined) {
-                  let v1 = parseFloat(prev.state[attr]);
-                  let v2 = parseFloat(next.state[attr]);
-                  obj.SVGElement.setAttribute(attr, v1 + (v2 - v1) * t);
-              }
-          });
-      }
-
-      // 3. Handle Text coordinates (x, y) and compound scale transforms safely
-      if (obj.type === 'txt') {
-          let x1 = parseFloat(prev.state.x || 0);
-          let x2 = parseFloat(next.state.x || 0);
-          let y1 = parseFloat(prev.state.y || 0);
-          let y2 = parseFloat(next.state.y || 0);
-          
-          let curX = x1 + (x2 - x1) * t;
-          let curY = y1 + (y2 - y1) * t;
-
-          obj.SVGElement.setAttribute("x", curX);
-          obj.SVGElement.setAttribute("y", curY);
-          
-          // If scale properties exist, bundle them cleanly for Safari translation compliance
-          if (prev.state.scale !== undefined && next.state.scale !== undefined) {
-              let s1 = parseFloat(prev.state.scale || 1);
-              let s2 = parseFloat(next.state.scale || 1);
-              let curScale = s1 + (s2 - s1) * t;
-              obj.SVGElement.setAttribute("transform", `translate(${curX}, ${curY}) scale(${curScale}) translate(${-curX}, ${-curY})`);
-          }
-      }
-
-      // 4. Handle Line / Path properties (x1, y1, x2, y2, strokeDashoffset)
-      ['x1', 'y1', 'x2', 'y2', 'strokeDashoffset'].forEach(attr => {
-          if (prev.state[attr] !== undefined && next.state[attr] !== undefined) {
-              let v1 = parseFloat(prev.state[attr]);
-              let v2 = parseFloat(next.state[attr]);
-              obj.SVGElement.setAttribute(attr, v1 + (v2 - v1) * t);
-          }
-      });
-  });
     }
+
+    // Calculate progression percentage (t) between these two specific frames
+    let t = 0;
+    let delta = next.time - prev.time;
+    if (delta > 0) t = (ms - prev.time) / delta;
+
+    // Helper utility to safely parse values that might have "px" or other text attached
+    const parseNum = (val) => {
+      if (val === undefined || val === null) return 0;
+      let numeric = parseFloat(val);
+      return isNaN(numeric) ? 0 : numeric;
+    };
+
+    // --- LOOP THROUGH ALL EXPECTED STATE KEYS DYNAMICALLY ---
+    // This aggregates every single target layout state property present in both frames
+    let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
+
+    allKeys.forEach(key => {
+      let v1 = prev.state[key];
+      let v2 = next.state[key];
+
+      // If a property doesn't exist on one side, fallback to the other
+      if (v1 === undefined) v1 = v2;
+      if (v2 === undefined) v2 = v1;
+      if (v1 === undefined) return; // Skip if missing entirely
+
+      // Case A: Pure String matching or Color/Fill swaps (Cannot be interpolated mathematically)
+      if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin') {
+        let activeValue = t < 0.5 ? v1 : v2;
+        obj.SVGElement.setAttribute(key, activeValue);
+        return;
+      }
+
+      // Case B: Transform Strings (e.g., "translate(10px,20px) rotate(0deg) scale(1)")
+      if (key === 'transform') {
+        // Parse individual component elements out of the transform tracking blocks
+        let getTransformValues = (str) => {
+          let tx = 0, ty = 0, rot = 0, scl = 1;
+          if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
+          
+          let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
+          let rMatch = str.match(/rotate\(([^)]+)\)/);
+          let sMatch = str.match(/scale\(([^)]+)\)/);
+
+          if (tMatch) { tx = parseFloat(tMatch[1]); ty = parseFloat(tMatch[2]); }
+          if (rMatch) { rot = parseFloat(rMatch[1]); }
+          if (sMatch) { scl = parseFloat(sMatch[1]); }
+          return { tx, ty, rot, scl };
+        };
+
+        let p1 = getTransformValues(v1);
+        let p2 = getTransformValues(v2);
+
+        let curTx = p1.tx + (p2.tx - p1.tx) * t;
+        let curTy = p1.ty + (p2.ty - p1.ty) * t;
+        let curRot = p1.rot + (p2.rot - p1.rot) * t;
+        let curScl = p1.scl + (p2.scl - p1.scl) * t;
+
+        // Apply a unified cross-browser transform matrix back to the target element node
+        obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
+        return;
+      }
+
+      // Case C: The Polygon/Polyline/QCurve "points" list (e.g., "10,20 30,40...")
+      if (key === 'points') {
+        let prevCoords = v1.trim().split(/[\s]+/);
+        let nextCoords = v2.trim().split(/[\s]+/);
+
+        if (prevCoords.length !== nextCoords.length) {
+          obj.SVGElement.setAttribute("points", t < 0.5 ? v1 : v2);
+          return;
+        }
+
+        let interpolatedPoints = [];
+        for (let i = 0; i < prevCoords.length; i++) {
+          let p1 = prevCoords[i].split(',').map(Number);
+          let p2 = nextCoords[i].split(',').map(Number);
+
+          if (p1.length === 2 && p2.length === 2) {
+            let x = p1[0] + (p2[0] - p1[0]) * t;
+            let y = p1[1] + (p2[1] - p1[1]) * t;
+            interpolatedPoints.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+          }
+        }
+        obj.SVGElement.setAttribute("points", interpolatedPoints.join(" "));
+        return;
+      }
+
+      // Case D: Mathematical Numeric Attributes & CSS Properties (cx, cy, r, opacity, strokeWidth, etc.)
+      let n1 = parseNum(v1);
+      let n2 = parseNum(v2);
+      let interpolatedNum = n1 + (n2 - n1) * t;
+
+      // Ensure opacity values stay linked as clean inline CSS styles for cross-browser hardware compatibility
+      if (key === 'opacity') {
+        obj.SVGElement.style.opacity = interpolatedNum;
+      } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
+        // Map fillOpacity or strokeOpacity to their correct SVG camelCase presentation attributes
+        obj.SVGElement.setAttribute(key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity', interpolatedNum);
+      } else {
+        // Standard geometric attributes (cx, cy, r, x, y, x1, y1, x2, y2, strokeDashoffset)
+        // Check if the original values had a "px" string suffix so we can append it back cleanly
+        let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
+        let finalAttrValue = interpolatedNum.toFixed(2) + (hasPx ? 'px' : '');
+        
+        // Convert any JS camelCase key names back to matching SVG hyphenated attribute names
+        let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+        obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
+      }
+    });
+  });
+}
       
 
     let wakeLock = null;
