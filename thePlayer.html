@@ -787,16 +787,16 @@ function playAnimation() {
   togglePlayBtn.innerHTML = "&#10074;&#10074;"; // Update UI to Pause symbol
   requestWakeLock();
   
-  // Start the pure JS clock loop
+  // Start the high-precision clock loop using requestAnimationFrame
   let lastTimestamp = performance.now();
   
   function loop(now) {
-    if (!isPlaying) return; // Halt loop execution immediately if paused/scrubbed
+    if (!isPlaying) return; // Halt loop execution immediately if paused or scrubbed
 
     let dt = now - lastTimestamp;
     lastTimestamp = now;
 
-    // Track advancement using actual millisecond deltas
+    // Track frame advancement using actual millisecond deltas
     globalCurrentTime += dt;
 
     // Check if the runtime has exceeded maximum playlist duration bounds
@@ -807,7 +807,7 @@ function playAnimation() {
       releaseWakeLock();
     }
 
-    // Render visual elements and update matching progress slider frame width percentages
+    // Render visual states and update progress width percentages synchronously
     renderStateAtTime(globalCurrentTime);
     updateProgressBarUI((globalCurrentTime / animationDuration) * 100);
 
@@ -834,13 +834,13 @@ function rewindAnimation() {
   releaseWakeLock();
 }
 
-// --- 2. Combined Interaction Switch Listener Elements ---
+// --- 2. Button Event Listeners ---
 
 togglePlayBtn.onclick = function() {
   if (isPlaying) {
     pauseAnimation();
   } else {
-    // Loop reset back to beginning if player finished playing natural sequence duration
+    // Automatically loop back to the beginning if the timeline has finished
     if (globalCurrentTime >= animationDuration) {
       rewindAnimation();
     }
@@ -853,7 +853,7 @@ stopBtn.onclick = function() {
 };
 
 function updateProgressBarUI(percent) {
-  // Clamp percentages cleanly within absolute 0-100 limits
+  // Clamp percentages cleanly within absolute 0 to 100 limits
   percent = Math.max(0, Math.min(100, percent));
   timelineProgress.style.width = percent + '%';
   timelineThumb.style.left = percent + '%';
@@ -862,32 +862,33 @@ function updateProgressBarUI(percent) {
 // --- 3. Core Timeline Scrubbing Math Engine ---
 
 function scrub(e) {
-  const rect = progressContainer.getBoundingClientRect();
+  // Measures track width directly against the timelineScrubber bounding box layout area
+  const rect = timelineScrubber.getBoundingClientRect();
   let percentage = (e.clientX - rect.left) / rect.width;
   percentage = Math.max(0, Math.min(1, percentage));
 
-  // Lock global position pointer parameters directly to the drag location coordinate space
+  // Lock global position pointer parameter to the coordinate location
   globalCurrentTime = percentage * animationDuration;
   
-  // Render immediately on scrub input updates
+  // Render and update UI immediately on input changes
   renderStateAtTime(globalCurrentTime);
   updateProgressBarUI(percentage * 100);
 }
 
 function scrubTouch(e) {
   if (e.touches.length === 0) return;
-  // Represent the first coordinate point configuration touching the screen plane
+  // Map touch positions precisely onto the cursor tracking profile
   const fakeMouseEvent = {
     clientX: e.touches[0].clientX
   };
   scrub(fakeMouseEvent);
 }
 
-// --- 4. Scroller Input Listeners (Mouse & Touch Events) ---
+// --- 4. Scroller Interaction Event Listeners (Mouse & Touch) ---
 
 timelineScrubber.addEventListener('mousedown', (e) => {
   isScrubbing = true;
-  pauseAnimation(); // Halt active running time clocks safely before updating positions
+  pauseAnimation(); // Halt active running time clocks safely before calculating positions
   scrub(e);
 });
 
@@ -905,7 +906,6 @@ timelineScrubber.addEventListener('touchstart', (e) => {
   scrubTouch(e);
 }, { passive: false });
 
-
 window.addEventListener('touchmove', (e) => {
   if (isScrubbing) {
     e.preventDefault(); // Stop mobile devices from bouncing layout pages while scrubbing canvas lines
@@ -913,12 +913,11 @@ window.addEventListener('touchmove', (e) => {
   }
 }, { passive: false });
 
-
 window.addEventListener('touchend', () => {
   isScrubbing = false;
 });
 
-// --- 5. Background Device WakeLock Management ---
+// --- 5. Mobile Device Background WakeLock Management ---
 
 async function requestWakeLock() {
   if ('wakeLock' in navigator) {
@@ -949,22 +948,27 @@ document.addEventListener('visibilitychange', async () => {
   }
 });
 
-// --- 6. Fullscreen Container Methods ---
+// --- 6. Fullscreen View Management ---
 
-fullscreenBtn.onclick = function() {
-  if (!document.fullscreenElement) {
-    appContainer.requestFullscreen()
-      .then(() => {
-        if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(true);
-      })
-      .catch((err) => {
-        console.error(`Error entering full-screen mode: ${err.message}`);
-      });
-  } else {
-    document.exitFullscreen();
-    if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(false);
-  }
-};
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const appContainer = document.querySelector('.app-container');
+
+if (fullscreenBtn && appContainer) {
+  fullscreenBtn.onclick = function() {
+    if (!document.fullscreenElement) {
+      appContainer.requestFullscreen()
+        .then(() => {
+          if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(true);
+        })
+        .catch((err) => {
+          console.error(`Error entering full-screen mode: ${err.message}`);
+        });
+    } else {
+      document.exitFullscreen();
+      if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(false);
+    }
+  };
+}
     
     // Listen for system-level escape keys or swipe-to-exits to keep the button label accurate
     document.addEventListener('fullscreenchange', () => {
