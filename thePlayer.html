@@ -621,11 +621,16 @@ function bakeAnimations() {
   console.log(`State-driven engine compiled successfully. Duration: ${animationDuration}ms`);
 }
 
-
-    
 function renderStateAtTime(ms) {
   // 1. Clamp time within execution bounds safely
   ms = Math.max(0, Math.min(animationDuration, ms));
+
+  // Helper utility to safely parse numbers and strip out string units like "px"
+  const parseNum = (val) => {
+    if (val === undefined || val === null) return 0;
+    if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
+    return parseFloat(val) || 0;
+  };
 
   objects.forEach(obj => {
     if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
@@ -648,84 +653,27 @@ function renderStateAtTime(ms) {
     let delta = next.time - prev.time;
     if (delta > 0) t = (ms - prev.time) / delta;
 
-    // Helper utility to safely parse values that might have "px" or other text attached
-    const parseNum = (val) => {
-      if (val === undefined || val === null) return 0;
-      let numeric = parseFloat(val);
-      return isNaN(numeric) ? 0 : numeric;
-    };
-
-    // --- LOOP THROUGH ALL EXPECTED STATE KEYS DYNAMICALLY ---
-    // This aggregates every single target layout state property present in both frames
+    // Aggregate every single layout state property present in both frames
     let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
-
-    allKeys.forEach(key => {
-  let v1 = prev.state[key];
-  let v2 = next.state[key];
-  
-  let n1 = parseNum(v1);
-  let n2 = parseNum(v2);
-  let interpolatedNum = n1 + (n2 - n1) * t;
-
-  if (key === 'scale' && obj.type === 'ptc') {
-    // Convert loose scale property updates into supported SVG element transform properties
-    obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
-    //obj.SVGElement.style.transformOrigin = `${parseNum(prev.state.cx || objData.cx)}px ${parseNum(prev.state.cy || objData.cy)}px`;
-  } else if (key === 'cx' || key === 'cy' || key === 'r') {
-    // Write pure unitless numbers directly onto core circle parameters
-    obj.SVGElement.setAttribute(key, interpolatedNum);
-  } else {
-    // Standard property handling code...
-    let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
-
-   let finalAttrValue;
-  
-  // FIX: SVG stroke-dasharray and stroke-dashoffset must be unitless raw numbers.
-  // Do not append 'px' to them, even if the source data string had it.
-  if (svgAttributeName === 'stroke-dasharray' || svgAttributeName === 'stroke-dashoffset') {
-    let n1 = parseNum(v1);
-    let n2 = parseNum(v2);
-    let interpolatedNum = n1 + (n2 - n1) * t;
-    
-    // Add a tiny 1-2px safety buffer to the offset at t=0 to completely kill sub-pixel anti-aliasing bleeds
-    if (svgAttributeName === 'stroke-dashoffset' && t === 0 && interpolatedNum > 0) {
-      finalAttrValue = (interpolatedNum + 1.5).toFixed(2);
-    } else {
-      finalAttrValue = interpolatedNum.toFixed(2);
-    }
-  } else {
-    // Default logic for standard geometric positions and widths
-    let n1 = parseNum(v1);
-    let n2 = parseNum(v2);
-    let interpolatedNum = n1 + (n2 - n1) * t;
-    
-    let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
-    finalAttrValue = interpolatedNum.toFixed(2) + (hasPx ? 'px' : '');
-  }
-  
-  obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
-  }
-});
 
     allKeys.forEach(key => {
       let v1 = prev.state[key];
       let v2 = next.state[key];
 
-      // If a property doesn't exist on one side, fallback to the other
+      // Fallback assertions if properties are missing on either frame side
       if (v1 === undefined) v1 = v2;
       if (v2 === undefined) v2 = v1;
-      if (v1 === undefined) return; // Skip if missing entirely
+      if (v1 === undefined) return;
 
-      // Case A: Pure String matching or Color/Fill swaps (Cannot be interpolated mathematically)
-      if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin') {
+      // --- Category 1: String Constants & Color Swaps ---
+      if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'color') {
         let activeValue = t < 0.5 ? v1 : v2;
-        obj.SVGElement.setAttribute(key, activeValue);
+        obj.SVGElement.setAttribute(key === 'color' ? 'stroke' : key, activeValue);
         return;
       }
 
-      // Case B: Transform Strings (e.g., "translate(10px,20px) rotate(0deg) scale(1)")
-      if (key === 'transform') {
-        // Parse individual component elements out of the transform tracking blocks
+      // --- Category 2: Complex Spatial Transforms ---
+      if (key === 'transform' && obj.type !== 'ptc') {
         let getTransformValues = (str) => {
           let tx = 0, ty = 0, rot = 0, scl = 1;
           if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
@@ -748,12 +696,11 @@ function renderStateAtTime(ms) {
         let curRot = p1.rot + (p2.rot - p1.rot) * t;
         let curScl = p1.scl + (p2.scl - p1.scl) * t;
 
-        // Apply a unified cross-browser transform matrix back to the target element node
         obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
         return;
       }
 
-      // Case C: The Polygon/Polyline/QCurve "points" list (e.g., "10,20 30,40...")
+      // --- Category 3: Vector Poly-Coordinates ("points") ---
       if (key === 'points') {
         let prevCoords = v1.trim().split(/[\s]+/);
         let nextCoords = v2.trim().split(/[\s]+/);
@@ -778,30 +725,53 @@ function renderStateAtTime(ms) {
         return;
       }
 
-      // Case D: Mathematical Numeric Attributes & CSS Properties (cx, cy, r, opacity, strokeWidth, etc.)
+      // --- Category 4: Numeric Scaling & Properties ---
       let n1 = parseNum(v1);
       let n2 = parseNum(v2);
       let interpolatedNum = n1 + (n2 - n1) * t;
 
-      // Ensure opacity values stay linked as clean inline CSS styles for cross-browser hardware compatibility
+      // Custom Point Point-Pop (ptc type) scaling center locking
+      if (key === 'scale' && obj.type === 'ptc') {
+        obj.SVGElement.style.transformOrigin = "center";
+        obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
+        return;
+      }
+
+      // Direct SVG structural parameters (cx, cy, r)
+      if (key === 'cx' || key === 'cy' || key === 'r') {
+        obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
+        return;
+      }
+
+      // Standard styling layout vectors
       if (key === 'opacity') {
         obj.SVGElement.style.opacity = interpolatedNum;
       } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
-        // Map fillOpacity or strokeOpacity to their correct SVG camelCase presentation attributes
-        obj.SVGElement.setAttribute(key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity', interpolatedNum);
+        let attributeName = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
+        obj.SVGElement.setAttribute(attributeName, interpolatedNum.toFixed(2));
       } else {
-        // Standard geometric attributes (cx, cy, r, x, y, x1, y1, x2, y2, strokeDashoffset)
-        // Check if the original values had a "px" string suffix so we can append it back cleanly
-        let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
-        let finalAttrValue = interpolatedNum.toFixed(2) + (hasPx ? 'px' : '');
-        
-        // Convert any JS camelCase key names back to matching SVG hyphenated attribute names
         let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+        let finalAttrValue;
+
+        // Force clean unitless rules strictly for SVG vector lines drawing offsets
+        if (svgAttributeName === 'stroke-dasharray' || svgAttributeName === 'stroke-dashoffset') {
+          if (svgAttributeName === 'stroke-dashoffset' && t === 0 && interpolatedNum > 0) {
+            finalAttrValue = (interpolatedNum + 1.5).toFixed(2);
+          } else {
+            finalAttrValue = interpolatedNum.toFixed(2);
+          }
+        } else {
+          let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
+          finalAttrValue = interpolatedNum.toFixed(2) + (hasPx ? 'px' : '');
+        }
+
         obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
       }
     });
   });
 }
+    
+
       
 
     let wakeLock = null;
