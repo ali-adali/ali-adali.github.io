@@ -573,66 +573,152 @@
     }
 
     // --- 5. Unified Animation & Playback Console Controls ---
-    function bakeAnimations() {
-      hideAllBasePoints();
+   // Global state matrices to track absolute values
+let masterTimelineMatrix = []; 
+
+function bakeAnimations() {
+  hideAllBasePoints();
+  animations = []; // Clear WAAPI references
+  masterTimelineMatrix = []; // Reset our frame-by-frame snapshot engine
+
+  if (globalPlaylist.length === 0) return;
+
+  // 1. Calculate clean absolute duration integers
+  let endPause = 0.5;
+  let totalSeconds = 0;
+  globalPlaylist.forEach(step => {
+      totalSeconds += (parseFloat(step.wait) + parseFloat(step.dur));
+  });
+  totalSeconds += endPause;
+  animationDuration = Math.round(totalSeconds * 1000);
+
+  // 2. Build the structural timeline frame milestones for every object
+  // Instead of passing this to WAAPI, we keep the frame arrays stored natively
+  objects.forEach(obj => {
+      if (!obj) return;
       
-      animations.forEach(anim => anim.cancel());
-      animations = [];
+      let objSteps = globalPlaylist.filter(step => step.element === obj);
+      let timeline = [];
+      let cumulativeTime = 0;
 
-      if (globalPlaylist.length === 0) return;
-
-      let endPause = 0.5;
-      let totalSeconds = 0;
-      globalPlaylist.forEach(step => {
-        totalSeconds += (parseFloat(step.wait) + parseFloat(step.dur));
+      // Base starting layer state (Frame zero milestone)
+      // Extract every property you wish to track (cx, cy, opacity, transform, x, y, etc.)
+      timeline.push({
+          time: 0,
+          state: { ...obj.initialState }
       });
 
-      totalSeconds += endPause;
-      if (totalSeconds <= 0) totalSeconds = 0.001;
-      animationDuration = totalSeconds * 1000;
-
-      let masterMap = new Map();
-      let runningTime = 0;
-
-      globalPlaylist.forEach(step => {
-        let stepDur = parseFloat(step.dur) || 0;
-        let stepWait = parseFloat(step.wait) || 0;
-        let obj = step.element;
-
-        if (!masterMap.has(obj)) {
-          masterMap.set(obj, [{ ...obj.initialState, offset: 0 }]);
-        }
-
-        let frames = masterMap.get(obj);
-        runningTime += stepWait;
-        let endOfWaitOffset = runningTime / totalSeconds;
-
-        let lastRecordedState = frames[frames.length - 1];
-        frames.push({ ...lastRecordedState, offset: endOfWaitOffset });
-
-        runningTime += stepDur;
-        let endOfMoveOffset = runningTime / totalSeconds;
-        frames.push({ ...step.state, offset: endOfMoveOffset });
-      });
-
-      masterMap.forEach((frames, obj) => {
-        let lastFrame = frames[frames.length - 1];
-        if (lastFrame.offset < 1) {
-          frames.push({ ...lastFrame, offset: 1 });
-        }
-
-        // Direct binding to the underlying geometry DOM node instance
-        if (obj.SVGElement) {
-          const player = obj.SVGElement.animate(frames, {
-            duration: animationDuration,
-            fill: 'forwards',
-            easing: 'linear'
+      objSteps.forEach(step => {
+          // Wait milestone segment block
+          cumulativeTime += (parseFloat(step.wait) * 1000);
+          timeline.push({
+              time: cumulativeTime,
+              state: { ...timeline[timeline.length - 1].state }
           });
-          player.pause(); 
-          animations.push(player);
-        }
+
+          // Action milestone duration block
+          cumulativeTime += (parseFloat(step.dur) * 1000);
+          
+          // Merge step changes over prior positions securely
+          let mergedState = { ...timeline[timeline.length - 1].state, ...step.state };
+          timeline.push({
+              time: cumulativeTime,
+              state: mergedState
+          });
       });
-    }
+
+      // Ensure timeline stretches gracefully to match full presentation runtime bounds
+      if (cumulativeTime < animationDuration) {
+          timeline.push({
+              time: animationDuration,
+              state: { ...timeline[timeline.length - 1].state }
+          });
+      }
+
+      // Map this structure reference back onto the target item instance property cache
+      obj.timelineFrames = timeline;
+    });
+  
+    console.log(`State-driven engine compiled successfully. Duration: ${animationDuration}ms`);
+  }
+
+    function renderStateAtTime(ms) {
+  // Enforce boundary clamping limits safely
+  ms = Math.max(0, Math.min(animationDuration, ms));
+
+  objects.forEach(obj => {
+      if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
+
+      // Find bounded timeline frames for this specific item block
+      let frames = obj.timelineFrames;
+      let prev = frames[0];
+      let next = frames[frames.length - 1];
+
+      for (let i = 0; i < frames.length - 1; i++) {
+          if (ms >= frames[i].time && ms <= frames[i + 1].time) {
+              prev = frames[i];
+              next = frames[i + 1];
+              break;
+          }
+      }
+
+      // Calculate localized ratio completion value
+      let t = 0;
+      let delta = next.time - prev.time;
+      if (delta > 0) t = (ms - prev.time) / delta;
+
+      // --- APPLY PROPERTIES EXPLICITLY PER COMPONENT TYPE ---
+      
+      // 1. Handle Opacity globally for all elements smoothly
+      if (prev.state.opacity !== undefined && next.state.opacity !== undefined) {
+          let op1 = parseFloat(prev.state.opacity);
+          let op2 = parseFloat(next.state.opacity);
+          obj.SVGElement.style.opacity = op1 + (op2 - op1) * t;
+      }
+
+      // 2. Handle standard point/circle geometry (cx, cy, r)
+      if (obj.type === 'pt' || obj.type === 'ptc' || obj.type === 'cr' || obj.type === 'elp') {
+          ['cx', 'cy', 'rx', 'ry', 'r'].forEach(attr => {
+              if (prev.state[attr] !== undefined && next.state[attr] !== undefined) {
+                  let v1 = parseFloat(prev.state[attr]);
+                  let v2 = parseFloat(next.state[attr]);
+                  obj.SVGElement.setAttribute(attr, v1 + (v2 - v1) * t);
+              }
+          });
+      }
+
+      // 3. Handle Text coordinates (x, y) and compound scale transforms safely
+      if (obj.type === 'txt') {
+          let x1 = parseFloat(prev.state.x || 0);
+          let x2 = parseFloat(next.state.x || 0);
+          let y1 = parseFloat(prev.state.y || 0);
+          let y2 = parseFloat(next.state.y || 0);
+          
+          let curX = x1 + (x2 - x1) * t;
+          let curY = y1 + (y2 - y1) * t;
+
+          obj.SVGElement.setAttribute("x", curX);
+          obj.SVGElement.setAttribute("y", curY);
+          
+          // If scale properties exist, bundle them cleanly for Safari translation compliance
+          if (prev.state.scale !== undefined && next.state.scale !== undefined) {
+              let s1 = parseFloat(prev.state.scale || 1);
+              let s2 = parseFloat(next.state.scale || 1);
+              let curScale = s1 + (s2 - s1) * t;
+              obj.SVGElement.setAttribute("transform", `translate(${curX}, ${curY}) scale(${curScale}) translate(${-curX}, ${-curY})`);
+          }
+      }
+
+      // 4. Handle Line / Path properties (x1, y1, x2, y2, strokeDashoffset)
+      ['x1', 'y1', 'x2', 'y2', 'strokeDashoffset'].forEach(attr => {
+          if (prev.state[attr] !== undefined && next.state[attr] !== undefined) {
+              let v1 = parseFloat(prev.state[attr]);
+              let v2 = parseFloat(next.state[attr]);
+              obj.SVGElement.setAttribute(attr, v1 + (v2 - v1) * t);
+          }
+      });
+  });
+      
 
     let wakeLock = null;
 
@@ -645,6 +731,61 @@
       requestAnimationFrame(syncUI);
     }
 
+      let globalCurrentTime = 0;
+let lastTickTime = 0;
+
+function playAnimation() {
+  if (globalPlaylist.length === 0) return;
+  if (!masterTimelineMatrix.length) bakeAnimations();
+
+  isPlaying = true;
+  lastTickTime = performance.now();
+  requestAnimationFrame(playbackLoop);
+}
+
+function playbackLoop(now) {
+  if (!isPlaying) return;
+
+  let delta = now - lastTickTime;
+  lastTickTime = now;
+
+  globalCurrentTime += delta;
+  if (globalCurrentTime >= animationDuration) {
+      globalCurrentTime = animationDuration;
+      isPlaying = false;
+  }
+
+  // Draw the current calculated timeline point directly onto the board
+  renderStateAtTime(globalCurrentTime);
+  
+  // Sync your progress bar slider elements matching the current frame location
+  let percent = (globalCurrentTime / animationDuration) * 100;
+  updateProgressBarUI(percent);
+
+  if (isPlaying) {
+      requestAnimationFrame(playbackLoop);
+  }
+}
+
+function scrub(e) {
+  const rect = progressContainer.getBoundingClientRect();
+  let percentage = (e.clientX - rect.left) / rect.width;
+  percentage = Math.max(0, Math.min(1, percentage));
+
+  // Lock global position pointer parameters directly to the drag location
+  globalCurrentTime = percentage * animationDuration;
+  
+  renderStateAtTime(globalCurrentTime);
+  updateProgressBarUI(percentage * 100);
+}
+
+function rewindAnimation() {
+  isPlaying = false;
+  globalCurrentTime = 0;
+  renderStateAtTime(0);
+  updateProgressBarUI(0);
+}
+
     function pauseAnimation() {
       releaseWakeLock();
       animations.forEach(anim => anim.pause());
@@ -652,15 +793,7 @@
       togglePlayBtn.innerHTML = "&#9654;";
     }
 
-    function rewindAnimation() {
-      animations.forEach(anim => {
-        anim.pause();
-        anim.currentTime = 0;
-      });
-      isPlaying = false;
-      togglePlayBtn.innerHTML = "&#9654;";
-      updateProgressBarUI(0);
-    }
+  
 
     // Combined Play/Pause Switch Element Handling
     togglePlayBtn.onclick = function() {
@@ -697,21 +830,7 @@
       }
     }
 
-    function scrub(e) {
-      if (animationDuration <= 0 || animations.length === 0) return;
-      
-      const rect = timelineScrubber.getBoundingClientRect();
-      let percentage = (e.clientX - rect.left) / rect.width;
-      percentage = Math.max(0, Math.min(1, percentage)); 
-
-      const seekTime = percentage * animationDuration;
-
-      animations.forEach(anim => {
-        anim.currentTime = seekTime;
-      });
-
-      updateProgressBarUI(percentage * 100);
-    }
+ 
 
     function updateProgressBarUI(percent) {
       timelineProgress.style.width = percent + '%';
