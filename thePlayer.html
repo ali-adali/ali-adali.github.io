@@ -756,13 +756,13 @@ function renderStateAtTime(ms) {
         // Force clean unitless rules strictly for SVG vector lines drawing offsets
         if (svgAttributeName === 'stroke-dasharray' || svgAttributeName === 'stroke-dashoffset') {
           if (svgAttributeName === 'stroke-dashoffset' && t === 0 && interpolatedNum > 0) {
-            finalAttrValue = (interpolatedNum + 1.5).toFixed(2);
+            finalAttrValue = interpolatedNum;
           } else {
-            finalAttrValue = interpolatedNum.toFixed(2);
+            finalAttrValue = interpolatedNum;
           }
         } else {
           let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
-          finalAttrValue = interpolatedNum.toFixed(2) + (hasPx ? 'px' : '');
+          finalAttrValue = interpolatedNum + (hasPx ? 'px' : '');
         }
 
         obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
