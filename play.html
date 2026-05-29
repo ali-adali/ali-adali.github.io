@@ -669,120 +669,132 @@ function bakeAnimations() {
 }
 
 function renderStateAtTime(ms) {
-  // 1. Clamp time within execution bounds safely
-  ms = Math.max(0, Math.min(animationDuration, ms));
+    aliveObjects.forEach(obj => {
+      if (!obj || !obj.timelineFrames || obj.timelineFrames.length === 0) return;
 
-  // Helper utility to safely parse numbers and strip out string units like "px"
-  const parseNum = (val) => {
-    if (val === undefined || val === null) return 0;
-    if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
-    return parseFloat(val) || 0;
-  };
+      let frames = obj.timelineFrames;
 
-  objects.forEach(obj => {
-    if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
+      // 1. Find bounding keyframes enclosing the current timestamp
+      let prev = frames[0];
+      let next = frames[frames.length - 1];
 
-    let frames = obj.timelineFrames;
-    let prev = frames[0];
-    let next = frames[frames.length - 1];
-
-    // Find the current keyframe interval block
-    for (let i = 0; i < frames.length - 1; i++) {
-      if (ms >= frames[i].time && ms <= frames[i + 1].time) {
-        prev = frames[i];
-        next = frames[i + 1];
-        break;
+      if (ms <= prev.time) {
+        prev = frames[0];
+        next = frames[0];
+      } else if (ms >= next.time) {
+        prev = frames[frames.length - 1];
+        next = frames[frames.length - 1];
+      } else {
+        for (let i = 0; i < frames.length - 1; i++) {
+          if (ms >= frames[i].time && ms <= frames[i + 1].time) {
+            prev = frames[i];
+            next = frames[i + 1];
+            break;
+          }
+        }
       }
-    }
 
-    // Calculate progression percentage (t) between these two specific frames
-    let t = 0;
-    let delta = next.time - prev.time;
-    if (delta > 0) t = (ms - prev.time) / delta;
+      // 2. Calculate interpolation delta t
+      let t = 0;
+      if (next.time !== prev.time) {
+        t = (ms - prev.time) / (next.time - prev.time);
+      }
 
-    // Aggregate every single layout state property present in both frames
-    let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
+      // Collect all property keys changing across this frame window
+      let combinedKeys = {};
+      Object.keys(prev.state).forEach(k => combinedKeys[k] = true);
+      Object.keys(next.state).forEach(k => combinedKeys[k] = true);
 
-    allKeys.forEach(key => {
-      let v1 = prev.state[key];
-      let v2 = next.state[key];
+      // 3. Process every property key sequentially
+      Object.keys(combinedKeys).forEach(key => {
+        
+        // --- BRANCH A: TRANSFORM ENGINE (Routed to Style Layer to bypass SVG attribute parser errors) ---
+        if (key === 'transform') {
+          let v1 = prev.state[key];
+          let v2 = next.state[key];
 
-      // Fallback assertions if properties are missing on either frame side
-      if (v1 === undefined) v1 = v2;
-      if (v2 === undefined) v2 = v1;
-      if (v1 === undefined) return;
+          let t1 = getTransformValues(v1);
+          let t2 = getTransformValues(v2);
 
-      if (key === 'transform') {
+          let interpolatedX = t1.x + (t2.x - t1.x) * t;
+          let interpolatedY = t1.y + (t2.y - t1.y) * t;
+          let interpolatedRotate = t1.rotate + (t2.rotate - t1.rotate) * t;
+          let interpolatedScale = t1.scale + (t2.scale - t1.scale) * t;
+
+          // CSS uses modern engine syntax which effortlessly handles px/deg across Firefox & Safari
+          obj.SVGElement.style.transform = `translate(${interpolatedX}px, ${interpolatedY}px) rotate(${interpolatedRotate}deg) scale(${interpolatedScale})`;
+          return; // Acts like 'continue' inside a .forEach loop
+        }
+
+        // --- BRANCH B: NATIVE STRING & POLYGON ARRAYS VECTOR EVALUATION ---
+        if (key === 'points' || key === 'd' || key === 'stroke' || key === 'color' || key === 'fontWeight') {
+          if (t >= 0.5) {
+            if (next.state[key] !== undefined) {
+              obj.SVGElement.setAttribute(key, next.state[key]);
+            }
+          } else {
+            if (prev.state[key] !== undefined) {
+              obj.SVGElement.setAttribute(key, prev.state[key]);
+            }
+          }
+          return; // Acts like 'continue' inside a .forEach loop
+        }
+
+        // Extract and isolate pure numeric constants for layout calculations
         let v1 = prev.state[key];
         let v2 = next.state[key];
+        let n1 = parseNum(v1);
+        let n2 = parseNum(v2);
+        let interpolatedNum = n1 + (n2 - n1) * t;
 
-        let t1 = getTransformValues(v1);
-        let t2 = getTransformValues(v2);
-
-        let interpolatedX = t1.x + (t2.x - t1.x) * t;
-        let interpolatedY = t1.y + (t2.y - t1.y) * t;
-        let interpolatedRotate = t1.rotate + (t2.rotate - t1.rotate) * t;
-        let interpolatedScale = t1.scale + (t2.scale - t1.scale) * t;
-
-        // Build clean CSS string values
-        obj.SVGElement.style.transform = `translate(${interpolatedX}px, ${interpolatedY}px) rotate(${interpolatedRotate}deg) scale(${interpolatedScale})`;
-        continue;
-      }
-
-      // Extract and parse numeric variations safely for all remaining checks
-      let v1 = prev.state[key];
-      let v2 = next.state[key];
-      let n1 = parseNum(v1);
-      let n2 = parseNum(v2);
-      let interpolatedNum = n1 + (n2 - n1) * t;
-
-      // 2. TEXT BOUNDARY CLIPPING ISOLATION (Trick 1 for Safari)
-      if (key === 'width') {
-        if (obj.type === 'txt') {
-          let maxW = parseFloat(obj.width || v2 || 500);
-          obj.SVGElement.setAttribute('width', maxW); // Keep outer box wide open
-          
-          if (obj.spanElement) {
-            obj.spanElement.style.display = 'inline-block';
-            obj.spanElement.style.overflow = 'hidden';
-            obj.spanElement.style.width = interpolatedNum.toFixed(2) + 'px'; // Animate inner canvas
+        // --- BRANCH C: TEXT CONTAINER REVEAL ISOLATION (Trick 1 - Safari Fix) ---
+        if (key === 'width') {
+          if (obj.type === 'txt') {
+            // Keep parent vector container completely wide open to protect math typography scaling
+            let maxW = parseFloat(obj.width || v2 || 500);
+            obj.SVGElement.setAttribute('width', maxW);
+            
+            // Animate only the inner HTML block container to reveal text seamlessly left-to-right
+            if (obj.spanElement) {
+              obj.spanElement.style.display = 'inline-block';
+              obj.spanElement.style.overflow = 'hidden';
+              obj.spanElement.style.width = interpolatedNum.toFixed(2) + 'px';
+            }
+          } else {
+            // Primitive geometric vectors continue using default attribute changes
+            obj.SVGElement.setAttribute("width", interpolatedNum.toFixed(2));
           }
-        } else {
-          obj.SVGElement.setAttribute("width", interpolatedNum.toFixed(2));
+          return; // Acts like 'continue' inside a .forEach loop
         }
-        continue;
-      }
 
-      if (key === 'height') {
-        if (obj.type === 'txt') {
-          obj.SVGElement.setAttribute('height', parseFloat(obj.height || v2 || 100));
-        } else {
-          obj.SVGElement.setAttribute("height", interpolatedNum.toFixed(2));
+        if (key === 'height') {
+          if (obj.type === 'txt') {
+            let maxH = parseFloat(obj.height || v2 || 100);
+            obj.SVGElement.setAttribute('height', maxH);
+          } else {
+            obj.SVGElement.setAttribute("height", interpolatedNum.toFixed(2));
+          }
+          return; // Acts like 'continue' inside a .forEach loop
         }
-        continue;
-      }
 
-      // 3. OPACITY SYNCHRONIZATION
-      if (key === 'opacity') {
-        obj.SVGElement.setAttribute("opacity", interpolatedNum.toFixed(4));
-        obj.SVGElement.style.opacity = interpolatedNum.toFixed(4);
-        continue;
-      }
+        // --- BRANCH D: OPACITY SYNCHRONIZATION ---
+        if (key === 'opacity') {
+          obj.SVGElement.setAttribute("opacity", interpolatedNum.toFixed(4));
+          obj.SVGElement.style.opacity = interpolatedNum.toFixed(4);
+          return; // Acts like 'continue' inside a .forEach loop
+        }
 
-      // 4. CORE VECTOR GEOMETRY ANCHORS (Saves cross-browser alignment processing)
-      if (key === 'cx' || key === 'cy' || key === 'r' || key === 'x1' || key === 'y1' || key === 'x2' || key === 'y2') {
-        obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
-        continue;
-      }
+        // --- BRANCH E: CORE SPATIAL COORDINATE ANCHORS ---
+        if (key === 'cx' || key === 'cy' || key === 'r' || key === 'x1' || key === 'y1' || key === 'x2' || key === 'y2') {
+          obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
+          return; // Acts like 'continue' inside a .forEach loop
+        }
 
-      // 5. THE GENERIC FALLBACK (For strokeWidth, strokeDashoffset, etc.)
-      if (key !== 'points' && key !== 'd' && key !== 'stroke' && key !== 'color' && key !== 'fontWeight') {
+        // --- BRANCH F: GENERIC NUMERIC FALLBACK (Weights, dash offsets, etc.) ---
         obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(4));
-      }
-
+      });
     });
-  });
-}
+  }
     
 
       
