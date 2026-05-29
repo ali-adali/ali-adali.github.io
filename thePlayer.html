@@ -769,10 +769,6 @@ function renderStateAtTime(ms) {
     let n2 = parseNum(v2);
     let interpolatedNum = n1 + (n2 - n1) * t;
     
-    let n1 = parseNum(v1);
-    let n2 = parseNum(v2);
-    let interpolatedNum = n1 + (n2 - n1) * t;
-    
     if (key === 'width') {
       if (obj.type === 'txt') {
         let maxW = parseNum(obj.width || v2);
