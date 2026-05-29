@@ -469,11 +469,21 @@
       
       // 2. SAFARI FORCE-FIX: Before animating, force every text element's width 
       // attribute back to its true, maximum size so MathJax can typeset it perfectly.
-      aliveObjects.forEach(obj => {
-        if (obj.type === 'txt' && obj.SVGElement) {
-          obj.SVGElement.setAttribute('width', obj.width);
-        }
-      });
+      for (let obj of aliveObjects) {
+          if (!obj) continue;
+          
+          // Your existing keys interpolation processing...
+          if (key === 'transform') {
+              // ... calculations
+              obj.SVGElement.style.transform = currentTransformStr;
+              continue; // This will now work perfectly!
+          }
+          
+          if (key === 'width') {
+              // ... text masking isolation
+              continue;
+          }
+      }
 
       // 3. Trigger MathJax to format the fully-expanded elements
       if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
