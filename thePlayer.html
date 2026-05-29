@@ -649,44 +649,47 @@ function bakeAnimations() {
       });
     }
 
-    // ==========================================
-    // CRITICAL SAFARI FIX INSIDE BAKE ANIMATIONS
-    // ==========================================
-    // Force the DOM element to snap to its true frame-0 layout 
-    // BEFORE MathJax completes its full asynchronous render pass.
+    // ========================================================
+    // CORRECT SAFARI UNIFICATION: ONLY TRUSTING INITIAL STATE
+    // ========================================================
     if (obj.SVGElement && obj.timelineFrames[0]) {
       let initialState = obj.timelineFrames[0].state;
 
-      // Safe number extraction helper
+      // Helper to strip 'px' units safely
       const parseNum = (val) => {
         if (val === undefined || val === null) return 0;
         if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
         return parseFloat(val) || 0;
       };
 
-      // 1. Lock Initial Opacity
+      // 1. Read opacity from initial state snapshot strictly
       if (initialState.opacity !== undefined) {
         obj.SVGElement.setAttribute("opacity", initialState.opacity);
-        obj.SVGElement.style.opacity = initialState.opacity;
       }
 
-      // 2. Lock Initial Transform (Scale & Rotation)
-      if (initialState.transform) {
-        // Extract values or pass the string safely
+      // 2. Read transform from initial state snapshot strictly
+      if (initialState.transform !== undefined) {
         obj.SVGElement.setAttribute("transform", initialState.transform);
-      } else if (obj.scale !== undefined && obj.rotate !== undefined) {
-        obj.SVGElement.setAttribute("transform", `scale(${obj.scale} ${obj.scale}) rotate(${obj.rotate})`);
       }
 
-      // 3. Handle Trick 1's Initial Width Alignment for text types
+      // 3. Keep Trick 1 working by handling the width state snapshot properly
       if (obj.type === 'txt' && obj.spanElement) {
-        let initW = parseNum(initialState.width || obj.width);
+        let initW = parseNum(initialState.width);
         
-        // If the animation dictates it starts at 0 width, collapse the inner span immediately
-        if (parseNum(initialState.width) === 0) {
+        // Lock the outer container to its true max width computed from obj.width
+        let maxW = parseNum(obj.width);
+        obj.SVGElement.setAttribute('width', maxW);
+
+        // If initial state width is 0px, collapse the inner span element layout to 0px
+        if (initW === 0) {
           obj.spanElement.style.display = 'inline-block';
           obj.spanElement.style.overflow = 'hidden';
           obj.spanElement.style.width = '0px';
+        } else {
+          // Otherwise, match whatever pixel size the initial state dictates
+          obj.spanElement.style.display = 'inline-block';
+          obj.spanElement.style.overflow = 'hidden';
+          obj.spanElement.style.width = initW + 'px';
         }
       }
     }
