@@ -598,7 +598,7 @@ function bakeAnimations() {
 
   if (globalPlaylist.length === 0) return;
 
-  // Initialize every object's timeline frame array with its frame-0 milestone
+  // 1. Initialize every object's timeline frame array with its frame-0 milestone
   objects.forEach(obj => {
     if (!obj) return;
     obj.timelineFrames = [{
@@ -607,30 +607,25 @@ function bakeAnimations() {
     }];
   });
 
-  // FIX #3: Track a sequential running clock instead of re-starting at 0 for every object
+  // Track a sequential running clock instead of re-starting at 0 for every object
   let globalSequenceTime = 0;
 
   globalPlaylist.forEach(step => {
     const obj = step.element;
     
-    // 1. Calculate step milestones relative to the sequential global running clock
     let stepStartTime = globalSequenceTime + (parseFloat(step.wait) * 1000);
     let stepEndTime = stepStartTime + (parseFloat(step.dur) * 1000);
 
-    // 2. Advance the master clock sequence forward
     globalSequenceTime = stepEndTime;
 
-    // 3. Update the specific target object's timeline structure
     let frames = obj.timelineFrames;
     let lastKnownState = frames[frames.length - 1].state;
 
-    // Create a holding state milestone at the start of this action block
     frames.push({
       time: stepStartTime,
       state: { ...lastKnownState }
     });
 
-    // Merge new active properties safely over preceding frame variables
     let mergedState = { ...lastKnownState, ...step.state };
     frames.push({
       time: stepEndTime,
@@ -639,7 +634,7 @@ function bakeAnimations() {
   });
 
   // Pad the final duration limits
-  let endPause = 500; // 0.5s operational padding
+  let endPause = 500; 
   animationDuration = Math.round(globalSequenceTime + endPause);
 
   // Pad out every individual object track to stretch cleanly to the terminal timeline edge
@@ -652,6 +647,48 @@ function bakeAnimations() {
         time: animationDuration,
         state: { ...lastState }
       });
+    }
+
+    // ==========================================
+    // CRITICAL SAFARI FIX INSIDE BAKE ANIMATIONS
+    // ==========================================
+    // Force the DOM element to snap to its true frame-0 layout 
+    // BEFORE MathJax completes its full asynchronous render pass.
+    if (obj.SVGElement && obj.timelineFrames[0]) {
+      let initialState = obj.timelineFrames[0].state;
+
+      // Safe number extraction helper
+      const parseNum = (val) => {
+        if (val === undefined || val === null) return 0;
+        if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
+        return parseFloat(val) || 0;
+      };
+
+      // 1. Lock Initial Opacity
+      if (initialState.opacity !== undefined) {
+        obj.SVGElement.setAttribute("opacity", initialState.opacity);
+        obj.SVGElement.style.opacity = initialState.opacity;
+      }
+
+      // 2. Lock Initial Transform (Scale & Rotation)
+      if (initialState.transform) {
+        // Extract values or pass the string safely
+        obj.SVGElement.setAttribute("transform", initialState.transform);
+      } else if (obj.scale !== undefined && obj.rotate !== undefined) {
+        obj.SVGElement.setAttribute("transform", `scale(${obj.scale} ${obj.scale}) rotate(${obj.rotate})`);
+      }
+
+      // 3. Handle Trick 1's Initial Width Alignment for text types
+      if (obj.type === 'txt' && obj.spanElement) {
+        let initW = parseNum(initialState.width || obj.width);
+        
+        // If the animation dictates it starts at 0 width, collapse the inner span immediately
+        if (parseNum(initialState.width) === 0) {
+          obj.spanElement.style.display = 'inline-block';
+          obj.spanElement.style.overflow = 'hidden';
+          obj.spanElement.style.width = '0px';
+        }
+      }
     }
   });
 
@@ -1299,10 +1336,6 @@ function parseNum(val) {
       this.SVGElement.style.transformBox = "fill-box"; 
       this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
       this.SVGElement.setAttribute("opacity",this.opacity);
-
-      
-      this.SVGElement.style.opacity = this.opacity;
-      this.SVGElement.style.transform = `scale(${this.scale}) rotate(${this.rotate}deg)`;
     }
   }
 
