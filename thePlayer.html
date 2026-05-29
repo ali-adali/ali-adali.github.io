@@ -765,15 +765,27 @@ function renderStateAtTime(ms) {
       }
 
       // --- Category 4: Numeric Scaling & Properties ---
-      let n1 = parseNum(v1);
-      let n2 = parseNum(v2);
-      let interpolatedNum = n1 + (n2 - n1) * t;
-      
-      if (key === 'width') {
+    let n1 = parseNum(v1);
+    let n2 = parseNum(v2);
+    let interpolatedNum = n1 + (n2 - n1) * t;
+    
+    if (key === 'width') {
+      // If it's a text element, apply the width to the inner HTML span rather than the SVG container
+      if (obj.type === 'txt' && obj.spanElement) {
+        // Keep the outer container maxed out so Safari doesn't choke or wrap text
+        let maxW = parseNum(obj.width || v2);
+        obj.SVGElement.setAttribute('width', maxW.toFixed(2));
+        
+        // Animate the inner span's horizontal layout space smoothly
+        obj.spanElement.style.display = 'inline-block';
+        obj.spanElement.style.overflow = 'hidden';
+        obj.spanElement.style.width = interpolatedNum.toFixed(2) + 'px';
+      } else {
+        // Fallback for standard shapes (polygons, lines, etc.) if they use width keys
         obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
-        // If your text elements use internal layout inputs or sub-elements, 
-        // you can let them follow the numerical interpolation safely here.
-      } 
+      }
+      return;
+    }
 
       // Custom Point Point-Pop (ptc type) scaling center locking
       if (key === 'scale' && obj.type === 'ptc') {
