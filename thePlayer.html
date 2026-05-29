@@ -1213,6 +1213,9 @@ function parseNum(val) {
       
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id",'SVGText'+objectIndex);
+
+      
+      
       SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
       SVGElement.style.pointerEvents = 'none';
       SVGElement.style.color = textColor;
@@ -1285,7 +1288,7 @@ function parseNum(val) {
       this.spanElement.innerHTML = this.text;
       this.spanElement.style.fontSize=this.fontSize+'px';
       this.SVGElement.style.color = this.textColor;
-      this.SVGElement.style.color = this.textColor;
+      
       this.SVGElement.style.fontWeight = this.fontWeight;
       this.SVGElement.style.fontSize=this.fontSize;
       this.SVGElement.setAttribute("height",this.height);
@@ -1295,7 +1298,11 @@ function parseNum(val) {
       this.SVGElement.style.transformOrigin = "center";
       this.SVGElement.style.transformBox = "fill-box"; 
       this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-      this.SVGElement.setAttribute("opacity",this.opacity);    
+      this.SVGElement.setAttribute("opacity",this.opacity);
+
+      
+      this.SVGElement.style.opacity = this.opacity;
+      this.SVGElement.style.transform = `scale(${this.scale}) rotate(${this.rotate}deg)`;
     }
   }
 
@@ -1941,12 +1948,20 @@ function parseNum(val) {
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
         packages: {'[+]': ['ams']},
         tags: 'ams'
-      }
+      },
+      svg: {
+        fontCache: 'global' // Reuses vector font glyph paths for maximum rendering speed
+      },
+      startup: {
+        ready: () => {
+          console.log('MathJax vector rendering engine initialized successfully.');
+          MathJax.startup.defaultReady();
+        }
     };
 </script>
 
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
+
 </body>
 </html>
