@@ -69,9 +69,7 @@
       .screen-container {
         justify-self: center;
         width: 100vw;
-        
         padding: 10px;
-
       }
 
       .control-console {
@@ -106,7 +104,6 @@
         justify-content: flex-start;
         align-items: center;
         padding: 2px;
-
       }
 
       .nav-in-div {
@@ -121,7 +118,6 @@
 
       .control-console {
         width: 100%;
-        
         margin-top: 15px;
       }
     }
@@ -161,7 +157,6 @@
 
     /* Component: The Player Canvas */
     .screen-div {
-     
       aspect-ratio: 1 / 1;
       background-color: var(--canvas-bg);
       border-radius: 12px;
@@ -189,7 +184,7 @@
     .progress-wrapper {
       position: relative;
       width: 100%;
-      height: 24px; /* Expanded interaction target area */
+      height: 24px;
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -245,17 +240,12 @@
       border-radius: 10px;
       cursor: pointer;
       font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       transition: all 0.2s;
-
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-
       font-size: 40px;
     }
     .btn-control:hover {
@@ -298,7 +288,7 @@
     }
     .nav-step-btn:disabled {
       opacity: 0;
-      pointer-events: none; /* Safely hides it if it's edge of playlist */
+      pointer-events: none;
     }
     .current-thm-banner {
       font-size: 15px;
@@ -308,10 +298,9 @@
       flex: 1.2;
     }
 
-    .app-container:fullscreen
-    {
-      background-color: var(--bg-main); /* Ensure the dark backdrop remains solid */
-      padding: 10px;                   /* Prevents elements from hugging device bezels */
+    .app-container:fullscreen {
+      background-color: var(--bg-main);
+      padding: 10px;
       width: 100vw;
       height: 100vh;
     }
@@ -326,26 +315,22 @@
   </div>
 
   <div class="app-container">
-    
-    <div class="thms-div" id="theoremsSidebar">
-      </div>
+    <div class="thms-div" id="theoremsSidebar"></div>
 
     <div class="screen-container">
       <div class="screen-div">
-        <svg class="svg-frame" id="playerSVG" xmlns="http://www.w3.org/2000/svg" width="750" height="750" viewbox="0 0 750 750" >
-          <defs>
+        <svg class="svg-frame" id="playerSVG" xmlns="http://www.w3.org/2000/svg" width="750" height="750" viewBox="0 0 750 750" >
+          <defs id="playerDefs">
             <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
               <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
             </pattern>
-
             <pattern id="halfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
               <path d="M 30 0 L 0 0 0 30" fill="none" stroke="lightgray" stroke-width="0.8"/>
             </pattern>
           </defs>
           <rect width="750" height="750" fill="url(#wholeGrid)" />
           <rect width="750" height="750" fill="url(#halfGrid)" />
-          <g id="mainSVGGroup">
-          </g>
+          <g id="mainSVGGroup"></g>
         </svg>
       </div>
 
@@ -374,11 +359,10 @@
       <div class="current-thm-banner" id="currentThmTitle">Loading...</div>
       <button class="nav-step-btn" id="nextThmBtn">Next &rarr;</button>
     </div>
-
   </div>
 
   <script>
-   // --- 1. SPA Playlist Configuration ---
+    // --- 1. Playlist Configuration ---
     const theoremPlaylist = [
       { id: 1, title: "Pythagorean Theorem", file: "PythagoreanTheorem.json" },
       { id: 2, title: "Law of Sines", file: "LoS.json" },
@@ -399,8 +383,9 @@
     let animationDuration = 0; 
     let isPlaying = false;
     let isScrubbing = false;
+    let globalCurrentTime = 0;
+    let wakeLock = null;
 
-    // DOM Elements mapped from the new layout IDs
     const playerSVG = document.getElementById("playerSVG");
     const timelineScrubber = document.getElementById("timelineScrubber");
     const timelineProgress = document.getElementById("timelineProgress");
@@ -408,11 +393,10 @@
     const togglePlayBtn = document.getElementById("togglePlayBtn");
     const stopBtn = document.getElementById("stopBtn");
 
-     strokeColors=['black','midnightblue','DarkMagenta','darkgreen','blue', 'red','DarkSeaGreen','Teal','MediumSlateBlue','MediumVioletRed','FireBrick','crimson','saddlebrown','YellowGreen','MediumOrchid','MediumPurple','Tomato','Coral','GoldenRod','OliveDrab','DarkOrange','SeaGreen'];
+    const strokeColors = ['black','midnightblue','DarkMagenta','darkgreen','blue', 'red','DarkSeaGreen','Teal','MediumSlateBlue','MediumVioletRed','FireBrick','crimson','saddlebrown','YellowGreen','MediumOrchid','MediumPurple','Tomato','Coral','GoldenRod','OliveDrab','DarkOrange','SeaGreen'];
+    const fillColors = ['DarkOrange','blue','Aquamarine','CornflowerBlue','IndianRed','LightPink','DeepPink','PaleGreen','Teal','MediumOrchid','Tomato','YellowGreen','Violet','DarkGoldenRod','DarkSlateGray','Navy','SeaGreen'];
 
-  fillColors=['DarkOrange','blue','Aquamarine','CornflowerBlue','IndianRed','LightPink','DeepPink','PaleGreen','Teal','MediumOrchid','Tomato','YellowGreen','Violet','DarkGoldenRod','DarkSlateGray','Navy','SeaGreen'];
-
-    // --- 3. UI Synchronization & Navigation ---
+    // --- 3. UI Sync & Navigation ---
     function initUI() {
       const sidebar = document.getElementById('theoremsSidebar');
       sidebar.innerHTML = '';
@@ -425,7 +409,6 @@
         sidebar.appendChild(card);
       });
 
-      // Handle boundary limits for inner nav buttons
       document.getElementById('prevThmBtn').disabled = currentActiveIndex === 0;
       document.getElementById('nextThmBtn').disabled = currentActiveIndex === theoremPlaylist.length - 1;
       
@@ -439,73 +422,88 @@
       document.getElementById('currentThmTitle').innerText = theoremPlaylist[currentActiveIndex].title;
     }
 
-    // Intercepts next/prev clicks
     document.getElementById('prevThmBtn').onclick = () => { if (currentActiveIndex > 0) loadTheorem(currentActiveIndex - 1); };
     document.getElementById('nextThmBtn').onclick = () => { if (currentActiveIndex < theoremPlaylist.length - 1) loadTheorem(currentActiveIndex + 1); };
 
     // --- 4. Web-Native JSON Loader ---
     function loadTheorem(index) {
-  currentActiveIndex = index;
-  initUI();
-  resetPlayerState();
+      currentActiveIndex = index;
+      initUI();
+      resetPlayerState();
 
-  // Hide the rendering container so Safari doesn't flash the full-size text nodes
-  const mainGroup = document.getElementById("mainSVGGroup");
-  if (mainGroup) {
-    mainGroup.style.visibility = "hidden";
-  }
-
-  const fileName = theoremPlaylist[index].file;
-  console.log(`Loading theorem data via fetch: ${fileName}`);
-
-  fetch(fileName)
-    .then(response => {
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      return response.json();
-    })
-    .then(data => {
-      // 1. Recreate your objects into the DOM layout tree
-      parseProjectData(data);
-      
-      // 2. SAFARI FORCE-FIX: Before animating, force every text element's width 
-      // attribute back to its true, maximum size so MathJax can typeset it perfectly.
-      aliveObjects.forEach(obj => {
-        if (obj.type === 'txt' && obj.SVGElement) {
-          obj.SVGElement.setAttribute('width', obj.width);
-        }
-      });
-
-      // 3. Trigger MathJax to format the fully-expanded elements
-      if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
-        return MathJax.typesetPromise();
-      }
-      return Promise.resolve();
-    })
-    .then(() => {
-      console.log("MathJax typesetting locked at full scale. Processing animation paths.");
-      
-      // 4. Now that text bounds are calculated cleanly, bake your matrices
-      bakeAnimations();
-
-      // 5. Instantly snap the timeline position down to time 0
-      // This collapses widths from full size to 0px instantly before the user can see it
-      globalCurrentTime = 0;
-      renderStateAtTime(0);
-      updateProgressBarUI(0);
-
-      // 6. Smoothly unhide the main group container for playback
+      const mainGroup = document.getElementById("mainSVGGroup");
       if (mainGroup) {
-        mainGroup.style.visibility = "visible";
+        mainGroup.style.visibility = "hidden";
       }
-    })
-    .catch(error => {
-      console.error("Failed to load geometry data file:", error);
-      if (mainGroup) mainGroup.style.visibility = "visible";
-    });
-}
+
+      const fileName = theoremPlaylist[index].file;
+      console.log(`Loading theorem data via fetch: ${fileName}`);
+
+      fetch(fileName)
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          parseProjectData(data);
+          
+          // Clear previous clipping definitions
+          const defs = document.getElementById("playerDefs");
+          const oldClips = defs.querySelectorAll('.text-clip');
+          oldClips.forEach(c => c.remove());
+
+          // Build uniform text mask clips
+          aliveObjects.forEach(obj => {
+            if (obj.type === 'txt' && obj.SVGElement) {
+              const maxW = parseNum(obj.width || 750);
+              const maxH = parseNum(obj.height || 100);
+              obj.SVGElement.setAttribute('width', maxW);
+              obj.SVGElement.setAttribute('height', maxH);
+
+              // Construct dedicated SVG clip path elements
+              const clip = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
+              clip.setAttribute("id", `clip-txt-${obj.index}`);
+              clip.setAttribute("class", "text-clip");
+
+              const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+              rect.setAttribute("x", 0);
+              rect.setAttribute("y", 0);
+              rect.setAttribute("width", maxW);
+              rect.setAttribute("height", maxH);
+              
+              clip.appendChild(rect);
+              defs.appendChild(clip);
+
+              // Bind the structural mask directly to the SVG element
+              obj.SVGElement.setAttribute("clip-path", `url(#clip-txt-${obj.index})`);
+              obj.clipRectElement = rect; 
+            }
+          });
+
+          if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+            return MathJax.typesetPromise();
+          }
+          return Promise.resolve();
+        })
+        .then(() => {
+          console.log("MathJax typesetting locked at full scale. Processing animation paths.");
+          bakeAnimations();
+
+          globalCurrentTime = 0;
+          renderStateAtTime(0);
+          updateProgressBarUI(0);
+
+          if (mainGroup) {
+            mainGroup.style.visibility = "visible";
+          }
+        })
+        .catch(error => {
+          console.error("Failed to load geometry data file:", error);
+          if (mainGroup) mainGroup.style.visibility = "visible";
+        });
+    }
 
     function resetPlayerState() {
-      animations.forEach(anim => anim.cancel());
       animations = [];
       objects = [];
       aliveObjects = [];
@@ -515,18 +513,15 @@
       isScrubbing = false;
       togglePlayBtn.innerHTML = "&#9654;";
       const mainGroup = document.getElementById("mainSVGGroup");
-     
-        if (mainGroup) {
-          mainGroup.innerHTML = ""; 
-        }
+      if (mainGroup) {
+        mainGroup.innerHTML = ""; 
+      }
       updateProgressBarUI(0);
     }
 
     function parseProjectData(data) {
-      // 1. Recreate Objects and instantiate them directly into the player SVG
       data.initialObjects.forEach(objData => {
         let newObj;
-        
         if (objData.type === "pt") {
             newObj = new basePoint(objData.index, objData.cx, objData.cy);
         } else if (objData.type === "ptc") {
@@ -549,17 +544,13 @@
             newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
         }
 
-        // Isolate pure rendering data properties
         const { SVGElement, spanElement, ...cleanData } = objData;
-        //const { SVGElement, spanElement, rowElement, divElement, checkbox, textInput, xInput, yInput, rInput, fontSizeInput, opacityInput, scaleInput, textColorSelect, ...cleanData } = objData;
         Object.assign(newObj, cleanData);
         
-        // In the player, shapes directly append themselves to playerSVG during their class constructors
         objects[newObj.index] = newObj;
         aliveObjects.push(newObj);
       });
 
-      // 2. Re-link Playlist timeline instructions
       data.playlist.forEach(stepData => {
         const targetObj = objects[stepData.objIndex];
         if (targetObj) {
@@ -573,1423 +564,651 @@
         }
       });
 
-      // 3. Immediately Bake structural animations into memory so it's ready for scrubbing or instant play
       render();
-      
-      // Optional: Trigger MathJax typeset parsing post-render for expressions
-      //if (window.MathJax && MathJax.typeset) {MathJax.typeset();}
-      // Return a promise that resolves only when MathJax has completely finished typesetting the newly injected nodes
-      if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
-        return MathJax.typesetPromise();
-      } else {
-        return Promise.resolve();
-      }
-      
     }
 
-    // --- 5. Unified Animation & Playback Console Controls ---
-   // Global state matrices to track absolute values
-let masterTimelineMatrix = [];
+    // --- 5. Animation Core Engine ---
+    function bakeAnimations() {
+      hideAllBasePoints();
+      if (globalPlaylist.length === 0) return;
 
-function bakeAnimations() {
-  hideAllBasePoints();
-  animations = []; 
-  masterTimelineMatrix = []; 
+      objects.forEach(obj => {
+        if (!obj) return;
+        obj.timelineFrames = [{
+          time: 0,
+          state: { ...obj.initialState }
+        }];
+      });
 
-  if (globalPlaylist.length === 0) return;
+      let globalSequenceTime = 0;
 
-  // 1. Initialize every object's timeline frame array with its frame-0 milestone
-  objects.forEach(obj => {
-    if (!obj) return;
-    obj.timelineFrames = [{
-      time: 0,
-      state: { ...obj.initialState }
-    }];
-  });
+      globalPlaylist.forEach(step => {
+        const obj = step.element;
+        let stepStartTime = globalSequenceTime + (parseFloat(step.wait) * 1000);
+        let stepEndTime = stepStartTime + (parseFloat(step.dur) * 1000);
+        globalSequenceTime = stepEndTime;
 
-  // Track a sequential running clock instead of re-starting at 0 for every object
-  let globalSequenceTime = 0;
+        let frames = obj.timelineFrames;
+        let lastKnownState = frames[frames.length - 1].state;
 
-  globalPlaylist.forEach(step => {
-    const obj = step.element;
-    
-    let stepStartTime = globalSequenceTime + (parseFloat(step.wait) * 1000);
-    let stepEndTime = stepStartTime + (parseFloat(step.dur) * 1000);
+        frames.push({
+          time: stepStartTime,
+          state: { ...lastKnownState }
+        });
 
-    globalSequenceTime = stepEndTime;
+        let mergedState = { ...lastKnownState, ...step.state };
+        frames.push({
+          time: stepEndTime,
+          state: mergedState
+        });
+      });
 
-    let frames = obj.timelineFrames;
-    let lastKnownState = frames[frames.length - 1].state;
+      let endPause = 500; 
+      animationDuration = Math.round(globalSequenceTime + endPause);
 
-    frames.push({
-      time: stepStartTime,
-      state: { ...lastKnownState }
-    });
+      objects.forEach(obj => {
+        if (!obj) return;
+        let frames = obj.timelineFrames;
+        let lastState = frames[frames.length - 1].state;
+        if (frames[frames.length - 1].time < animationDuration) {
+          frames.push({
+            time: animationDuration,
+            state: { ...lastState }
+          });
+        }
+      });
+      console.log(`State engine compiled successfully. Duration: ${animationDuration}ms`);
+    }
 
-    let mergedState = { ...lastKnownState, ...step.state };
-    frames.push({
-      time: stepEndTime,
-      state: mergedState
-    });
-  });
+    function renderStateAtTime(ms) {
+      ms = Math.max(0, Math.min(animationDuration, ms));
 
-  // Pad the final duration limits
-  let endPause = 500; 
-  animationDuration = Math.round(globalSequenceTime + endPause);
+      objects.forEach(obj => {
+        if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
 
-  // Pad out every individual object track to stretch cleanly to the terminal timeline edge
-  objects.forEach(obj => {
-    if (!obj) return;
-    let frames = obj.timelineFrames;
-    let lastState = frames[frames.length - 1].state;
-    if (frames[frames.length - 1].time < animationDuration) {
-      frames.push({
-        time: animationDuration,
-        state: { ...lastState }
+        let frames = obj.timelineFrames;
+        let prev = frames[0];
+        let next = frames[frames.length - 1];
+
+        for (let i = 0; i < frames.length - 1; i++) {
+          if (ms >= frames[i].time && ms <= frames[i + 1].time) {
+            prev = frames[i];
+            next = frames[i + 1];
+            break;
+          }
+        }
+
+        let t = 0;
+        let delta = next.time - prev.time;
+        if (delta > 0) t = (ms - prev.time) / delta;
+
+        let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
+
+        allKeys.forEach(key => {
+          let v1 = prev.state[key];
+          let v2 = next.state[key];
+
+          if (v1 === undefined) v1 = v2;
+          if (v2 === undefined) v2 = v1;
+          if (v1 === undefined) return;
+
+          // String & Color properties
+          if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'color') {
+            let activeValue = t < 0.5 ? v1 : v2;
+            obj.SVGElement.setAttribute(key === 'color' ? 'stroke' : key, activeValue);
+            return;
+          }
+
+          // Matrix Transforms
+          if (key === 'transform' && obj.type !== 'ptc') {
+            let getTransformValues = (str) => {
+              let tx = 0, ty = 0, rot = 0, scl = 1;
+              if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
+              let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
+              let rMatch = str.match(/rotate\(([^)]+)\)/);
+              let sMatch = str.match(/scale\(([^)]+)\)/);
+              if (tMatch) { tx = parseFloat(tMatch[1]); ty = parseFloat(tMatch[2]); }
+              if (rMatch) { rot = parseFloat(rMatch[1]); }
+              if (sMatch) { scl = parseFloat(sMatch[1]); }
+              return { tx, ty, rot, scl };
+            };
+
+            let p1 = getTransformValues(v1);
+            let p2 = getTransformValues(v2);
+
+            let curTx = p1.tx + (p2.tx - p1.tx) * t;
+            let curTy = p1.ty + (p2.ty - p1.ty) * t;
+            let curRot = p1.rot + (p2.rot - p1.rot) * t;
+            let curScl = p1.scl + (p2.scl - p1.scl) * t;
+
+            obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
+            return;
+          }
+
+          // Vector Points Coordinates
+          if (key === 'points') {
+            let prevCoords = v1.trim().split(/[\s]+/);
+            let nextCoords = v2.trim().split(/[\s]+/);
+
+            if (prevCoords.length !== nextCoords.length) {
+              obj.SVGElement.setAttribute("points", t < 0.5 ? v1 : v2);
+              return;
+            }
+
+            let interpolatedPoints = [];
+            for (let i = 0; i < prevCoords.length; i++) {
+              let p1 = prevCoords[i].split(',').map(Number);
+              let p2 = nextCoords[i].split(',').map(Number);
+
+              if (p1.length === 2 && p2.length === 2) {
+                let x = p1[0] + (p2[0] - p1[0]) * t;
+                let y = p1[1] + (p2[1] - p1[1]) * t;
+                interpolatedPoints.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+              }
+            }
+            obj.SVGElement.setAttribute("points", interpolatedPoints.join(" "));
+            return;
+          }
+
+          // Numeric interpolation scalar keys
+          let n1 = parseNum(v1);
+          let n2 = parseNum(v2);
+          let interpolatedNum = n1 + (n2 - n1) * t;
+
+          // Fixed Width Calculations via SVG Clip Masks (Safari Fix)
+          if (key === 'width') {
+            if (obj.type === 'txt' && obj.clipRectElement) {
+              obj.clipRectElement.setAttribute('width', interpolatedNum.toFixed(2));
+            } else {
+              obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
+            }
+            return;
+          }
+
+          if (key === 'scale' && obj.type === 'ptc') {
+            obj.SVGElement.style.transformOrigin = "center";
+            obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
+            return;
+          }
+
+          if (key === 'cx' || key === 'cy' || key === 'r') {
+            obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
+            return;
+          }
+
+          if (key === 'opacity') {
+            obj.SVGElement.style.opacity = interpolatedNum;
+          } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
+            let attributeName = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
+            obj.SVGElement.setAttribute(attributeName, interpolatedNum.toFixed(2));
+          } else {
+            let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+            let finalAttrValue;
+
+            if (svgAttributeName === 'stroke-dasharray' || svgAttributeName === 'stroke-dashoffset') {
+              finalAttrValue = interpolatedNum;
+            } else {
+              let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
+              finalAttrValue = interpolatedNum + (hasPx ? 'px' : '');
+            }
+            obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
+          }
+        });
       });
     }
 
-    // ========================================================
-    // UNIFIED INITIALIZATION LOOKING EXCLUSIVELY AT INITIAL STATE
-    // ========================================================
-    if (obj.SVGElement && obj.timelineFrames[0]) {
-      let initialState = obj.timelineFrames[0].state;
-
-      // Helper to strip units or handle defaults safely
-      const parseNum = (val) => {
-        if (val === undefined || val === null) return 0;
-        if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
-        return parseFloat(val) || 0;
-      };
-
-      // 1. Direct Opacity Sync from JSON initialState
-      if (initialState.opacity !== undefined) {
-        obj.SVGElement.setAttribute("opacity", initialState.opacity);
-        obj.SVGElement.style.opacity = initialState.opacity;
-      }
-
-      // 2. Direct Transform Sync applied to CSS Style layer to prevent SVG parsing warnings
-      if (initialState.transform !== undefined) {
-        // By assigning this to .style.transform instead of setAttribute('transform'),
-        // browser engines accept the "px" tokens and whitespace variations smoothly.
-        obj.SVGElement.style.transform = initialState.transform;
-      }
-
-      // 3. Coordinate Position Initialization from JSON initialState
-      if (initialState.cx !== undefined) obj.SVGElement.setAttribute("cx", parseNum(initialState.cx));
-      if (initialState.cy !== undefined) obj.SVGElement.setAttribute("cy", parseNum(initialState.cy));
-      if (initialState.x !== undefined)  obj.SVGElement.setAttribute("x", parseNum(initialState.x));
-      if (initialState.y !== undefined)  obj.SVGElement.setAttribute("y", parseNum(initialState.y));
-
-      // 4. Handle Trick 1's Width Isolation for Text Objects
-      if (obj.type === 'txt' && obj.spanElement) {
-        let initW = parseNum(initialState.width);
-        
-        // Retain the max vector canvas width to prevent early wrapping or layout clipping
-        let maxW = parseNum(obj.width);
-        obj.SVGElement.setAttribute('width', maxW);
-
-        // Map the baseline horizontal clipping space to the text layout span
-        obj.spanElement.style.display = 'inline-block';
-        obj.spanElement.style.overflow = 'hidden';
-        obj.spanElement.style.width = initW + 'px';
-      } else {
-        // Fallback for primitive geometric assets (lines, ellipses, polygons)
-        if (initialState.width !== undefined) {
-          obj.SVGElement.setAttribute("width", parseNum(initialState.width));
-        }
-      }
+    // --- 6. Playback Control Loop ---
+    function playAnimation() {
+      if (isPlaying) return;
+      isPlaying = true;
+      togglePlayBtn.innerHTML = "&#10074;&#10074;";
+      requestWakeLock();
       
-      if (initialState.height !== undefined && obj.type !== 'txt') {
-        obj.SVGElement.setAttribute("height", parseNum(initialState.height));
-      }
-    }
-  });
-
-  console.log(`State-driven engine compiled successfully. Duration: ${animationDuration}ms`);
-}
-
-function renderStateAtTime(ms) {
-  // 1. Clamp time within execution bounds safely
-  ms = Math.max(0, Math.min(animationDuration, ms));
-
-  // Helper utility to safely parse numbers and strip out string units like "px"
-  const parseNum = (val) => {
-    if (val === undefined || val === null) return 0;
-    if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
-    return parseFloat(val) || 0;
-  };
-
-  objects.forEach(obj => {
-    if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
-
-    let frames = obj.timelineFrames;
-    let prev = frames[0];
-    let next = frames[frames.length - 1];
-
-    // Find the current keyframe interval block
-    for (let i = 0; i < frames.length - 1; i++) {
-      if (ms >= frames[i].time && ms <= frames[i + 1].time) {
-        prev = frames[i];
-        next = frames[i + 1];
-        break;
-      }
-    }
-
-    // Calculate progression percentage (t) between these two specific frames
-    let t = 0;
-    let delta = next.time - prev.time;
-    if (delta > 0) t = (ms - prev.time) / delta;
-
-    // Aggregate every single layout state property present in both frames
-    let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
-
-    allKeys.forEach(key => {
-      let v1 = prev.state[key];
-      let v2 = next.state[key];
-
-      // Fallback assertions if properties are missing on either frame side
-      if (v1 === undefined) v1 = v2;
-      if (v2 === undefined) v2 = v1;
-      if (v1 === undefined) return;
-
-                      
-
-      // --- Category 1: String Constants & Color Swaps ---
-      if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'color') {
-        let activeValue = t < 0.5 ? v1 : v2;
-        obj.SVGElement.setAttribute(key === 'color' ? 'stroke' : key, activeValue);
-        return;
-      }
-
-      // --- Category 2: Complex Spatial Transforms ---
-      if (key === 'transform' && obj.type !== 'ptc') {
-        let getTransformValues = (str) => {
-          let tx = 0, ty = 0, rot = 0, scl = 1;
-          if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
-          
-          let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
-          let rMatch = str.match(/rotate\(([^)]+)\)/);
-          let sMatch = str.match(/scale\(([^)]+)\)/);
-
-          if (tMatch) { tx = parseFloat(tMatch[1]); ty = parseFloat(tMatch[2]); }
-          if (rMatch) { rot = parseFloat(rMatch[1]); }
-          if (sMatch) { scl = parseFloat(sMatch[1]); }
-          return { tx, ty, rot, scl };
-        };
-
-        let p1 = getTransformValues(v1);
-        let p2 = getTransformValues(v2);
-
-        let curTx = p1.tx + (p2.tx - p1.tx) * t;
-        let curTy = p1.ty + (p2.ty - p1.ty) * t;
-        let curRot = p1.rot + (p2.rot - p1.rot) * t;
-        let curScl = p1.scl + (p2.scl - p1.scl) * t;
-
-        obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
-        return;
-      }
-
-      // --- Category 3: Vector Poly-Coordinates ("points") ---
-      if (key === 'points') {
-        let prevCoords = v1.trim().split(/[\s]+/);
-        let nextCoords = v2.trim().split(/[\s]+/);
-
-        if (prevCoords.length !== nextCoords.length) {
-          obj.SVGElement.setAttribute("points", t < 0.5 ? v1 : v2);
-          return;
-        }
-
-        let interpolatedPoints = [];
-        for (let i = 0; i < prevCoords.length; i++) {
-          let p1 = prevCoords[i].split(',').map(Number);
-          let p2 = nextCoords[i].split(',').map(Number);
-
-          if (p1.length === 2 && p2.length === 2) {
-            let x = p1[0] + (p2[0] - p1[0]) * t;
-            let y = p1[1] + (p2[1] - p1[1]) * t;
-            interpolatedPoints.push(`${x.toFixed(2)},${y.toFixed(2)}`);
-          }
-        }
-        obj.SVGElement.setAttribute("points", interpolatedPoints.join(" "));
-        return;
-      }
-
-      // --- Category 4: Numeric Scaling & Properties ---
-    let n1 = parseNum(v1);
-    let n2 = parseNum(v2);
-    let interpolatedNum = n1 + (n2 - n1) * t;
-    
-    if (key === 'width') {
-      // If it's a text element, apply the width to the inner HTML span rather than the SVG container
-      if (obj.type === 'txt' && obj.spanElement) {
-        // Keep the outer container maxed out so Safari doesn't choke or wrap text
-        let maxW = parseNum(obj.width || v2);
-        obj.SVGElement.setAttribute('width', maxW.toFixed(2));
-        
-        // Animate the inner span's horizontal layout space smoothly
-        obj.spanElement.style.display = 'inline-block';
-        obj.spanElement.style.overflow = 'hidden';
-        obj.spanElement.style.width = interpolatedNum.toFixed(2) + 'px';
-      } else {
-        // Fallback for standard shapes (polygons, lines, etc.) if they use width keys
-        obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
-      }
-      return;
-    }
-
-      // Custom Point Point-Pop (ptc type) scaling center locking
-      if (key === 'scale' && obj.type === 'ptc') {
-        obj.SVGElement.style.transformOrigin = "center";
-        obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
-        return;
-      }
-
-      // Direct SVG structural parameters (cx, cy, r)
-      if (key === 'cx' || key === 'cy' || key === 'r') {
-        obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
-        return;
-      }
-
-      // Standard styling layout vectors
-      if (key === 'opacity') {
-        obj.SVGElement.style.opacity = interpolatedNum;
-      } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
-        let attributeName = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
-        obj.SVGElement.setAttribute(attributeName, interpolatedNum.toFixed(2));
-      } else {
-        let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
-        let finalAttrValue;
-
-        // Force clean unitless rules strictly for SVG vector lines drawing offsets
-        if (svgAttributeName === 'stroke-dasharray' || svgAttributeName === 'stroke-dashoffset') {
-          if (svgAttributeName === 'stroke-dashoffset' && t === 0 && interpolatedNum > 0) {
-            finalAttrValue = interpolatedNum;
-          } else {
-            finalAttrValue = interpolatedNum;
-          }
-        } else {
-          let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
-          finalAttrValue = interpolatedNum + (hasPx ? 'px' : '');
-        }
-
-        obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
-      }
-    });
-  });
-}
-    
-
+      let lastTimestamp = performance.now();
       
+      function loop(now) {
+        if (!isPlaying) return;
 
-    let wakeLock = null;
+        let dt = now - lastTimestamp;
+        lastTimestamp = now;
+        globalCurrentTime += dt;
 
-    
+        if (globalCurrentTime >= animationDuration) {
+          globalCurrentTime = animationDuration;
+          isPlaying = false;
+          togglePlayBtn.innerHTML = "&#9654;";
+          releaseWakeLock();
+        }
 
-      let globalCurrentTime = 0;
-let lastTickTime = 0;
+        renderStateAtTime(globalCurrentTime);
+        updateProgressBarUI((globalCurrentTime / animationDuration) * 100);
 
-function playAnimation() {
-  if (isPlaying) return;
-  isPlaying = true;
-  togglePlayBtn.innerHTML = "&#10074;&#10074;"; // Update UI to Pause symbol
-  requestWakeLock();
-  
-  // Start the high-precision clock loop using requestAnimationFrame
-  let lastTimestamp = performance.now();
-  
-  function loop(now) {
-    if (!isPlaying) return; // Halt loop execution immediately if paused or scrubbed
+        if (isPlaying) {
+          requestAnimationFrame(loop);
+        }
+      }
+      requestAnimationFrame(loop);
+    }
 
-    let dt = now - lastTimestamp;
-    lastTimestamp = now;
-
-    // Track frame advancement using actual millisecond deltas
-    globalCurrentTime += dt;
-
-    // Check if the runtime has exceeded maximum playlist duration bounds
-    if (globalCurrentTime >= animationDuration) {
-      globalCurrentTime = animationDuration;
+    function pauseAnimation() {
+      releaseWakeLock();
       isPlaying = false;
-      togglePlayBtn.innerHTML = "&#9654;"; // Revert back to Play symbol
+      togglePlayBtn.innerHTML = "&#9654;";
+    }
+
+    function rewindAnimation() {
+      isPlaying = false;
+      globalCurrentTime = 0;
+      togglePlayBtn.innerHTML = "&#9654;";
+      renderStateAtTime(0);
+      updateProgressBarUI(0);
       releaseWakeLock();
     }
 
-    // Render visual states and update progress width percentages synchronously
-    renderStateAtTime(globalCurrentTime);
-    updateProgressBarUI((globalCurrentTime / animationDuration) * 100);
+    togglePlayBtn.onclick = function() {
+      if (isPlaying) {
+        pauseAnimation();
+      } else {
+        if (globalCurrentTime >= animationDuration) {
+          rewindAnimation();
+        }
+        playAnimation();
+      }
+    };
 
-    if (isPlaying) {
-      requestAnimationFrame(loop);
-    }
-  }
-  
-  requestAnimationFrame(loop);
-}
-
-function pauseAnimation() {
-  releaseWakeLock();
-  isPlaying = false;
-  togglePlayBtn.innerHTML = "&#9654;"; // Update UI to Play symbol
-}
-
-function rewindAnimation() {
-  isPlaying = false;
-  globalCurrentTime = 0;
-  togglePlayBtn.innerHTML = "&#9654;";
-  renderStateAtTime(0);
-  updateProgressBarUI(0);
-  releaseWakeLock();
-}
-
-// --- 2. Button Event Listeners ---
-
-togglePlayBtn.onclick = function() {
-  if (isPlaying) {
-    pauseAnimation();
-  } else {
-    // Automatically loop back to the beginning if the timeline has finished
-    if (globalCurrentTime >= animationDuration) {
+    stopBtn.onclick = function() {
       rewindAnimation();
+    };
+
+    function updateProgressBarUI(percent) {
+      percent = Math.max(0, Math.min(100, percent));
+      timelineProgress.style.width = percent + '%';
+      timelineThumb.style.left = percent + '%';
     }
-    playAnimation();
-  }
-};
 
-stopBtn.onclick = function() {
-  rewindAnimation();
-};
-
-function updateProgressBarUI(percent) {
-  // Clamp percentages cleanly within absolute 0 to 100 limits
-  percent = Math.max(0, Math.min(100, percent));
-  timelineProgress.style.width = percent + '%';
-  timelineThumb.style.left = percent + '%';
-}
-
-// --- 3. Core Timeline Scrubbing Math Engine ---
-
-function scrub(e) {
-  // Measures track width directly against the timelineScrubber bounding box layout area
-  const rect = timelineScrubber.getBoundingClientRect();
-  let percentage = (e.clientX - rect.left) / rect.width;
-  percentage = Math.max(0, Math.min(1, percentage));
-
-  // Lock global position pointer parameter to the coordinate location
-  globalCurrentTime = percentage * animationDuration;
-  
-  // Render and update UI immediately on input changes
-  renderStateAtTime(globalCurrentTime);
-  updateProgressBarUI(percentage * 100);
-}
-
-function scrubTouch(e) {
-  if (e.touches.length === 0) return;
-  // Map touch positions precisely onto the cursor tracking profile
-  const fakeMouseEvent = {
-    clientX: e.touches[0].clientX
-  };
-  scrub(fakeMouseEvent);
-}
-
-// --- 4. Scroller Interaction Event Listeners (Mouse & Touch) ---
-
-timelineScrubber.addEventListener('mousedown', (e) => {
-  isScrubbing = true;
-  pauseAnimation(); // Halt active running time clocks safely before calculating positions
-  scrub(e);
-});
-
-window.addEventListener('mousemove', (e) => {
-  if (isScrubbing) scrub(e);
-});
-
-window.addEventListener('mouseup', () => {
-  isScrubbing = false;
-});
-
-timelineScrubber.addEventListener('touchstart', (e) => {
-  isScrubbing = true;
-  pauseAnimation();
-  scrubTouch(e);
-}, { passive: false });
-
-window.addEventListener('touchmove', (e) => {
-  if (isScrubbing) {
-    e.preventDefault(); // Stop mobile devices from bouncing layout pages while scrubbing canvas lines
-    scrubTouch(e);
-  }
-}, { passive: false });
-
-window.addEventListener('touchend', () => {
-  isScrubbing = false;
-});
-
-// --- 5. Mobile Device Background WakeLock Management ---
-
-async function requestWakeLock() {
-  if ('wakeLock' in navigator) {
-    try {
-      if (!wakeLock) {
-        wakeLock = await navigator.wakeLock.request('screen');
-        console.log('Screen Wake Lock active.');
-      }
-    } catch (err) {
-      console.log(`Wake Lock request failed: ${err.message}`);
+    // --- 7. Scrubbing Math Mechanics ---
+    function scrub(e) {
+      const rect = timelineScrubber.getBoundingClientRect();
+      let percentage = (e.clientX - rect.left) / rect.width;
+      percentage = Math.max(0, Math.min(1, percentage));
+      globalCurrentTime = percentage * animationDuration;
+      renderStateAtTime(globalCurrentTime);
+      updateProgressBarUI(percentage * 100);
     }
-  }
-}
 
-function releaseWakeLock() {
-  if (wakeLock !== null) {
-    wakeLock.release()
-      .then(() => {
-        wakeLock = null;
-        console.log('Screen Wake Lock released.');
-      });
-  }
-}
-
-document.addEventListener('visibilitychange', async () => {
-  if (wakeLock !== null && document.visibilityState === 'visible') {
-    await requestWakeLock();
-  }
-});
-
-// --- 6. Fullscreen View Management ---
-
-const fullscreenBtn = document.getElementById('fullscreenBtn');
-const appContainer = document.querySelector('.app-container');
-
-if (fullscreenBtn && appContainer) {
-  fullscreenBtn.onclick = function() {
-    if (!document.fullscreenElement) {
-      appContainer.requestFullscreen()
-        .then(() => {
-          if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(true);
-        })
-        .catch((err) => {
-          console.error(`Error entering full-screen mode: ${err.message}`);
-        });
-    } else {
-      document.exitFullscreen();
-      if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(false);
+    function scrubTouch(e) {
+      if (e.touches.length === 0) return;
+      scrub({ clientX: e.touches[0].clientX });
     }
-  };
-}
-    
-    // Listen for system-level escape keys or swipe-to-exits to keep the button label accurate
-    document.addEventListener('fullscreenchange', () => {
-      if (document.fullscreenElement) {
-        updateFullscreenButtonUI(true);
-      } else {
-        updateFullscreenButtonUI(false);
-      }
+
+    timelineScrubber.addEventListener('mousedown', (e) => {
+      isScrubbing = true;
+      pauseAnimation();
+      scrub(e);
     });
-    
-    function updateFullscreenButtonUI(isFullScreen) {
-      if (isFullScreen) {
-        // Switch icon to "Minimize/Exit Full Screen" brackets
-        fullscreenBtn.innerHTML = `
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
-            <path d="M4 14h6v6m10-6h-6v6M4 10h6V4m10 6h-6V4"/>
-          </svg>
-        `;
-      } else {
-        // Switch icon back to regular "Maximize" expand brackets
-        fullscreenBtn.innerHTML = `
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
-            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-          </svg>
-        `;
+    window.addEventListener('mousemove', (e) => { if (isScrubbing) scrub(e); });
+    window.addEventListener('mouseup', () => { isScrubbing = false; });
+
+    timelineScrubber.addEventListener('touchstart', (e) => {
+      isScrubbing = true;
+      pauseAnimation();
+      scrubTouch(e);
+    }, { passive: false });
+    window.addEventListener('touchmove', (e) => {
+      if (isScrubbing) {
+        e.preventDefault();
+        scrubTouch(e);
       }
-    }
-    
-
-    // Bootstrapping initialization launch
-  function launchPlayer()
-  {
-    document.getElementById("mainSVGGroup").style.visibility = "hidden" ;
-    initUI();
-    loadTheorem(0); // Safely runs now that all styles and fonts are loaded
-    setTimeout(() => { document.getElementById("mainSVGGroup").style.visibility = "visible" ;}, 100);
-  }
-
-// Check if MathJax is already completely initialized
-  if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
-  MathJax.startup.promise.then(() => {
-    console.log("MathJax is fully booted. Launching geometry engine configuration.");
-    
-    // 1. Core structural setup (parses objects, attaches nodes to DOM, runs initial render())
-    launchPlayer(); 
-
-    // 2. SAFARI HOOK: Wait for MathJax to finish formatting the newly appended DOM nodes
-    return MathJax.typesetPromise();
-  }).then(() => {
-    console.log("MathJax initial compilation complete. Securing frame layouts for Safari.");
-    
-    // 3. Bake your core animation matrices now that all bounding heights and scales are locked in
-    bakeAnimations();
-    
-    // 4. Set the initial state cleanly at time 0
-    globalCurrentTime = 0;
-    renderStateAtTime(0);
-    updateProgressBarUI(0);
-  }).catch((err) => {
-    console.error("Initialization loop exception:", err);
-  });
-} else {
-  // Fallback: If MathJax script fails or isn't used, launch anyway after DOM settles
-  window.addEventListener('DOMContentLoaded', () => {
-    launchPlayer();
-    bakeAnimations();
-    globalCurrentTime = 0;
-    renderStateAtTime(0);
-    updateProgressBarUI(0);
-  });
-}
-
-function parseNum(val) {
-  if (typeof val === 'string') {
-    return parseFloat(val.replace(/px/g, '')) || 0;
-  }
-  return parseFloat(val) || 0;
-}
-
-  
-
-  class basePoint
-  {
-    constructor(objectIndex, cx, cy )
-    {
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-      SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
-      SVGElement.style.cursor= 'pointer';
-      SVGElement.setAttribute("r", 3);
-      SVGElement.setAttribute("stroke-width",1);
-      SVGElement.setAttribute("fill-opacity",0);
-      SVGElement.setAttribute("opacity",1);
-      SVGElement.setAttribute("stroke",'black');
-      SVGElement.setAttribute("fill",'black');
-      SVGElement.style.visibility = "hidden";
-
-      this.SVGElement = SVGElement;
-      this.index = objectIndex;
-
-      this.cx = cx;
-      this.cy = cy;
-    
-      this.type = 'pt';
-    }
-
-    updateSVG()
-    {
-      this.SVGElement.setAttribute("cx", this.cx);
-      this.SVGElement.setAttribute("cy", this.cy);    
-    }
-  }
-
-
-
-  class point
-  {
-    constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale )
-    {
-      
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-      SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box";
-      SVGElement.style.pointerEvents = 'none';
-      
-
-      this.SVGElement = SVGElement;
-      this.index = objectIndex;
-
-      
-
-      this.cx = cx;
-      this.cy = cy;
-      this.r = r;
-      this.strokeWidth = strokeWidth;
-      this.fillOpacity = fillOpacity;
-      this.opacity = opacity;
-      this.scale=scale;
-      this.strokeColor = strokeColor;
-      this.fillColor = fillColor;
-      this.type = 'ptc';
-      this.property = 'point';
-    }
-
-    updateSVG()
-    {
-      this.SVGElement.setAttribute("cx", this.cx);
-      this.SVGElement.setAttribute("cy", this.cy);
-      this.SVGElement.setAttribute("r", this.r);
-      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-      this.SVGElement.setAttribute("opacity",this.opacity);
-      this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
-      this.SVGElement.setAttribute("stroke",this.strokeColor);
-      this.SVGElement.setAttribute("fill",this.fillColor);
-    }
-  }
-
-
-
-  class text
-  { 
-    constructor(objectIndex,x, y, text, opacity, scale, textColor, fontSize,rotate)
-    {
-      this.index=objectIndex;
-      this.x = x;
-      this.y = y;
-
-      this.dx=0;
-      this.dy=0;
-
-      this.text = text;
-      this.opacity = opacity;
-      this.scale=scale;
-      this.textColor = textColor;
-      this.fontSize = fontSize;
-      this.rotate = rotate;
-      
-
-      this.type = 'txt';
-      this.fontWeight= 400;
-
-      this.displayType = 'tx';
-      
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-      SVGElement.setAttribute("id",'SVGText'+objectIndex);
-
-      
-      
-      SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
-      SVGElement.style.pointerEvents = 'none';
-      SVGElement.style.color = textColor;
-      SVGElement.style.fontWeight = this.fontWeight;
-      SVGElement.style.fontSize=fontSize;
-
-      let spanElement0 = document.createElement("SPAN");
-      spanElement0.style.fontSize = this.fontSize+'px';
-      spanElement0.style.fontWeight = this.fontWeight;
-      spanElement0.style.color = this.textColor;
-      spanElement0.innerHTML = this.text;
-      spanElement0.style.height='auto';
-      spanElement0.style.width='auto';
-      document.body.appendChild(spanElement0);
-      /*
-      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-            MathJax.typesetPromise([spanElement0]) // Tell it exactly which element to format
-              .catch((err) => console.log('MathJax formatting error:', err));
-        } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
-            try {
-                MathJax.typeset();
-            } catch(err) {
-                console.log('MathJax fallback typeset failed:', err);
-            }
-        } else {
-            console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
-        }
-        */
-      
-      
-      const rect = spanElement0.getBoundingClientRect();
-      const fOWidth = Math.ceil(rect.width) ;
-      const fOHeight = Math.ceil(rect.height) ;
-      document.body.removeChild(spanElement0);
-
-      this.height = fOHeight;
-      this.width = fOWidth;
-
-
-      let spanElement = document.createElement("SPAN");
-      spanElement.style.whiteSpace = 'nowrap';
-      spanElement.style.display = 'inline-block';
-      spanElement.style.textAlign = 'left';
-      spanElement.innerHTML = text;
-      SVGElement.appendChild(spanElement);
-      //MathJax.typesetPromise();
-      /*
-      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-            MathJax.typesetPromise([spanElement]) // Tell it exactly which element to format
-              .catch((err) => console.log('MathJax formatting error:', err));
-        } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
-            try {
-                MathJax.typeset();
-            } catch(err) {
-                console.log('MathJax fallback typeset failed:', err);
-            }
-        } else {
-            console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
-        }
-        */
-     
-      
-
-      this.SVGElement = SVGElement;
-      this.spanElement = spanElement;
-    }
-
-    updateSVG()
-    {
-      this.spanElement.innerHTML = this.text;
-      this.spanElement.style.fontSize=this.fontSize+'px';
-      this.SVGElement.style.color = this.textColor;
-      
-      this.SVGElement.style.fontWeight = this.fontWeight;
-      this.SVGElement.style.fontSize=this.fontSize;
-      this.SVGElement.setAttribute("height",this.height);
-      this.SVGElement.setAttribute("width",this.width);
-      this.SVGElement.setAttribute("x", this.x);
-      this.SVGElement.setAttribute("y", this.y);
-      this.SVGElement.style.transformOrigin = "center";
-      this.SVGElement.style.transformBox = "fill-box"; 
-      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-      this.SVGElement.setAttribute("opacity",this.opacity);
-    }
-  }
-
-
-  class polygon
-  {
-    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale,rotate)
-    {
-      this.index = objectIndex;
-      this.pointsIndices=pointsIndices;
-  
-      this.dx = dx;
-      this.dy = dy;
-      this.opacity = opacity;
-      this.strokeWidth = strokeWidth;
-      this.strokeColor = strokeColor;
-      this.fillOpacity = fillOpacity;
-      this.fillColor = fillColor;
-      this.scale=scale;
-      this.rotate = rotate;
-      this.property = pointsIndices.map(obj => obj + 1).join(',');
-      this.type='pgn';
-
-
-
-
-
-      
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-
-      let ptsArray = [];
-      for (let i = 0; i < this.pointsIndices.length; i++)
-      {
-        let obj=objects[this.pointsIndices[i]];
-        ptsArray.push(obj.cx + "," + obj.cy);
-      }
-      let pts = ptsArray.join(" ");
-
-      SVGElement.setAttribute("points", pts);
-      SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box";
-      SVGElement.setAttribute("stroke-linejoin",'round');
-      SVGElement.style.pointerEvents = 'none';
-
-      this.SVGElement = SVGElement;
-      this.totalLength = SVGElement.getTotalLength();
-      this.strokeDashoffset = this.totalLength;
-
-      SVGElement.setAttribute("stroke-dashoffset", this.totalLength); 
-    }
-
-
-
-    updateSVG()
-    {
-      let ptsArray = [];
-      for (let i = 0; i < this.pointsIndices.length; i++)
-      {
-        let obj=objects[this.pointsIndices[i]];
-        ptsArray.push(obj.cx + "," + obj.cy);
-      }
-      let pts = ptsArray.join(" ");
-
-      this.SVGElement.setAttribute("points", pts);
-      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-      this.totalLength = this.SVGElement.getTotalLength();
-      this.SVGElement.setAttribute("stroke",this.strokeColor);
-      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
-      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-      this.SVGElement.setAttribute("fill",this.fillColor);
-      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-      this.SVGElement.setAttribute("opacity",this.opacity);
-      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
-    }
-  }
-
-  class polyline
-  {
-    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
-    {
-      this.index = objectIndex;
-      
-      this.pointsIndices=pointsIndices; 
-      this.property = pointsIndices.map(obj => obj + 1).join(',');
-      
-      this.dx = dx;
-      this.dy = dy;
-      this.opacity = opacity;
-      this.strokeWidth = strokeWidth;
-      this.strokeColor = strokeColor;
-      this.scale=scale;
-      this.rotate=rotate;
-
-      this.type='pln';
-
-
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-
-      let ptsArray = [];
-      for (let i = 0; i < this.pointsIndices.length; i++)
-      {
-        let obj=objects[this.pointsIndices[i]];
-        ptsArray.push(obj.cx + "," + obj.cy);
-      }
-      let pts = ptsArray.join(" ");
-
-      SVGElement.setAttribute("points", pts);
-      SVGElement.style.pointerEvents = 'none';
-      SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box";
-      SVGElement.setAttribute("stroke-linejoin",'round');
-      SVGElement.setAttribute("stroke-linecap",'round');
-      SVGElement.setAttribute("fill",'none');
-
-      
-      this.SVGElement = SVGElement;
-      
-
-      this.totalLength = SVGElement.getTotalLength();
-      this.strokeDashoffset = this.totalLength;
-
-      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);     
-    }
-
-
-
-    updateSVG()
-    {
-      let ptsArray = [];
-      for (let i = 0; i < this.pointsIndices.length; i++)
-      {
-        let obj=objects[this.pointsIndices[i]];
-        ptsArray.push(obj.cx + "," + obj.cy);
-      }
-      let pts = ptsArray.join(" ");
-      this.SVGElement.setAttribute("points", pts);
-      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-      this.SVGElement.setAttribute("stroke",this.strokeColor);
-      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-      this.SVGElement.setAttribute("opacity",this.opacity);
-      this.totalLength = this.SVGElement.getTotalLength();
-      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
-      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
-    }
-  }
-
-  class circle
-  {
-    constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, property )
-    {
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-      SVGElement.setAttribute("cx", cx);
-      SVGElement.setAttribute("cy", cy);
-      SVGElement.setAttribute("r", r);
-      this.totalLength = SVGElement.getTotalLength();
-      SVGElement.setAttribute("stroke-dashoffset", this.totalLength );
-      SVGElement.style.pointerEvents = 'none';
-      SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box";
-
-
-      this.SVGElement = SVGElement;
-      this.index = objectIndex;
-
-      this.cx = cx;
-      this.cy = cy;
-      this.center={cx:this.cx,cy:this.cy};
-      this.r = r;
-      this.strokeWidth = strokeWidth;
-      this.fillOpacity = fillOpacity;
-      this.opacity = opacity;
-      this.scale=scale;
-      this.strokeColor = strokeColor;
-      this.fillColor = fillColor;
-      this.type = 'cr';
-
-      this.property = property;
-      
-      
-      this.strokeDashoffset = this.totalLength;
-
-    }
-
-    updateSVG()
-    {
-      this.SVGElement.setAttribute("cx", this.cx);
-      this.SVGElement.setAttribute("cy", this.cy);
-      this.SVGElement.setAttribute("r", this.r);
-      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-      this.SVGElement.setAttribute("opacity",this.opacity);
-      this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
-      this.SVGElement.setAttribute("stroke",this.strokeColor);
-      this.SVGElement.setAttribute("fill",this.fillColor);
-      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
-      this.totalLength = this.SVGElement.getTotalLength();
-      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
-    }
-  }
-
-  class ellipse
-  {
-    constructor(objectIndex, cx, cy, rx,ry, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rotate )
-    {
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-      SVGElement.setAttribute("cx", cx);
-      SVGElement.setAttribute("cy", cy);
-      SVGElement.setAttribute("rx", rx);
-      SVGElement.setAttribute("ry", ry);
-      SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box";
-
-
-      this.SVGElement = SVGElement;
-      this.index = objectIndex;
-      this.cx = cx;
-      this.cy = cy;
-      this.rx = rx;
-      this.ry = ry;
-      this.opacity = opacity;
-      this.strokeWidth = strokeWidth;
-      this.strokeColor = strokeColor;
-      this.fillOpacity = fillOpacity;
-      this.fillColor = fillColor;
-      this.scale=scale;
-      this.rotate = rotate;
-      this.type = 'elp';
-      this.totalLength = SVGElement.getTotalLength();
-      this.strokeDashoffset = this.totalLength;
-
-      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
-    }
-
-    updateSVG()
-    {
-      this.SVGElement.setAttribute("cx", this.cx);
-      this.SVGElement.setAttribute("cy", this.cy);
-      this.SVGElement.setAttribute("rx", this.rx);
-      this.SVGElement.setAttribute("ry", this.ry);
-      this.SVGElement.setAttribute("transform",' rotate('+this.rotate+')'+'scale('+this.scale+' '+this.scale+')');
-      this.SVGElement.setAttribute("opacity",this.opacity);
-      this.SVGElement.setAttribute("fill",this.fillColor);
-      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-      this.SVGElement.setAttribute("stroke",this.strokeColor);
-      this.SVGElement.setAttribute("stroke-width",this.strokeWidth); 
-      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
-      this.totalLength = this.SVGElement.getTotalLength();
-      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);   
-    }
-  }
-
-  class angle
-  {
-    constructor(objectIndex, pointsIndices, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rightAngle )
-    {
-      this.index = objectIndex;
-      this.r = r;
-      this.opacity = opacity;
-      this.strokeWidth = strokeWidth;
-      this.strokeColor = strokeColor;
-      this.fillOpacity = fillOpacity;
-      this.fillColor = fillColor;
-      this.scale=scale;
-      
-      this.rightAngle = rightAngle;
-      this.pointsIndices= pointsIndices;
-      this.property = pointsIndices.map(obj => obj + 1).join(',');
-
-      this.type = 'ang';
-
-      this.dx = 0;
-      this.dy = 0;
-
-      let pathAngleIn = angleInPath(this.pointsIndices,r,rightAngle);
-
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-      SVGElement.setAttribute('d',pathAngleIn);
-      SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box";
-      SVGElement.style.pointerEvents = 'none';
-
-
-      this.SVGElement = SVGElement;
-
-      this.totalLength = SVGElement.getTotalLength();
-      this.strokeDashoffset = this.totalLength;
-
-    }
-
-    updateSVG()
-    {
-      let rA = String(this.rightAngle) === "true";
-
-      let pathAngleIn = angleInPath(this.pointsIndices,this.r,rA);
-
-      this.SVGElement.setAttribute('d',pathAngleIn);
-      this.totalLength = this.SVGElement.getTotalLength();
-      this.SVGElement.setAttribute("opacity",this.opacity);
-      
-      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')');
-      this.SVGElement.setAttribute("fill",this.fillColor);
-      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-      this.SVGElement.setAttribute("stroke",this.strokeColor);
-      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
-
-      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
-    }
-  }
-
-
-
-  class qcurve
-  {
-    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
-    {
-      this.index = objectIndex;
-      this.pointsIndices= pointsIndices;
-      this.dx = dx;
-      this.dy = dy;
-      this.opacity = opacity;
-      this.strokeWidth = strokeWidth;
-      this.strokeColor = strokeColor;
-      this.scale=scale;
-      this.rotate=rotate;
-      this.property = pointsIndices.map(obj => obj + 1).join(',');
-
-      this.type='qcrv';
-
-
-      //svg object
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-
-
-      let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
-      
-      SVGElement.setAttribute("d", d);
-      SVGElement.style.pointerEvents = 'none';
-      SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box";
-      SVGElement.setAttribute("stroke-linejoin",'round');
-      SVGElement.setAttribute("stroke-linecap",'round');
-      SVGElement.setAttribute("fill",'none');
-
-      
-      
-      this.SVGElement = SVGElement;
-      
-
-      this.totalLength = SVGElement.getTotalLength();
-      this.strokeDashoffset = this.totalLength;
-
-      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
-           
-    }
-
-
-
-    updateSVG()
-    {
-      let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
-      
-      this.SVGElement.setAttribute("d", d);
-      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-      this.SVGElement.setAttribute("stroke",this.strokeColor);
-      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-      this.SVGElement.setAttribute("opacity",this.opacity);
-      this.totalLength = this.SVGElement.getTotalLength();
-      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
-
-      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
-    }
-
-
-  }
-  
-
-  class arrow
-  {
-    constructor(objectIndex,pointsIndices, r , opacity, strokeWidth, strokeColor, scale,rotate)
-    {
-      this.index = objectIndex;
-      this.pointsIndices= pointsIndices;
-      this.r = r;
-      this.dx = 0;
-      this.dy = 0;
-      this.opacity = opacity;
-      this.strokeWidth = strokeWidth;
-      this.strokeColor = strokeColor;
-      this.scale=scale;
-      this.rotate=rotate;
-      this.property = pointsIndices.map(obj => obj + 1).join(',');
-
-      this.type='arw';
-
-
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-
-      let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
-      for (let i = 1; i < this.pointsIndices.length; i++) 
-      {
-        d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
-      }
-
-      if(this.pointsIndices.length==3)
-      {
-        d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
-      }
-
-      let ah = arrowHeadPath(this.pointsIndices,r);
-      d+=ah;
-
-      SVGElement.setAttribute("d", d);
-      SVGElement.style.pointerEvents = 'none';
-      SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box";
-      SVGElement.setAttribute("stroke-linejoin",'round');
-      SVGElement.setAttribute("stroke-linecap",'round');
-      SVGElement.setAttribute("fill",'none');
-
-      this.SVGElement = SVGElement;
-      
-
-      this.totalLength = SVGElement.getTotalLength();
-      this.strokeDashoffset = this.totalLength;
-
-      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
-      
-
-           
-    }
-
-
-
-    updateSVG()
-    {
-      let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
-      for (let i = 1; i < this.pointsIndices.length; i++) 
-      {
-        d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
-      }
-
-      if(this.pointsIndices.length==3)
-      {
-        d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
-      }
-
-      let ah = arrowHeadPath(this.pointsIndices,this.r);
-      d+=ah;
-
-      this.SVGElement.setAttribute("d", d);
-      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-
-      this.SVGElement.setAttribute("stroke",this.strokeColor);
-      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-      this.SVGElement.setAttribute("opacity",this.opacity);
-
-      this.totalLength = this.SVGElement.getTotalLength();
-      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
-      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
-    }
-
-  }
-
-     function sideLength(Point1,Point2)
-  {
-    return Math.hypot(Point1.cx - Point2.cx, Point1.cy - Point2.cy);
-  }
-
-  function weightedPoint(A,B,x,y)
-  {
-    let Px= (Number(A.cx)*Number(y) + Number(B.cx)*Number(x))/Number(x+y);
-    let Py= (Number(A.cy)*Number(y) + Number(B.cy)*Number(x))/Number(x+y);
-    return {cx:Px, cy:Py};
-  }
-
-  function perpendicularPoint(C,A,B)
-  {
-    let a = sideLength(B,C);
-    let b = sideLength(A,C);
-    let c = sideLength(A,B);
-
-    let wb = parseFloat(a*a + c*c - b*b);
-    let wa = parseFloat(-a*a + c*c + b*b);
-
-    let P = weightedPoint(A,B,wa,wb);
-    return P;
-  }
-  
-    
-
-
-
-  function angleInPath(pI,r,rightAngle)
-  {
-
-    let A = objects[pI[0]];
-    let B = objects[pI[1]];
-    let C = objects[pI[2]];
-
-    let a = sideLength(B,A);
-    let c = sideLength(B,C);
-
-    let Bs = weightedPoint(B,A,Number(r),Number(a-r));
-    let Be = weightedPoint(B,C,Number(r),Number(c-r));
-    let pth='';
-    if(rightAngle===true)
-    {
-      let Px= Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
-      let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
-
-      //pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
-      pth=`M ${parseFloat(B.cx)} ${parseFloat(B.cy)} L ${parseFloat(Bs.cx)} ${parseFloat(Bs.cy)} L ${parseFloat(Px)} ${parseFloat(Py)} L ${parseFloat(Be.cx)} ${parseFloat(Be.cy)} Z`
-    }
-    //
-
-    else
-    {
-      pth='M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
-    }
-    
-    return pth; 
-  }
-
-
-  function angleBoundaryPath(points,r,rightAngle)
-  {
-    let A = points[0];
-    let B = points[1];
-    let C = points[2];
-
-    let a = sideLength(B,A);
-    let c = sideLength(B,C);
-
-    let Bs = weightedPoint(B,A,Number(r),Number(a-r));
-    let Be = weightedPoint(B,C,Number(r),Number(c-r));
-    let pth='M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy;
-
-    if(rightAngle)
-    {
-      let Px= Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
-      let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
-
-      pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy;
-    }
-    
-    return pth; 
-  }
-
-  function arrowHeadPath(pointsIndices,r)
-  {
-    let P = objects[pointsIndices[pointsIndices.length-2]];
-    let Q = objects[pointsIndices[pointsIndices.length-1]];
-
-    
-
-    let a = Q.cx - P.cx;
-    let b = Q.cy - P.cy;
-
-    let dPQ = Math.sqrt(a * a + b * b);
-
-    let xx = (b*r)/dPQ;
-    let yy = (a*r)/dPQ;
-
-    let T1x = (Number(Q.cx) + Number(xx)).toFixed(0);
-    let T1y = (Number(Q.cy) - Number(yy)).toFixed(0);
-
-    let T3x = (Number(Q.cx) - Number(xx)).toFixed(0);
-    let T3y = (Number(Q.cy) + Number(yy)).toFixed(0);
-
-    let T2= weightedPoint(Q,P,-2 * r,dPQ + 2 * r);
-
-    return `L ${T1x} ${T1y} L ${T2.cx} ${T2.cy} L ${T3x} ${T3y} L ${Q.cx} ${Q.cy}`;
-  }
-
- 
- 
-
-
-
-  function render()
-  {
-  
-    for(let i=0;i<aliveObjects.length;i++)
-    {
-      let obj = aliveObjects[i];
-      obj.updateSVG();
-      document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
-    }
-
-   
-
-    if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-        MathJax.typesetPromise() // Tell it exactly which element to format
-          .catch((err) => console.log('MathJax formatting error:', err));
-    } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
+    }, { passive: false });
+    window.addEventListener('touchend', () => { isScrubbing = false; });
+
+    // --- 8. Power WakeLock Support ---
+    async function requestWakeLock() {
+      if ('wakeLock' in navigator) {
         try {
-            MathJax.typeset();
-        } catch(err) {
-            console.log('MathJax fallback typeset failed:', err);
+          if (!wakeLock) {
+            wakeLock = await navigator.wakeLock.request('screen');
+          }
+        } catch (err) {
+          console.log(`Wake Lock request failed: ${err.message}`);
         }
-    } else {
-        console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
-    }
- 
-
-  
-
-  }
-
-    function hideAllBasePoints()
-  {
-    for(let i=0;i<objects.length;i++)
-    {
-      let obj=objects[i];
-      if (obj?.type !== 'pt') continue;
-      if(obj.type=='pt')
-      {
-        obj.SVGElement.setAttribute("opacity",0);
       }
     }
-  }
+
+    function releaseWakeLock() {
+      if (wakeLock !== null) {
+        wakeLock.release().then(() => { wakeLock = null; });
+      }
+    }
+
+    // --- 9. Fullscreen Orchestration ---
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const appContainer = document.querySelector('.app-container');
+    if (fullscreenBtn && appContainer) {
+      fullscreenBtn.onclick = function() {
+        if (!document.fullscreenElement) {
+          appContainer.requestFullscreen().catch((err) => {
+            console.error(`Error entering full-screen mode: ${err.message}`);
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      };
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      const isFS = !!document.fullscreenElement;
+      fullscreenBtn.innerHTML = isFS ? `
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+          <path d="M4 14h6v6m10-6h-6v6M4 10h6V4m10 6h-6V4"/>
+        </svg>
+      ` : `
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+      `;
+    });
+
+    // --- 10. Bootstrap System Launch ---
+    function render() {
+      const mainGroup = document.getElementById("mainSVGGroup");
+      for(let i=0; i<aliveObjects.length; i++) {
+        let obj = aliveObjects[i];
+        obj.updateSVG();
+        mainGroup.appendChild(obj.SVGElement);
+      }
+    }
+
+    function hideAllBasePoints() {
+      for(let i=0; i<objects.length; i++) {
+        let obj = objects[i];
+        if (obj?.type === 'pt' && obj.SVGElement) {
+          obj.SVGElement.setAttribute("opacity", 0);
+        }
+      }
+    }
+
+    function parseNum(val) {
+      if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
+      return parseFloat(val) || 0;
+    }
+
+    function launchPlayer() {
+      document.getElementById("mainSVGGroup").style.visibility = "hidden";
+      initUI();
+      loadTheorem(0);
+      setTimeout(() => { document.getElementById("mainSVGGroup").style.visibility = "visible"; }, 100);
+    }
+
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
+      MathJax.startup.promise.then(() => {
+        launchPlayer();
+        return MathJax.typesetPromise();
+      }).then(() => {
+        bakeAnimations();
+        globalCurrentTime = 0;
+        renderStateAtTime(0);
+        updateProgressBarUI(0);
+      }).catch((err) => { console.error("Initialization loop exception:", err); });
+    } else {
+      window.addEventListener('DOMContentLoaded', () => {
+        launchPlayer();
+        bakeAnimations();
+        globalCurrentTime = 0;
+        renderStateAtTime(0);
+        updateProgressBarUI(0);
+      });
+    }
+
+    // --- 11. Dynamic Vector Classes ---
+    class basePoint {
+      constructor(objectIndex, cx, cy) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        SVGElement.setAttribute("r", 3);
+        SVGElement.setAttribute("stroke-width", 1);
+        SVGElement.setAttribute("fill-opacity", 0);
+        SVGElement.setAttribute("opacity", 1);
+        SVGElement.setAttribute("stroke", 'black');
+        SVGElement.setAttribute("fill", 'black');
+        SVGElement.style.visibility = "hidden";
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.type = 'pt';
+      }
+      updateSVG() {}
+    }
+
+    class point {
+      constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor, fillOpacity, fillColor, scale) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.type = 'ptc';
+      }
+      updateSVG() {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);
+        this.SVGElement.setAttribute("r", this.r);
+        this.SVGElement.setAttribute("stroke", this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width", this.strokeWidth);
+        this.SVGElement.setAttribute("fill", this.fillColor);
+        this.SVGElement.setAttribute("fill-opacity", this.fillOpacity);
+        this.SVGElement.setAttribute("opacity", this.opacity);
+      }
+    }
+
+    class text {
+      constructor(objectIndex, x, y, textContent, opacity, scale, textColor, fontSize, rotate) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        
+        let divElement = document.createElement("div");
+        divElement.style.padding = "0px";
+        divElement.style.margin = "0px";
+        divElement.style.whiteSpace = "nowrap";
+
+        let spanElement = document.createElement("span");
+        spanElement.innerHTML = textContent;
+        
+        divElement.appendChild(spanElement);
+        SVGElement.appendChild(divElement);
+
+        this.SVGElement = SVGElement;
+        this.spanElement = spanElement; 
+        this.index = objectIndex;
+        this.type = 'txt';
+      }
+      updateSVG() {
+        this.SVGElement.setAttribute("x", this.x);
+        this.SVGElement.setAttribute("y", this.y);
+        this.SVGElement.style.fontSize = this.fontSize + "px";
+        this.SVGElement.style.color = this.textColor;
+        this.SVGElement.setAttribute("opacity", this.opacity);
+        this.SVGElement.setAttribute("transform", `rotate(${this.rotate}) scale(${this.scale})`);
+      }
+    }
+
+    class polygon {
+      constructor(objectIndex, pointsIndices, dx, dy, opacity, strokeWidth, strokeColor, fillOpacity, fillColor, scale, rotate) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.type = 'pgn';
+      }
+      updateSVG() {
+        let pts = this.pointsIndices.map(i => objects[i].cx + "," + objects[i].cy).join(" ");
+        this.SVGElement.setAttribute("points", pts);
+        this.SVGElement.setAttribute("stroke", this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width", this.strokeWidth);
+        this.SVGElement.setAttribute("fill", this.fillColor);
+        this.SVGElement.setAttribute("fill-opacity", this.fillOpacity);
+        this.SVGElement.setAttribute("opacity", this.opacity);
+      }
+    }
+
+    class polyline {
+      constructor(objectIndex, pointsIndices, dx, dy, opacity, strokeWidth, strokeColor, scale, rotate) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.type = 'pln';
+      }
+      updateSVG() {
+        let pts = this.pointsIndices.map(i => objects[i].cx + "," + objects[i].cy).join(" ");
+        this.SVGElement.setAttribute("points", pts);
+        this.SVGElement.setAttribute("stroke", this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width", this.strokeWidth);
+        this.SVGElement.setAttribute("fill", "none");
+        this.SVGElement.setAttribute("opacity", this.opacity);
+      }
+    }
+
+    class circle {
+      constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor, fillOpacity, fillColor, scale, property) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.type = 'cr';
+      }
+      updateSVG() {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);
+        this.SVGElement.setAttribute("r", this.r);
+        this.SVGElement.setAttribute("stroke", this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width", this.strokeWidth);
+        this.SVGElement.setAttribute("fill", this.fillColor);
+        this.SVGElement.setAttribute("fill-opacity", this.fillOpacity);
+        this.SVGElement.setAttribute("opacity", this.opacity);
+      }
+    }
+
+    class ellipse {
+      constructor(objectIndex, cx, cy, rx, ry, opacity, strokeWidth, strokeColor, fillOpacity, fillColor, scale, rotate) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.type = 'elp';
+      }
+      updateSVG() {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);
+        this.SVGElement.setAttribute("rx", this.rx);
+        this.SVGElement.setAttribute("ry", this.ry);
+        this.SVGElement.setAttribute("stroke", this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width", this.strokeWidth);
+        this.SVGElement.setAttribute("fill", this.fillColor);
+        this.SVGElement.setAttribute("fill-opacity", this.fillOpacity);
+        this.SVGElement.setAttribute("opacity", this.opacity);
+      }
+    }
+
+    class angle {
+      constructor(objectIndex, pointsIndices, r, opacity, strokeWidth, strokeColor, fillOpacity, fillColor, scale, rightAngle) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.type = 'ang';
+      }
+      updateSVG() {
+        let P1 = objects[this.pointsIndices[0]];
+        let P2 = objects[this.pointsIndices[1]];
+        let P3 = objects[this.pointsIndices[2]];
+        if(!P1 || !P2 || !P3) return;
+
+        let a1 = Math.atan2(P1.cy - P2.cy, P1.cx - P2.cx);
+        let a3 = Math.atan2(P3.cy - P2.cy, P3.cx - P2.cx);
+        let diff = a3 - a1;
+        while(diff < -Math.PI) diff += 2*Math.PI;
+        while(diff > Math.PI) diff -= 2*Math.PI;
+
+        let rad = this.r;
+        let pathString = "";
+
+        if (this.rightAngle) {
+          let x1 = P2.cx + rad * Math.cos(a1);
+          let y1 = P2.cy + rad * Math.sin(a1);
+          let x3 = P2.cx + rad * Math.cos(a3);
+          let y3 = P2.cy + rad * Math.sin(a3);
+          let x2 = x1 + rad * Math.cos(a3);
+          let y2 = y1 + rad * Math.sin(a3);
+          pathString = `M ${P2.cx} ${P2.cy} L ${x1} ${y1} L ${x2} ${y2} L ${x3} ${y3} Z`;
+        } else {
+          let sweep = diff > 0 ? 1 : 0;
+          let x1 = P2.cx + rad * Math.cos(a1);
+          let y1 = P2.cy + rad * Math.sin(a1);
+          let x3 = P2.cx + rad * Math.cos(a3);
+          let y3 = P2.cy + rad * Math.sin(a3);
+          pathString = `M ${P2.cx} ${P2.cy} L ${x1} ${y1} A ${rad} ${rad} 0 0 ${sweep} ${x3} ${y3} Z`;
+        }
+
+        this.SVGElement.setAttribute("d", pathString);
+        this.SVGElement.setAttribute("stroke", this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width", this.strokeWidth);
+        this.SVGElement.setAttribute("fill", this.fillColor);
+        this.SVGElement.setAttribute("fill-opacity", this.fillOpacity);
+        this.SVGElement.setAttribute("opacity", this.opacity);
+      }
+    }
+
+    class qcurve {
+      constructor(objectIndex, pointsIndices, dx, dy, opacity, strokeWidth, strokeColor, scale, rotate) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.type = 'qcrv';
+      }
+      updateSVG() {
+        let T1 = objects[this.pointsIndices[0]];
+        let T2 = objects[this.pointsIndices[1]];
+        let T3 = objects[this.pointsIndices[2]];
+        if(!T1 || !T2 || !T3) return;
+        this.SVGElement.setAttribute("d", `M ${T1.cx} ${T1.cy} Q ${T2.cx} ${T2.cy} ${T3.cx} ${T3.cy}`);
+        this.SVGElement.setAttribute("stroke", this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width", this.strokeWidth);
+        this.SVGElement.setAttribute("fill", "none");
+        this.SVGElement.setAttribute("opacity", this.opacity);
+      }
+    }
+
+    class arrow {
+      constructor(objectIndex, pointsIndices, r, opacity, strokeWidth, strokeColor, scale, rotate) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        SVGElement.setAttribute("id", 'SVGElement' + objectIndex);
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.type = 'arw';
+      }
+      updateSVG() {
+        let Q = objects[this.pointsIndices[0]];
+        let T2 = objects[this.pointsIndices[1]];
+        if(!Q || !T2) return;
+
+        let angle = Math.atan2(T2.cy - Q.cy, T2.cx - Q.cx);
+        let headlen = 15; 
+        let T3x = T2.cx - headlen * Math.cos(angle - Math.PI / 6);
+        let T3y = T2.cy - headlen * Math.sin(angle - Math.PI / 6);
+        let T4x = T2.cx - headlen * Math.cos(angle + Math.PI / 6);
+        let T4y = T2.cy - headlen * Math.sin(angle + Math.PI / 6);
+
+        this.SVGElement.setAttribute("d", `M ${Q.cx} ${Q.cy} L ${T2.cx} ${T2.cy} M ${T2.cx} ${T2.cy} L ${T3x} ${T3y} M ${T2.cx} ${T2.cy} L ${T4x} ${T4y}`);
+        this.SVGElement.setAttribute("stroke", this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width", this.strokeWidth);
+        this.SVGElement.setAttribute("fill", "none");
+        this.SVGElement.setAttribute("opacity", this.opacity);
+      }
+    }
   </script>
 
   <script>
-    MathJax = {
+    window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
@@ -1997,19 +1216,16 @@ function parseNum(val) {
         tags: 'ams'
       },
       svg: {
-        fontCache: 'global' // Reuses vector font glyph paths for maximum rendering speed
+        fontCache: 'global'
       },
       startup: {
         ready: () => {
-          console.log('MathJax vector rendering engine initialized successfully.');
+          console.log('MathJax vector graphics engine ready.');
           MathJax.startup.defaultReady();
         }
       }
     };
-</script>
-
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-
-
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </body>
 </html>
