@@ -467,16 +467,13 @@
       // 1. Recreate your objects into the DOM layout tree
       parseProjectData(data);
       
-      // 2. SAFARI FORCE-FIX: Before typesetting, ensure every text element's 
-      // outer container width is set to its true measured value or safe default.
-      for (let obj of aliveObjects) {
-        if (!obj) continue;
-        
+      // 2. SAFARI FORCE-FIX: Before animating, force every text element's width 
+      // attribute back to its true, maximum size so MathJax can typeset it perfectly.
+      aliveObjects.forEach(obj => {
         if (obj.type === 'txt' && obj.SVGElement) {
-          let maxW = parseFloat(obj.width) || 500;
-          obj.SVGElement.setAttribute('width', maxW);
+          obj.SVGElement.setAttribute('width', obj.width);
         }
-      }
+      });
 
       // 3. Trigger MathJax to format the fully-expanded elements
       if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
@@ -662,132 +659,162 @@ function bakeAnimations() {
 }
 
 function renderStateAtTime(ms) {
-    aliveObjects.forEach(obj => {
-      if (!obj || !obj.timelineFrames || obj.timelineFrames.length === 0) return;
+  // 1. Clamp time within execution bounds safely
+  ms = Math.max(0, Math.min(animationDuration, ms));
 
-      let frames = obj.timelineFrames;
+  // Helper utility to safely parse numbers and strip out string units like "px"
+  const parseNum = (val) => {
+    if (val === undefined || val === null) return 0;
+    if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
+    return parseFloat(val) || 0;
+  };
 
-      // 1. Find bounding keyframes enclosing the current timestamp
-      let prev = frames[0];
-      let next = frames[frames.length - 1];
+  objects.forEach(obj => {
+    if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
 
-      if (ms <= prev.time) {
-        prev = frames[0];
-        next = frames[0];
-      } else if (ms >= next.time) {
-        prev = frames[frames.length - 1];
-        next = frames[frames.length - 1];
+    let frames = obj.timelineFrames;
+    let prev = frames[0];
+    let next = frames[frames.length - 1];
+
+    // Find the current keyframe interval block
+    for (let i = 0; i < frames.length - 1; i++) {
+      if (ms >= frames[i].time && ms <= frames[i + 1].time) {
+        prev = frames[i];
+        next = frames[i + 1];
+        break;
+      }
+    }
+
+    // Calculate progression percentage (t) between these two specific frames
+    let t = 0;
+    let delta = next.time - prev.time;
+    if (delta > 0) t = (ms - prev.time) / delta;
+
+    // Aggregate every single layout state property present in both frames
+    let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
+
+    allKeys.forEach(key => {
+      let v1 = prev.state[key];
+      let v2 = next.state[key];
+
+      // Fallback assertions if properties are missing on either frame side
+      if (v1 === undefined) v1 = v2;
+      if (v2 === undefined) v2 = v1;
+      if (v1 === undefined) return;
+
+                      
+
+      // --- Category 1: String Constants & Color Swaps ---
+      if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'color') {
+        let activeValue = t < 0.5 ? v1 : v2;
+        obj.SVGElement.setAttribute(key === 'color' ? 'stroke' : key, activeValue);
+        return;
+      }
+
+      // --- Category 2: Complex Spatial Transforms ---
+      if (key === 'transform' && obj.type !== 'ptc') {
+        let getTransformValues = (str) => {
+          let tx = 0, ty = 0, rot = 0, scl = 1;
+          if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
+          
+          let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
+          let rMatch = str.match(/rotate\(([^)]+)\)/);
+          let sMatch = str.match(/scale\(([^)]+)\)/);
+
+          if (tMatch) { tx = parseFloat(tMatch[1]); ty = parseFloat(tMatch[2]); }
+          if (rMatch) { rot = parseFloat(rMatch[1]); }
+          if (sMatch) { scl = parseFloat(sMatch[1]); }
+          return { tx, ty, rot, scl };
+        };
+
+        let p1 = getTransformValues(v1);
+        let p2 = getTransformValues(v2);
+
+        let curTx = p1.tx + (p2.tx - p1.tx) * t;
+        let curTy = p1.ty + (p2.ty - p1.ty) * t;
+        let curRot = p1.rot + (p2.rot - p1.rot) * t;
+        let curScl = p1.scl + (p2.scl - p1.scl) * t;
+
+        obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
+        return;
+      }
+
+      // --- Category 3: Vector Poly-Coordinates ("points") ---
+      if (key === 'points') {
+        let prevCoords = v1.trim().split(/[\s]+/);
+        let nextCoords = v2.trim().split(/[\s]+/);
+
+        if (prevCoords.length !== nextCoords.length) {
+          obj.SVGElement.setAttribute("points", t < 0.5 ? v1 : v2);
+          return;
+        }
+
+        let interpolatedPoints = [];
+        for (let i = 0; i < prevCoords.length; i++) {
+          let p1 = prevCoords[i].split(',').map(Number);
+          let p2 = nextCoords[i].split(',').map(Number);
+
+          if (p1.length === 2 && p2.length === 2) {
+            let x = p1[0] + (p2[0] - p1[0]) * t;
+            let y = p1[1] + (p2[1] - p1[1]) * t;
+            interpolatedPoints.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+          }
+        }
+        obj.SVGElement.setAttribute("points", interpolatedPoints.join(" "));
+        return;
+      }
+
+      // --- Category 4: Numeric Scaling & Properties ---
+      let n1 = parseNum(v1);
+      let n2 = parseNum(v2);
+      let interpolatedNum = n1 + (n2 - n1) * t;
+      
+      if (key === 'width') {
+        obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
+        // If your text elements use internal layout inputs or sub-elements, 
+        // you can let them follow the numerical interpolation safely here.
+      } 
+
+      // Custom Point Point-Pop (ptc type) scaling center locking
+      if (key === 'scale' && obj.type === 'ptc') {
+        obj.SVGElement.style.transformOrigin = "center";
+        obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
+        return;
+      }
+
+      // Direct SVG structural parameters (cx, cy, r)
+      if (key === 'cx' || key === 'cy' || key === 'r') {
+        obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
+        return;
+      }
+
+      // Standard styling layout vectors
+      if (key === 'opacity') {
+        obj.SVGElement.style.opacity = interpolatedNum;
+      } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
+        let attributeName = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
+        obj.SVGElement.setAttribute(attributeName, interpolatedNum.toFixed(2));
       } else {
-        for (let i = 0; i < frames.length - 1; i++) {
-          if (ms >= frames[i].time && ms <= frames[i + 1].time) {
-            prev = frames[i];
-            next = frames[i + 1];
-            break;
+        let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+        let finalAttrValue;
+
+        // Force clean unitless rules strictly for SVG vector lines drawing offsets
+        if (svgAttributeName === 'stroke-dasharray' || svgAttributeName === 'stroke-dashoffset') {
+          if (svgAttributeName === 'stroke-dashoffset' && t === 0 && interpolatedNum > 0) {
+            finalAttrValue = interpolatedNum;
+          } else {
+            finalAttrValue = interpolatedNum;
           }
+        } else {
+          let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
+          finalAttrValue = interpolatedNum + (hasPx ? 'px' : '');
         }
+
+        obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
       }
-
-      // 2. Calculate interpolation delta t
-      let t = 0;
-      if (next.time !== prev.time) {
-        t = (ms - prev.time) / (next.time - prev.time);
-      }
-
-      // Collect all property keys changing across this frame window
-      let combinedKeys = {};
-      Object.keys(prev.state).forEach(k => combinedKeys[k] = true);
-      Object.keys(next.state).forEach(k => combinedKeys[k] = true);
-
-      // 3. Process every property key sequentially
-      Object.keys(combinedKeys).forEach(key => {
-        
-        // --- BRANCH A: TRANSFORM ENGINE (Routed to Style Layer to bypass SVG attribute parser errors) ---
-        if (key === 'transform') {
-          let v1 = prev.state[key];
-          let v2 = next.state[key];
-
-          let t1 = getTransformValues(v1);
-          let t2 = getTransformValues(v2);
-
-          let interpolatedX = t1.x + (t2.x - t1.x) * t;
-          let interpolatedY = t1.y + (t2.y - t1.y) * t;
-          let interpolatedRotate = t1.rotate + (t2.rotate - t1.rotate) * t;
-          let interpolatedScale = t1.scale + (t2.scale - t1.scale) * t;
-
-          // CSS uses modern engine syntax which effortlessly handles px/deg across Firefox & Safari
-          obj.SVGElement.style.transform = `translate(${interpolatedX}px, ${interpolatedY}px) rotate(${interpolatedRotate}deg) scale(${interpolatedScale})`;
-          return; // Acts like 'continue' inside a .forEach loop
-        }
-
-        // --- BRANCH B: NATIVE STRING & POLYGON ARRAYS VECTOR EVALUATION ---
-        if (key === 'points' || key === 'd' || key === 'stroke' || key === 'color' || key === 'fontWeight') {
-          if (t >= 0.5) {
-            if (next.state[key] !== undefined) {
-              obj.SVGElement.setAttribute(key, next.state[key]);
-            }
-          } else {
-            if (prev.state[key] !== undefined) {
-              obj.SVGElement.setAttribute(key, prev.state[key]);
-            }
-          }
-          return; // Acts like 'continue' inside a .forEach loop
-        }
-
-        // Extract and isolate pure numeric constants for layout calculations
-        let v1 = prev.state[key];
-        let v2 = next.state[key];
-        let n1 = parseNum(v1);
-        let n2 = parseNum(v2);
-        let interpolatedNum = n1 + (n2 - n1) * t;
-
-        // --- BRANCH C: TEXT CONTAINER REVEAL ISOLATION (Trick 1 - Safari Fix) ---
-        if (key === 'width') {
-          if (obj.type === 'txt') {
-            // Keep parent vector container completely wide open to protect math typography scaling
-            let maxW = parseFloat(obj.width || v2 || 500);
-            obj.SVGElement.setAttribute('width', maxW);
-            
-            // Animate only the inner HTML block container to reveal text seamlessly left-to-right
-            if (obj.spanElement) {
-              obj.spanElement.style.display = 'inline-block';
-              obj.spanElement.style.overflow = 'hidden';
-              obj.spanElement.style.width = interpolatedNum.toFixed(2) + 'px';
-            }
-          } else {
-            // Primitive geometric vectors continue using default attribute changes
-            obj.SVGElement.setAttribute("width", interpolatedNum.toFixed(2));
-          }
-          return; // Acts like 'continue' inside a .forEach loop
-        }
-
-        if (key === 'height') {
-          if (obj.type === 'txt') {
-            let maxH = parseFloat(obj.height || v2 || 100);
-            obj.SVGElement.setAttribute('height', maxH);
-          } else {
-            obj.SVGElement.setAttribute("height", interpolatedNum.toFixed(2));
-          }
-          return; // Acts like 'continue' inside a .forEach loop
-        }
-
-        // --- BRANCH D: OPACITY SYNCHRONIZATION ---
-        if (key === 'opacity') {
-          obj.SVGElement.setAttribute("opacity", interpolatedNum.toFixed(4));
-          obj.SVGElement.style.opacity = interpolatedNum.toFixed(4);
-          return; // Acts like 'continue' inside a .forEach loop
-        }
-
-        // --- BRANCH E: CORE SPATIAL COORDINATE ANCHORS ---
-        if (key === 'cx' || key === 'cy' || key === 'r' || key === 'x1' || key === 'y1' || key === 'x2' || key === 'y2') {
-          obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
-          return; // Acts like 'continue' inside a .forEach loop
-        }
-
-        // --- BRANCH F: GENERIC NUMERIC FALLBACK (Weights, dash offsets, etc.) ---
-        obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(4));
-      });
     });
-  }
+  });
+}
     
 
       
@@ -1205,12 +1232,12 @@ function parseNum(val) {
       
       
       const rect = spanElement0.getBoundingClientRect();
-      const fOWidth = Math.ceil(rect.width)+2;
-      const fOHeight = Math.ceil(rect.height)+2;
+      const fOWidth = Math.ceil(rect.width) ;
+      const fOHeight = Math.ceil(rect.height) ;
       document.body.removeChild(spanElement0);
 
-      this.height = 100;
-      this.width = 500;
+      this.height = fOHeight;
+      this.width = fOWidth;
 
 
       let spanElement = document.createElement("SPAN");
@@ -1895,28 +1922,19 @@ function parseNum(val) {
   }
   </script>
 
-  
-
-<script>
-    window.MathJax = {
+  <script>
+    MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
         packages: {'[+]': ['ams']},
         tags: 'ams'
-      },
-      svg: {
-        fontCache: 'global' // Ensures identical math rendering paths across all browsers
-      },
-      startup: {
-        ready: () => {
-          console.log('MathJax unified vector graphics engine ready.');
-          MathJax.startup.defaultReady();
-        }
       }
     };
-  </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</script>
 
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </body>
 </html>
