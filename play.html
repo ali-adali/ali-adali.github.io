@@ -1066,27 +1066,6 @@ function parseNum(val) {
   return parseFloat(val) || 0;
 }
 
-function getTransformValues(str) {
-  let res = { x: 0, y: 0, rotate: 0, scale: 1 };
-  if (!str || typeof str !== 'string') return res;
-
-  // Uses a regular expression to handle varying whitespace inside translate(0px , 0px)
-  let transMatch = str.match(/translate\(([-\d.]+)px\s*,\s*([-\d.]+)px\)/);
-  if (transMatch) {
-    res.x = parseFloat(transMatch[1]) || 0;
-    res.y = parseFloat(transMatch[2]) || 0;
-  }
-  let rotMatch = str.match(/rotate\(([-\d.]+)deg\)/);
-  if (rotMatch) {
-    res.rotate = parseFloat(rotMatch[1]) || 0;
-  }
-  let scaleMatch = str.match(/scale\(([-\d.]+)\)/);
-  if (scaleMatch) {
-    res.scale = parseFloat(scaleMatch[1]) || 1;
-  }
-  return res;
-}
-
   
 
   class basePoint
