@@ -650,47 +650,58 @@ function bakeAnimations() {
     }
 
     // ========================================================
-    // CORRECT SAFARI UNIFICATION: ONLY TRUSTING INITIAL STATE
+    // UNIFIED INITIALIZATION LOOKING EXCLUSIVELY AT INITIAL STATE
     // ========================================================
     if (obj.SVGElement && obj.timelineFrames[0]) {
       let initialState = obj.timelineFrames[0].state;
 
-      // Helper to strip 'px' units safely
+      // Helper to strip units or handle defaults safely
       const parseNum = (val) => {
         if (val === undefined || val === null) return 0;
         if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
         return parseFloat(val) || 0;
       };
 
-      // 1. Read opacity from initial state snapshot strictly
+      // 1. Direct Opacity Sync from JSON initialState
       if (initialState.opacity !== undefined) {
         obj.SVGElement.setAttribute("opacity", initialState.opacity);
+        obj.SVGElement.style.opacity = initialState.opacity;
       }
 
-      // 2. Read transform from initial state snapshot strictly
+      // 2. Direct Transform Sync applied to CSS Style layer to prevent SVG parsing warnings
       if (initialState.transform !== undefined) {
-        obj.SVGElement.setAttribute("transform", initialState.transform);
+        // By assigning this to .style.transform instead of setAttribute('transform'),
+        // browser engines accept the "px" tokens and whitespace variations smoothly.
+        obj.SVGElement.style.transform = initialState.transform;
       }
 
-      // 3. Keep Trick 1 working by handling the width state snapshot properly
+      // 3. Coordinate Position Initialization from JSON initialState
+      if (initialState.cx !== undefined) obj.SVGElement.setAttribute("cx", parseNum(initialState.cx));
+      if (initialState.cy !== undefined) obj.SVGElement.setAttribute("cy", parseNum(initialState.cy));
+      if (initialState.x !== undefined)  obj.SVGElement.setAttribute("x", parseNum(initialState.x));
+      if (initialState.y !== undefined)  obj.SVGElement.setAttribute("y", parseNum(initialState.y));
+
+      // 4. Handle Trick 1's Width Isolation for Text Objects
       if (obj.type === 'txt' && obj.spanElement) {
         let initW = parseNum(initialState.width);
         
-        // Lock the outer container to its true max width computed from obj.width
+        // Retain the max vector canvas width to prevent early wrapping or layout clipping
         let maxW = parseNum(obj.width);
         obj.SVGElement.setAttribute('width', maxW);
 
-        // If initial state width is 0px, collapse the inner span element layout to 0px
-        if (initW === 0) {
-          obj.spanElement.style.display = 'inline-block';
-          obj.spanElement.style.overflow = 'hidden';
-          obj.spanElement.style.width = '0px';
-        } else {
-          // Otherwise, match whatever pixel size the initial state dictates
-          obj.spanElement.style.display = 'inline-block';
-          obj.spanElement.style.overflow = 'hidden';
-          obj.spanElement.style.width = initW + 'px';
+        // Map the baseline horizontal clipping space to the text layout span
+        obj.spanElement.style.display = 'inline-block';
+        obj.spanElement.style.overflow = 'hidden';
+        obj.spanElement.style.width = initW + 'px';
+      } else {
+        // Fallback for primitive geometric assets (lines, ellipses, polygons)
+        if (initialState.width !== undefined) {
+          obj.SVGElement.setAttribute("width", parseNum(initialState.width));
         }
+      }
+      
+      if (initialState.height !== undefined && obj.type !== 'txt') {
+        obj.SVGElement.setAttribute("height", parseNum(initialState.height));
       }
     }
   });
