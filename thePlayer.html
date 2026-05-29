@@ -445,36 +445,64 @@
 
     // --- 4. Web-Native JSON Loader ---
     function loadTheorem(index) {
-      currentActiveIndex = index;
-      initUI();
-      resetPlayerState();
-    
-      const fileName = theoremPlaylist[index].file;
-      console.log(`Loading theorem data via fetch: ${fileName}`);
-    
-      fetch(fileName)
-        .then(response => {
-          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-          return response.json();
-        })
-        .then(data => {
-          // Wait until the elements are drawn AND completely typeset by MathJax
-          return parseProjectData(data);
-        })
-        .then(() => {
-          console.log("MathJax typesetting locked. Safe to bake animation properties.");
-          
-          // Now it's safe to bake and clamp to time zero
-          bakeAnimations();
-    
-          globalCurrentTime = 0;
-          renderStateAtTime(0);
-          updateProgressBarUI(0);
-        })
-        .catch(error => {
-          console.error("Failed to load geometry data file:", error);
-        });
-    }
+  currentActiveIndex = index;
+  initUI();
+  resetPlayerState();
+
+  // Hide the rendering container so Safari doesn't flash the full-size text nodes
+  const mainGroup = document.getElementById("mainSVGGroup");
+  if (mainGroup) {
+    mainGroup.style.visibility = "hidden";
+  }
+
+  const fileName = theoremPlaylist[index].file;
+  console.log(`Loading theorem data via fetch: ${fileName}`);
+
+  fetch(fileName)
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      // 1. Recreate your objects into the DOM layout tree
+      parseProjectData(data);
+      
+      // 2. SAFARI FORCE-FIX: Before animating, force every text element's width 
+      // attribute back to its true, maximum size so MathJax can typeset it perfectly.
+      aliveObjects.forEach(obj => {
+        if (obj.type === 'txt' && obj.SVGElement) {
+          obj.SVGElement.setAttribute('width', obj.width);
+        }
+      });
+
+      // 3. Trigger MathJax to format the fully-expanded elements
+      if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+        return MathJax.typesetPromise();
+      }
+      return Promise.resolve();
+    })
+    .then(() => {
+      console.log("MathJax typesetting locked at full scale. Processing animation paths.");
+      
+      // 4. Now that text bounds are calculated cleanly, bake your matrices
+      bakeAnimations();
+
+      // 5. Instantly snap the timeline position down to time 0
+      // This collapses widths from full size to 0px instantly before the user can see it
+      globalCurrentTime = 0;
+      renderStateAtTime(0);
+      updateProgressBarUI(0);
+
+      // 6. Smoothly unhide the main group container for playback
+      if (mainGroup) {
+        mainGroup.style.visibility = "visible";
+      }
+    })
+    .catch(error => {
+      console.error("Failed to load geometry data file:", error);
+      if (mainGroup) mainGroup.style.visibility = "visible";
+    });
+}
 
     function resetPlayerState() {
       animations.forEach(anim => anim.cancel());
@@ -741,31 +769,10 @@ function renderStateAtTime(ms) {
       let n2 = parseNum(v2);
       let interpolatedNum = n1 + (n2 - n1) * t;
       
-      if (key === 'width' && (obj.type === 'txt' || obj.SVGElement.tagName === 'foreignObject' || obj.SVGElement.tagName === 'g')) {
-        // 1. Get the target maximum width from the frame target state or object definition
-        let maxW = parseNum(obj.width || v2);
-        
-        // 2. Instead of freezing the element width attribute (which blinds Firefox),
-        // let the element's width animate naturally like your original engine intended.
+      if (key === 'width') {
         obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
-        
-        // 3. Compute the right-hand inset boundary. 
-        // If the animation is fully finished or at maximum width, remove the clip-path entirely.
-        if (interpolatedNum >= maxW || t >= 1) {
-          obj.SVGElement.style.clipPath = 'none';
-          obj.SVGElement.removeAttribute('clip-path');
-        } else {
-          // Calculate the masking offset from the right margin edge.
-          // To make it safe for both browsers, we clip from the full width down to the progress point.
-          let rightInset = Math.max(0, maxW - interpolatedNum);
-          let clipPathString = `inset(0px ${rightInset.toFixed(2)}px 0px 0px)`;
-          
-          // Apply both via CSS and SVG attribute to ensure coverage across engines
-          obj.SVGElement.style.clipPath = clipPathString;
-          obj.SVGElement.setAttribute('clip-path', clipPathString);
-        }
-        
-        return; // Prevent execution from leaking down into standard unit parameters
+        // If your text elements use internal layout inputs or sub-elements, 
+        // you can let them follow the numerical interpolation safely here.
       } 
 
       // Custom Point Point-Pop (ptc type) scaling center locking
