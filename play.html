@@ -1243,27 +1243,51 @@ function parseNum(val) {
         y: this.y + 'px',
         transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
         opacity: this.opacity,
+        color: this.textColor, // WAAPI monitors this property for transitions!
         height: this.height + 'px',
         width: this.width + 'px'
       };
     }
   
     updateSVG() {
-      // Inject the raw vectors natively right away
+      // Inject the raw vectors natively
       this.SVGElement.innerHTML = this.svgContent;
       
-      // Configure inner vector visibility and color inheritance properties
+      // Target the inner MathJax structures to pass color responsively
       let innerMathSvg = this.SVGElement.querySelector('svg');
       if (innerMathSvg) {
         innerMathSvg.style.width = ''; 
         innerMathSvg.style.height = '';
         innerMathSvg.style.display = 'block';
         innerMathSvg.style.overflow = 'visible'; 
-        innerMathSvg.style.fill = this.textColor;
+        
+        // --- THE ANIMATION-PROOF COLOR LINK ---
+        // Instead of locking a static string, we wire it to follow parent CSS changes
+        innerMathSvg.style.fill = 'currentColor';
+        innerMathSvg.setAttribute('fill', 'currentColor');
+  
+        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+        structuralGroups.forEach(node => {
+          // Force nodes to look directly up the DOM tree for their active color matrix
+          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') {
+            node.setAttribute('fill', 'currentColor');
+          }
+          if (node.style.fill && node.style.fill !== 'none') {
+            node.style.fill = 'currentColor';
+          }
+          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') {
+            node.setAttribute('stroke', 'currentColor');
+          }
+          if (node.style.stroke && node.style.stroke !== 'none') {
+            node.style.stroke = 'currentColor';
+          }
+        });
       }
   
-      // Apply strict dimensional boundaries on the outer box container
+      // Apply strict dimensional boundaries and properties on the outer envelope
       this.SVGElement.style.overflow = 'hidden';
+      this.SVGElement.style.color = this.textColor; // Establishes the baseline color
+      
       this.SVGElement.setAttribute("height", this.height);
       this.SVGElement.setAttribute("width", this.width);
       this.SVGElement.setAttribute("x", this.x);
