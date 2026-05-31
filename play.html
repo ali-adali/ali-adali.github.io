@@ -1304,6 +1304,8 @@ function parseNum(val) {
 
   */
 
+  /*
+
   class text { 
     constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
       this.index = objectIndex;
@@ -1384,6 +1386,102 @@ function parseNum(val) {
       
       // Apply transformations directly onto the flat, cross-browser element
       this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
+      this.SVGElement.setAttribute("opacity", this.opacity); 
+    }
+  }
+
+  */
+
+  class text { 
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      this.index = objectIndex;
+      this.x = x;
+      this.y = y;
+  
+      this.text = textStr;
+      this.opacity = opacity;
+      this.scale = scale;
+      this.textColor = textColor;
+      this.fontSize = fontSize;
+      this.rotate = rotate;
+      this.type = 'txt';
+      this.displayType = 'tx';
+  
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+  
+      // 1. Create a native SVG Group. This is the master element your player handles.
+      // Safari, Firefox, and Chrome treat group transforms identically and flawlessly.
+      let masterGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      masterGroup.setAttribute("id", 'SVGTextGroup' + objectIndex);
+      
+      // Lock center scaling anchors strictly onto the native vector box
+      masterGroup.style.transformOrigin = "center";
+      masterGroup.style.transformBox = "fill-box";
+  
+      // 2. Create an inner nested SVG container to act as your left-to-right clipping window
+      let maskViewport = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      maskViewport.setAttribute("id", 'SVGText' + objectIndex);
+      maskViewport.style.pointerEvents = 'none';
+      maskViewport.style.overflow = 'hidden';
+  
+      masterGroup.appendChild(maskViewport);
+  
+      this.SVGElement = masterGroup; // Becomes the main reference for appendChild and WAAPI timelines!
+      this.maskViewport = maskViewport; // Retained internally to manage the left-to-right masking widths
+      
+      this.svgContent = ""; 
+  
+      // 3. The Blueprint for bakeAnimations()
+      // We rewrite the baseline translation parameters into a standard vector matrix.
+      // This allows WAAPI to animate positions, scales, and rotations simultaneously!
+      this.initialState = {
+        transform: `translate(${this.x}px, ${this.y}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
+        opacity: this.opacity,
+        color: this.textColor,
+        height: this.height + 'px',
+        width: this.width + 'px'
+      };
+    }
+  
+    updateSVG() {
+      // Inject the raw MathJax inner SVG directly into the clipping viewport window
+      this.maskViewport.innerHTML = this.svgContent;
+      
+      let innerMathSvg = this.maskViewport.querySelector('svg');
+      if (innerMathSvg) {
+        // Anchors the inner text graphic so it never warps when the layout mask dynamically alters
+        innerMathSvg.setAttribute('width', this.width + 'px');
+        innerMathSvg.style.width = this.width + 'px';
+        innerMathSvg.style.minWidth = this.width + 'px';
+        
+        innerMathSvg.style.height = '';
+        innerMathSvg.style.display = 'block';
+        innerMathSvg.style.overflow = 'visible'; 
+        
+        innerMathSvg.style.fill = 'currentColor';
+        innerMathSvg.setAttribute('fill', 'currentColor');
+  
+        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+        structuralGroups.forEach(node => {
+          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
+          if (node.style.fill && node.style.fill !== 'none') node.style.fill = 'currentColor';
+          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') node.setAttribute('stroke', 'currentColor');
+          if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
+        });
+      }
+  
+      // Configure layout boundaries strictly inside the mask viewport
+      this.maskViewport.setAttribute("width", this.width);
+      this.maskViewport.setAttribute("height", this.height);
+      
+      // Clear out standard x/y attribute values since our group translation matrix handles placement
+      this.maskViewport.setAttribute("x", 0);
+      this.maskViewport.setAttribute("y", 0);
+  
+      // Apply baseline rendering properties uniformly to the master group envelope
+      this.SVGElement.style.color = this.textColor;
+      this.SVGElement.setAttribute("transform", `translate(${this.x}, ${this.y}) scale(${this.scale} ${this.scale}) rotate(${this.rotate})`);
       this.SVGElement.setAttribute("opacity", this.opacity); 
     }
   }
