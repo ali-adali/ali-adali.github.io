@@ -1304,7 +1304,7 @@ function parseNum(val) {
 
   */
 
-    class text { 
+  class text { 
     constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
       this.index = objectIndex;
       this.x = x;
@@ -1319,41 +1319,26 @@ function parseNum(val) {
       this.type = 'txt';
       this.displayType = 'tx';
   
-      this.width = parseFloat(originalWidth) || 100;
-      this.height = parseFloat(originalHeight) || 30;
-  
-      // 1. Create the Outer Envelope (Handles position and left-to-right clipping masks)
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+      // 1. Create a native nested SVG element instead of a foreignObject
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
       
-      // Lock outer box to top-left so Safari handles x/y positions with absolute stability
-      SVGElement.style.transformOrigin = "0px 0px"; 
-  
-      // 2. Create the Inner Safari-Proof Content Box (Handles scale and rotation)
-      let innerContentBox = document.createElement("div");
-      innerContentBox.style.width = this.width + 'px';
-      innerContentBox.style.height = this.height + 'px';
-      innerContentBox.style.boxSizing = 'border-box';
-      
-      // --- MANUALLY CALCULATED CENTER ANCHOR ---
-      // Because this div stays strictly at original dimensions, this center never shifts!
-      let cx = this.width / 2;
-      let cy = this.height / 2;
-      innerContentBox.style.transformOrigin = `${cx}px ${cy}px`;
-  
-      SVGElement.appendChild(innerContentBox);
+      // NATIVE VECTOR GRAPHICS TRANSFORMS: Cross-browser stable center scaling!
+      SVGElement.style.transformOrigin = "50% 50%";
+      SVGElement.style.transformBox = "fill-box"; 
   
       this.SVGElement = SVGElement;
-      this.innerContentBox = innerContentBox; // Keep a reference to update transformations
-      
       this.svgContent = ""; 
   
-      // 3. Blueprint for bakeAnimations()
-      // We keep initialState completely clean so your WAAPI pipeline runs smoothly.
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+  
+      // 2. Keeps your blueprint completely intact for bakeAnimations()
       this.initialState = {
         x: this.x + 'px',
         y: this.y + 'px',
+        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
         opacity: this.opacity,
         color: this.textColor,
         height: this.height + 'px',
@@ -1362,11 +1347,12 @@ function parseNum(val) {
     }
   
     updateSVG() {
-      // Inject the raw vectors into the inner dimension-locked container
-      this.innerContentBox.innerHTML = this.svgContent;
+      // Inject the raw MathJax inner SVG content string directly
+      this.SVGElement.innerHTML = this.svgContent;
       
-      let innerMathSvg = this.innerContentBox.querySelector('svg');
+      let innerMathSvg = this.SVGElement.querySelector('svg');
       if (innerMathSvg) {
+        // Keep the rigid inner boundary so left-to-right clip reveals don't squish
         innerMathSvg.setAttribute('width', this.width + 'px');
         innerMathSvg.style.width = this.width + 'px';
         innerMathSvg.style.minWidth = this.width + 'px';
@@ -1387,7 +1373,7 @@ function parseNum(val) {
         });
       }
   
-      // Apply strict dimensional mask boundaries on the outer envelope wrapper
+      // Apply strict dimensional boundaries on the layout container
       this.SVGElement.style.overflow = 'hidden';
       this.SVGElement.style.color = this.textColor; 
       
@@ -1395,11 +1381,10 @@ function parseNum(val) {
       this.SVGElement.setAttribute("height", this.height);
       this.SVGElement.setAttribute("x", this.x);
       this.SVGElement.setAttribute("y", this.y);
+      
+      // Apply transformations directly onto the flat, cross-browser element
+      this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
       this.SVGElement.setAttribute("opacity", this.opacity); 
-  
-      // Apply scaling and rotation directly to the stable HTML <div> container
-      // This bypasses Safari's broken SVG foreignObject transform engine entirely!
-      this.innerContentBox.style.transform = 'scale(' + this.scale + ') rotate(' + this.rotate + 'deg)';
     }
   }
   
