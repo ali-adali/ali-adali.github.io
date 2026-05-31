@@ -1410,16 +1410,12 @@ function parseNum(val) {
       this.width = parseFloat(originalWidth) || 100;
       this.height = parseFloat(originalHeight) || 30;
   
-      // 1. Create a native SVG Group. This is the master element your player handles.
-      // Safari, Firefox, and Chrome treat group transforms identically and flawlessly.
+      // 1. Structural Native SVG Elements
       let masterGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
       masterGroup.setAttribute("id", 'SVGTextGroup' + objectIndex);
-      
-      // Lock center scaling anchors strictly onto the native vector box
       masterGroup.style.transformOrigin = "center";
       masterGroup.style.transformBox = "fill-box";
   
-      // 2. Create an inner nested SVG container to act as your left-to-right clipping window
       let maskViewport = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       maskViewport.setAttribute("id", 'SVGText' + objectIndex);
       maskViewport.style.pointerEvents = 'none';
@@ -1427,16 +1423,39 @@ function parseNum(val) {
   
       masterGroup.appendChild(maskViewport);
   
-      this.SVGElement = masterGroup; // Becomes the main reference for appendChild and WAAPI timelines!
-      this.maskViewport = maskViewport; // Retained internally to manage the left-to-right masking widths
-      
+      this.masterGroup = masterGroup;
+      this.maskViewport = maskViewport;
       this.svgContent = ""; 
   
-      // 3. The Blueprint for bakeAnimations()
-      // We rewrite the baseline translation parameters into a standard vector matrix.
-      // This allows WAAPI to animate positions, scales, and rotations simultaneously!
+      // 2. THE ANIMATION PROXY INTERCEPTOR
+      // This allows bakeAnimations() to call standard property changes seamlessly.
+      // It routes spatial layouts to the inner window, and transformations to the stable group!
+      this.SVGElement = new Proxy(masterGroup, {
+        get(target, prop) {
+          // If your renderer checks style properties
+          if (prop === 'style') return target.style;
+          // Redirect execution bindings (like .animate()) safely onto the group container
+          if (typeof target[prop] === 'function') {
+            return target[prop].bind(target);
+          }
+          return target[prop];
+        },
+        set(target, prop, value) {
+          if (prop === 'id') {
+            target.setAttribute('id', value + 'Group');
+            maskViewport.setAttribute('id', value);
+          } else {
+            target[prop] = value;
+          }
+          return true;
+        }
+      });
+  
+      // 3. Keep your original blueprint completely matching your JSON framework properties
       this.initialState = {
-        transform: `translate(${this.x}px, ${this.y}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
+        x: this.x + 'px',
+        y: this.y + 'px',
+        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
         opacity: this.opacity,
         color: this.textColor,
         height: this.height + 'px',
@@ -1445,12 +1464,11 @@ function parseNum(val) {
     }
   
     updateSVG() {
-      // Inject the raw MathJax inner SVG directly into the clipping viewport window
+      // Inject the raw MathJax vectors into the inner layout canvas viewport
       this.maskViewport.innerHTML = this.svgContent;
       
       let innerMathSvg = this.maskViewport.querySelector('svg');
       if (innerMathSvg) {
-        // Anchors the inner text graphic so it never warps when the layout mask dynamically alters
         innerMathSvg.setAttribute('width', this.width + 'px');
         innerMathSvg.style.width = this.width + 'px';
         innerMathSvg.style.minWidth = this.width + 'px';
@@ -1471,18 +1489,16 @@ function parseNum(val) {
         });
       }
   
-      // Configure layout boundaries strictly inside the mask viewport
+      // Assign layout tracking points cleanly onto the inner viewport container
       this.maskViewport.setAttribute("width", this.width);
       this.maskViewport.setAttribute("height", this.height);
-      
-      // Clear out standard x/y attribute values since our group translation matrix handles placement
-      this.maskViewport.setAttribute("x", 0);
-      this.maskViewport.setAttribute("y", 0);
+      this.maskViewport.setAttribute("x", this.x);
+      this.maskViewport.setAttribute("y", this.y);
   
-      // Apply baseline rendering properties uniformly to the master group envelope
-      this.SVGElement.style.color = this.textColor;
-      this.SVGElement.setAttribute("transform", `translate(${this.x}, ${this.y}) scale(${this.scale} ${this.scale}) rotate(${this.rotate})`);
-      this.SVGElement.setAttribute("opacity", this.opacity); 
+      // Apply baseline rendering states onto the outer group wrapper
+      this.masterGroup.style.color = this.textColor;
+      this.masterGroup.setAttribute("transform", `scale(${this.scale} ${this.scale}) rotate(${this.rotate})`);
+      this.masterGroup.setAttribute("opacity", this.opacity); 
     }
   }
   
