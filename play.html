@@ -1205,7 +1205,8 @@ function parseNum(val) {
 
 
 
-  class text { 
+  /*
+    class text { 
     constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
       this.index = objectIndex;
       this.x = x;
@@ -1300,6 +1301,102 @@ function parseNum(val) {
       this.SVGElement.setAttribute("opacity", this.opacity); 
     }
   }
+  */
+
+    class text { 
+  constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+    this.index = objectIndex;
+    this.x = x;
+    this.y = y;
+
+    this.text = textStr;
+    this.opacity = opacity;
+    this.scale = scale;
+    this.textColor = textColor;
+    this.fontSize = fontSize;
+    this.rotate = rotate;
+    this.type = 'txt';
+    this.displayType = 'tx';
+
+    // 1. Create a parent Group element to act as a Safari-proof transformation envelope
+    let containerGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    containerGroup.setAttribute("id", 'SVGTextGroup' + objectIndex);
+    
+    // Set standard vector origins on the group envelope
+    containerGroup.style.transformOrigin = "center";
+    containerGroup.style.transformBox = "fill-box";
+
+    // 2. Create the inner minimal foreignObject shell
+    let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+    SVGElement.setAttribute("id", 'SVGText' + objectIndex);
+    SVGElement.style.pointerEvents = 'none';
+
+    // Nest the elements cleanly
+    containerGroup.appendChild(SVGElement);
+
+    // EXPLICIT TRACKING OVERRIDE:
+    // We bind containerGroup as the main reference element so your renderer loop 
+    // appends this group wrapper directly onto the canvas view surface.
+    this.SVGElement = containerGroup; 
+    this.foreignObject = SVGElement; // Retain a safe pointer to update internal dimensions
+    
+    this.svgContent = ""; 
+
+    this.width = parseFloat(originalWidth) || 100;
+    this.height = parseFloat(originalHeight) || 30;
+
+    // 3. Establish clean baseline animation key values
+    // Web Animations API targets this.SVGElement (the group node), animating transformations seamlessly!
+    this.initialState = {
+      transform: `translate(${this.x}px, ${this.y}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+      opacity: this.opacity,
+      color: this.textColor
+    };
+  }
+
+  updateSVG() {
+    // Inject the raw vectors natively into the inner foreignObject element
+    this.foreignObject.innerHTML = this.svgContent;
+    
+    let innerMathSvg = this.foreignObject.querySelector('svg');
+    if (innerMathSvg) {
+      // Restore rigid left-to-right clipping constraints safely without touching viewBox!
+      innerMathSvg.setAttribute('width', this.width + 'px');
+      innerMathSvg.style.width = this.width + 'px';
+      innerMathSvg.style.minWidth = this.width + 'px';
+      
+      innerMathSvg.style.height = '';
+      innerMathSvg.style.display = 'block';
+      innerMathSvg.style.overflow = 'visible'; 
+      
+      innerMathSvg.style.fill = 'currentColor';
+      innerMathSvg.setAttribute('fill', 'currentColor');
+
+      let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+      structuralGroups.forEach(node => {
+        if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
+        if (node.style.fill && node.style.fill !== 'none') node.style.fill = 'currentColor';
+        if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') node.setAttribute('stroke', 'currentColor');
+        if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
+      });
+    }
+
+    // Apply strict dimensional boundaries on the inner window envelope
+    this.foreignObject.style.overflow = 'hidden';
+    this.foreignObject.setAttribute("width", this.width);
+    this.foreignObject.setAttribute("height", this.height);
+    
+    // We clear x/y coordinates off the foreignObject box, because our group-level 
+    // translation matrix handles spatial rendering uniformly across all platforms.
+    this.foreignObject.setAttribute("x", 0);
+    this.foreignObject.setAttribute("y", 0);
+    
+    // Apply layout properties directly onto the parent vector group surface
+    this.SVGElement.style.color = this.textColor;
+    this.SVGElement.setAttribute("transform", `translate(${this.x}, ${this.y}) scale(${this.scale} ${this.scale}) rotate(${this.rotate})`);
+    this.SVGElement.setAttribute("opacity", this.opacity); 
+  }
+}
 
 
   class polygon
