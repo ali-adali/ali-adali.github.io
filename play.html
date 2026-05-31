@@ -1255,7 +1255,11 @@ function parseNum(val) {
       // Target the inner MathJax structures to pass color responsively
       let innerMathSvg = this.SVGElement.querySelector('svg');
       if (innerMathSvg) {
-        innerMathSvg.style.width = ''; 
+        //innerMathSvg.style.width = '';
+        innerMathSvg.setAttribute('width', this.width + 'px');
+        innerMathSvg.style.width = this.width + 'px';
+        innerMathSvg.style.minWidth = this.width + 'px';
+
         innerMathSvg.style.height = '';
         innerMathSvg.style.display = 'block';
         innerMathSvg.style.overflow = 'visible'; 
