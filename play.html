@@ -524,69 +524,87 @@
     }
 
     function parseProjectData(data) {
-      // 1. Recreate Objects and instantiate them directly into the player SVG
-      data.initialObjects.forEach(objData => {
-        let newObj;
-        
-        if (objData.type === "pt") {
-            newObj = new basePoint(objData.index, objData.cx, objData.cy);
-        } else if (objData.type === "ptc") {
-            newObj = new point(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale);
-        } else if (objData.type === "txt") {
-            newObj = new text(objData.index, objData.x, objData.y, objData.text, objData.opacity, objData.scale, objData.textColor, objData.fontSize, objData.rotate);
-        } else if (objData.type === "pgn") {
-            newObj = new polygon(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
-        } else if (objData.type === "pln") {
-            newObj = new polyline(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
-        } else if (objData.type === "cr") {
-            newObj = new circle(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.property);
-        } else if (objData.type === "elp") {
-            newObj = new ellipse(objData.index, objData.cx, objData.cy, objData.rx, objData.ry, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
-        } else if (objData.type === "ang") {
-            newObj = new angle(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rightAngle);
-        } else if (objData.type === "qcrv") {
-            newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
-        } else if (objData.type === "arw") {
-            newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
-        }
-
-        // Isolate pure rendering data properties
-        const { SVGElement, spanElement, ...cleanData } = objData;
-        //const { SVGElement, spanElement, rowElement, divElement, checkbox, textInput, xInput, yInput, rInput, fontSizeInput, opacityInput, scaleInput, textColorSelect, ...cleanData } = objData;
-        Object.assign(newObj, cleanData);
-        
-        // In the player, shapes directly append themselves to playerSVG during their class constructors
-        objects[newObj.index] = newObj;
-        aliveObjects.push(newObj);
-      });
-
-      // 2. Re-link Playlist timeline instructions
-      data.playlist.forEach(stepData => {
-        const targetObj = objects[stepData.objIndex];
-        if (targetObj) {
-          globalPlaylist.push({
-            element: targetObj,
-            wait: stepData.wait,
-            dur: stepData.dur,
-            type: stepData.type,
-            state: stepData.state 
-          });
-        }
-      });
-
-      // 3. Immediately Bake structural animations into memory so it's ready for scrubbing or instant play
-      render();
+  // 1. Recreate Objects and instantiate them directly
+    data.initialObjects.forEach(objData => {
+      let newObj;
       
-      // Optional: Trigger MathJax typeset parsing post-render for expressions
-      //if (window.MathJax && MathJax.typeset) {MathJax.typeset();}
-      // Return a promise that resolves only when MathJax has completely finished typesetting the newly injected nodes
-      if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
-        return MathJax.typesetPromise();
-      } else {
-        return Promise.resolve();
+      if (objData.type === "pt") {
+          newObj = new basePoint(objData.index, objData.cx, objData.cy);
+      } else if (objData.type === "ptc") {
+          newObj = new point(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale);
+      } else if (objData.type === "txt") {
+          newObj = new text(
+            objData.index, objData.x, objData.y, objData.text, objData.opacity, 
+            objData.scale, objData.textColor, objData.fontSize, objData.rotate,
+            objData.width, objData.height
+          );
+      } else if (objData.type === "pgn") {
+          newObj = new polygon(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+      } else if (objData.type === "pln") {
+          newObj = new polyline(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+      } else if (objData.type === "cr") {
+          newObj = new circle(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.property);
+      } else if (objData.type === "elp") {
+          newObj = new ellipse(objData.index, objData.cx, objData.cy, objData.rx, objData.ry, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+      } else if (objData.type === "ang") {
+          newObj = new angle(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rightAngle);
+      } else if (objData.type === "qcrv") {
+          newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+      } else if (objData.type === "arw") {
+          newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
       }
-      
-    }
+  
+      // Transfers all custom properties (including saved objData.svgContent strings)
+      const { SVGElement, spanElement, ...cleanData } = objData;
+      Object.assign(newObj, cleanData);
+  
+      objects[newObj.index] = newObj;
+      aliveObjects.push(newObj);
+    });
+  
+    // 2. Map Playlist steps
+    data.playlist.forEach(stepData => {
+      const targetObj = objects[stepData.objIndex];
+      if (targetObj) {
+        globalPlaylist.push({ 
+          element: targetObj, 
+          wait: stepData.wait, 
+          dur: stepData.dur, 
+          type: stepData.type, 
+          state: stepData.state 
+        });
+      }
+    });
+  
+    // 3. Safe Reference Framework Scanner
+    aliveObjects.forEach(obj => {
+      if (obj.type === 'txt') {
+        let maxWidth = parseFloat(obj.width) || 0;
+        let maxHeight = parseFloat(obj.height) || 0;
+  
+        globalPlaylist.forEach(step => {
+          if (step.element === obj && step.state) {
+            let stepWidth = parseFloat(step.state.width) || 0;
+            let stepHeight = parseFloat(step.state.height) || 0;
+            if (stepWidth > maxWidth) maxWidth = stepWidth;
+            if (stepHeight > maxHeight) maxHeight = stepHeight;
+          }
+        });
+  
+        if (maxWidth > 2) obj.width = Math.ceil(maxWidth);
+        if (maxHeight > 2) obj.height = Math.ceil(maxHeight);
+  
+        // Lock bounds into WAAPI layout rules
+        obj.initialState.width = obj.width + 'px';
+        obj.initialState.height = obj.height + 'px';
+      }
+    });
+  
+    // 4. Fire rendering pipeline immediately
+    render();
+  
+    return Promise.resolve();
+  }
 
     // --- 5. Unified Animation & Playback Console Controls ---
    // Global state matrices to track absolute values
@@ -1188,115 +1206,71 @@ function parseNum(val) {
 
 
 
-  class text
-  { 
-    constructor(objectIndex,x, y, text, opacity, scale, textColor, fontSize,rotate)
-    {
-      this.index=objectIndex;
+  class text { 
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      this.index = objectIndex;
       this.x = x;
       this.y = y;
-
-      this.dx=0;
-      this.dy=0;
-
-      this.text = text;
+  
+      this.text = textStr;
       this.opacity = opacity;
-      this.scale=scale;
+      this.scale = scale;
       this.textColor = textColor;
       this.fontSize = fontSize;
       this.rotate = rotate;
-      
-
       this.type = 'txt';
-      this.fontWeight= 400;
-
       this.displayType = 'tx';
-      
+  
+      // 1. Create a minimal foreignObject envelope
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-      SVGElement.setAttribute("id",'SVGText'+objectIndex);
-      SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
+      SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
-      SVGElement.style.color = textColor;
-      SVGElement.style.fontWeight = this.fontWeight;
-      SVGElement.style.fontSize=fontSize;
-
-      let spanElement0 = document.createElement("SPAN");
-      spanElement0.style.fontSize = this.fontSize+'px';
-      spanElement0.style.fontWeight = this.fontWeight;
-      spanElement0.style.color = this.textColor;
-      spanElement0.innerHTML = this.text;
-      spanElement0.style.height='auto';
-      spanElement0.style.width='auto';
-      document.body.appendChild(spanElement0);
-      /*
-      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-            MathJax.typesetPromise([spanElement0]) // Tell it exactly which element to format
-              .catch((err) => console.log('MathJax formatting error:', err));
-        } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
-            try {
-                MathJax.typeset();
-            } catch(err) {
-                console.log('MathJax fallback typeset failed:', err);
-            }
-        } else {
-            console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
-        }
-        */
-      
-      
-      const rect = spanElement0.getBoundingClientRect();
-      const fOWidth = Math.ceil(rect.width) ;
-      const fOHeight = Math.ceil(rect.height) ;
-      document.body.removeChild(spanElement0);
-
-      this.height = fOHeight;
-      this.width = fOWidth;
-
-
-      let spanElement = document.createElement("SPAN");
-      spanElement.style.whiteSpace = 'nowrap';
-      spanElement.style.display = 'inline-block';
-      spanElement.style.textAlign = 'left';
-      spanElement.innerHTML = text;
-      SVGElement.appendChild(spanElement);
-      //MathJax.typesetPromise();
-      /*
-      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-            MathJax.typesetPromise([spanElement]) // Tell it exactly which element to format
-              .catch((err) => console.log('MathJax formatting error:', err));
-        } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
-            try {
-                MathJax.typeset();
-            } catch(err) {
-                console.log('MathJax fallback typeset failed:', err);
-            }
-        } else {
-            console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
-        }
-        */
-     
-      
-
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box"; 
+  
       this.SVGElement = SVGElement;
-      this.spanElement = spanElement;
+      
+      // Will be populated cleanly from the JSON dataset
+      this.svgContent = ""; 
+  
+      // 2. Set structural frame dimensions
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+  
+      // 3. Establish clean baseline animation key values using original bounds
+      this.initialState = {
+        x: this.x + 'px',
+        y: this.y + 'px',
+        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        height: this.height + 'px',
+        width: this.width + 'px'
+      };
     }
-
-    updateSVG()
-    {
-      this.spanElement.innerHTML = this.text;
-      this.spanElement.style.fontSize=this.fontSize+'px';
-      this.SVGElement.style.color = this.textColor;
-      this.SVGElement.style.color = this.textColor;
-      this.SVGElement.style.fontWeight = this.fontWeight;
-      this.SVGElement.style.fontSize=this.fontSize;
-      this.SVGElement.setAttribute("height",this.height);
-      this.SVGElement.setAttribute("width",this.width);
+  
+    updateSVG() {
+      // Inject the raw vectors natively right away
+      this.SVGElement.innerHTML = this.svgContent;
+      
+      // Configure inner vector visibility and color inheritance properties
+      let innerMathSvg = this.SVGElement.querySelector('svg');
+      if (innerMathSvg) {
+        innerMathSvg.style.width = ''; 
+        innerMathSvg.style.height = '';
+        innerMathSvg.style.display = 'block';
+        innerMathSvg.style.overflow = 'visible'; 
+        innerMathSvg.style.fill = this.textColor;
+      }
+  
+      // Apply strict dimensional boundaries on the outer box container
+      this.SVGElement.style.overflow = 'hidden';
+      this.SVGElement.setAttribute("height", this.height);
+      this.SVGElement.setAttribute("width", this.width);
       this.SVGElement.setAttribute("x", this.x);
       this.SVGElement.setAttribute("y", this.y);
-      this.SVGElement.style.transformOrigin = "center";
-      this.SVGElement.style.transformBox = "fill-box"; 
-      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-      this.SVGElement.setAttribute("opacity",this.opacity);    
+      
+      this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
+      this.SVGElement.setAttribute("opacity", this.opacity); 
     }
   }
 
