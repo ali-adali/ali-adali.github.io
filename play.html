@@ -1226,10 +1226,29 @@ function parseNum(val) {
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
       //SVGElement.style.transformOrigin = "center";
-      let w = parseFloat(originalWidth) || 0;
-      let h = parseFloat(originalHeight) || 0;
-
-      SVGElement.style.transformOrigin = `${w / 2}px ${h / 2}px`;
+      function getBrowserOrigin(w, h) {
+        const ua = navigator.userAgent.toLowerCase();
+        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
+        const isFirefox = ua.includes('firefox');
+      
+        if (isSafari) {
+          // Safari specific logic (e.g., if it requires absolute or global offsets)
+          return `${w / 2}px ${h / 2}px`;
+         
+        } else if (isFirefox) {
+          // Firefox specific fallback
+           return "center"; 
+        } else {
+          // Chrome, Edge, Opera, etc.
+          return "50% 50%";
+        }
+      }
+      
+      // Application:
+      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
+      let height =2*parseFloat(y) parseFloat(originalHeight) || 0;
+      
+      SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
       //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
       SVGElement.style.transformBox = "fill-box"; 
   
