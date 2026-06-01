@@ -1225,44 +1225,33 @@ function parseNum(val) {
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
-      //SVGElement.style.transformOrigin = "center";
-      function getBrowserOrigin(w, h, hasEmbeddedSvg = false) {
+      function getBrowserOrigin(w, h) {
         const ua = navigator.userAgent.toLowerCase();
         const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
         const isFirefox = ua.includes('firefox');
-        
+      
         if (isSafari) {
-          // If the element encapsulates stringified svgContent, percentages 
-          // force Safari to stay bound to the local rendering context bounds.
-          if (hasEmbeddedSvg) {
-            return "50% 50%";
-          }
-          // Geometric vectors (points, lines, polygons) remain stable with exact pixel values
+          // Safari specific logic (e.g., if it requires absolute or global offsets)
           return `${w / 2}px ${h / 2}px`;
-           
+          SVGElement.style.transformBox = "view-box";
+         
         } else if (isFirefox) {
-          return "center"; 
+          // Firefox specific fallback
+          SVGElement.style.transformBox = "fill-box";
+           return "center"; 
         } else {
+          // Chrome, Edge, Opera, etc.
           return "50% 50%";
         }
       }
       
-      // --- Application Integration Loop ---
-      // Map your calculations safely
-      let posX = parseFloat(x) || 0;
-      let posY = parseFloat(y) || 0;
-      let origW = parseFloat(originalWidth) || 0;
-      let origH = parseFloat(originalHeight) || 0;
+      // Application:
+      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
+      let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
       
-      let width = (2 * posX) + origW;
-      let height = (2 * posY) + origH;
-      
-      // Inspect the source dataset object (e.g., 'obj' or 'currentObj' from your JSON array loop)
-      // Check if the object contains your specific text svgContent key
-      const hasEmbeddedSvg = (typeof obj !== 'undefined' && (obj.type === 'txt' || !!obj.svgContent));
-      
+      SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+      //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
       SVGElement.style.transformBox = "fill-box";
-      SVGElement.style.transformOrigin = getBrowserOrigin(width, height, hasEmbeddedSvg);
   
       this.SVGElement = SVGElement;
       
