@@ -1225,7 +1225,12 @@ function parseNum(val) {
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
-      SVGElement.style.transformOrigin = "center";
+      //SVGElement.style.transformOrigin = "center";
+      let w = parseFloat(originalWidth) || 0;
+      let h = parseFloat(originalHeight) || 0;
+
+      SVGElement.style.transformOrigin = `${w / 2}px ${h / 2}px`;
+      //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
       SVGElement.style.transformBox = "fill-box"; 
   
       this.SVGElement = SVGElement;
