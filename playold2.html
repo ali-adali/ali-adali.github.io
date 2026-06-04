@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geometry Theorems & Proofs </title>
+  <style>
+    :root {
+      --bg-main: #0f172a;        /* Deep midnight */
+      --bg-panel: #1e293b;       /* Soft slate navy */
+      --bg-card: #334155;        /* Active item background */
+      --text-main: #f8fafc;      /* Crisp off-white */
+      --text-muted: #94a3b8;     /* Secondary soft text */
+      --accent: #10b981;         /* Sophisticated Sage/Emerald highlight */
+      --accent-hover: #059669;
+      --canvas-bg: #ffffff;      /* Keep your geometric canvas pure white */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Outer Navigation Breadcrumb Strip */
+    .out-nav-div {
+      background-color: var(--bg-panel);
+      padding: 12px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .out-nav-div a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .out-nav-div a:hover {
+      color: var(--accent);
+    }
+
+    /* Core Layout Container */
+    .app-container {
+      display: grid;
+      flex: 1;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    /* === PORTRAIT / MOBILE INITIAL STYLES === */
+    @media (orientation: portrait) {
+      .app-container {
+        grid-template-rows: auto auto auto 1fr;
+        grid-template-columns: 100%;
+        overflow-y: auto;
+      }
+      .screen-container {
+        justify-self: center;
+        width: 100vw;
+        padding: 10px;
+      }
+      .control-console {
+        padding: 10px 15px 10px 15px;
+      }
+      .nav-in-div {
+        padding: 10px 10px;
+      }
+      .thms-div {
+        padding: 10px 10px;
+      }
+    }
+
+    /* === LANDSCAPE / DESKTOP STYLES === */
+    @media (min-width: 768px) and (orientation: landscape) {
+      .app-container {
+        grid-template-columns: 240px 1fr 240px;
+        grid-template-rows: 100%;
+      }
+      .thms-div {
+        grid-column: 1;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .screen-container {
+        grid-column: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 2px;
+      }
+      .nav-in-div {
+        grid-column: 3;
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 30px 20px;
+        gap: 20px;
+      }
+      .control-console {
+        width: 100%;
+        margin-top: 15px;
+      }
+    }
+
+    /* Component: Theorem Browser Grid */
+    .thms-div {
+      background-color: var(--bg-panel);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px;
+      min-height: 100px;
+    }
+    .thm-item-card {
+      background-color: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .thm-item-card:hover {
+      background-color: #475569;
+      transform: translateX(2px);
+    }
+    .thm-item-card.active {
+      background-color: rgba(16, 185, 129, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Component: The Player Canvas */
+    .screen-div {
+      aspect-ratio: 1 / 1;
+      background-color: var(--canvas-bg);
+      border-radius: 12px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+    .screen-div svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Component: Combined Controls Block */
+    .control-console {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Advanced Custom Timeline & Touch Tracker */
+    .progress-wrapper {
+      position: relative;
+      width: 100%;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      background-color: #475569;
+      border-radius: 3px;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent);
+      border-radius: 3px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .progress-thumb {
+      width: 36px;
+      height: 36px;
+      background-color: var(--text-main);
+      border: 5px solid var(--accent);
+      border-radius: 40%;
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: transform 0.1s, background-color 0.1s;
+    }
+    .progress-wrapper:hover .progress-thumb {
+      transform: translate(-50%, -50%) scale(1.25);
+      background-color: var(--accent);
+    }
+
+    /* Consolidated Control Buttons Row */
+    .button-group-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+    .btn-control {
+      background-color: var(--bg-panel);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 0;
+      height: 64px;
+      aspect-ratio: 1/1;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 40px;
+      transition: all 0.2s;
+    }
+    .btn-control:hover {
+      background-color: var(--bg-card);
+      border-color: var(--text-muted);
+    }
+    .btn-control#togglePlayBtn {
+      background-color: var(--accent);
+      color: #064e3b;
+      border: none;
+    }
+    .btn-control#togglePlayBtn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    /* Component: Inner Multi-directional Navigation */
+    .nav-in-div {
+      background-color: var(--bg-panel);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-step-btn {
+      background-color: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .nav-step-btn:hover:not(:disabled) {
+      background-color: #475569;
+      border-color: var(--accent);
+    }
+    .nav-step-btn:disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .current-thm-banner {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+      flex: 1.2;
+    }
+
+    .app-container:fullscreen {
+      background-color: var(--bg-main);
+      padding: 10px;
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="out-nav-div">
+    <a href="https://yourwebsite.com">Home</a> &rarr; 
+    <a href="#">Geometry</a> &rarr; 
+    <span>Theorems & Proofs</span>
+  </div>
+
+  <div class="app-container">
+    <div class="thms-div" id="theoremsSidebar"></div>
+
+    <div class="screen-container">
+      <div class="screen-div">
+        <svg class="svg-frame" id="playerSVG" xmlns="http://www.w3.org/2000/svg" width="750" height="750" viewBox="0 0 750 750" >
+          <defs>
+            <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
+            </pattern>
+            <pattern id="halfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="lightgray" stroke-width="0.8"/>
+            </pattern>
+          </defs>
+          <rect width="750" height="750" fill="url(#wholeGrid)" />
+          <rect width="750" height="750" fill="url(#halfGrid)" />
+          <g id="mainSVGGroup"></g>
+        </svg>
+      </div>
+
+      <div class="control-console">
+        <div class="progress-wrapper" id="timelineScrubber">
+          <div class="progress-track">
+            <div class="progress-fill" id="timelineProgress"></div>
+            <div class="progress-thumb" id="timelineThumb"></div>
+          </div>
+        </div>
+        
+        <div class="button-group-row">
+          <button class="btn-control" id="togglePlayBtn">&#9654;</button>
+          <button class="btn-control" id="stopBtn">&#8617; </button>
+          <button class="btn-control" id="fullscreenBtn">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-in-div">
+      <button class="nav-step-btn" id="prevThmBtn">&larr; Previous</button>
+      <div class="current-thm-banner" id="currentThmTitle">Loading...</div>
+      <button class="nav-step-btn" id="nextThmBtn">Next &rarr;</button>
+    </div>
+  </div>
+
+  <script>
+    // --- 1. Playlist Configuration ---
+    const theoremPlaylist = [
+      { id: 1, title: "Pythagorean Theorem", file: "PythagoreanTheorem.json" },
+      { id: 2, title: "Law of Sines", file: "LoS.json" },
+      { id: 3, title: "Law of Cosines", file: "LoC.json" },
+      { id: 4, title: "Stewart's Theorem", file: "StewartThm.json" },
+      { id: 5, title: "2020 AIME - 2 Problem 13", file: "aime2020E2P13.json" },
+      { id: 6, title: "2021 AIME - 2 Problem 12", file: "aime2021E2P12.json" },
+      { id: 7, title: "2022 AIME - 2 Problem 15", file: "aime2022E2P15.json" },
+      { id: 8, title: "2025 AIME - 2 Problem 14", file: "aime2025E2P14.json" },
+      { id: 9, title: "2025 AIME - 2 Problem 14 LS", file: "aime2025E2P14_LS.json" },
+      { id: 10, title: "2022 AIME - 2 Problem 15 LS", file: "aime2022E2P15_LS.json" },
+      { id: 11, title: "2022 AIME - 2 Problem 13 LS", file: "aime2022E2P13_LS.json" },
+      { id: 12, title: "Law of Cosines LS", file: "LoC_LS.json" },
+      { id: 13, title: "Law of Sines LS", file: "LoS_LS.json" },
+      { id: 14, title: "Pythagorean Theorem LS", file: "PythagoreanTheorem_LS.json" }
+    ];
+
+    // --- 2. Core Player State ---
+    let currentActiveIndex = 0;
+    let objects = [];
+    let aliveObjects = [];
+    let globalPlaylist = [];
+    let animations = []; 
+    let animationDuration = 0; 
+    let isPlaying = false;
+    let isScrubbing = false;
+
+    const playerSVG = document.getElementById("playerSVG");
+    const timelineScrubber = document.getElementById("timelineScrubber");
+    const timelineProgress = document.getElementById("timelineProgress");
+    const timelineThumb = document.getElementById("timelineThumb");
+    const togglePlayBtn = document.getElementById("togglePlayBtn");
+    const stopBtn = document.getElementById("stopBtn");
+
+    const strokeColors = ['black','midnightblue','DarkMagenta','darkgreen','blue', 'red','DarkSeaGreen','Teal','MediumSlateBlue','MediumVioletRed','FireBrick','crimson','saddlebrown','YellowGreen','MediumOrchid','MediumPurple','Tomato','Coral','GoldenRod','OliveDrab','DarkOrange','SeaGreen'];
+    const fillColors = ['DarkOrange','blue','Aquamarine','CornflowerBlue','IndianRed','LightPink','DeepPink','PaleGreen','Teal','MediumOrchid','Tomato','YellowGreen','Violet','DarkGoldenRod','DarkSlateGray','Navy','SeaGreen'];
+
+    // --- 3. UI Synchronization & Navigation ---
+    function initUI() {
+      const sidebar = document.getElementById('theoremsSidebar');
+      sidebar.innerHTML = '';
+
+      theoremPlaylist.forEach((thm, idx) => {
+        const card = document.createElement('div');
+        card.className = `thm-item-card ${idx === currentActiveIndex ? 'active' : ''}`;
+        card.innerText = `${thm.id}. ${thm.title}`;
+        card.onclick = () => loadTheorem(idx);
+        sidebar.appendChild(card);
+      });
+
+      document.getElementById('prevThmBtn').disabled = currentActiveIndex === 0;
+      document.getElementById('nextThmBtn').disabled = currentActiveIndex === theoremPlaylist.length - 1;
+      
+      if (currentActiveIndex > 0) {
+        document.getElementById('prevThmBtn').innerText = `← ${theoremPlaylist[currentActiveIndex - 1].title}`;
+      }
+      if (currentActiveIndex < theoremPlaylist.length - 1) {
+        document.getElementById('nextThmBtn').innerText = `${theoremPlaylist[currentActiveIndex + 1].title} →`;
+      }
+
+      document.getElementById('currentThmTitle').innerText = theoremPlaylist[currentActiveIndex].title;
+    }
+
+    document.getElementById('prevThmBtn').onclick = () => { if (currentActiveIndex > 0) loadTheorem(currentActiveIndex - 1); };
+    document.getElementById('nextThmBtn').onclick = () => { if (currentActiveIndex < theoremPlaylist.length - 1) loadTheorem(currentActiveIndex + 1); };
+
+    // --- 4. JSON Loader ---
+    function loadTheorem(index) {
+      currentActiveIndex = index;
+      initUI();
+      resetPlayerState();
+
+      const fileName = theoremPlaylist[index].file;
+      console.log(`Loading theorem data via fetch: ${fileName}`);
+
+      fetch(fileName)
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          parseProjectData(data);
+        })
+        .catch(error => {
+          console.error("Failed to load geometry data file:", error);
+        });
+    }
+
+    function resetPlayerState() {
+      animations.forEach(anim => anim.cancel());
+      animations = [];
+      objects = [];
+      aliveObjects = [];
+      globalPlaylist = [];
+      animationDuration = 0;
+      isPlaying = false;
+      isScrubbing = false;
+      togglePlayBtn.innerHTML = "&#9654;";
+      const mainGroup = document.getElementById("mainSVGGroup");
+      if (mainGroup) {
+        mainGroup.innerHTML = ""; 
+      }
+      updateProgressBarUI(0);
+    }
+
+    function parseProjectData(data) {
+      data.initialObjects.forEach(objData => {
+        let newObj;
+        
+        if (objData.type === "pt") {
+            newObj = new basePoint(objData.index, objData.cx, objData.cy);
+        } else if (objData.type === "ptc") {
+            newObj = new point(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale);
+        } else if (objData.type === "txt") {
+            newObj = new text(objData.index, objData.x, objData.y, objData.text, objData.opacity, objData.scale, objData.textColor, objData.fontSize, objData.rotate, objData.width, objData.height, objData.svgContent || "");
+        } else if (objData.type === "pgn") {
+            newObj = new polygon(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "pln") {
+            newObj = new polyline(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "cr") {
+            newObj = new circle(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.property);
+        } else if (objData.type === "elp") {
+            newObj = new ellipse(objData.index, objData.cx, objData.cy, objData.rx, objData.ry, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "ang") {
+            newObj = new angle(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rightAngle);
+        } else if (objData.type === "qcrv") {
+            newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "arw") {
+            newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        }
+
+        const { SVGElement, spanElement, ...cleanData } = objData;
+        Object.assign(newObj, cleanData);
+        
+        objects[newObj.index] = newObj;
+        aliveObjects.push(newObj);
+      });
+
+      data.playlist.forEach(stepData => {
+        const targetObj = objects[stepData.objIndex];
+        if (targetObj) {
+          globalPlaylist.push({
+            element: targetObj,
+            wait: stepData.wait,
+            dur: stepData.dur,
+            type: stepData.type,
+            state: stepData.state 
+          });
+        }
+      });
+
+      render();
+      bakeAnimations();
+    }
+
+    // --- 5. Native Web Animations API (WAAPI) Method 1 Baking ---
+    function bakeAnimations() {
+      hideAllBasePoints();
+      
+      animations.forEach(anim => anim.cancel());
+      animations = [];
+
+      if (globalPlaylist.length === 0) return;
+
+      let endPause = 0.5;
+      let totalSeconds = 0;
+      globalPlaylist.forEach(step => {
+        totalSeconds += (parseFloat(step.wait) + parseFloat(step.dur));
+      });
+
+      totalSeconds += endPause;
+      if (totalSeconds <= 0) totalSeconds = 0.001;
+      animationDuration = totalSeconds * 1000;
+
+      let masterMap = new Map();
+      let runningTime = 0;
+
+      globalPlaylist.forEach(step => {
+        let stepDur = parseFloat(step.dur) || 0;
+        let stepWait = parseFloat(step.wait) || 0;
+        let obj = step.element;
+
+        if (!masterMap.has(obj)) {
+          masterMap.set(obj, [{ ...obj.initialState, offset: 0 }]);
+        }
+
+        let frames = masterMap.get(obj);
+        runningTime += stepWait;
+        let endOfWaitOffset = runningTime / totalSeconds;
+
+        let lastRecordedState = frames[frames.length - 1];
+        frames.push({ ...lastRecordedState, offset: endOfWaitOffset });
+
+        runningTime += stepDur;
+        let endOfMoveOffset = runningTime / totalSeconds;
+        frames.push({ ...step.state, offset: endOfMoveOffset });
+      });
+
+      masterMap.forEach((frames, obj) => {
+        let lastFrame = frames[frames.length - 1];
+        if (lastFrame.offset < 1) {
+          frames.push({ ...lastFrame, offset: 1 });
+        }
+
+        if (obj.SVGElement) {
+          const player = obj.SVGElement.animate(frames, {
+            duration: animationDuration,
+            fill: 'forwards',
+            easing: 'linear'
+          });
+          player.pause(); 
+          animations.push(player);
+        }
+      });
+    }
+
+    let wakeLock = null;
+
+    function playAnimation() {
+      requestWakeLock();
+      if (animations.length === 0) bakeAnimations();
+      animations.forEach(anim => anim.play());
+      isPlaying = true;
+      togglePlayBtn.innerHTML = "&#10073;&#10073;";
+      requestAnimationFrame(syncUI);
+    }
+
+    function pauseAnimation() {
+      releaseWakeLock();
+      animations.forEach(anim => anim.pause());
+      isPlaying = false;
+      togglePlayBtn.innerHTML = "&#9654;";
+    }
+
+    function rewindAnimation() {
+      animations.forEach(anim => {
+        anim.pause();
+        anim.currentTime = 0;
+      });
+      isPlaying = false;
+      togglePlayBtn.innerHTML = "&#9654;";
+      updateProgressBarUI(0);
+    }
+
+    togglePlayBtn.onclick = function() {
+      if (isPlaying) {
+        pauseAnimation();
+      } else {
+        if (animations.length > 0 && animations[0].currentTime >= animationDuration) {
+          rewindAnimation();
+        }
+        playAnimation();
+      }
+    };
+
+    stopBtn.onclick = function() {
+      rewindAnimation();
+    };
+
+    // --- 6. Timeline Scrubber ---
+    function syncUI() {
+      if (animations.length > 0 && isPlaying && !isScrubbing) {
+        const master = animations[0];
+        const percent = (master.currentTime / animationDuration) * 100;
+        
+        updateProgressBarUI(percent);
+
+        if (master.playState !== 'finished') {
+          requestAnimationFrame(syncUI);
+        } else {
+          isPlaying = false;
+          togglePlayBtn.innerHTML = "&#9654;";
+          releaseWakeLock();
+        }
+      }
+    }
+
+    function scrub(e) {
+      if (animationDuration <= 0 || animations.length === 0) return;
+      
+      const rect = timelineScrubber.getBoundingClientRect();
+      let percentage = (e.clientX - rect.left) / rect.width;
+      percentage = Math.max(0, Math.min(1, percentage)); 
+
+      const seekTime = percentage * animationDuration;
+
+      animations.forEach(anim => {
+        anim.currentTime = seekTime;
+      });
+
+      updateProgressBarUI(percentage * 100);
+    }
+
+    function updateProgressBarUI(percent) {
+      timelineProgress.style.width = percent + '%';
+      timelineThumb.style.left = percent + '%';
+    }
+
+    timelineScrubber.addEventListener('mousedown', (e) => {
+      if (animations.length === 0) return;
+      isScrubbing = true;
+      pauseAnimation();
+      scrub(e);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isScrubbing) scrub(e);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isScrubbing = false;
+    });
+
+    timelineScrubber.addEventListener('touchstart', (e) => {
+      if (animations.length === 0) return;
+      isScrubbing = true;
+      pauseAnimation();
+      scrubTouch(e);
+    }, { passive: false });
+    
+    window.addEventListener('touchmove', (e) => {
+      if (isScrubbing) {
+        e.preventDefault();
+        scrubTouch(e);
+      }
+    }, { passive: false });
+    
+    window.addEventListener('touchend', () => {
+      isScrubbing = false;
+    });
+    
+    function scrubTouch(e) {
+      if (e.touches.length === 0) return;
+      const fakeMouseEvent = {
+        clientX: e.touches[0].clientX
+      };
+      scrub(fakeMouseEvent);
+    }
+
+    async function requestWakeLock() {
+      if ('wakeLock' in navigator) {
+        try {
+          if (!wakeLock) {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log('Screen Wake Lock active.');
+          }
+        } catch (err) {
+          console.log(`Wake Lock request failed: ${err.name}, ${err.message}`);
+        }
+      }
+    }
+    
+    function releaseWakeLock() {
+      if (wakeLock !== null) {
+        wakeLock.release().then(() => { wakeLock = null; });
+      }
+    }
+    
+    document.addEventListener('visibilitychange', async () => {
+      if (wakeLock !== null && document.visibilityState === 'visible') {
+        await requestWakeLock();
+      }
+    });
+
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const appContainer = document.querySelector('.app-container');
+    
+    fullscreenBtn.onclick = function() {
+      if (!document.fullscreenElement) {
+        appContainer.requestFullscreen()
+          .then(() => { updateFullscreenButtonUI(true); })
+          .catch((err) => { console.error(`Fullscreen failed: ${err.message}`); });
+      } else {
+        document.exitFullscreen();
+        updateFullscreenButtonUI(false);
+      }
+    };
+    
+    document.addEventListener('fullscreenchange', () => {
+      updateFullscreenButtonUI(!!document.fullscreenElement);
+    });
+    
+    function updateFullscreenButtonUI(isFullScreen) {
+      if (isFullScreen) {
+        fullscreenBtn.innerHTML = `
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+            <path d="M4 14h6v6m10-6h-6v6M4 10h6V4m10 6h-6V4"/>
+          </svg>
+        `;
+      } else {
+        fullscreenBtn.innerHTML = `
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+          </svg>
+        `;
+      }
+    }
+    
+    // Completely Synchronous Player Initialization Launch (Prevents Chrome Crash)
+    function launchPlayer() {
+      document.getElementById("mainSVGGroup").style.visibility = "hidden";
+      initUI();
+      loadTheorem(0); 
+      setTimeout(() => { 
+        document.getElementById("mainSVGGroup").style.visibility = "visible";
+      }, 100);
+    }
+
+    // Fire immediately upon completion of basic DOM construction
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', launchPlayer);
+    } else {
+      launchPlayer();
+    }
+
+    // --- 7. Layout Primitive Graphic Structural Classes ---
+    class basePoint {
+      constructor(objectIndex, cx, cy) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.setAttribute("r", 3);
+        SVGElement.setAttribute("stroke-width",1);
+        SVGElement.setAttribute("fill-opacity",0);
+        SVGElement.setAttribute("opacity",1);
+        SVGElement.setAttribute("stroke",'black');
+        SVGElement.setAttribute("fill",'black');
+        SVGElement.style.visibility = "hidden";
+
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.cx = cx;
+        this.cy = cy;
+        this.type = 'pt';
+      }
+      updateSVG() {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);    
+      }
+    }
+
+    class point {
+      constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor, fillOpacity, fillColor, scale) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.style.transformOrigin = "center";
+        SVGElement.style.transformBox = "fill-box";
+        SVGElement.style.pointerEvents = 'none';
+
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.cx = cx;
+        this.cy = cy;
+        this.r = r;
+        this.strokeWidth = strokeWidth;
+        this.fillOpacity = fillOpacity;
+        this.opacity = opacity;
+        this.scale = scale;
+        this.strokeColor = strokeColor;
+        this.fillColor = fillColor;
+        this.type = 'ptc';
+        this.property = 'point';
+
+        this.initialState = {
+          cx: this.cx + 'px',
+          cy: this.cy + 'px',
+          r: this.r + 'px',
+          opacity: this.opacity,
+          transform: `scale(${this.scale})`,
+          stroke: this.strokeColor,
+          fill: this.fillColor
+        };
+      }
+      updateSVG() {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);
+        this.SVGElement.setAttribute("r", this.r);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+        this.SVGElement.setAttribute("opacity",this.opacity);
+        this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
+        this.SVGElement.setAttribute("stroke",this.strokeColor);
+        this.SVGElement.setAttribute("fill",this.fillColor);
+      }
+    }
+
+    class text { 
+      constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight, svgContent = "") {
+        this.index = objectIndex;
+        this.x = x;
+        this.y = y;
+        this.text = textStr;
+        this.opacity = opacity;
+        this.scale = scale;
+        this.textColor = textColor;
+        this.fontSize = fontSize;
+        this.rotate = rotate;
+        this.type = 'txt';
+        this.displayType = 'tx';
+    
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+        SVGElement.setAttribute("id", 'SVGText' + objectIndex);
+        SVGElement.style.pointerEvents = 'none';
+
+        this.width = parseFloat(originalWidth) || 100;
+        this.height = parseFloat(originalHeight) || 30;
+
+        const ua = navigator.userAgent.toLowerCase();
+        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
+        const isFirefox = ua.includes('firefox');
+      
+        // Absolute Coordinate Matrix Fix for Safari vs standard layout boxes
+        if (isSafari) {
+          let absoluteCenterX = parseFloat(x) + (this.width / 2);
+          let absoluteCenterY = parseFloat(y) + (this.height / 2);
+          SVGElement.style.transformBox = "view-box";
+          SVGElement.style.transformOrigin = `${absoluteCenterX}px ${absoluteCenterY}px`;
+        } else if (isFirefox) {
+          SVGElement.style.transformBox = "fill-box";
+          SVGElement.style.transformOrigin = "center"; 
+        } else {
+          SVGElement.style.transformBox = "fill-box";
+          SVGElement.style.transformOrigin = "50% 50%";
+        }
+        
+        this.SVGElement = SVGElement;
+        this.svgContent = svgContent; 
+    
+        this.initialState = {
+          x: this.x + 'px',
+          y: this.y + 'px',
+          transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+          opacity: this.opacity,
+          color: this.textColor, 
+          height: this.height + 'px',
+          width: this.width + 'px'
+        };
+
+        // --- THE SAFARI FIXED HARD-SEED ---
+        // Forces styles onto the element directly so they don't look completely visible on frame zero
+        SVGElement.style.x = this.initialState.x;
+        SVGElement.style.y = this.initialState.y;
+        SVGElement.style.transform = this.initialState.transform;
+        SVGElement.style.opacity = this.initialState.opacity;
+        SVGElement.style.color = this.initialState.color;
+        SVGElement.style.width = this.initialState.width;
+        SVGElement.style.height = this.initialState.height;
+
+        this.updateSVG();
+      }
+    
+      updateSVG() {
+        this.SVGElement.innerHTML = this.svgContent;
+        
+        let innerMathSvg = this.SVGElement.querySelector('svg');
+        if (innerMathSvg) {
+          innerMathSvg.setAttribute('width', this.width + 'px');
+          innerMathSvg.style.width = this.width + 'px';
+          innerMathSvg.style.minWidth = this.width + 'px';
+          innerMathSvg.style.height = this.height + 'px';
+          innerMathSvg.style.display = 'block';
+          innerMathSvg.style.overflow = 'visible'; 
+          innerMathSvg.style.fill = 'currentColor';
+          innerMathSvg.setAttribute('fill', 'currentColor');
+    
+          let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+          structuralGroups.forEach(node => {
+            if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
+            if (node.style.fill && node.style.fill !== 'none') node.style.fill = 'currentColor';
+            if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') node.setAttribute('stroke', 'currentColor');
+            if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
+          });
+        }
+    
+        this.SVGElement.style.overflow = 'hidden';
+        this.SVGElement.style.color = this.textColor; 
+        
+        this.SVGElement.setAttribute("height", this.height);
+        this.SVGElement.setAttribute("width", this.width);
+        this.SVGElement.setAttribute("x", this.x);
+        this.SVGElement.setAttribute("y", this.y);
+        this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
+        this.SVGElement.setAttribute("opacity", this.opacity); 
+      }
+    }
+
+    class polygon {
+      constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale,rotate) {
+        this.index = objectIndex;
+        this.pointsIndices = pointsIndices;
+        this.dx = dx;
+        this.dy = dy;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.fillOpacity = fillOpacity;
+        this.fillColor = fillColor;
+        this.scale = scale;
+        this.rotate = rotate;
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.type = 'pgn';
+        
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+        SVGElement.style.transformOrigin = "center";
+        SVGElement.style.transformBox = "fill-box";
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.style.pointerEvents = 'none';
+
+        this.SVGElement = SVGElement;
+        this.strokeDashoffset = 0;
+
+        this.initialState = {
+          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
+          opacity: this.opacity,
+          stroke: this.strokeColor,
+          fill: this.fillColor,
+          strokeWidth: this.strokeWidth + 'px'
+        };
+      }
+      updateSVG() {
+        let ptsArray = [];
+        for (let i = 0; i < this.pointsIndices.length; i++) {
+          let obj = objects[this.pointsIndices[i]];
+          ptsArray.push(obj.cx + "," + obj.cy);
+        }
+        let pts = ptsArray.join(" ");
+
+        this.SVGElement.setAttribute("points", pts);
+        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+        this.totalLength = this.SVGElement.getTotalLength();
+        this.SVGElement.setAttribute("stroke",this.strokeColor);
+        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("fill",this.fillColor);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+        this.SVGElement.setAttribute("opacity",this.opacity);
+      }
+    }
+
+    class polyline {
+      constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate ) {
+        this.index = objectIndex;
+        this.pointsIndices = pointsIndices; 
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.dx = dx;
+        this.dy = dy;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.scale = scale;
+        this.rotate = rotate;
+        this.type = 'pln';
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.style.pointerEvents = 'none';
+        SVGElement.style.transformOrigin = "center";
+        SVGElement.style.transformBox = "fill-box";
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.setAttribute("stroke-linecap",'round');
+        SVGElement.setAttribute("fill",'none');
+        
+        this.SVGElement = SVGElement;
+        this.strokeDashoffset = 0;
+
+        this.initialState = {
+          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
+          opacity: this.opacity,
+          stroke: this.strokeColor,
+          strokeWidth: this.strokeWidth + 'px'
+        };
+      }
+      updateSVG() {
+        let ptsArray = [];
+        for (let i = 0; i < this.pointsIndices.length; i++) {
+          let obj = objects[this.pointsIndices[i]];
+          ptsArray.push(obj.cx + "," + obj.cy);
+        }
+        let pts = ptsArray.join(" ");
+        this.SVGElement.setAttribute("points", pts);
+        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+        this.SVGElement.setAttribute("stroke",this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("opacity",this.opacity);
+        this.totalLength = this.SVGElement.getTotalLength();
+        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      }
+    }
+
+    class circle {
+      constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, property ) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.setAttribute("cx", cx);
+        SVGElement.setAttribute("cy", cy);
+        SVGElement.setAttribute("r", r);
+        SVGElement.style.pointerEvents = 'none';
+        SVGElement.style.transformOrigin = "center";
+        SVGElement.style.transformBox = "fill-box";
+
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.cx = cx;
+        this.cy = cy;
+        this.center = {cx:this.cx,cy:this.cy};
+        this.r = r;
+        this.strokeWidth = strokeWidth;
+        this.fillOpacity = fillOpacity;
+        this.opacity = opacity;
+        this.scale = scale;
+        this.strokeColor = strokeColor;
+        this.fillColor = fillColor;
+        this.type = 'cr';
+        this.property = property;
+        this.strokeDashoffset = 0;
+
+        this.initialState = {
+          cx: this.cx + 'px',
+          cy: this.cy + 'px',
+          r: this.r + 'px',
+          opacity: this.opacity,
+          transform: `scale(${this.scale})`,
+          stroke: this.strokeColor,
+          fill: this.fillColor,
+          strokeWidth: this.strokeWidth + 'px'
+        };
+      }
+      updateSVG() {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);
+        this.SVGElement.setAttribute("r", this.r);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+        this.SVGElement.setAttribute("opacity",this.opacity);
+        this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
+        this.SVGElement.setAttribute("stroke",this.strokeColor);
+        this.SVGElement.setAttribute("fill",this.fillColor);
+        this.totalLength = this.SVGElement.getTotalLength();
+        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      }
+    }
+
+    class ellipse {
+      constructor(objectIndex, cx, cy, rx,ry, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rotate ) {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.setAttribute("cx", cx);
+        SVGElement.setAttribute("cy", cy);
+        SVGElement.setAttribute("rx", rx);
+        SVGElement.setAttribute("ry", ry);
+        SVGElement.style.transformOrigin = "center";
+        SVGElement.style.transformBox = "fill-box";
+
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.cx = cx;
+        this.cy = cy;
+        this.rx = rx;
+        this.ry = ry;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.fillOpacity = fillOpacity;
+        this.fillColor = fillColor;
+        this.scale = scale;
+        this.rotate = rotate;
+        this.type = 'elp';
+        this.strokeDashoffset = 0;
+
+        this.initialState = {
+          cx: this.cx + 'px',
+          cy: this.cy + 'px',
+          transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+          opacity: this.opacity,
+          stroke: this.strokeColor,
+          fill: this.fillColor,
+          strokeWidth: this.strokeWidth + 'px'
+        };
+      }
+      updateSVG() {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);
+        this.SVGElement.setAttribute("rx", this.rx);
+        this.SVGElement.setAttribute("ry", this.ry);
+        this.SVGElement.setAttribute("transform",' rotate('+this.rotate+')'+'scale('+this.scale+' '+this.scale+')');
+        this.SVGElement.setAttribute("opacity",this.opacity);
+        this.SVGElement.setAttribute("fill",this.fillColor);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+        this.SVGElement.setAttribute("stroke",this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth); 
+        this.totalLength = this.SVGElement.getTotalLength();
+        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      }
+    }
+
+    class angle {
+      constructor(objectIndex, pointsIndices, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rightAngle ) {
+        this.index = objectIndex;
+        this.r = r;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.fillOpacity = fillOpacity;
+        this.fillColor = fillColor;
+        this.scale = scale;
+        this.rightAngle = rightAngle;
+        this.pointsIndices = pointsIndices;
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.type = 'ang';
+        this.dx = 0;
+        this.dy = 0;
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.style.transformOrigin = "center";
+        SVGElement.style.transformBox = "fill-box";
+        SVGElement.style.pointerEvents = 'none';
+
+        this.SVGElement = SVGElement;
+        this.strokeDashoffset = 0;
+
+        this.initialState = {
+          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale})`,
+          opacity: this.opacity,
+          stroke: this.strokeColor,
+          fill: this.fillColor,
+          strokeWidth: this.strokeWidth + 'px'
+        };
+      }
+      updateSVG() {
+        let rA = String(this.rightAngle) === "true";
+        let pathAngleIn = angleInPath(this.pointsIndices,this.r,rA);
+
+        this.SVGElement.setAttribute('d',pathAngleIn);
+        this.SVGElement.setAttribute("opacity",this.opacity);
+        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')');
+        this.SVGElement.setAttribute("fill",this.fillColor);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+        this.SVGElement.setAttribute("stroke",this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.totalLength = this.SVGElement.getTotalLength();
+        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      }
+    }
+
+    class qcurve {
+      constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate ) {
+        this.index = objectIndex;
+        this.pointsIndices = pointsIndices;
+        this.dx = dx;
+        this.dy = dy;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.scale = scale;
+        this.rotate = rotate;
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.type = 'qcrv';
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.style.pointerEvents = 'none';
+        SVGElement.style.transformOrigin = "center";
+        SVGElement.style.transformBox = "fill-box";
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.setAttribute("stroke-linecap",'round');
+        SVGElement.setAttribute("fill",'none');
+        
+        this.SVGElement = SVGElement;
+        this.strokeDashoffset = 0;
+
+        this.initialState = {
+          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
+          opacity: this.opacity,
+          stroke: this.strokeColor,
+          strokeWidth: this.strokeWidth + 'px'
+        };
+      }
+      updateSVG() {
+        let d = `M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+        this.SVGElement.setAttribute("d", d);
+        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+        this.SVGElement.setAttribute("stroke",this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("opacity",this.opacity);
+        this.totalLength = this.SVGElement.getTotalLength();
+        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      }
+    }
+  
+    class arrow {
+      constructor(objectIndex,pointsIndices, r , opacity, strokeWidth, strokeColor, scale,rotate) {
+        this.index = objectIndex;
+        this.pointsIndices = pointsIndices;
+        this.r = r;
+        this.dx = 0;
+        this.dy = 0;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.scale = scale;
+        this.rotate = rotate;
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.type = 'arw';
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.style.pointerEvents = 'none';
+        SVGElement.style.transformOrigin = "center";
+        SVGElement.style.transformBox = "fill-box";
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.setAttribute("stroke-linecap",'round');
+        SVGElement.setAttribute("fill",'none');
+
+        this.SVGElement = SVGElement;
+        this.strokeDashoffset = 0;
+
+        this.initialState = {
+          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
+          opacity: this.opacity,
+          stroke: this.strokeColor,
+          strokeWidth: this.strokeWidth + 'px'
+        };
+      }
+      updateSVG() {
+        let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
+        for (let i = 1; i < this.pointsIndices.length; i++) {
+          d += ` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
+        }
+        if (this.pointsIndices.length == 3) {
+          d = `M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+        }
+        let ah = arrowHeadPath(this.pointsIndices,this.r);
+        d += ah;
+
+        this.SVGElement.setAttribute("d", d);
+        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+        this.SVGElement.setAttribute("stroke",this.strokeColor);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("opacity",this.opacity);
+        this.totalLength = this.SVGElement.getTotalLength();
+        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      }
+    }
+
+    // --- 8. Geometrical Vector Calculation Helpers ---
+    function sideLength(Point1,Point2) {
+      return Math.hypot(Point1.cx - Point2.cx, Point1.cy - Point2.cy);
+    }
+
+    function weightedPoint(A,B,x,y) {
+      let Px = (Number(A.cx)*Number(y) + Number(B.cx)*Number(x))/Number(x+y);
+      let Py = (Number(A.cy)*Number(y) + Number(B.cy)*Number(x))/Number(x+y);
+      return {cx:Px, cy:Py};
+    }
+
+    function angleInPath(pI,r,rightAngle) {
+      let A = objects[pI[0]];
+      let B = objects[pI[1]];
+      let C = objects[pI[2]];
+
+      let a = sideLength(B,A);
+      let c = sideLength(B,C);
+
+      let Bs = weightedPoint(B,A,Number(r),Number(a-r));
+      let Be = weightedPoint(B,C,Number(r),Number(c-r));
+      let pth = '';
+      if (rightAngle === true) {
+        let Px = Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
+        let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
+        pth = `M ${parseFloat(B.cx)} ${parseFloat(B.cy)} L ${parseFloat(Bs.cx)} ${parseFloat(Bs.cy)} L ${parseFloat(Px)} ${parseFloat(Py)} L ${parseFloat(Be.cx)} ${parseFloat(Be.cy)} Z`
+      } else {
+        pth = 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+      }
+      return pth; 
+    }
+
+    function arrowHeadPath(pointsIndices,r) {
+      let P = objects[pointsIndices[pointsIndices.length-2]];
+      let Q = objects[pointsIndices[pointsIndices.length-1]];
+
+      let a = Q.cx - P.cx;
+      let b = Q.cy - P.cy;
+      let dPQ = Math.sqrt(a * a + b * b);
+
+      let xx = (b*r)/dPQ;
+      let yy = (a*r)/dPQ;
+
+      let T1x = (Number(Q.cx) + Number(xx)).toFixed(0);
+      let T1y = (Number(Q.cy) - Number(yy)).toFixed(0);
+      let T3x = (Number(Q.cx) - Number(xx)).toFixed(0);
+      let T3y = (Number(Q.cy) + Number(yy)).toFixed(0);
+
+      let T2 = weightedPoint(Q,P,-2 * r,dPQ + 2 * r);
+      return `L ${T1x} ${T1y} L ${T2.cx} ${T2.cy} L ${T3x} ${T3y} L ${Q.cx} ${Q.cy}`;
+    }
+
+    function render() {
+      const mainGroup = document.getElementById("mainSVGGroup");
+      for (let i = 0; i < aliveObjects.length; i++) {
+        let obj = aliveObjects[i];
+        obj.updateSVG();
+        mainGroup.appendChild(obj.SVGElement);
+      }
+    }
+
+    function hideAllBasePoints() {
+      for (let i = 0; i < objects.length; i++) {
+        let obj = objects[i];
+        if (obj?.type === 'pt') {
+          obj.SVGElement.setAttribute("opacity", 0);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
