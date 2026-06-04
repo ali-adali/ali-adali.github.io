@@ -952,115 +952,124 @@
 
 
 
-  class text
-  { 
-    constructor(objectIndex,x, y, text, opacity, scale, textColor, fontSize,rotate)
-    {
-      this.index=objectIndex;
+ class text { 
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      this.index = objectIndex;
       this.x = x;
       this.y = y;
-
-      this.dx=0;
-      this.dy=0;
-
-      this.text = text;
+  
+      this.text = textStr;
       this.opacity = opacity;
-      this.scale=scale;
+      this.scale = scale;
       this.textColor = textColor;
       this.fontSize = fontSize;
       this.rotate = rotate;
-      
-
       this.type = 'txt';
-      this.fontWeight= 400;
-
       this.displayType = 'tx';
-      
+  
+      // 1. Create a minimal foreignObject envelope
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-      SVGElement.setAttribute("id",'SVGText'+objectIndex);
-      SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
+      SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
-      SVGElement.style.color = textColor;
-      SVGElement.style.fontWeight = this.fontWeight;
-      SVGElement.style.fontSize=fontSize;
-
-      let spanElement0 = document.createElement("SPAN");
-      spanElement0.style.fontSize = this.fontSize+'px';
-      spanElement0.style.fontWeight = this.fontWeight;
-      spanElement0.style.color = this.textColor;
-      spanElement0.innerHTML = this.text;
-      spanElement0.style.height='auto';
-      spanElement0.style.width='auto';
-      document.body.appendChild(spanElement0);
-      /*
-      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-            MathJax.typesetPromise([spanElement0]) // Tell it exactly which element to format
-              .catch((err) => console.log('MathJax formatting error:', err));
-        } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
-            try {
-                MathJax.typeset();
-            } catch(err) {
-                console.log('MathJax fallback typeset failed:', err);
-            }
+      function getBrowserOrigin(w, h) {
+        const ua = navigator.userAgent.toLowerCase();
+        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
+        const isFirefox = ua.includes('firefox');
+      
+        if (isSafari) {
+          // Safari specific logic (e.g., if it requires absolute or global offsets)
+          return `${w / 2}px ${h / 2}px`;
+          SVGElement.style.transformBox = "view-box";
+         
+        } else if (isFirefox) {
+          // Firefox specific fallback
+          SVGElement.style.transformBox = "fill-box";
+           return "center"; 
         } else {
-            console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
+          // Chrome, Edge, Opera, etc.
+          return "50% 50%";
         }
-        */
+      }
       
+      // Application:
+      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
+      let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
       
-      const rect = spanElement0.getBoundingClientRect();
-      const fOWidth = Math.ceil(rect.width) ;
-      const fOHeight = Math.ceil(rect.height) ;
-      document.body.removeChild(spanElement0);
-
-      this.height = fOHeight;
-      this.width = fOWidth;
-
-
-      let spanElement = document.createElement("SPAN");
-      spanElement.style.whiteSpace = 'nowrap';
-      spanElement.style.display = 'inline-block';
-      spanElement.style.textAlign = 'left';
-      spanElement.innerHTML = text;
-      SVGElement.appendChild(spanElement);
-      //MathJax.typesetPromise();
-      /*
-      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-            MathJax.typesetPromise([spanElement]) // Tell it exactly which element to format
-              .catch((err) => console.log('MathJax formatting error:', err));
-        } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
-            try {
-                MathJax.typeset();
-            } catch(err) {
-                console.log('MathJax fallback typeset failed:', err);
-            }
-        } else {
-            console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
-        }
-        */
-     
-      
-
+      SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+      //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
+      SVGElement.style.transformBox = "fill-box";
+  
       this.SVGElement = SVGElement;
-      this.spanElement = spanElement;
+      
+      // Will be populated cleanly from the JSON dataset
+      this.svgContent = ""; 
+  
+      // 2. Set structural frame dimensions
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+  
+      // 3. Establish clean baseline animation key values using original bounds
+      this.initialState = {
+        x: this.x + 'px',
+        y: this.y + 'px',
+        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        color: this.textColor, // WAAPI monitors this property for transitions!
+        height: this.height + 'px',
+        width: this.width + 'px'
+      };
     }
+  
+    updateSVG() {
+      // Inject the raw vectors natively
+      this.SVGElement.innerHTML = this.svgContent;
+      
+      // Target the inner MathJax structures to pass color responsively
+      let innerMathSvg = this.SVGElement.querySelector('svg');
+      if (innerMathSvg) {
+        //innerMathSvg.style.width = '';
+        innerMathSvg.setAttribute('width', this.width + 'px');
+        innerMathSvg.style.width = this.width + 'px';
+        innerMathSvg.style.minWidth = this.width + 'px';
 
-    updateSVG()
-    {
-      this.spanElement.innerHTML = this.text;
-      this.spanElement.style.fontSize=this.fontSize+'px';
-      this.SVGElement.style.color = this.textColor;
-      this.SVGElement.style.color = this.textColor;
-      this.SVGElement.style.fontWeight = this.fontWeight;
-      this.SVGElement.style.fontSize=this.fontSize;
-      this.SVGElement.setAttribute("height",this.height);
-      this.SVGElement.setAttribute("width",this.width);
+        innerMathSvg.style.height = '';
+        innerMathSvg.style.display = 'block';
+        innerMathSvg.style.overflow = 'visible'; 
+        
+        // --- THE ANIMATION-PROOF COLOR LINK ---
+        // Instead of locking a static string, we wire it to follow parent CSS changes
+        innerMathSvg.style.fill = 'currentColor';
+        innerMathSvg.setAttribute('fill', 'currentColor');
+  
+        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+        structuralGroups.forEach(node => {
+          // Force nodes to look directly up the DOM tree for their active color matrix
+          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') {
+            node.setAttribute('fill', 'currentColor');
+          }
+          if (node.style.fill && node.style.fill !== 'none') {
+            node.style.fill = 'currentColor';
+          }
+          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') {
+            node.setAttribute('stroke', 'currentColor');
+          }
+          if (node.style.stroke && node.style.stroke !== 'none') {
+            node.style.stroke = 'currentColor';
+          }
+        });
+      }
+  
+      // Apply strict dimensional boundaries and properties on the outer envelope
+      this.SVGElement.style.overflow = 'hidden';
+      this.SVGElement.style.color = this.textColor; // Establishes the baseline color
+      
+      this.SVGElement.setAttribute("height", this.height);
+      this.SVGElement.setAttribute("width", this.width);
       this.SVGElement.setAttribute("x", this.x);
       this.SVGElement.setAttribute("y", this.y);
-      this.SVGElement.style.transformOrigin = "center";
-      this.SVGElement.style.transformBox = "fill-box"; 
-      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-      this.SVGElement.setAttribute("opacity",this.opacity);    
+      
+      this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
+      this.SVGElement.setAttribute("opacity", this.opacity); 
     }
   }
 
