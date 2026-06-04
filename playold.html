@@ -451,64 +451,26 @@
 
     // --- 4. Web-Native JSON Loader ---
     function loadTheorem(index) {
-  currentActiveIndex = index;
-  initUI();
-  resetPlayerState();
+      currentActiveIndex = index;
+      initUI();
+      resetPlayerState();
 
-  // Hide the rendering container so Safari doesn't flash the full-size text nodes
-  const mainGroup = document.getElementById("mainSVGGroup");
-  if (mainGroup) {
-    mainGroup.style.visibility = "hidden";
-  }
+      const fileName = theoremPlaylist[index].file;
+      console.log(`Loading theorem data via fetch: ${fileName}`);
 
-  const fileName = theoremPlaylist[index].file;
-  console.log(`Loading theorem data via fetch: ${fileName}`);
-
-  fetch(fileName)
-    .then(response => {
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      return response.json();
-    })
-    .then(data => {
-      // 1. Recreate your objects into the DOM layout tree
-      parseProjectData(data);
-      
-      // 2. SAFARI FORCE-FIX: Before animating, force every text element's width 
-      // attribute back to its true, maximum size so MathJax can typeset it perfectly.
-      aliveObjects.forEach(obj => {
-        if (obj.type === 'txt' && obj.SVGElement) {
-          obj.SVGElement.setAttribute('width', obj.width);
-        }
-      });
-
-      // 3. Trigger MathJax to format the fully-expanded elements
-      if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
-        return MathJax.typesetPromise();
-      }
-      return Promise.resolve();
-    })
-    .then(() => {
-      console.log("MathJax typesetting locked at full scale. Processing animation paths.");
-      
-      // 4. Now that text bounds are calculated cleanly, bake your matrices
-      bakeAnimations();
-
-      // 5. Instantly snap the timeline position down to time 0
-      // This collapses widths from full size to 0px instantly before the user can see it
-      globalCurrentTime = 0;
-      //renderStateAtTime(0);
-      updateProgressBarUI(0);
-
-      // 6. Smoothly unhide the main group container for playback
-      if (mainGroup) {
-        mainGroup.style.visibility = "visible";
-      }
-    })
-    .catch(error => {
-      console.error("Failed to load geometry data file:", error);
-      if (mainGroup) mainGroup.style.visibility = "visible";
-    });
-}
+      // Fetch the JSON dynamically over HTTP/HTTPS instead of a local FileReader
+      fetch(fileName)
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          parseProjectData(data);
+        })
+        .catch(error => {
+          console.error("Failed to load geometry data file:", error);
+        });
+    }
 
     function resetPlayerState() {
       animations.forEach(anim => anim.cancel());
@@ -529,93 +491,98 @@
     }
 
     function parseProjectData(data) {
-  // 1. Recreate Objects and instantiate them directly
-    data.initialObjects.forEach(objData => {
-      let newObj;
-      
-      if (objData.type === "pt") {
-          newObj = new basePoint(objData.index, objData.cx, objData.cy);
-      } else if (objData.type === "ptc") {
-          newObj = new point(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale);
-      } else if (objData.type === "txt") {
-          newObj = new text(
-            objData.index, objData.x, objData.y, objData.text, objData.opacity, 
-            objData.scale, objData.textColor, objData.fontSize, objData.rotate,
-            objData.width, objData.height
-          );
-      } else if (objData.type === "pgn") {
-          newObj = new polygon(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
-      } else if (objData.type === "pln") {
-          newObj = new polyline(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
-      } else if (objData.type === "cr") {
-          newObj = new circle(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.property);
-      } else if (objData.type === "elp") {
-          newObj = new ellipse(objData.index, objData.cx, objData.cy, objData.rx, objData.ry, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
-      } else if (objData.type === "ang") {
-          newObj = new angle(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rightAngle);
-      } else if (objData.type === "qcrv") {
-          newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
-      } else if (objData.type === "arw") {
-          newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
-      }
-  
-      // Transfers all custom properties (including saved objData.svgContent strings)
-      const { SVGElement, spanElement, ...cleanData } = objData;
-      Object.assign(newObj, cleanData);
-  
-      objects[newObj.index] = newObj;
-      aliveObjects.push(newObj);
-    });
-  
-    // 2. Map Playlist steps
-    data.playlist.forEach(stepData => {
-      const targetObj = objects[stepData.objIndex];
-      if (targetObj) {
-        globalPlaylist.push({ 
-          element: targetObj, 
-          wait: stepData.wait, 
-          dur: stepData.dur, 
-          type: stepData.type, 
-          state: stepData.state 
-        });
-      }
-    });
-  
-    // 3. Safe Reference Framework Scanner
-    aliveObjects.forEach(obj => {
-      if (obj.type === 'txt') {
-        let maxWidth = parseFloat(obj.width) || 0;
-        let maxHeight = parseFloat(obj.height) || 0;
-  
-        globalPlaylist.forEach(step => {
-          if (step.element === obj && step.state) {
-            let stepWidth = parseFloat(step.state.width) || 0;
-            let stepHeight = parseFloat(step.state.height) || 0;
-            if (stepWidth > maxWidth) maxWidth = stepWidth;
-            if (stepHeight > maxHeight) maxHeight = stepHeight;
-          }
-        });
-  
-        if (maxWidth > 2) obj.width = Math.ceil(maxWidth);
-        if (maxHeight > 2) obj.height = Math.ceil(maxHeight);
-  
-        // Lock bounds into WAAPI layout rules
+      // 1. Recreate Objects and instantiate them directly into the player SVG
+      data.initialObjects.forEach(objData => {
+        let newObj;
         
-      }
-    });
-  
-    // 4. Fire rendering pipeline immediately
-    render();
-  
-    return Promise.resolve();
-  }
+        if (objData.type === "pt") {
+            newObj = new basePoint(objData.index, objData.cx, objData.cy);
+        } else if (objData.type === "ptc") {
+            newObj = new point(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale);
+        } else if (objData.type === "txt") {
+            newObj = new text( objData.index, objData.x, objData.y, objData.text, objData.opacity, objData.scale, objData.textColor, objData.fontSize, objData.rotate,objData.width, objData.height, objData.svgContent || "");
+
+        } else if (objData.type === "pgn") {
+            newObj = new polygon(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "pln") {
+            newObj = new polyline(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "cr") {
+            newObj = new circle(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.property);
+        } else if (objData.type === "elp") {
+            newObj = new ellipse(objData.index, objData.cx, objData.cy, objData.rx, objData.ry, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "ang") {
+            newObj = new angle(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rightAngle);
+        } else if (objData.type === "qcrv") {
+            newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "arw") {
+            newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        }
+
+        // Isolate pure rendering data properties
+        const { SVGElement, spanElement, ...cleanData } = objData;
+        //const { SVGElement, spanElement, rowElement, divElement, checkbox, textInput, xInput, yInput, rInput, fontSizeInput, opacityInput, scaleInput, textColorSelect, ...cleanData } = objData;
+        Object.assign(newObj, cleanData);
+        
+        // In the player, shapes directly append themselves to playerSVG during their class constructors
+        objects[newObj.index] = newObj;
+        aliveObjects.push(newObj);
+      });
+
+      // 2. Re-link Playlist timeline instructions
+      data.playlist.forEach(stepData => {
+        const targetObj = objects[stepData.objIndex];
+        if (targetObj) {
+          globalPlaylist.push({
+            element: targetObj,
+            wait: stepData.wait,
+            dur: stepData.dur,
+            type: stepData.type,
+            state: stepData.state 
+          });
+        }
+      });
+
+      // 3. Immediately Bake structural animations into memory so it's ready for scrubbing or instant play
+      render();
+      
+      // Optional: Trigger MathJax typeset parsing post-render for expressions
+      //if (window.MathJax && MathJax.typeset) {MathJax.typeset();}
+    
+
+      bakeAnimations();
+
+      /*
+
+      if (window.MathJax && MathJax.typesetPromise) {
+          MathJax.typesetPromise([playerSVG])
+            .then(() => {
+               console.log("Theorem typesetting complete. Revealing text elements.");
+               
+               // Find all text elements we hid and make them visible
+               const allTexts = playerSVG.querySelectorAll('text');
+               allTexts.forEach(txt => {
+                 txt.style.visibility = "visible";
+               });
+      
+               // Make sure animations sync up correctly
+               if(animations.length > 0) {
+                 animations.forEach(anim => anim.pause());
+               }
+            })
+            .catch((err) => console.log("MathJax typesetting promise rejected:", err));
+        } else {
+           // Fallback if MathJax isn't present
+           const allTexts = playerSVG.querySelectorAll('text');
+           allTexts.forEach(txt => txt.style.visibility = "visible");
+        }
+        */
+      
+    }
 
     // --- 5. Unified Animation & Playback Console Controls ---
-   // Global state matrices to track absolute values
-let masterTimelineMatrix = [];
-
-function bakeAnimations() {
+    function bakeAnimations() {
       hideAllBasePoints();
+      
       animations.forEach(anim => anim.cancel());
       animations = [];
 
@@ -674,374 +641,193 @@ function bakeAnimations() {
       });
     }
 
-function renderStateAtTime(ms) {
-  // 1. Clamp time within execution bounds safely
-  ms = Math.max(0, Math.min(animationDuration, ms));
-
-  // Helper utility to safely parse numbers and strip out string units like "px"
-  const parseNum = (val) => {
-    if (val === undefined || val === null) return 0;
-    if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
-    return parseFloat(val) || 0;
-  };
-
-  objects.forEach(obj => {
-    if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
-
-    let frames = obj.timelineFrames;
-    let prev = frames[0];
-    let next = frames[frames.length - 1];
-
-    // Find the current keyframe interval block
-    for (let i = 0; i < frames.length - 1; i++) {
-      if (ms >= frames[i].time && ms <= frames[i + 1].time) {
-        prev = frames[i];
-        next = frames[i + 1];
-        break;
-      }
-    }
-
-    // Calculate progression percentage (t) between these two specific frames
-    let t = 0;
-    let delta = next.time - prev.time;
-    if (delta > 0) t = (ms - prev.time) / delta;
-
-    // Aggregate every single layout state property present in both frames
-    let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
-
-    allKeys.forEach(key => {
-      let v1 = prev.state[key];
-      let v2 = next.state[key];
-
-      // Fallback assertions if properties are missing on either frame side
-      if (v1 === undefined) v1 = v2;
-      if (v2 === undefined) v2 = v1;
-      if (v1 === undefined) return;
-
-                      
-
-      // --- Category 1: String Constants & Color Swaps ---
-      if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'color') {
-        let activeValue = t < 0.5 ? v1 : v2;
-        obj.SVGElement.setAttribute(key === 'color' ? 'stroke' : key, activeValue);
-        return;
-      }
-
-      // --- Category 2: Complex Spatial Transforms ---
-      if (key === 'transform' && obj.type !== 'ptc') {
-        let getTransformValues = (str) => {
-          let tx = 0, ty = 0, rot = 0, scl = 1;
-          if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
-          
-          let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
-          let rMatch = str.match(/rotate\(([^)]+)\)/);
-          let sMatch = str.match(/scale\(([^)]+)\)/);
-
-          if (tMatch) { tx = parseFloat(tMatch[1]); ty = parseFloat(tMatch[2]); }
-          if (rMatch) { rot = parseFloat(rMatch[1]); }
-          if (sMatch) { scl = parseFloat(sMatch[1]); }
-          return { tx, ty, rot, scl };
-        };
-
-        let p1 = getTransformValues(v1);
-        let p2 = getTransformValues(v2);
-
-        let curTx = p1.tx + (p2.tx - p1.tx) * t;
-        let curTy = p1.ty + (p2.ty - p1.ty) * t;
-        let curRot = p1.rot + (p2.rot - p1.rot) * t;
-        let curScl = p1.scl + (p2.scl - p1.scl) * t;
-
-        obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
-        return;
-      }
-
-      // --- Category 3: Vector Poly-Coordinates ("points") ---
-      if (key === 'points') {
-        let prevCoords = v1.trim().split(/[\s]+/);
-        let nextCoords = v2.trim().split(/[\s]+/);
-
-        if (prevCoords.length !== nextCoords.length) {
-          obj.SVGElement.setAttribute("points", t < 0.5 ? v1 : v2);
-          return;
-        }
-
-        let interpolatedPoints = [];
-        for (let i = 0; i < prevCoords.length; i++) {
-          let p1 = prevCoords[i].split(',').map(Number);
-          let p2 = nextCoords[i].split(',').map(Number);
-
-          if (p1.length === 2 && p2.length === 2) {
-            let x = p1[0] + (p2[0] - p1[0]) * t;
-            let y = p1[1] + (p2[1] - p1[1]) * t;
-            interpolatedPoints.push(`${x.toFixed(2)},${y.toFixed(2)}`);
-          }
-        }
-        obj.SVGElement.setAttribute("points", interpolatedPoints.join(" "));
-        return;
-      }
-
-      // --- Category 4: Numeric Scaling & Properties ---
-    let n1 = parseNum(v1);
-    let n2 = parseNum(v2);
-    let interpolatedNum = n1 + (n2 - n1) * t;
-    
-    if (key === 'width') {
-      // If it's a text element, apply the width to the inner HTML span rather than the SVG container
-      if (obj.type === 'txt' && obj.spanElement) {
-        // Keep the outer container maxed out so Safari doesn't choke or wrap text
-        let maxW = parseNum(obj.width || v2);
-        obj.SVGElement.setAttribute('width', maxW.toFixed(2));
-        
-        // Animate the inner span's horizontal layout space smoothly
-        obj.spanElement.style.display = 'inline-block';
-        obj.spanElement.style.overflow = 'hidden';
-        obj.spanElement.style.width = interpolatedNum.toFixed(2) + 'px';
-      } else {
-        // Fallback for standard shapes (polygons, lines, etc.) if they use width keys
-        obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
-      }
-      return;
-    }
-
-      // Custom Point Point-Pop (ptc type) scaling center locking
-      if (key === 'scale' && obj.type === 'ptc') {
-        obj.SVGElement.style.transformOrigin = "center";
-        obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
-        return;
-      }
-
-      // Direct SVG structural parameters (cx, cy, r)
-      if (key === 'cx' || key === 'cy' || key === 'r') {
-        obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
-        return;
-      }
-
-      // Standard styling layout vectors
-      if (key === 'opacity') {
-        obj.SVGElement.style.opacity = interpolatedNum;
-      } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
-        let attributeName = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
-        obj.SVGElement.setAttribute(attributeName, interpolatedNum.toFixed(2));
-      } else {
-        let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
-        let finalAttrValue;
-
-        // Force clean unitless rules strictly for SVG vector lines drawing offsets
-        if (svgAttributeName === 'stroke-dasharray' || svgAttributeName === 'stroke-dashoffset') {
-          if (svgAttributeName === 'stroke-dashoffset' && t === 0 && interpolatedNum > 0) {
-            finalAttrValue = interpolatedNum;
-          } else {
-            finalAttrValue = interpolatedNum;
-          }
-        } else {
-          let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
-          finalAttrValue = interpolatedNum + (hasPx ? 'px' : '');
-        }
-
-        obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
-      }
-    });
-  });
-}
-    
-
-      
-
     let wakeLock = null;
 
-    
+    function playAnimation() {
+      requestWakeLock();
+      if (animations.length === 0) bakeAnimations();
+      animations.forEach(anim => anim.play());
+      isPlaying = true;
+      togglePlayBtn.innerHTML = "&#10073;&#10073;";
+      requestAnimationFrame(syncUI);
+    }
 
-      let globalCurrentTime = 0;
-let lastTickTime = 0;
-
-function playAnimation() {
-  if (isPlaying) return;
-  isPlaying = true;
-  togglePlayBtn.innerHTML = "&#10074;&#10074;"; // Update UI to Pause symbol
-  requestWakeLock();
-  
-  // Start the high-precision clock loop using requestAnimationFrame
-  let lastTimestamp = performance.now();
-  
-  function loop(now) {
-    if (!isPlaying) return; // Halt loop execution immediately if paused or scrubbed
-
-    let dt = now - lastTimestamp;
-    lastTimestamp = now;
-
-    // Track frame advancement using actual millisecond deltas
-    globalCurrentTime += dt;
-
-    // Check if the runtime has exceeded maximum playlist duration bounds
-    if (globalCurrentTime >= animationDuration) {
-      globalCurrentTime = animationDuration;
-      isPlaying = false;
-      togglePlayBtn.innerHTML = "&#9654;"; // Revert back to Play symbol
+    function pauseAnimation() {
       releaseWakeLock();
+      animations.forEach(anim => anim.pause());
+      isPlaying = false;
+      togglePlayBtn.innerHTML = "&#9654;";
     }
 
-    // Render visual states and update progress width percentages synchronously
-    // renderStateAtTime(globalCurrentTime);
-    updateProgressBarUI((globalCurrentTime / animationDuration) * 100);
-
-    if (isPlaying) {
-      requestAnimationFrame(loop);
-    }
-  }
-  
-  requestAnimationFrame(loop);
-}
-
-function pauseAnimation() {
-  releaseWakeLock();
-  isPlaying = false;
-  togglePlayBtn.innerHTML = "&#9654;"; // Update UI to Play symbol
-}
-
-function rewindAnimation() {
-  isPlaying = false;
-  globalCurrentTime = 0;
-  togglePlayBtn.innerHTML = "&#9654;";
-  //renderStateAtTime(0);
-  updateProgressBarUI(0);
-  releaseWakeLock();
-}
-
-// --- 2. Button Event Listeners ---
-
-togglePlayBtn.onclick = function() {
-  if (isPlaying) {
-    pauseAnimation();
-  } else {
-    // Automatically loop back to the beginning if the timeline has finished
-    if (globalCurrentTime >= animationDuration) {
-      rewindAnimation();
-    }
-    playAnimation();
-  }
-};
-
-stopBtn.onclick = function() {
-  rewindAnimation();
-};
-
-function updateProgressBarUI(percent) {
-  // Clamp percentages cleanly within absolute 0 to 100 limits
-  percent = Math.max(0, Math.min(100, percent));
-  timelineProgress.style.width = percent + '%';
-  timelineThumb.style.left = percent + '%';
-}
-
-// --- 3. Core Timeline Scrubbing Math Engine ---
-
-function scrub(e) {
-  // Measures track width directly against the timelineScrubber bounding box layout area
-  const rect = timelineScrubber.getBoundingClientRect();
-  let percentage = (e.clientX - rect.left) / rect.width;
-  percentage = Math.max(0, Math.min(1, percentage));
-
-  // Lock global position pointer parameter to the coordinate location
-  globalCurrentTime = percentage * animationDuration;
-  
-  // Render and update UI immediately on input changes
-  //renderStateAtTime(globalCurrentTime);
-  updateProgressBarUI(percentage * 100);
-}
-
-function scrubTouch(e) {
-  if (e.touches.length === 0) return;
-  // Map touch positions precisely onto the cursor tracking profile
-  const fakeMouseEvent = {
-    clientX: e.touches[0].clientX
-  };
-  scrub(fakeMouseEvent);
-}
-
-// --- 4. Scroller Interaction Event Listeners (Mouse & Touch) ---
-
-timelineScrubber.addEventListener('mousedown', (e) => {
-  isScrubbing = true;
-  pauseAnimation(); // Halt active running time clocks safely before calculating positions
-  scrub(e);
-});
-
-window.addEventListener('mousemove', (e) => {
-  if (isScrubbing) scrub(e);
-});
-
-window.addEventListener('mouseup', () => {
-  isScrubbing = false;
-});
-
-timelineScrubber.addEventListener('touchstart', (e) => {
-  isScrubbing = true;
-  pauseAnimation();
-  scrubTouch(e);
-}, { passive: false });
-
-window.addEventListener('touchmove', (e) => {
-  if (isScrubbing) {
-    e.preventDefault(); // Stop mobile devices from bouncing layout pages while scrubbing canvas lines
-    scrubTouch(e);
-  }
-}, { passive: false });
-
-window.addEventListener('touchend', () => {
-  isScrubbing = false;
-});
-
-// --- 5. Mobile Device Background WakeLock Management ---
-
-async function requestWakeLock() {
-  if ('wakeLock' in navigator) {
-    try {
-      if (!wakeLock) {
-        wakeLock = await navigator.wakeLock.request('screen');
-        console.log('Screen Wake Lock active.');
-      }
-    } catch (err) {
-      console.log(`Wake Lock request failed: ${err.message}`);
-    }
-  }
-}
-
-function releaseWakeLock() {
-  if (wakeLock !== null) {
-    wakeLock.release()
-      .then(() => {
-        wakeLock = null;
-        console.log('Screen Wake Lock released.');
+    function rewindAnimation() {
+      animations.forEach(anim => {
+        anim.pause();
+        anim.currentTime = 0;
       });
-  }
-}
-
-document.addEventListener('visibilitychange', async () => {
-  if (wakeLock !== null && document.visibilityState === 'visible') {
-    await requestWakeLock();
-  }
-});
-
-// --- 6. Fullscreen View Management ---
-
-const fullscreenBtn = document.getElementById('fullscreenBtn');
-const appContainer = document.querySelector('.app-container');
-
-if (fullscreenBtn && appContainer) {
-  fullscreenBtn.onclick = function() {
-    if (!document.fullscreenElement) {
-      appContainer.requestFullscreen()
-        .then(() => {
-          if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(true);
-        })
-        .catch((err) => {
-          console.error(`Error entering full-screen mode: ${err.message}`);
-        });
-    } else {
-      document.exitFullscreen();
-      if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(false);
+      isPlaying = false;
+      togglePlayBtn.innerHTML = "&#9654;";
+      updateProgressBarUI(0);
     }
-  };
-}
+
+    // Combined Play/Pause Switch Element Handling
+    togglePlayBtn.onclick = function() {
+      if (isPlaying) {
+        pauseAnimation();
+      } else {
+        // Loop reset back to beginning if player finished playing natural sequence duration
+        if (animations.length > 0 && animations[0].currentTime >= animationDuration) {
+          rewindAnimation();
+        }
+        playAnimation();
+      }
+    };
+
+    stopBtn.onclick = function() {
+      rewindAnimation(); // Seamless cosmetic replacement handling rewind action behavior
+    };
+
+    // --- 6. Core Timeline Scrubbing Math Engine ---
+    function syncUI() {
+      if (animations.length > 0 && isPlaying && !isScrubbing) {
+        const master = animations[0];
+        const percent = (master.currentTime / animationDuration) * 100;
+        
+        updateProgressBarUI(percent);
+
+        if (master.playState !== 'finished') {
+          requestAnimationFrame(syncUI);
+        } else {
+          isPlaying = false;
+          togglePlayBtn.innerHTML = "&#9654;";
+          releaseWakeLock();
+        }
+      }
+    }
+
+    function scrub(e) {
+      if (animationDuration <= 0 || animations.length === 0) return;
+      
+      const rect = timelineScrubber.getBoundingClientRect();
+      let percentage = (e.clientX - rect.left) / rect.width;
+      percentage = Math.max(0, Math.min(1, percentage)); 
+
+      const seekTime = percentage * animationDuration;
+
+      animations.forEach(anim => {
+        anim.currentTime = seekTime;
+      });
+
+      updateProgressBarUI(percentage * 100);
+    }
+
+    function updateProgressBarUI(percent) {
+      timelineProgress.style.width = percent + '%';
+      timelineThumb.style.left = percent + '%'; // Updates thumb translation coordinates precisely
+    }
+
+    // Scrubber Pointer Listeners
+    timelineScrubber.addEventListener('mousedown', (e) => {
+      if (animations.length === 0) return;
+      isScrubbing = true;
+      pauseAnimation();
+      scrub(e);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isScrubbing) scrub(e);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isScrubbing = false;
+    });
+
+    timelineScrubber.addEventListener('touchstart', (e) => {
+      if (animations.length === 0) return;
+      isScrubbing = true;
+      pauseAnimation();
+      scrubTouch(e);
+    }, { passive: false }); // passive: false allows us to prevent screen scrolling
+    
+    window.addEventListener('touchmove', (e) => {
+      if (isScrubbing) {
+        e.preventDefault(); // STOPS the phone screen from bouncing/scrolling while scrubbing
+        scrubTouch(e);
+      }
+    }, { passive: false });
+    
+    window.addEventListener('touchend', () => {
+      isScrubbing = false;
+    });
+    
+    // Helper function to extract coordinates from a finger touch
+    function scrubTouch(e) {
+      if (e.touches.length === 0) return;
+      // e.touches[0] represents the first finger touching the glass
+      const fakeMouseEvent = {
+        clientX: e.touches[0].clientX
+      };
+      scrub(fakeMouseEvent); // Reuses your brilliant existing math cleanly!
+    }
+
+    // --- 7. Geometry Engine Fallback Stubs ---
+    // Safely maps structure dependencies if base points toggle configurations are not loaded
+    /*
+    if (typeof hideAllBasePoints !== 'function') {
+      function hideAllBasePoints() { console.log("Hiding operational reference anchors."); }
+    }
+    */
+
+    async function requestWakeLock() {
+      // Only try if the browser natively supports the Wake Lock API (Safari iOS 14+, Chrome Android)
+      if ('wakeLock' in navigator) {
+        try {
+          if (!wakeLock) {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log('Screen Wake Lock active. Device will stay awake.');
+          }
+        } catch (err) {
+          console.log(`Wake Lock request failed: ${err.name}, ${err.message}`);
+        }
+      }
+    }
+    
+    function releaseWakeLock() {
+      if (wakeLock !== null) {
+        wakeLock.release()
+          .then(() => {
+            wakeLock = null;
+            console.log('Screen Wake Lock released.');
+          });
+      }
+    }
+    
+    // Automatically re-request lock if the user tabs out and tabs back in
+    document.addEventListener('visibilitychange', async () => {
+      if (wakeLock !== null && document.visibilityState === 'visible') {
+        await requestWakeLock();
+      }
+    });
+
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const appContainer = document.querySelector('.app-container');
+    
+    fullscreenBtn.onclick = function() {
+      // Check if anything on the page is currently full screen
+      if (!document.fullscreenElement) {
+        // Request fullscreen on the entire layout wrapper
+        appContainer.requestFullscreen()
+          .then(() => {
+            updateFullscreenButtonUI(true);
+          })
+          .catch((err) => {
+            console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+          });
+      } else {
+        // If already full screen, exit cleanly
+        document.exitFullscreen();
+        updateFullscreenButtonUI(false);
+      }
+    };
     
     // Listen for system-level escape keys or swipe-to-exits to keep the button label accurate
     document.addEventListener('fullscreenchange', () => {
@@ -1074,52 +860,17 @@ if (fullscreenBtn && appContainer) {
     // Bootstrapping initialization launch
   function launchPlayer()
   {
-    document.getElementById("mainSVGGroup").style.visibility = "hidden" ;
     initUI();
     loadTheorem(0); // Safely runs now that all styles and fonts are loaded
-    setTimeout(() => { document.getElementById("mainSVGGroup").style.visibility = "visible" ;}, 100);
+    //setTimeout(() => { document.getElementById("mainSVGGroup").style.visibility = "visible" ;}, 100);
   }
 
-// Check if MathJax is already completely initialized
-  if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
-  MathJax.startup.promise.then(() => {
-    console.log("MathJax is fully booted. Launching geometry engine configuration.");
-    
-    // 1. Core structural setup (parses objects, attaches nodes to DOM, runs initial render())
-    launchPlayer(); 
-
-    // 2. SAFARI HOOK: Wait for MathJax to finish formatting the newly appended DOM nodes
-    return MathJax.typesetPromise();
-  }).then(() => {
-    console.log("MathJax initial compilation complete. Securing frame layouts for Safari.");
-    
-    // 3. Bake your core animation matrices now that all bounding heights and scales are locked in
-    bakeAnimations();
-    
-    // 4. Set the initial state cleanly at time 0
-    globalCurrentTime = 0;
-    //renderStateAtTime(0);
-    updateProgressBarUI(0);
-  }).catch((err) => {
-    console.error("Initialization loop exception:", err);
-  });
-} else {
-  // Fallback: If MathJax script fails or isn't used, launch anyway after DOM settles
-  window.addEventListener('DOMContentLoaded', () => {
+  // Ensure the execution engine fires purely inside standard layout loads
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', launchPlayer);
+  } else {
     launchPlayer();
-    bakeAnimations();
-    globalCurrentTime = 0;
-    //renderStateAtTime(0);
-    updateProgressBarUI(0);
-  });
-}
-
-function parseNum(val) {
-  if (typeof val === 'string') {
-    return parseFloat(val.replace(/px/g, '')) || 0;
   }
-  return parseFloat(val) || 0;
-}
 
   
 
@@ -1202,9 +953,8 @@ function parseNum(val) {
   }
 
 
-
-  
-    class text { 
+/*
+ class text { 
     constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
       this.index = objectIndex;
       this.x = x;
@@ -1324,17 +1074,13 @@ function parseNum(val) {
       this.SVGElement.setAttribute("opacity", this.opacity); 
     }
   }
+  */
 
-  
-
-  /*
-
-  class text { 
-    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+  class text {
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight, svgContent = "") {
       this.index = objectIndex;
       this.x = x;
       this.y = y;
-  
       this.text = textStr;
       this.opacity = opacity;
       this.scale = scale;
@@ -1343,23 +1089,41 @@ function parseNum(val) {
       this.rotate = rotate;
       this.type = 'txt';
       this.displayType = 'tx';
-  
-      // 1. Create a native nested SVG element instead of a foreignObject
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+      // Build the outer layout envelope
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
-      
-      // NATIVE VECTOR GRAPHICS TRANSFORMS: Cross-browser stable center scaling!
-      SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box"; 
-  
-      this.SVGElement = SVGElement;
-      this.svgContent = ""; 
-  
+
+      // Lock internal structural proportions safely derived from saved metrics
       this.width = parseFloat(originalWidth) || 100;
       this.height = parseFloat(originalHeight) || 30;
-  
-      // 2. Keeps your blueprint completely intact for bakeAnimations()
+
+      // Detect browser engines to avoid matrix offset jump distortions
+      const ua = navigator.userAgent.toLowerCase();
+      const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
+      const isFirefox = ua.includes('firefox');
+
+      // Apply exact coordinate anchoring rule
+      if (isSafari) {
+        let absoluteCenterX = parseFloat(x) + (this.width / 2);
+        let absoluteCenterY = parseFloat(y) + (this.height / 2);
+        SVGElement.style.transformBox = "view-box";
+        SVGElement.style.transformOrigin = `${absoluteCenterX}px ${absoluteCenterY}px`;
+      } else if (isFirefox) {
+        SVGElement.style.transformBox = "fill-box";
+        SVGElement.style.transformOrigin = "center";
+      } else {
+        SVGElement.style.transformBox = "fill-box";
+        SVGElement.style.transformOrigin = "50% 50%";
+      }
+
+      this.SVGElement = SVGElement;
+      
+      // Inject the saved math SVG vector directly if provided by the JSON object
+      this.svgContent = svgContent; 
+
+      // Build the initial state framework for WAAPI Method 1
       this.initialState = {
         x: this.x + 'px',
         y: this.y + 'px',
@@ -1369,26 +1133,37 @@ function parseNum(val) {
         height: this.height + 'px',
         width: this.width + 'px'
       };
+
+      // HARD SEED FOR SAFARI VISIBILITY LEAK: 
+      // Force presentation properties into the style node directly right now
+      SVGElement.style.x = this.initialState.x;
+      SVGElement.style.y = this.initialState.y;
+      SVGElement.style.transform = this.initialState.transform;
+      SVGElement.style.opacity = this.initialState.opacity;
+      SVGElement.style.color = this.initialState.color;
+      SVGElement.style.width = this.initialState.width;
+      SVGElement.style.height = this.initialState.height;
+
+      // Assemble internal string immediately
+      this.updateSVG();
     }
-  
+
     updateSVG() {
-      // Inject the raw MathJax inner SVG content string directly
       this.SVGElement.innerHTML = this.svgContent;
       
       let innerMathSvg = this.SVGElement.querySelector('svg');
       if (innerMathSvg) {
-        // Keep the rigid inner boundary so left-to-right clip reveals don't squish
+        // Scale and position the inner math vector boundaries cleanly
         innerMathSvg.setAttribute('width', this.width + 'px');
         innerMathSvg.style.width = this.width + 'px';
         innerMathSvg.style.minWidth = this.width + 'px';
-        
-        innerMathSvg.style.height = '';
+        innerMathSvg.style.height = this.height + 'px';
         innerMathSvg.style.display = 'block';
-        innerMathSvg.style.overflow = 'visible'; 
-        
+        innerMathSvg.style.overflow = 'visible';
         innerMathSvg.style.fill = 'currentColor';
         innerMathSvg.setAttribute('fill', 'currentColor');
-  
+
+        // Sync color tracking properties
         let structuralGroups = innerMathSvg.querySelectorAll('g, path');
         structuralGroups.forEach(node => {
           if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
@@ -1397,139 +1172,18 @@ function parseNum(val) {
           if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
         });
       }
-  
-      // Apply strict dimensional boundaries on the layout container
+
       this.SVGElement.style.overflow = 'hidden';
-      this.SVGElement.style.color = this.textColor; 
-      
-      this.SVGElement.setAttribute("width", this.width);
+      this.SVGElement.style.color = this.textColor;
+
       this.SVGElement.setAttribute("height", this.height);
+      this.SVGElement.setAttribute("width", this.width);
       this.SVGElement.setAttribute("x", this.x);
       this.SVGElement.setAttribute("y", this.y);
-      
-      // Apply transformations directly onto the flat, cross-browser element
-      this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
-      this.SVGElement.setAttribute("opacity", this.opacity); 
+      this.SVGElement.setAttribute("transform", `scale(${this.scale} ${this.scale}) rotate(${this.rotate})`);
+      this.SVGElement.setAttribute("opacity", this.opacity);
     }
   }
-
-  */
-
-    /*
-
-  class text { 
-    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
-      this.index = objectIndex;
-      this.x = x;
-      this.y = y;
-  
-      this.text = textStr;
-      this.opacity = opacity;
-      this.scale = scale;
-      this.textColor = textColor;
-      this.fontSize = fontSize;
-      this.rotate = rotate;
-      this.type = 'txt';
-      this.displayType = 'tx';
-  
-      this.width = parseFloat(originalWidth) || 100;
-      this.height = parseFloat(originalHeight) || 30;
-  
-      // 1. Structural Native SVG Elements
-      let masterGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
-      masterGroup.setAttribute("id", 'SVGTextGroup' + objectIndex);
-      masterGroup.style.transformOrigin = "center";
-      masterGroup.style.transformBox = "fill-box";
-  
-      let maskViewport = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      maskViewport.setAttribute("id", 'SVGText' + objectIndex);
-      maskViewport.style.pointerEvents = 'none';
-      maskViewport.style.overflow = 'hidden';
-  
-      masterGroup.appendChild(maskViewport);
-  
-      this.masterGroup = masterGroup;
-      this.maskViewport = maskViewport;
-      this.svgContent = ""; 
-  
-      // 2. THE ANIMATION PROXY INTERCEPTOR
-      // This allows bakeAnimations() to call standard property changes seamlessly.
-      // It routes spatial layouts to the inner window, and transformations to the stable group!
-      this.SVGElement = new Proxy(masterGroup, {
-        get(target, prop) {
-          // If your renderer checks style properties
-          if (prop === 'style') return target.style;
-          // Redirect execution bindings (like .animate()) safely onto the group container
-          if (typeof target[prop] === 'function') {
-            return target[prop].bind(target);
-          }
-          return target[prop];
-        },
-        set(target, prop, value) {
-          if (prop === 'id') {
-            target.setAttribute('id', value + 'Group');
-            maskViewport.setAttribute('id', value);
-          } else {
-            target[prop] = value;
-          }
-          return true;
-        }
-      });
-  
-      // 3. Keep your original blueprint completely matching your JSON framework properties
-      this.initialState = {
-        x: this.x + 'px',
-        y: this.y + 'px',
-        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
-        opacity: this.opacity,
-        color: this.textColor,
-        height: this.height + 'px',
-        width: this.width + 'px'
-      };
-    }
-  
-    updateSVG() {
-      // Inject the raw MathJax vectors into the inner layout canvas viewport
-      this.maskViewport.innerHTML = this.svgContent;
-      
-      let innerMathSvg = this.maskViewport.querySelector('svg');
-      if (innerMathSvg) {
-        innerMathSvg.setAttribute('width', this.width + 'px');
-        innerMathSvg.style.width = this.width + 'px';
-        innerMathSvg.style.minWidth = this.width + 'px';
-        
-        innerMathSvg.style.height = '';
-        innerMathSvg.style.display = 'block';
-        innerMathSvg.style.overflow = 'visible'; 
-        
-        innerMathSvg.style.fill = 'currentColor';
-        innerMathSvg.setAttribute('fill', 'currentColor');
-  
-        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
-        structuralGroups.forEach(node => {
-          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
-          if (node.style.fill && node.style.fill !== 'none') node.style.fill = 'currentColor';
-          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') node.setAttribute('stroke', 'currentColor');
-          if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
-        });
-      }
-  
-      // Assign layout tracking points cleanly onto the inner viewport container
-      this.maskViewport.setAttribute("width", this.width);
-      this.maskViewport.setAttribute("height", this.height);
-      this.maskViewport.setAttribute("x", this.x);
-      this.maskViewport.setAttribute("y", this.y);
-  
-      // Apply baseline rendering states onto the outer group wrapper
-      this.masterGroup.style.color = this.textColor;
-      this.masterGroup.setAttribute("transform", `scale(${this.scale} ${this.scale}) rotate(${this.rotate})`);
-      this.masterGroup.setAttribute("opacity", this.opacity); 
-    }
-  }
-  */
-  
-
-   
 
 
   class polygon
@@ -1849,7 +1503,6 @@ function parseNum(val) {
   }
 
 
-
   class qcurve
   {
     constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
@@ -1912,8 +1565,6 @@ function parseNum(val) {
 
       this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
     }
-
-
   }
   
 
@@ -2003,10 +1654,9 @@ function parseNum(val) {
       this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
       this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
     }
-
   }
 
-     function sideLength(Point1,Point2)
+  function sideLength(Point1,Point2)
   {
     return Math.hypot(Point1.cx - Point2.cx, Point1.cy - Point2.cy);
   }
@@ -2031,9 +1681,6 @@ function parseNum(val) {
     return P;
   }
   
-    
-
-
 
   function angleInPath(pI,r,rightAngle)
   {
@@ -2117,11 +1764,6 @@ function parseNum(val) {
     return `L ${T1x} ${T1y} L ${T2.cx} ${T2.cy} L ${T3x} ${T3y} L ${Q.cx} ${Q.cy}`;
   }
 
- 
- 
-
-
-
   function render()
   {
   
@@ -2131,28 +1773,9 @@ function parseNum(val) {
       obj.updateSVG();
       document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
     }
-
-   
-
-    if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
-        MathJax.typesetPromise() // Tell it exactly which element to format
-          .catch((err) => console.log('MathJax formatting error:', err));
-    } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
-        try {
-            MathJax.typeset();
-        } catch(err) {
-            console.log('MathJax fallback typeset failed:', err);
-        }
-    } else {
-        console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
-    }
- 
-
-  
-
   }
 
-    function hideAllBasePoints()
+  function hideAllBasePoints()
   {
     for(let i=0;i<objects.length;i++)
     {
