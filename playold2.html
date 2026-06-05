@@ -935,10 +935,12 @@
       this.cy = cy;
       this.type = 'pt';
 
+      /*
       this.initialState = { 
         cx: this.cx+'px',
         cy: this.cy+'px',
         opacity:0};
+      */
 
     }
 
@@ -978,7 +980,7 @@
       
       this.property = 'point';
     
-
+      /*
       this.initialState = { cx: this.cx+'px',
         cy: this.cy+'px', 
         r: this.r+'px', 
@@ -988,7 +990,7 @@
         scale: this.scale,
         strokeColor:this.strokeColor,
         fillColor: this.fillColor};
-
+      */
     }
 
     updateSVG()
@@ -1145,7 +1147,7 @@
           if (isSafari) {
             // Safari specific logic (e.g., if it requires absolute or global offsets)
             return `${w / 2}px ${h / 2}px`;
-            SVGElement.style.transformBox = "fill-box";
+            SVGElement.style.transformBox = "view-box";
            
           } else if (isFirefox) {
             // Firefox specific fallback
@@ -1175,6 +1177,7 @@
         this.height = parseFloat(originalHeight) || 30;
     
         // 3. Establish clean baseline animation key values using original bounds
+        /*
         this.initialState = {
           x: this.x + 'px',
           y: this.y + 'px',
@@ -1184,6 +1187,7 @@
           height: this.height + 'px',
           width: this.width + 'px'
         };
+        */
       }
     
       updateSVG() {
@@ -1194,13 +1198,13 @@
         let innerMathSvg = this.SVGElement.querySelector('svg');
         if (innerMathSvg) {
           //innerMathSvg.style.width = '';
-          //innerMathSvg.setAttribute('width', this.width + 'px');
-          //innerMathSvg.style.width = this.width + 'px';
-          //innerMathSvg.style.minWidth = this.width + 'px';
+          innerMathSvg.setAttribute('width', this.width + 'px');
+          innerMathSvg.style.width = this.width + 'px';
+          innerMathSvg.style.minWidth = this.width + 'px';
 
-          //innerMathSvg.style.height = '';
-          //innerMathSvg.style.display = 'block';
-          //innerMathSvg.style.overflow = 'visible'; 
+          innerMathSvg.style.height = '';
+          innerMathSvg.style.display = 'block';
+          innerMathSvg.style.overflow = 'visible'; 
           
           // --- THE ANIMATION-PROOF COLOR LINK ---
           // Instead of locking a static string, we wire it to follow parent CSS changes
@@ -1283,7 +1287,7 @@
       this.strokeDashoffset = this.totalLength;
       SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
 
-
+      /*
       this.initialState = {
         points: this.points,
         transform:` translate(${this.dx}px ,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
@@ -1295,6 +1299,7 @@
         strokeDasharray: this.totalLength+'px',
         strokeDashoffset: this.totalLength+'px'
       };
+      */
       
     }
 
@@ -1377,7 +1382,7 @@
 
       SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
 
-      
+      /*
       this.initialState = { 
         transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
         strokeWidth:this.strokeWidth+'px',
@@ -1385,7 +1390,8 @@
         stroke:this.strokeColor, 
         
         strokeDasharray: this.totalLength+'px',
-        strokeDashoffset: this.totalLength+'px'};     
+        strokeDashoffset: this.totalLength+'px'};
+        */     
     }
 
 
@@ -1448,7 +1454,7 @@
       this.property = property;
       this.strokeDashoffset = this.totalLength;
 
-
+      /*
       this.initialState = { 
         cx: this.cx+'px', 
         cy: this.cy+'px', 
@@ -1461,6 +1467,7 @@
         strokeWidth:this.strokeWidth+'px', 
         strokeDasharray: this.totalLength+'px',
         strokeDashoffset: this.strokeDashoffset+'px'};
+        */
     }
 
     updateSVG()
@@ -1517,6 +1524,8 @@
       this.strokeDashoffset = this.totalLength;
       SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
 
+      /*
+
       this.initialState = { 
         cx: this.cx+'px',
         cy: this.cy+'px',
@@ -1530,6 +1539,7 @@
         strokeDashoffset: this.strokeDashoffset+'px',
         rx: this.rx+'px',
         ry: this.ry+'px'};
+        */
     }
 
     updateSVG()
@@ -1585,6 +1595,8 @@
       this.totalLength = SVGElement.getTotalLength();
       this.strokeDashoffset = this.totalLength;
 
+      /*
+
       this.initialState = { r: this.r+'px',
         opacity: this.opacity,
         transform:` translate(${this.dx}px,${this.dy}px) scale(${this.scale})`,
@@ -1594,6 +1606,7 @@
         strokeWidth:this.strokeWidth+'px',
         strokeDasharray: this.totalLength+'px',
         strokeDashoffset: this.strokeDashoffset+'px'};
+      */
     }
 
     updateSVG()
@@ -1660,14 +1673,15 @@
 
       SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
 
-      
+      /*
       this.initialState = { 
         transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
         opacity: this.opacity,
         stroke:this.strokeColor, 
         strokeWidth:this.strokeWidth+'px', 
         strokeDasharray: this.totalLength+'px',
-        strokeDashoffset: this.totalLength+'px'};     
+        strokeDashoffset: this.totalLength+'px'};
+      */     
     }
 
 
@@ -1742,13 +1756,16 @@
 
       SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
 
+      /*
+
       this.initialState = { 
         transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
         opacity: this.opacity,
         stroke:this.strokeColor, 
         strokeWidth:this.strokeWidth+'px', 
         strokeDasharray: this.totalLength+'px',
-        strokeDashoffset: this.totalLength+'px'};     
+        strokeDashoffset: this.totalLength+'px'};
+      */     
     }
 
 
