@@ -486,7 +486,7 @@
         // 5. Instantly snap the timeline position down to time 0
         // This collapses widths from full size to 0px instantly before the user can see it
         globalCurrentTime = 0;
-        //renderStateAtTime(0);
+        renderStateAtTime(0);
         updateProgressBarUI(0);
 
         // 6. Smoothly unhide the main group container for playback
@@ -723,6 +723,177 @@
       });
     }
 
+    function renderStateAtTime(ms)
+    {
+      // 1. Clamp time within execution bounds safely
+      ms = Math.max(0, Math.min(animationDuration, ms));
+
+      // Helper utility to safely parse numbers and strip out string units like "px"
+      const parseNum = (val) => {
+        if (val === undefined || val === null) return 0;
+        if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
+        return parseFloat(val) || 0;
+      };
+
+      objects.forEach(obj => {
+        if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
+
+        let frames = obj.timelineFrames;
+        let prev = frames[0];
+        let next = frames[frames.length - 1];
+
+        // Find the current keyframe interval block
+        for (let i = 0; i < frames.length - 1; i++) {
+          if (ms >= frames[i].time && ms <= frames[i + 1].time) {
+            prev = frames[i];
+            next = frames[i + 1];
+            break;
+          }
+        }
+
+        // Calculate progression percentage (t) between these two specific frames
+        let t = 0;
+        let delta = next.time - prev.time;
+        if (delta > 0) t = (ms - prev.time) / delta;
+
+        // Aggregate every single layout state property present in both frames
+        let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
+
+        allKeys.forEach(key => {
+          let v1 = prev.state[key];
+          let v2 = next.state[key];
+
+          // Fallback assertions if properties are missing on either frame side
+          if (v1 === undefined) v1 = v2;
+          if (v2 === undefined) v2 = v1;
+          if (v1 === undefined) return;
+
+                          
+
+          // --- Category 1: String Constants & Color Swaps ---
+          if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'color') {
+            let activeValue = t < 0.5 ? v1 : v2;
+            obj.SVGElement.setAttribute(key === 'color' ? 'stroke' : key, activeValue);
+            return;
+          }
+
+          // --- Category 2: Complex Spatial Transforms ---
+          if (key === 'transform' && obj.type !== 'ptc') {
+            let getTransformValues = (str) => {
+              let tx = 0, ty = 0, rot = 0, scl = 1;
+              if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
+              
+              let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
+              let rMatch = str.match(/rotate\(([^)]+)\)/);
+              let sMatch = str.match(/scale\(([^)]+)\)/);
+
+              if (tMatch) { tx = parseFloat(tMatch[1]); ty = parseFloat(tMatch[2]); }
+              if (rMatch) { rot = parseFloat(rMatch[1]); }
+              if (sMatch) { scl = parseFloat(sMatch[1]); }
+              return { tx, ty, rot, scl };
+            };
+
+            let p1 = getTransformValues(v1);
+            let p2 = getTransformValues(v2);
+
+            let curTx = p1.tx + (p2.tx - p1.tx) * t;
+            let curTy = p1.ty + (p2.ty - p1.ty) * t;
+            let curRot = p1.rot + (p2.rot - p1.rot) * t;
+            let curScl = p1.scl + (p2.scl - p1.scl) * t;
+
+            obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
+            return;
+          }
+
+          // --- Category 3: Vector Poly-Coordinates ("points") ---
+          if (key === 'points') {
+            let prevCoords = v1.trim().split(/[\s]+/);
+            let nextCoords = v2.trim().split(/[\s]+/);
+
+            if (prevCoords.length !== nextCoords.length) {
+              obj.SVGElement.setAttribute("points", t < 0.5 ? v1 : v2);
+              return;
+            }
+
+            let interpolatedPoints = [];
+            for (let i = 0; i < prevCoords.length; i++) {
+              let p1 = prevCoords[i].split(',').map(Number);
+              let p2 = nextCoords[i].split(',').map(Number);
+
+              if (p1.length === 2 && p2.length === 2) {
+                let x = p1[0] + (p2[0] - p1[0]) * t;
+                let y = p1[1] + (p2[1] - p1[1]) * t;
+                interpolatedPoints.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+              }
+            }
+            obj.SVGElement.setAttribute("points", interpolatedPoints.join(" "));
+            return;
+          }
+
+          // --- Category 4: Numeric Scaling & Properties ---
+        let n1 = parseNum(v1);
+        let n2 = parseNum(v2);
+        let interpolatedNum = n1 + (n2 - n1) * t;
+        
+        if (key === 'width') {
+          // If it's a text element, apply the width to the inner HTML span rather than the SVG container
+          if (obj.type === 'txt' && obj.spanElement) {
+            // Keep the outer container maxed out so Safari doesn't choke or wrap text
+            let maxW = parseNum(obj.width || v2);
+            obj.SVGElement.setAttribute('width', maxW.toFixed(2));
+            
+            // Animate the inner span's horizontal layout space smoothly
+            obj.spanElement.style.display = 'inline-block';
+            obj.spanElement.style.overflow = 'hidden';
+            obj.spanElement.style.width = interpolatedNum.toFixed(2) + 'px';
+          } else {
+            // Fallback for standard shapes (polygons, lines, etc.) if they use width keys
+            obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
+          }
+          return;
+        }
+
+          // Custom Point Point-Pop (ptc type) scaling center locking
+          if (key === 'scale' && obj.type === 'ptc') {
+            obj.SVGElement.style.transformOrigin = "center";
+            obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
+            return;
+          }
+
+          // Direct SVG structural parameters (cx, cy, r)
+          if (key === 'cx' || key === 'cy' || key === 'r') {
+            obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
+            return;
+          }
+
+          // Standard styling layout vectors
+          if (key === 'opacity') {
+            obj.SVGElement.style.opacity = interpolatedNum;
+          } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
+            let attributeName = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
+            obj.SVGElement.setAttribute(attributeName, interpolatedNum.toFixed(2));
+          } else {
+            let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+            let finalAttrValue;
+
+            // Force clean unitless rules strictly for SVG vector lines drawing offsets
+            if (svgAttributeName === 'stroke-dasharray' || svgAttributeName === 'stroke-dashoffset') {
+              if (svgAttributeName === 'stroke-dashoffset' && t === 0 && interpolatedNum > 0) {
+                finalAttrValue = interpolatedNum;
+              } else {
+                finalAttrValue = interpolatedNum;
+              }
+            } else {
+              let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
+              finalAttrValue = interpolatedNum + (hasPx ? 'px' : '');
+            }
+
+            obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
+          }
+        });
+      });
+    }
+
     let wakeLock = null;
 
     function playAnimation() {
@@ -921,7 +1092,7 @@
         launchPlayer();
         bakeAnimations();
         globalCurrentTime = 0;
-        //renderStateAtTime(0);
+        renderStateAtTime(0);
         updateProgressBarUI(0);
       });
     } else {
