@@ -1168,7 +1168,7 @@
       
       this.property = 'point';
     
-      
+      /*
       this.initialState = { cx: this.cx+'px',
         cy: this.cy+'px', 
         r: this.r+'px', 
@@ -1178,7 +1178,7 @@
         scale: this.scale,
         strokeColor:this.strokeColor,
         fillColor: this.fillColor};
-      
+      */
     }
 
     updateSVG()
@@ -1327,6 +1327,9 @@
         let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
         SVGElement.setAttribute("id", 'SVGText' + objectIndex);
         SVGElement.style.pointerEvents = 'none';
+        SVGElement.style.transformBox = "fill-box";
+
+
         function getBrowserOrigin(w, h) {
           const ua = navigator.userAgent.toLowerCase();
           const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
@@ -1334,13 +1337,13 @@
         
           if (isSafari) {
             // Safari specific logic (e.g., if it requires absolute or global offsets)
-            SVGElement.style.transformBox = "fill-box";
+            //SVGElement.style.transformBox = "view-box";
             return `${w / 2}px ${h / 2}px`;
             
            
           } else if (isFirefox) {
             // Firefox specific fallback
-            SVGElement.style.transformBox = "fill-box";
+            //SVGElement.style.transformBox = "fill-box";
              return "center"; 
           } else {
             // Chrome, Edge, Opera, etc.
@@ -1386,41 +1389,41 @@
         // Target the inner MathJax structures to pass color responsively
         let innerMathSvg = this.SVGElement.querySelector('svg');
         if (innerMathSvg) {
-          //innerMathSvg.style.width = '';
-          innerMathSvg.setAttribute('width', this.width + 'px');
-          innerMathSvg.style.width = this.width + 'px';
-          innerMathSvg.style.minWidth = this.width + 'px';
+            //innerMathSvg.style.width = '';
+            innerMathSvg.setAttribute('width', this.width + 'px');
+            innerMathSvg.style.width = this.width + 'px';
+            innerMathSvg.style.minWidth = this.width + 'px';
 
-          //innerMathSvg.style.height = '';
-          innerMathSvg.setAttribute('height', this.height + 'px');
-          innerMathSvg.style.height = this.height + 'px';
-          innerMathSvg.style.minHeight = this.height + 'px';
+            //innerMathSvg.style.height = '';
+            innerMathSvg.setAttribute('height', this.height + 'px');
+            innerMathSvg.style.height = this.height + 'px';
+            innerMathSvg.style.minHeight = this.height + 'px';
 
-          innerMathSvg.style.display = 'block';
-          innerMathSvg.style.overflow = 'visible'; 
-          
-          // --- THE ANIMATION-PROOF COLOR LINK ---
-          // Instead of locking a static string, we wire it to follow parent CSS changes
-          innerMathSvg.style.fill = 'currentColor';
-          innerMathSvg.setAttribute('fill', 'currentColor');
-    
-          let structuralGroups = innerMathSvg.querySelectorAll('g, path');
-          structuralGroups.forEach(node => {
-            // Force nodes to look directly up the DOM tree for their active color matrix
-            if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') {
-              node.setAttribute('fill', 'currentColor');
-            }
-            if (node.style.fill && node.style.fill !== 'none') {
-              node.style.fill = 'currentColor';
-            }
-            if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') {
-              node.setAttribute('stroke', 'currentColor');
-            }
-            if (node.style.stroke && node.style.stroke !== 'none') {
-              node.style.stroke = 'currentColor';
-            }
-          });
-        }
+            innerMathSvg.style.display = 'block';
+            innerMathSvg.style.overflow = 'visible'; 
+            
+            // --- THE ANIMATION-PROOF COLOR LINK ---
+            // Instead of locking a static string, we wire it to follow parent CSS changes
+            innerMathSvg.style.fill = 'currentColor';
+            innerMathSvg.setAttribute('fill', 'currentColor');
+      
+            let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+            structuralGroups.forEach(node => {
+              // Force nodes to look directly up the DOM tree for their active color matrix
+              if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') {
+                node.setAttribute('fill', 'currentColor');
+              }
+              if (node.style.fill && node.style.fill !== 'none') {
+                node.style.fill = 'currentColor';
+              }
+              if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') {
+                node.setAttribute('stroke', 'currentColor');
+              }
+              if (node.style.stroke && node.style.stroke !== 'none') {
+                node.style.stroke = 'currentColor';
+              }
+            });
+          }
     
         // Apply strict dimensional boundaries and properties on the outer envelope
         this.SVGElement.style.overflow = 'hidden';
@@ -2053,7 +2056,7 @@
       }
     }
 
-    function hideAllBasePoints()
+     function hideAllBasePoints()
     {
       for(let i=0;i<objects.length;i++)
       {
