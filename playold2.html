@@ -662,6 +662,15 @@
 
       if (globalPlaylist.length === 0) return;
 
+        // Initialize every object's timeline frame array with its frame-0 milestone
+      objects.forEach(obj => {
+        if (!obj) return;
+        obj.timelineFrames = [{
+          time: 0,
+          state: { ...obj.initialState }
+        }];
+      });
+
       let endPause = 0.5;
       let totalSeconds = 0;
       globalPlaylist.forEach(step => {
