@@ -653,78 +653,6 @@
       return Promise.resolve();
     }
 
-    let masterTimelineMatrix = [];
-
-    function bakeAnimations() {
-      hideAllBasePoints();
-      animations = []; 
-      masterTimelineMatrix = []; 
-
-      if (globalPlaylist.length === 0) return;
-
-      // Initialize every object's timeline frame array with its frame-0 milestone
-      objects.forEach(obj => {
-        if (!obj) return;
-        obj.timelineFrames = [{
-          time: 0,
-          state: { ...obj.initialState }
-        }];
-      });
-
-      // FIX #3: Track a sequential running clock instead of re-starting at 0 for every object
-      let globalSequenceTime = 0;
-
-      globalPlaylist.forEach(step => {
-        const obj = step.element;
-        
-        // 1. Calculate step milestones relative to the sequential global running clock
-        let stepStartTime = globalSequenceTime + (parseFloat(step.wait) * 1000);
-        let stepEndTime = stepStartTime + (parseFloat(step.dur) * 1000);
-
-        // 2. Advance the master clock sequence forward
-        globalSequenceTime = stepEndTime;
-
-        // 3. Update the specific target object's timeline structure
-        let frames = obj.timelineFrames;
-        let lastKnownState = frames[frames.length - 1].state;
-
-        // Create a holding state milestone at the start of this action block
-        frames.push({
-          time: stepStartTime,
-          state: { ...lastKnownState }
-        });
-
-        // Merge new active properties safely over preceding frame variables
-        let mergedState = { ...lastKnownState, ...step.state };
-        frames.push({
-          time: stepEndTime,
-          state: mergedState
-        });
-      });
-
-      // Pad the final duration limits
-      let endPause = 500; // 0.5s operational padding
-      animationDuration = Math.round(globalSequenceTime + endPause);
-
-      // Pad out every individual object track to stretch cleanly to the terminal timeline edge
-      objects.forEach(obj => {
-        if (!obj) return;
-        let frames = obj.timelineFrames;
-        let lastState = frames[frames.length - 1].state;
-        if (frames[frames.length - 1].time < animationDuration) {
-          frames.push({
-            time: animationDuration,
-            state: { ...lastState }
-          });
-        }
-      });
-
-      console.log(`State-driven engine compiled successfully. Duration: ${animationDuration}ms`);
-    }
-
-
-    /*
-
     // --- 5. Native Web Animations API (WAAPI) Method 1 Baking ---
     function bakeAnimations() {
       hideAllBasePoints();
@@ -794,7 +722,6 @@
         }
       });
     }
-    */
 
     let wakeLock = null;
 
