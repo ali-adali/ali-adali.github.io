@@ -1165,7 +1165,7 @@
         
         SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
         //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
-        SVGElement.style.transformBox = "fill-box";
+        //SVGElement.style.transformBox = "fill-box";
     
         this.SVGElement = SVGElement;
         
@@ -1202,7 +1202,11 @@
           innerMathSvg.style.width = this.width + 'px';
           innerMathSvg.style.minWidth = this.width + 'px';
 
-          innerMathSvg.style.height = '';
+          //innerMathSvg.style.height = '';
+          innerMathSvg.setAttribute('width', this.height + 'px');
+          innerMathSvg.style.height = this.height + 'px';
+          innerMathSvg.style.minHeight = this.height + 'px';
+
           innerMathSvg.style.display = 'block';
           innerMathSvg.style.overflow = 'visible'; 
           
