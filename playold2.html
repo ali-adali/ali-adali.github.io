@@ -1230,6 +1230,8 @@
         let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
         SVGElement.setAttribute("id", 'SVGText' + objectIndex);
         SVGElement.style.pointerEvents = 'none';
+        SVGElement.style.transformBox = "fill-box";
+        
         function getBrowserOrigin(w, h) {
           const ua = navigator.userAgent.toLowerCase();
           const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
@@ -1237,13 +1239,13 @@
         
           if (isSafari) {
             // Safari specific logic (e.g., if it requires absolute or global offsets)
-            SVGElement.style.transformBox = "view-box";
+            //SVGElement.style.transformBox = "fill-box";
             return `${w / 2}px ${h / 2}px`;
             
            
           } else if (isFirefox) {
             // Firefox specific fallback
-            SVGElement.style.transformBox = "fill-box";
+            //SVGElement.style.transformBox = "fill-box";
              return "center"; 
           } else {
             // Chrome, Edge, Opera, etc.
@@ -1269,7 +1271,7 @@
         this.height = parseFloat(originalHeight) || 30;
     
         // 3. Establish clean baseline animation key values using original bounds
-        /*
+        
         this.initialState = {
           x: this.x + 'px',
           y: this.y + 'px',
@@ -1279,7 +1281,7 @@
           height: this.height + 'px',
           width: this.width + 'px'
         };
-        */
+        
       }
     
       updateSVG() {
