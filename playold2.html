@@ -517,6 +517,8 @@
       updateProgressBarUI(0);
     }
 
+
+    /*
     function parseProjectData(data) {
       data.initialObjects.forEach(objData => {
         let newObj;
@@ -565,6 +567,90 @@
 
       render();
       bakeAnimations();
+    }
+    */
+
+    function parseProjectData(data)
+    {
+    // 1. Recreate Objects and instantiate them directly
+      data.initialObjects.forEach(objData => {
+        let newObj;
+        
+        if (objData.type === "pt") {
+            newObj = new basePoint(objData.index, objData.cx, objData.cy);
+        } else if (objData.type === "ptc") {
+            newObj = new point(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale);
+        } else if (objData.type === "txt") {
+            newObj = new text(
+              objData.index, objData.x, objData.y, objData.text, objData.opacity, 
+              objData.scale, objData.textColor, objData.fontSize, objData.rotate,
+              objData.width, objData.height
+            );
+        } else if (objData.type === "pgn") {
+            newObj = new polygon(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "pln") {
+            newObj = new polyline(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "cr") {
+            newObj = new circle(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.property);
+        } else if (objData.type === "elp") {
+            newObj = new ellipse(objData.index, objData.cx, objData.cy, objData.rx, objData.ry, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "ang") {
+            newObj = new angle(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rightAngle);
+        } else if (objData.type === "qcrv") {
+            newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "arw") {
+            newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        }
+    
+        // Transfers all custom properties (including saved objData.svgContent strings)
+        const { SVGElement, spanElement, ...cleanData } = objData;
+        Object.assign(newObj, cleanData);
+    
+        objects[newObj.index] = newObj;
+        aliveObjects.push(newObj);
+      });
+    
+      // 2. Map Playlist steps
+      data.playlist.forEach(stepData => {
+        const targetObj = objects[stepData.objIndex];
+        if (targetObj) {
+          globalPlaylist.push({ 
+            element: targetObj, 
+            wait: stepData.wait, 
+            dur: stepData.dur, 
+            type: stepData.type, 
+            state: stepData.state 
+          });
+        }
+      });
+    
+      // 3. Safe Reference Framework Scanner
+      aliveObjects.forEach(obj => {
+        if (obj.type === 'txt') {
+          let maxWidth = parseFloat(obj.width) || 0;
+          let maxHeight = parseFloat(obj.height) || 0;
+    
+          globalPlaylist.forEach(step => {
+            if (step.element === obj && step.state) {
+              let stepWidth = parseFloat(step.state.width) || 0;
+              let stepHeight = parseFloat(step.state.height) || 0;
+              if (stepWidth > maxWidth) maxWidth = stepWidth;
+              if (stepHeight > maxHeight) maxHeight = stepHeight;
+            }
+          });
+    
+          if (maxWidth > 2) obj.width = Math.ceil(maxWidth);
+          if (maxHeight > 2) obj.height = Math.ceil(maxHeight);
+    
+          // Lock bounds into WAAPI layout rules
+          
+        }
+      });
+    
+      // 4. Fire rendering pipeline immediately
+      render();
+    
+      return Promise.resolve();
     }
 
     // --- 5. Native Web Animations API (WAAPI) Method 1 Baking ---
@@ -1031,125 +1117,126 @@
   }
   */
 
-  class text { 
-    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
-      this.index = objectIndex;
-      this.x = x;
-      this.y = y;
-  
-      this.text = textStr;
-      this.opacity = opacity;
-      this.scale = scale;
-      this.textColor = textColor;
-      this.fontSize = fontSize;
-      this.rotate = rotate;
-      this.type = 'txt';
-      this.displayType = 'tx';
-  
-      // 1. Create a minimal foreignObject envelope
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-      SVGElement.setAttribute("id", 'SVGText' + objectIndex);
-      SVGElement.style.pointerEvents = 'none';
-      function getBrowserOrigin(w, h) {
-        const ua = navigator.userAgent.toLowerCase();
-        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
-        const isFirefox = ua.includes('firefox');
-      
-        if (isSafari) {
-          // Safari specific logic (e.g., if it requires absolute or global offsets)
-          return `${w / 2}px ${h / 2}px`;
-          SVGElement.style.transformBox = "view-box";
-         
-        } else if (isFirefox) {
-          // Firefox specific fallback
-          SVGElement.style.transformBox = "fill-box";
-           return "center"; 
-        } else {
-          // Chrome, Edge, Opera, etc.
-          return "50% 50%";
-        }
-      }
-      
-      // Application:
-      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
-      let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
-      
-      SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
-      //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
-      SVGElement.style.transformBox = "fill-box";
-  
-      this.SVGElement = SVGElement;
-      
-      // Will be populated cleanly from the JSON dataset
-      this.svgContent = ""; 
-  
-      // 2. Set structural frame dimensions
-      this.width = parseFloat(originalWidth) || 100;
-      this.height = parseFloat(originalHeight) || 30;
-  
-      // 3. Establish clean baseline animation key values using original bounds
-      this.initialState = {
-        x: this.x + 'px',
-        y: this.y + 'px',
-        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
-        opacity: this.opacity,
-        color: this.textColor, // WAAPI monitors this property for transitions!
-        height: this.height + 'px',
-        width: this.width + 'px'
-      };
-    }
-  
-    updateSVG() {
-      // Inject the raw vectors natively
-      this.SVGElement.innerHTML = this.svgContent;
-      
-      // Target the inner MathJax structures to pass color responsively
-      let innerMathSvg = this.SVGElement.querySelector('svg');
-      if (innerMathSvg) {
-        //innerMathSvg.style.width = '';
-        innerMathSvg.setAttribute('width', this.width + 'px');
-        innerMathSvg.style.width = this.width + 'px';
-        innerMathSvg.style.minWidth = this.width + 'px';
-
-        innerMathSvg.style.height = '';
-        innerMathSvg.style.display = 'block';
-        innerMathSvg.style.overflow = 'visible'; 
+   class text
+  { 
+      constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+        this.index = objectIndex;
+        this.x = x;
+        this.y = y;
+    
+        this.text = textStr;
+        this.opacity = opacity;
+        this.scale = scale;
+        this.textColor = textColor;
+        this.fontSize = fontSize;
+        this.rotate = rotate;
+        this.type = 'txt';
+        this.displayType = 'tx';
+    
+        // 1. Create a minimal foreignObject envelope
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+        SVGElement.setAttribute("id", 'SVGText' + objectIndex);
+        SVGElement.style.pointerEvents = 'none';
+        function getBrowserOrigin(w, h) {
+          const ua = navigator.userAgent.toLowerCase();
+          const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
+          const isFirefox = ua.includes('firefox');
         
-        // --- THE ANIMATION-PROOF COLOR LINK ---
-        // Instead of locking a static string, we wire it to follow parent CSS changes
-        innerMathSvg.style.fill = 'currentColor';
-        innerMathSvg.setAttribute('fill', 'currentColor');
-  
-        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
-        structuralGroups.forEach(node => {
-          // Force nodes to look directly up the DOM tree for their active color matrix
-          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') {
-            node.setAttribute('fill', 'currentColor');
+          if (isSafari) {
+            // Safari specific logic (e.g., if it requires absolute or global offsets)
+            return `${w / 2}px ${h / 2}px`;
+            SVGElement.style.transformBox = "fill-box";
+           
+          } else if (isFirefox) {
+            // Firefox specific fallback
+            SVGElement.style.transformBox = "fill-box";
+             return "center"; 
+          } else {
+            // Chrome, Edge, Opera, etc.
+            return "50% 50%";
           }
-          if (node.style.fill && node.style.fill !== 'none') {
-            node.style.fill = 'currentColor';
-          }
-          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') {
-            node.setAttribute('stroke', 'currentColor');
-          }
-          if (node.style.stroke && node.style.stroke !== 'none') {
-            node.style.stroke = 'currentColor';
-          }
-        });
+        }
+        
+        // Application:
+        let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
+        let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
+        
+        SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+        //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
+        SVGElement.style.transformBox = "fill-box";
+    
+        this.SVGElement = SVGElement;
+        
+        // Will be populated cleanly from the JSON dataset
+        this.svgContent = ""; 
+    
+        // 2. Set structural frame dimensions
+        this.width = parseFloat(originalWidth) || 100;
+        this.height = parseFloat(originalHeight) || 30;
+    
+        // 3. Establish clean baseline animation key values using original bounds
+        this.initialState = {
+          x: this.x + 'px',
+          y: this.y + 'px',
+          transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+          opacity: this.opacity,
+          color: this.textColor, // WAAPI monitors this property for transitions!
+          height: this.height + 'px',
+          width: this.width + 'px'
+        };
       }
-  
-      // Apply strict dimensional boundaries and properties on the outer envelope
-      this.SVGElement.style.overflow = 'hidden';
-      this.SVGElement.style.color = this.textColor; // Establishes the baseline color
-      
-      this.SVGElement.setAttribute("height", this.height);
-      this.SVGElement.setAttribute("width", this.width);
-      this.SVGElement.setAttribute("x", this.x);
-      this.SVGElement.setAttribute("y", this.y);
-      
-      this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
-      this.SVGElement.setAttribute("opacity", this.opacity); 
-    }
+    
+      updateSVG() {
+        // Inject the raw vectors natively
+        this.SVGElement.innerHTML = this.svgContent;
+        
+        // Target the inner MathJax structures to pass color responsively
+        let innerMathSvg = this.SVGElement.querySelector('svg');
+        if (innerMathSvg) {
+          //innerMathSvg.style.width = '';
+          innerMathSvg.setAttribute('width', this.width + 'px');
+          innerMathSvg.style.width = this.width + 'px';
+          innerMathSvg.style.minWidth = this.width + 'px';
+
+          innerMathSvg.style.height = '';
+          innerMathSvg.style.display = 'block';
+          innerMathSvg.style.overflow = 'visible'; 
+          
+          // --- THE ANIMATION-PROOF COLOR LINK ---
+          // Instead of locking a static string, we wire it to follow parent CSS changes
+          innerMathSvg.style.fill = 'currentColor';
+          innerMathSvg.setAttribute('fill', 'currentColor');
+    
+          let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+          structuralGroups.forEach(node => {
+            // Force nodes to look directly up the DOM tree for their active color matrix
+            if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') {
+              node.setAttribute('fill', 'currentColor');
+            }
+            if (node.style.fill && node.style.fill !== 'none') {
+              node.style.fill = 'currentColor';
+            }
+            if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') {
+              node.setAttribute('stroke', 'currentColor');
+            }
+            if (node.style.stroke && node.style.stroke !== 'none') {
+              node.style.stroke = 'currentColor';
+            }
+          });
+        }
+    
+        // Apply strict dimensional boundaries and properties on the outer envelope
+        this.SVGElement.style.overflow = 'hidden';
+        this.SVGElement.style.color = this.textColor; // Establishes the baseline color
+        
+        this.SVGElement.setAttribute("height", this.height);
+        this.SVGElement.setAttribute("width", this.width);
+        this.SVGElement.setAttribute("x", this.x);
+        this.SVGElement.setAttribute("y", this.y);
+        
+        this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
+        this.SVGElement.setAttribute("opacity", this.opacity); 
+      }
   }
 
 
