@@ -751,11 +751,12 @@
     
     // Completely Synchronous Player Initialization Launch (Prevents Chrome Crash)
     function launchPlayer() {
-      document.getElementById("mainSVGGroup").style.visibility = "hidden";
+      //document.getElementById("mainSVGGroup").style.visibility = "hidden";
+      document.getElementById("mainSVGGroup").style.opacity = 0;
       initUI();
       loadTheorem(0); 
       setTimeout(() => { 
-        document.getElementById("mainSVGGroup").style.visibility = "visible";
+        document.getElementById("mainSVGGroup").style.opacity = 1;
       }, 100);
     }
 
@@ -767,536 +768,750 @@
     }
 
     // --- 7. Layout Primitive Graphic Structural Classes ---
-    class basePoint {
-      constructor(objectIndex, cx, cy) {
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-        SVGElement.setAttribute("r", 3);
-        SVGElement.setAttribute("stroke-width",1);
-        SVGElement.setAttribute("fill-opacity",0);
-        SVGElement.setAttribute("opacity",1);
-        SVGElement.setAttribute("stroke",'black');
-        SVGElement.setAttribute("fill",'black');
-        SVGElement.style.visibility = "hidden";
+    class basePoint
+  {
+    constructor(objectIndex, cx, cy )
+    {
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
+      SVGElement.style.cursor= 'pointer';
+      SVGElement.setAttribute("r", 3);
+      SVGElement.setAttribute("stroke-width",1);
+      SVGElement.setAttribute("fill-opacity",0);
+      SVGElement.setAttribute("opacity",1);
+      SVGElement.setAttribute("stroke",'Black');
+      SVGElement.setAttribute("fill",'Black');
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+      this.cx = cx;
+      this.cy = cy;
+      this.type = 'pt';
 
-        this.SVGElement = SVGElement;
-        this.index = objectIndex;
-        this.cx = cx;
-        this.cy = cy;
-        this.type = 'pt';
-      }
-      updateSVG() {
-        this.SVGElement.setAttribute("cx", this.cx);
-        this.SVGElement.setAttribute("cy", this.cy);    
-      }
+      this.initialState = { 
+        cx: this.cx+'px',
+        cy: this.cy+'px',
+        opacity:0};
+
     }
 
-    class point {
-      constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor, fillOpacity, fillColor, scale) {
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-        SVGElement.style.transformOrigin = "center";
-        SVGElement.style.transformBox = "fill-box";
-        SVGElement.style.pointerEvents = 'none';
-
-        this.SVGElement = SVGElement;
-        this.index = objectIndex;
-        this.cx = cx;
-        this.cy = cy;
-        this.r = r;
-        this.strokeWidth = strokeWidth;
-        this.fillOpacity = fillOpacity;
-        this.opacity = opacity;
-        this.scale = scale;
-        this.strokeColor = strokeColor;
-        this.fillColor = fillColor;
-        this.type = 'ptc';
-        this.property = 'point';
-
-        this.initialState = {
-          cx: this.cx + 'px',
-          cy: this.cy + 'px',
-          r: this.r + 'px',
-          opacity: this.opacity,
-          transform: `scale(${this.scale})`,
-          stroke: this.strokeColor,
-          fill: this.fillColor
-        };
-      }
-      updateSVG() {
-        this.SVGElement.setAttribute("cx", this.cx);
-        this.SVGElement.setAttribute("cy", this.cy);
-        this.SVGElement.setAttribute("r", this.r);
-        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-        this.SVGElement.setAttribute("opacity",this.opacity);
-        this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
-        this.SVGElement.setAttribute("stroke",this.strokeColor);
-        this.SVGElement.setAttribute("fill",this.fillColor);
-      }
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);    
     }
+  }
 
-    class text { 
-      constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight, svgContent = "") {
-        this.index = objectIndex;
-        this.x = x;
-        this.y = y;
-        this.text = textStr;
-        this.opacity = opacity;
-        this.scale = scale;
-        this.textColor = textColor;
-        this.fontSize = fontSize;
-        this.rotate = rotate;
-        this.type = 'txt';
-        this.displayType = 'tx';
-    
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-        SVGElement.setAttribute("id", 'SVGText' + objectIndex);
-        SVGElement.style.pointerEvents = 'none';
 
-        this.width = parseFloat(originalWidth) || 100;
-        this.height = parseFloat(originalHeight) || 30;
 
-        const ua = navigator.userAgent.toLowerCase();
-        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
-        const isFirefox = ua.includes('firefox');
+  class point
+  {
+    constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale )
+    {
+      //svg object
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.style.pointerEvents = 'none';
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      this.cx = cx;
+      this.cy = cy;
+      this.r = r;
+      this.strokeWidth = strokeWidth;
+      this.fillOpacity = fillOpacity;
+      this.opacity = opacity;
+      this.scale=scale;
+      this.strokeColor = strokeColor;
+      this.fillColor = fillColor;
+      this.type = 'ptc';
       
-        // Absolute Coordinate Matrix Fix for Safari vs standard layout boxes
-        if (isSafari) {
-          let absoluteCenterX = parseFloat(x) + (this.width / 2);
-          let absoluteCenterY = parseFloat(y) + (this.height / 2);
-          SVGElement.style.transformBox = "view-box";
-          SVGElement.style.transformOrigin = `${absoluteCenterX}px ${absoluteCenterY}px`;
-        } else if (isFirefox) {
-          SVGElement.style.transformBox = "fill-box";
-          SVGElement.style.transformOrigin = "center"; 
-        } else {
-          SVGElement.style.transformBox = "fill-box";
-          SVGElement.style.transformOrigin = "50% 50%";
-        }
-        
-        this.SVGElement = SVGElement;
-        this.svgContent = svgContent; 
+      this.property = 'point';
     
-        this.initialState = {
-          x: this.x + 'px',
-          y: this.y + 'px',
-          transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
-          opacity: this.opacity,
-          color: this.textColor, 
-          height: this.height + 'px',
-          width: this.width + 'px'
+
+      this.initialState = { cx: this.cx+'px',
+        cy: this.cy+'px', 
+        r: this.r+'px', 
+        strokeWidth:this.strokeWidth+'px', 
+        fillOpacity:this.fillOpacity,
+        opacity: this.opacity,
+        scale: this.scale,
+        strokeColor:this.strokeColor,
+        fillColor: this.fillColor};
+
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);
+      this.SVGElement.setAttribute("r", this.r);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+    }
+  }
+
+
+
+  class text
+  { 
+    constructor(objectIndex,x, y, text, opacity, scale, textColor, fontSize,rotate,wid,hg)
+    {
+      this.index=objectIndex;
+      this.x = x;
+      this.y = y;
+
+      this.dx=0;
+      this.dy=0;
+
+      this.text = text;
+      this.opacity = opacity;
+      this.scale=scale;
+      this.textColor = textColor;
+      this.fontSize = fontSize;
+      this.rotate = rotate;
+      
+
+      this.type = 'txt';
+      this.fontWeight= 400;
+
+      this.displayType = 'tx';
+      
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+      SVGElement.setAttribute("id",'SVGText'+objectIndex);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.color = textColor;
+      SVGElement.style.fontWeight = this.fontWeight;
+      SVGElement.style.fontSize=fontSize;
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      
+
+      this.height = hg;
+      this.width = wid;
+
+
+      let spanElement = document.createElement("SPAN");
+      spanElement.style.whiteSpace = 'nowrap';
+      spanElement.style.display = 'inline-block';
+      spanElement.style.textAlign = 'left';
+      spanElement.innerHTML = text;
+      SVGElement.appendChild(spanElement);
+      
+      
+
+      this.SVGElement = SVGElement;
+      this.spanElement = spanElement;
+
+      // 1. Initialize the property synchronously so the JSON saver always sees it
+      this.svgContent = "";
+
+      
+      this.initialState = {
+        x:this.x+'px',
+        y:this.y+'px',
+        transform:`rotate(${this.rotate}deg) scale(${this.scale})`,
+        fontSize:this.fontSize+'px',
+        opacity: this.opacity,
+        color: this.textColor,
+        height:this.height+'px',
+        width:this.width+'px'
         };
+      
 
-        // --- THE SAFARI FIXED HARD-SEED ---
-        // Forces styles onto the element directly so they don't look completely visible on frame zero
-        SVGElement.style.x = this.initialState.x;
-        SVGElement.style.y = this.initialState.y;
-        SVGElement.style.transform = this.initialState.transform;
-        SVGElement.style.opacity = this.initialState.opacity;
-        SVGElement.style.color = this.initialState.color;
-        SVGElement.style.width = this.initialState.width;
-        SVGElement.style.height = this.initialState.height;
+    }
 
-        this.updateSVG();
-      }
-    
-      updateSVG() {
+    updateSVG()
+    {
+
+      // If we have compiled math vector strings available, inject them natively
+      if (this.svgContent && this.svgContent !== "") {
+        // Clear out old text or foreign HTML nodes cleanly
         this.SVGElement.innerHTML = this.svgContent;
         
+        // Target the internal math SVG node MathJax generated to configure its scaling properties
         let innerMathSvg = this.SVGElement.querySelector('svg');
         if (innerMathSvg) {
-          innerMathSvg.setAttribute('width', this.width + 'px');
-          innerMathSvg.style.width = this.width + 'px';
-          innerMathSvg.style.minWidth = this.width + 'px';
-          innerMathSvg.style.height = this.height + 'px';
+          innerMathSvg.style.width = ''; 
+          innerMathSvg.style.height = '';
           innerMathSvg.style.display = 'block';
           innerMathSvg.style.overflow = 'visible'; 
-          innerMathSvg.style.fill = 'currentColor';
-          innerMathSvg.setAttribute('fill', 'currentColor');
+          innerMathSvg.style.fill = this.textColor;
+        }
+      } else {
+        // Fallback to your original dynamic HTML canvas engine if no vectors are compiled yet
+        this.spanElement.innerHTML = this.text;
+        this.spanElement.style.fontSize = this.fontSize + 'px';
+
+      }
+
+      this.SVGElement.style.overflow = 'hidden';
+      this.SVGElement.style.color = this.textColor;
+      this.SVGElement.style.fontWeight = this.fontWeight;
+      
+      this.SVGElement.setAttribute("height",this.height);
+      this.SVGElement.setAttribute("width",this.width);
+
+      this.SVGElement.setAttribute("x", this.x);
+      this.SVGElement.setAttribute("y", this.y);
     
-          let structuralGroups = innerMathSvg.querySelectorAll('g, path');
-          structuralGroups.forEach(node => {
-            if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
-            if (node.style.fill && node.style.fill !== 'none') node.style.fill = 'currentColor';
-            if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') node.setAttribute('stroke', 'currentColor');
-            if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
-          });
-        }
-    
-        this.SVGElement.style.overflow = 'hidden';
-        this.SVGElement.style.color = this.textColor; 
-        
-        this.SVGElement.setAttribute("height", this.height);
-        this.SVGElement.setAttribute("width", this.width);
-        this.SVGElement.setAttribute("x", this.x);
-        this.SVGElement.setAttribute("y", this.y);
-        this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
-        this.SVGElement.setAttribute("opacity", this.opacity); 
-      }
+      this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+      this.SVGElement.setAttribute("opacity",this.opacity);    
     }
 
-    class polygon {
-      constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale,rotate) {
-        this.index = objectIndex;
-        this.pointsIndices = pointsIndices;
-        this.dx = dx;
-        this.dy = dy;
-        this.opacity = opacity;
-        this.strokeWidth = strokeWidth;
-        this.strokeColor = strokeColor;
-        this.fillOpacity = fillOpacity;
-        this.fillColor = fillColor;
-        this.scale = scale;
-        this.rotate = rotate;
-        this.property = pointsIndices.map(obj => obj + 1).join(',');
-        this.type = 'pgn';
-        
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+   
+  }
 
-        SVGElement.style.transformOrigin = "center";
-        SVGElement.style.transformBox = "fill-box";
-        SVGElement.setAttribute("stroke-linejoin",'round');
-        SVGElement.style.pointerEvents = 'none';
 
-        this.SVGElement = SVGElement;
-        this.strokeDashoffset = 0;
-
-        this.initialState = {
-          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
-          opacity: this.opacity,
-          stroke: this.strokeColor,
-          fill: this.fillColor,
-          strokeWidth: this.strokeWidth + 'px'
-        };
-      }
-      updateSVG() {
-        let ptsArray = [];
-        for (let i = 0; i < this.pointsIndices.length; i++) {
-          let obj = objects[this.pointsIndices[i]];
-          ptsArray.push(obj.cx + "," + obj.cy);
-        }
-        let pts = ptsArray.join(" ");
-
-        this.SVGElement.setAttribute("points", pts);
-        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-        this.totalLength = this.SVGElement.getTotalLength();
-        this.SVGElement.setAttribute("stroke",this.strokeColor);
-        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-        this.SVGElement.setAttribute("fill",this.fillColor);
-        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-        this.SVGElement.setAttribute("opacity",this.opacity);
-      }
-    }
-
-    class polyline {
-      constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate ) {
-        this.index = objectIndex;
-        this.pointsIndices = pointsIndices; 
-        this.property = pointsIndices.map(obj => obj + 1).join(',');
-        this.dx = dx;
-        this.dy = dy;
-        this.opacity = opacity;
-        this.strokeWidth = strokeWidth;
-        this.strokeColor = strokeColor;
-        this.scale = scale;
-        this.rotate = rotate;
-        this.type = 'pln';
-
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-        SVGElement.style.pointerEvents = 'none';
-        SVGElement.style.transformOrigin = "center";
-        SVGElement.style.transformBox = "fill-box";
-        SVGElement.setAttribute("stroke-linejoin",'round');
-        SVGElement.setAttribute("stroke-linecap",'round');
-        SVGElement.setAttribute("fill",'none');
-        
-        this.SVGElement = SVGElement;
-        this.strokeDashoffset = 0;
-
-        this.initialState = {
-          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
-          opacity: this.opacity,
-          stroke: this.strokeColor,
-          strokeWidth: this.strokeWidth + 'px'
-        };
-      }
-      updateSVG() {
-        let ptsArray = [];
-        for (let i = 0; i < this.pointsIndices.length; i++) {
-          let obj = objects[this.pointsIndices[i]];
-          ptsArray.push(obj.cx + "," + obj.cy);
-        }
-        let pts = ptsArray.join(" ");
-        this.SVGElement.setAttribute("points", pts);
-        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-        this.SVGElement.setAttribute("stroke",this.strokeColor);
-        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-        this.SVGElement.setAttribute("opacity",this.opacity);
-        this.totalLength = this.SVGElement.getTotalLength();
-        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      }
-    }
-
-    class circle {
-      constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, property ) {
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-        SVGElement.setAttribute("cx", cx);
-        SVGElement.setAttribute("cy", cy);
-        SVGElement.setAttribute("r", r);
-        SVGElement.style.pointerEvents = 'none';
-        SVGElement.style.transformOrigin = "center";
-        SVGElement.style.transformBox = "fill-box";
-
-        this.SVGElement = SVGElement;
-        this.index = objectIndex;
-        this.cx = cx;
-        this.cy = cy;
-        this.center = {cx:this.cx,cy:this.cy};
-        this.r = r;
-        this.strokeWidth = strokeWidth;
-        this.fillOpacity = fillOpacity;
-        this.opacity = opacity;
-        this.scale = scale;
-        this.strokeColor = strokeColor;
-        this.fillColor = fillColor;
-        this.type = 'cr';
-        this.property = property;
-        this.strokeDashoffset = 0;
-
-        this.initialState = {
-          cx: this.cx + 'px',
-          cy: this.cy + 'px',
-          r: this.r + 'px',
-          opacity: this.opacity,
-          transform: `scale(${this.scale})`,
-          stroke: this.strokeColor,
-          fill: this.fillColor,
-          strokeWidth: this.strokeWidth + 'px'
-        };
-      }
-      updateSVG() {
-        this.SVGElement.setAttribute("cx", this.cx);
-        this.SVGElement.setAttribute("cy", this.cy);
-        this.SVGElement.setAttribute("r", this.r);
-        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-        this.SVGElement.setAttribute("opacity",this.opacity);
-        this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
-        this.SVGElement.setAttribute("stroke",this.strokeColor);
-        this.SVGElement.setAttribute("fill",this.fillColor);
-        this.totalLength = this.SVGElement.getTotalLength();
-        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      }
-    }
-
-    class ellipse {
-      constructor(objectIndex, cx, cy, rx,ry, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rotate ) {
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-        SVGElement.setAttribute("cx", cx);
-        SVGElement.setAttribute("cy", cy);
-        SVGElement.setAttribute("rx", rx);
-        SVGElement.setAttribute("ry", ry);
-        SVGElement.style.transformOrigin = "center";
-        SVGElement.style.transformBox = "fill-box";
-
-        this.SVGElement = SVGElement;
-        this.index = objectIndex;
-        this.cx = cx;
-        this.cy = cy;
-        this.rx = rx;
-        this.ry = ry;
-        this.opacity = opacity;
-        this.strokeWidth = strokeWidth;
-        this.strokeColor = strokeColor;
-        this.fillOpacity = fillOpacity;
-        this.fillColor = fillColor;
-        this.scale = scale;
-        this.rotate = rotate;
-        this.type = 'elp';
-        this.strokeDashoffset = 0;
-
-        this.initialState = {
-          cx: this.cx + 'px',
-          cy: this.cy + 'px',
-          transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
-          opacity: this.opacity,
-          stroke: this.strokeColor,
-          fill: this.fillColor,
-          strokeWidth: this.strokeWidth + 'px'
-        };
-      }
-      updateSVG() {
-        this.SVGElement.setAttribute("cx", this.cx);
-        this.SVGElement.setAttribute("cy", this.cy);
-        this.SVGElement.setAttribute("rx", this.rx);
-        this.SVGElement.setAttribute("ry", this.ry);
-        this.SVGElement.setAttribute("transform",' rotate('+this.rotate+')'+'scale('+this.scale+' '+this.scale+')');
-        this.SVGElement.setAttribute("opacity",this.opacity);
-        this.SVGElement.setAttribute("fill",this.fillColor);
-        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-        this.SVGElement.setAttribute("stroke",this.strokeColor);
-        this.SVGElement.setAttribute("stroke-width",this.strokeWidth); 
-        this.totalLength = this.SVGElement.getTotalLength();
-        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      }
-    }
-
-    class angle {
-      constructor(objectIndex, pointsIndices, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rightAngle ) {
-        this.index = objectIndex;
-        this.r = r;
-        this.opacity = opacity;
-        this.strokeWidth = strokeWidth;
-        this.strokeColor = strokeColor;
-        this.fillOpacity = fillOpacity;
-        this.fillColor = fillColor;
-        this.scale = scale;
-        this.rightAngle = rightAngle;
-        this.pointsIndices = pointsIndices;
-        this.property = pointsIndices.map(obj => obj + 1).join(',');
-        this.type = 'ang';
-        this.dx = 0;
-        this.dy = 0;
-
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-        SVGElement.style.transformOrigin = "center";
-        SVGElement.style.transformBox = "fill-box";
-        SVGElement.style.pointerEvents = 'none';
-
-        this.SVGElement = SVGElement;
-        this.strokeDashoffset = 0;
-
-        this.initialState = {
-          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale})`,
-          opacity: this.opacity,
-          stroke: this.strokeColor,
-          fill: this.fillColor,
-          strokeWidth: this.strokeWidth + 'px'
-        };
-      }
-      updateSVG() {
-        let rA = String(this.rightAngle) === "true";
-        let pathAngleIn = angleInPath(this.pointsIndices,this.r,rA);
-
-        this.SVGElement.setAttribute('d',pathAngleIn);
-        this.SVGElement.setAttribute("opacity",this.opacity);
-        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')');
-        this.SVGElement.setAttribute("fill",this.fillColor);
-        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
-        this.SVGElement.setAttribute("stroke",this.strokeColor);
-        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-        this.totalLength = this.SVGElement.getTotalLength();
-        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      }
-    }
-
-    class qcurve {
-      constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate ) {
-        this.index = objectIndex;
-        this.pointsIndices = pointsIndices;
-        this.dx = dx;
-        this.dy = dy;
-        this.opacity = opacity;
-        this.strokeWidth = strokeWidth;
-        this.strokeColor = strokeColor;
-        this.scale = scale;
-        this.rotate = rotate;
-        this.property = pointsIndices.map(obj => obj + 1).join(',');
-        this.type = 'qcrv';
-
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-        SVGElement.style.pointerEvents = 'none';
-        SVGElement.style.transformOrigin = "center";
-        SVGElement.style.transformBox = "fill-box";
-        SVGElement.setAttribute("stroke-linejoin",'round');
-        SVGElement.setAttribute("stroke-linecap",'round');
-        SVGElement.setAttribute("fill",'none');
-        
-        this.SVGElement = SVGElement;
-        this.strokeDashoffset = 0;
-
-        this.initialState = {
-          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
-          opacity: this.opacity,
-          stroke: this.strokeColor,
-          strokeWidth: this.strokeWidth + 'px'
-        };
-      }
-      updateSVG() {
-        let d = `M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
-        this.SVGElement.setAttribute("d", d);
-        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-        this.SVGElement.setAttribute("stroke",this.strokeColor);
-        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-        this.SVGElement.setAttribute("opacity",this.opacity);
-        this.totalLength = this.SVGElement.getTotalLength();
-        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      }
-    }
+  class polygon
+  {
+    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale,rotate)
+    {
+      this.index = objectIndex;
+      this.pointsIndices=pointsIndices;
   
-    class arrow {
-      constructor(objectIndex,pointsIndices, r , opacity, strokeWidth, strokeColor, scale,rotate) {
-        this.index = objectIndex;
-        this.pointsIndices = pointsIndices;
-        this.r = r;
-        this.dx = 0;
-        this.dy = 0;
-        this.opacity = opacity;
-        this.strokeWidth = strokeWidth;
-        this.strokeColor = strokeColor;
-        this.scale = scale;
-        this.rotate = rotate;
-        this.property = pointsIndices.map(obj => obj + 1).join(',');
-        this.type = 'arw';
+      this.dx = dx;
+      this.dy = dy;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.fillOpacity = fillOpacity;
+      this.fillColor = fillColor;
+      this.scale=scale;
+      this.rotate = rotate;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+      this.type='pgn';
 
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
-        SVGElement.style.pointerEvents = 'none';
-        SVGElement.style.transformOrigin = "center";
-        SVGElement.style.transformBox = "fill-box";
-        SVGElement.setAttribute("stroke-linejoin",'round');
-        SVGElement.setAttribute("stroke-linecap",'round');
-        SVGElement.setAttribute("fill",'none');
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
 
-        this.SVGElement = SVGElement;
-        this.strokeDashoffset = 0;
-
-        this.initialState = {
-          transform: `translate(${this.dx}px, ${this.dy}px) scale(${this.scale}) rotate(${this.rotate}deg)`,
-          opacity: this.opacity,
-          stroke: this.strokeColor,
-          strokeWidth: this.strokeWidth + 'px'
-        };
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
       }
-      updateSVG() {
-        let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
-        for (let i = 1; i < this.pointsIndices.length; i++) {
-          d += ` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
-        }
-        if (this.pointsIndices.length == 3) {
-          d = `M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
-        }
-        let ah = arrowHeadPath(this.pointsIndices,this.r);
-        d += ah;
+      let pts = ptsArray.join(" ");
 
-        this.SVGElement.setAttribute("d", d);
-        this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
-        this.SVGElement.setAttribute("stroke",this.strokeColor);
-        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
-        this.SVGElement.setAttribute("opacity",this.opacity);
-        this.totalLength = this.SVGElement.getTotalLength();
-        this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
-      }
+      this.points = pts;
+
+      SVGElement.setAttribute("points", pts);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.style.pointerEvents = 'none';
+
+      this.SVGElement = SVGElement;
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+
+
+      this.initialState = {
+        points: this.points,
+        transform:` translate(${this.dx}px ,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        fill: this.fillColor,
+        fillOpacity:this.fillOpacity,
+        stroke:this.strokeColor,
+        strokeWidth:this.strokeWidth+'px',
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'
+      };
+      
     }
 
+
+
+    updateSVG()
+    {
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      this.points = pts;
+
+      this.SVGElement.setAttribute("points", this.points);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+
+      this.totalLength = this.SVGElement.getTotalLength();
+
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+    }
+  }
+
+  class polyline
+  {
+    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
+    {
+      this.index = objectIndex;
+      
+      this.pointsIndices=pointsIndices; 
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+      
+      this.dx = dx;
+      this.dy = dy;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.scale=scale;
+      this.rotate=rotate;
+
+      this.type='pln';
+
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      SVGElement.setAttribute("points", pts);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.setAttribute("stroke-linecap",'round');
+      SVGElement.setAttribute("fill",'none');
+
+      
+      this.SVGElement = SVGElement;
+      
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+
+      
+      this.initialState = { 
+        transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        strokeWidth:this.strokeWidth+'px',
+        opacity: this.opacity,
+        stroke:this.strokeColor, 
+        
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'};     
+    }
+
+
+
+    updateSVG()
+    {
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      this.SVGElement.setAttribute("points", pts);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+    }
+  }
+
+  class circle
+  {
+    constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, property )
+    {
+
+      //svg object
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute("cx", cx);
+      SVGElement.setAttribute("cy", cy);
+      SVGElement.setAttribute("r", r);
+      this.totalLength = SVGElement.getTotalLength();
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength );
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      this.cx = cx;
+      this.cy = cy;
+      this.center={cx:this.cx,cy:this.cy};
+      this.r = r;
+      this.strokeWidth = strokeWidth;
+      this.fillOpacity = fillOpacity;
+      this.opacity = opacity;
+      this.scale=scale;
+      this.strokeColor = strokeColor;
+      this.fillColor = fillColor;
+      this.type = 'cr';
+      this.property = property;
+      this.strokeDashoffset = this.totalLength;
+
+
+      this.initialState = { 
+        cx: this.cx+'px', 
+        cy: this.cy+'px', 
+        r: this.r+'px',
+        scale: this.scale,
+        opacity: this.opacity,
+        fill: this.fillColor,
+        fillOpacity:this.fillOpacity,
+        stroke:this.strokeColor, 
+        strokeWidth:this.strokeWidth+'px', 
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px'};
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);
+      this.SVGElement.setAttribute("r", this.r);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
+      
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.totalLength = this.SVGElement.getTotalLength();
+
+      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
+    }
+  }
+
+  class ellipse
+  {
+    constructor(objectIndex, cx, cy, rx,ry, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rotate )
+    {
+      //svg object
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute("cx", cx);
+      SVGElement.setAttribute("cy", cy);
+      SVGElement.setAttribute("rx", rx);
+      SVGElement.setAttribute("ry", ry);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      this.cx = cx;
+      this.cy = cy;
+      this.rx = rx;
+      this.ry = ry;
+      this.opacity = opacity;
+
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.fillOpacity = fillOpacity;
+      this.fillColor = fillColor;
+      this.scale=scale;
+      this.rotate = rotate;
+      this.type = 'elp';
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+
+      this.initialState = { 
+        cx: this.cx+'px',
+        cy: this.cy+'px',
+        transform:`rotate(${this.rotate}deg) scale(${this.scale})`,
+        strokeWidth:this.strokeWidth+'px',
+        fillOpacity:this.fillOpacity,
+        opacity: this.opacity,
+        stroke:this.strokeColor,
+        fill: this.fillColor,
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px',
+        rx: this.rx+'px',
+        ry: this.ry+'px'};
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);
+      this.SVGElement.setAttribute("rx", this.rx);
+      this.SVGElement.setAttribute("ry", this.ry);
+      this.SVGElement.setAttribute("transform",' rotate('+this.rotate+')'+'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth); 
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);   
+    }
+  }
+
+  class angle
+  {
+    constructor(objectIndex, pointsIndices, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rightAngle )
+    {
+      this.index = objectIndex;
+      this.r = r;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.fillOpacity = fillOpacity;
+      this.fillColor = fillColor;
+      this.scale=scale;
+      this.rightAngle = rightAngle;
+      this.pointsIndices= pointsIndices;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+      this.type = 'ang';
+      this.dx = 0;
+      this.dy = 0;
+
+      let pathAngleIn = angleInPath(this.pointsIndices,r,rightAngle);
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute('d',pathAngleIn);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.style.pointerEvents = 'none';
+
+
+      this.SVGElement = SVGElement;
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      this.initialState = { r: this.r+'px',
+        opacity: this.opacity,
+        transform:` translate(${this.dx}px,${this.dy}px) scale(${this.scale})`,
+        fill: this.fillColor,
+        fillOpacity:this.fillOpacity,
+        stroke:this.strokeColor,
+        strokeWidth:this.strokeWidth+'px',
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.strokeDashoffset+'px'};
+    }
+
+    updateSVG()
+    {
+      let rA = String(this.rightAngle) === "true";
+
+      let pathAngleIn = angleInPath(this.pointsIndices,this.r,rA);
+
+      this.SVGElement.setAttribute('d',pathAngleIn);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+
+      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
+    }
+  }
+
+
+
+  class qcurve
+  {
+    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
+    {
+      this.index = objectIndex;
+      this.pointsIndices= pointsIndices;
+      this.dx = dx;
+      this.dy = dy;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.scale=scale;
+      this.rotate=rotate;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+      this.type='qcrv';
+
+
+      //svg object
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+
+      let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      
+      SVGElement.setAttribute("d", d);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.setAttribute("stroke-linecap",'round');
+      SVGElement.setAttribute("fill",'none');
+
+      this.SVGElement = SVGElement;
+      
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+
+      
+      this.initialState = { 
+        transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        stroke:this.strokeColor, 
+        strokeWidth:this.strokeWidth+'px', 
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'};     
+    }
+
+
+
+    updateSVG()
+    {
+      let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      
+      this.SVGElement.setAttribute("d", d);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+    }
+  }
+  
+
+  class arrow
+  {
+    constructor(objectIndex,pointsIndices, r , opacity, strokeWidth, strokeColor, scale,rotate)
+    {
+      this.index = objectIndex;
+      this.pointsIndices= pointsIndices;
+      this.r = r;
+      this.dx = 0;
+      this.dy = 0;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.scale=scale;
+      this.rotate=rotate;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+
+      this.type='arw';
+
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+      let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
+      for (let i = 1; i < this.pointsIndices.length; i++) 
+      {
+        d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
+      }
+
+      if(this.pointsIndices.length==3)
+      {
+        d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      }
+
+      let ah = arrowHeadPath(this.pointsIndices,r);
+      d+=ah;
+
+      SVGElement.setAttribute("d", d);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.setAttribute("stroke-linecap",'round');
+      SVGElement.setAttribute("fill",'none');
+
+      this.SVGElement = SVGElement;
+      
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+
+      this.initialState = { 
+        transform:` translate(${this.dx}px , ${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        stroke:this.strokeColor, 
+        strokeWidth:this.strokeWidth+'px', 
+        strokeDasharray: this.totalLength+'px',
+        strokeDashoffset: this.totalLength+'px'};     
+    }
+
+
+
+    updateSVG()
+    {
+      let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
+      for (let i = 1; i < this.pointsIndices.length; i++) 
+      {
+        d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
+      }
+
+      if(this.pointsIndices.length==3)
+      {
+        d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      }
+
+      let ah = arrowHeadPath(this.pointsIndices,this.r);
+      d+=ah;
+
+      this.SVGElement.setAttribute("d", d);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
+    }
+  }
     // --- 8. Geometrical Vector Calculation Helpers ---
     function sideLength(Point1,Point2) {
       return Math.hypot(Point1.cx - Point2.cx, Point1.cy - Point2.cy);
