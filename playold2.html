@@ -1352,8 +1352,8 @@
         }
         
         // Application:
-        let wi = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
-        let he =2*parseFloat(y) + parseFloat(originalHeight) || 0;
+        let wi = 0*parseFloat(x)+ parseFloat(originalWidth) || 0;
+        let he =0*parseFloat(y) + parseFloat(originalHeight) || 0;
         
         SVGElement.style.transformOrigin = getBrowserOrigin(wi, he);
         //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
