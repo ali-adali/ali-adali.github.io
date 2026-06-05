@@ -474,8 +474,8 @@
         });
 
         // 3. Trigger MathJax to format the fully-expanded elements
-        //if (window.MathJax && typeof MathJax.typesetPromise === 'function') {return MathJax.typesetPromise();}
-        //return Promise.resolve();
+        if (window.MathJax && typeof MathJax.typesetPromise === 'function') {return MathJax.typesetPromise();}
+        return Promise.resolve();
       })
       .then(() => {
         console.log("MathJax typesetting locked at full scale. Processing animation paths.");
@@ -906,21 +906,29 @@
     }
     
     // Completely Synchronous Player Initialization Launch (Prevents Chrome Crash)
-    function launchPlayer() {
+    function launchPlayer()
+    {
       document.getElementById("mainSVGGroup").style.visibility = "hidden";
       //document.getElementById("mainSVGGroup").style.opacity = 0;
       initUI();
       loadTheorem(0); 
-      setTimeout(() => { 
-        document.getElementById("mainSVGGroup").style.visibility = "visible";
-      }, 100);
+      setTimeout(() => {document.getElementById("mainSVGGroup").style.visibility = "visible";}, 100);
     }
 
     // Fire immediately upon completion of basic DOM construction
     if (document.readyState === 'loading') {
-      window.addEventListener('DOMContentLoaded', launchPlayer);
+      window.addEventListener('DOMContentLoaded', () => {
+        launchPlayer();
+        bakeAnimations();
+        globalCurrentTime = 0;
+        //renderStateAtTime(0);
+        updateProgressBarUI(0);
+      });
     } else {
       launchPlayer();
+      bakeAnimations();
+      globalCurrentTime = 0;
+      updateProgressBarUI(0);
     }
 
     // --- 7. Layout Primitive Graphic Structural Classes ---
