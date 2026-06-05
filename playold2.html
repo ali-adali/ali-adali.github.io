@@ -751,12 +751,12 @@
     
     // Completely Synchronous Player Initialization Launch (Prevents Chrome Crash)
     function launchPlayer() {
-      //document.getElementById("mainSVGGroup").style.visibility = "hidden";
-      document.getElementById("mainSVGGroup").style.opacity = 0;
+      document.getElementById("mainSVGGroup").style.visibility = "hidden";
+      //document.getElementById("mainSVGGroup").style.opacity = 0;
       initUI();
       loadTheorem(0); 
       setTimeout(() => { 
-        document.getElementById("mainSVGGroup").style.opacity = 1;
+        document.getElementById("mainSVGGroup").style.visibility = "visible";
       }, 100);
     }
 
@@ -891,7 +891,7 @@
       SVGElement.style.fontWeight = this.fontWeight;
       SVGElement.style.fontSize=fontSize;
       SVGElement.style.transformOrigin = "center";
-      SVGElement.style.transformBox = "fill-box";
+      SVGElement.style.transformBox = "view-box";
       
 
       this.height = hg;
