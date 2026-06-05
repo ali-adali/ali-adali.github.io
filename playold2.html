@@ -1163,8 +1163,9 @@
         
           if (isSafari) {
             // Safari specific logic (e.g., if it requires absolute or global offsets)
-            return `${w / 2}px ${h / 2}px`;
             SVGElement.style.transformBox = "view-box";
+            return `${w / 2}px ${h / 2}px`;
+            
            
           } else if (isFirefox) {
             // Firefox specific fallback
@@ -1177,10 +1178,10 @@
         }
         
         // Application:
-        let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
-        let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
+        let wi = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
+        let he =2*parseFloat(y) + parseFloat(originalHeight) || 0;
         
-        SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+        SVGElement.style.transformOrigin = getBrowserOrigin(wi, he);
         //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
         //SVGElement.style.transformBox = "fill-box";
     
@@ -1220,7 +1221,7 @@
           innerMathSvg.style.minWidth = this.width + 'px';
 
           //innerMathSvg.style.height = '';
-          innerMathSvg.setAttribute('width', this.height + 'px');
+          innerMathSvg.setAttribute('height', this.height + 'px');
           innerMathSvg.style.height = this.height + 'px';
           innerMathSvg.style.minHeight = this.height + 'px';
 
