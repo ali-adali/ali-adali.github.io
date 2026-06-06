@@ -725,11 +725,19 @@
     }
 
 
-    function renderStateAtTimeZero() {
+    function renderStateAtTimeZero()
+    {
+      // Keep your exact number parsing and character stripping logic unchanged
+      const parseNum = (val) => {
+        if (val === undefined || val === null) return 0;
+        if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
+        return parseFloat(val) || 0;
+      };
+
       objects.forEach(obj => {
         if (!obj || !obj.SVGElement || !obj.timelineFrames || obj.timelineFrames.length === 0) return;
 
-        // Frame 0 is always the absolute starting state
+        // Isolate frame zero immediately 
         const firstFrame = obj.timelineFrames[0];
         if (!firstFrame || !firstFrame.state) return;
 
@@ -739,7 +747,6 @@
           let val = state[key];
           if (val === undefined || val === null) return;
 
-          // --- Category 1: Structural Attributes & Colors ---
           if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'points' || key === 'cx' || key === 'cy' || key === 'r') {
             obj.SVGElement.setAttribute(key, val);
             return;
@@ -748,14 +755,10 @@
             obj.SVGElement.setAttribute('stroke', val);
             return;
           }
-
-          // --- Category 2: Spatial Layout Transforms ---
           if (key === 'transform' && obj.type !== 'ptc') {
             obj.SVGElement.setAttribute("transform", val);
             return;
           }
-
-          // --- Category 3: Layout Opacity Mechanics ---
           if (key === 'opacity') {
             obj.SVGElement.style.opacity = val;
             return;
@@ -766,30 +769,25 @@
             return;
           }
 
-          // --- Category 4: Mathematical Text Containers ---
           if (key === 'width') {
             if (obj.type === 'txt' && obj.spanElement) {
-              // Use absolute original bound to maintain layout space stability
-              let maxW = obj.width || val;
-              obj.SVGElement.setAttribute('width', parseFloat(maxW) || maxW);
-              
+              let maxW = parseNum(obj.width || val);
+              obj.SVGElement.setAttribute('width', maxW);
               obj.spanElement.style.display = 'inline-block';
               obj.spanElement.style.overflow = 'hidden';
-              obj.spanElement.style.width = parseFloat(val) + 'px';
+              obj.spanElement.style.width = parseNum(val) + 'px';
             } else {
-              obj.SVGElement.setAttribute('width', parseFloat(val) || val);
+              obj.SVGElement.setAttribute('width', parseNum(val));
             }
             return;
           }
 
-          // --- Category 5: Scale Point Center Constraints ---
           if (key === 'scale' && obj.type === 'ptc') {
             obj.SVGElement.style.transformOrigin = "center";
-            obj.SVGElement.style.transform = `scale(${parseFloat(val) || 1})`;
+            obj.SVGElement.style.transform = `scale(${parseNum(val)})`;
             return;
           }
 
-          // --- Category 6: Standard Style Property Projections ---
           let svgAttr = key.replace(/([A-Z])/g, "-$1").toLowerCase();
           obj.SVGElement.setAttribute(svgAttr, val);
         });
@@ -1231,7 +1229,7 @@
         SVGElement.setAttribute("id", 'SVGText' + objectIndex);
         SVGElement.style.pointerEvents = 'none';
         SVGElement.style.transformBox = "fill-box";
-        
+
         function getBrowserOrigin(w, h) {
           const ua = navigator.userAgent.toLowerCase();
           const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
