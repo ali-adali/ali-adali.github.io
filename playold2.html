@@ -486,7 +486,7 @@
         // 5. Instantly snap the timeline position down to time 0
         // This collapses widths from full size to 0px instantly before the user can see it
         globalCurrentTime = 0;
-        renderStateAtTimeZero();
+        //renderStateAtTime(0);
         updateProgressBarUI(0);
 
         // 6. Smoothly unhide the main group container for playback
@@ -653,7 +653,6 @@
       return Promise.resolve();
     }
 
-
     // --- 5. Native Web Animations API (WAAPI) Method 1 Baking ---
     function bakeAnimations() {
       hideAllBasePoints();
@@ -721,76 +720,6 @@
           player.pause(); 
           animations.push(player);
         }
-      });
-    }
-
-
-    function renderStateAtTimeZero()
-    {
-      // Keep your exact number parsing and character stripping logic unchanged
-      const parseNum = (val) => {
-        if (val === undefined || val === null) return 0;
-        if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
-        return parseFloat(val) || 0;
-      };
-
-      objects.forEach(obj => {
-        if (!obj || !obj.SVGElement || !obj.timelineFrames || obj.timelineFrames.length === 0) return;
-
-        // Isolate frame zero immediately 
-        const firstFrame = obj.timelineFrames[0];
-        if (!firstFrame || !firstFrame.state) return;
-
-        const state = firstFrame.state;
-
-        Object.keys(state).forEach(key => {
-          let val = state[key];
-          if (val === undefined || val === null) return;
-
-          if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'points' || key === 'cx' || key === 'cy' || key === 'r') {
-            obj.SVGElement.setAttribute(key, val);
-            return;
-          }
-          if (key === 'color') {
-            obj.SVGElement.setAttribute('stroke', val);
-            return;
-          }
-          if (key === 'transform' && obj.type !== 'ptc') {
-            obj.SVGElement.setAttribute("transform", val);
-            return;
-          }
-          if (key === 'opacity') {
-            obj.SVGElement.style.opacity = val;
-            return;
-          }
-          if (key === 'fillOpacity' || key === 'strokeOpacity') {
-            let attr = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
-            obj.SVGElement.setAttribute(attr, val);
-            return;
-          }
-
-          if (key === 'width') {
-            if (obj.type === 'txt' && obj.spanElement) {
-              let maxW = parseNum(obj.width || val);
-              obj.SVGElement.setAttribute('width', maxW);
-              obj.spanElement.style.display = 'inline-block';
-              obj.spanElement.style.overflow = 'hidden';
-              obj.spanElement.style.width = parseNum(val) + 'px';
-            } else {
-              obj.SVGElement.setAttribute('width', parseNum(val));
-            }
-            return;
-          }
-
-          if (key === 'scale' && obj.type === 'ptc') {
-            obj.SVGElement.style.transformOrigin = "center";
-            obj.SVGElement.style.transform = `scale(${parseNum(val)})`;
-            return;
-          }
-
-          let svgAttr = key.replace(/([A-Z])/g, "-$1").toLowerCase();
-          obj.SVGElement.setAttribute(svgAttr, val);
-        });
       });
     }
 
@@ -983,7 +912,7 @@
       //document.getElementById("mainSVGGroup").style.opacity = 0;
       initUI();
       loadTheorem(0); 
-      setTimeout(() => {document.getElementById("mainSVGGroup").style.visibility = "visible";}, 300);
+      setTimeout(() => {document.getElementById("mainSVGGroup").style.visibility = "visible";}, 100);
     }
 
     // Fire immediately upon completion of basic DOM construction
@@ -992,14 +921,13 @@
         launchPlayer();
         bakeAnimations();
         globalCurrentTime = 0;
-        renderStateAtTimeZero();
+        //renderStateAtTime(0);
         updateProgressBarUI(0);
       });
     } else {
       launchPlayer();
       bakeAnimations();
       globalCurrentTime = 0;
-      renderStateAtTimeZero();
       updateProgressBarUI(0);
     }
 
@@ -1228,8 +1156,6 @@
         let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
         SVGElement.setAttribute("id", 'SVGText' + objectIndex);
         SVGElement.style.pointerEvents = 'none';
-        SVGElement.style.transformBox = "fill-box";
-
         function getBrowserOrigin(w, h) {
           const ua = navigator.userAgent.toLowerCase();
           const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
@@ -1237,13 +1163,13 @@
         
           if (isSafari) {
             // Safari specific logic (e.g., if it requires absolute or global offsets)
-            //SVGElement.style.transformBox = "fill-box";
+            SVGElement.style.transformBox = "view-box";
             return `${w / 2}px ${h / 2}px`;
             
            
           } else if (isFirefox) {
             // Firefox specific fallback
-            //SVGElement.style.transformBox = "fill-box";
+            SVGElement.style.transformBox = "fill-box";
              return "center"; 
           } else {
             // Chrome, Edge, Opera, etc.
@@ -1269,7 +1195,7 @@
         this.height = parseFloat(originalHeight) || 30;
     
         // 3. Establish clean baseline animation key values using original bounds
-        
+        /*
         this.initialState = {
           x: this.x + 'px',
           y: this.y + 'px',
@@ -1279,7 +1205,7 @@
           height: this.height + 'px',
           width: this.width + 'px'
         };
-        
+        */
       }
     
       updateSVG() {
