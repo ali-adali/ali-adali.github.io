@@ -481,6 +481,7 @@
         console.log("MathJax typesetting locked at full scale. Processing animation paths.");
         
         // 4. Now that text bounds are calculated cleanly, bake your matrices
+
         bakeAnimations();
         setTimeout(() => bakeAnimations(), 20);
 
@@ -658,6 +659,7 @@
     // --- 5. Native Web Animations API (WAAPI) Method 1 Baking ---
     function bakeAnimations() {
       hideAllBasePoints();
+      renderStateAtTimeZero();
       
       animations.forEach(anim => anim.cancel());
       animations = [];
@@ -1885,6 +1887,82 @@
         obj.updateSVG();
         mainGroup.appendChild(obj.SVGElement);
       }
+    }
+
+    function renderStateAtTimeZero() {
+      // Keeping your exact string/unit character stripping parsing completely intact
+      const parseNum = (val) => {
+        if (val === undefined || val === null) return 0;
+        if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
+        return parseFloat(val) || 0;
+      };
+
+      objects.forEach(obj => {
+        if (!obj || !obj.SVGElement || !obj.timelineFrames || obj.timelineFrames.length === 0) return;
+
+        // Isolate frame zero directly 
+        const firstFrame = obj.timelineFrames[0];
+        if (!firstFrame || !firstFrame.state) return;
+
+        const state = firstFrame.state;
+
+        Object.keys(state).forEach(key => {
+          let val = state[key];
+          if (val === undefined || val === null) return;
+
+          // --- Category 1: Standard Constants, Points, & Vector Colors ---
+          if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'points' || key === 'cx' || key === 'cy' || key === 'r') {
+            obj.SVGElement.setAttribute(key, val);
+            return;
+          }
+          if (key === 'color') {
+            obj.SVGElement.setAttribute('stroke', val);
+            return;
+          }
+
+          // --- Category 2: Spatial Layout Geometric Transforms ---
+          if (key === 'transform' && obj.type !== 'ptc') {
+            obj.SVGElement.setAttribute("transform", val);
+            return;
+          }
+
+          // --- Category 3: Layout Opacity Mechanics ---
+          if (key === 'opacity') {
+            obj.SVGElement.style.opacity = val;
+            return;
+          }
+          if (key === 'fillOpacity' || key === 'strokeOpacity') {
+            let attr = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
+            obj.SVGElement.setAttribute(attr, val);
+            return;
+          }
+
+          // --- Category 4: Mathematical Text Containers (Width Constraints) ---
+          if (key === 'width') {
+            if (obj.type === 'txt' && obj.spanElement) {
+              let maxW = parseNum(obj.width || val);
+              obj.SVGElement.setAttribute('width', maxW);
+              obj.spanElement.style.display = 'inline-block';
+              obj.spanElement.style.overflow = 'hidden';
+              obj.spanElement.style.width = parseNum(val) + 'px';
+            } else {
+              obj.SVGElement.setAttribute('width', parseNum(val));
+            }
+            return;
+          }
+
+          // --- Category 5: Scale Point Center Locking ---
+          if (key === 'scale' && obj.type === 'ptc') {
+            obj.SVGElement.style.transformOrigin = "center";
+            obj.SVGElement.style.transform = `scale(${parseNum(val)})`;
+            return;
+          }
+
+          // --- Category 6: Standard Key Fallbacks ---
+          let svgAttr = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+          obj.SVGElement.setAttribute(svgAttr, val);
+        });
+      });
     }
 
     function hideAllBasePoints() {
