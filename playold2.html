@@ -1213,7 +1213,9 @@
       updateSVG() {
         // Inject the raw vectors natively
         this.SVGElement.innerHTML = this.svgContent;
-        
+
+
+        /*
         // Target the inner MathJax structures to pass color responsively
         let innerMathSvg = this.SVGElement.querySelector('svg');
         if (innerMathSvg) {
@@ -1252,6 +1254,7 @@
             }
           });
         }
+        */
     
         // Apply strict dimensional boundaries and properties on the outer envelope
         this.SVGElement.style.overflow = 'hidden';
