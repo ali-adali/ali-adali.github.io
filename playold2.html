@@ -1157,7 +1157,7 @@
         this.displayType = 'tx';
     
         // 1. Create a minimal foreignObject envelope
-        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         SVGElement.setAttribute("id", 'SVGText' + objectIndex);
         SVGElement.style.pointerEvents = 'none';
         function getBrowserOrigin(w, h) {
