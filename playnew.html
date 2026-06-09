@@ -825,13 +825,13 @@ function renderStateAtTime(ms) {
     
 
         //obj.SVGElement.style.transformOrigin = "center";
-        //obj.SVGElement.style.transform= `scale(${curScl}) rotate(${curRot}deg) `;
+        obj.SVGElement.style.transform= `scale(${curScl}) rotate(${curRot}deg) `;
         //obj.SVGElement.style.scale = `${curScl}`;
         //obj.SVGElement.style.rotate = `${curRot}deg`;
 
-        obj.SVGElement.setAttribute("transform", `rotate(${curRot}) scale(${curScl})`);
-        //obj.SVGElement.setAttribute('rotate', curRot);
-        //obj.SVGElement.setAttribute('scale', curScl);
+        //obj.SVGElement.setAttribute("transform", `rotate(${curRot}) scale(${curScl})`);
+        obj.SVGElement.setAttribute('rotate', curRot);
+        obj.SVGElement.setAttribute('scale', curScl);
 
 
         return;
