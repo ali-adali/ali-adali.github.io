@@ -735,7 +735,8 @@ function renderStateAtTime(ms) {
       }
 
       // --- Category 2: Complex Spatial Transforms ---
-      if (key === 'transform' && obj.type !== 'ptc') {
+      if (key === 'transform' && obj.type !== 'ptc'&& obj.type !== 'txt') {
+        
         let getTransformValues = (str) => {
           let tx = 0, ty = 0, rot = 0, scl = 1;
           if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
@@ -789,6 +790,43 @@ function renderStateAtTime(ms) {
         obj.SVGElement.setAttribute("transform", 
           `matrix(${a.toFixed(6)}, ${b.toFixed(6)}, ${c.toFixed(6)}, ${d.toFixed(6)}, ${e.toFixed(2)}, ${f.toFixed(2)})`
         );
+    
+
+        obj.SVGElement.style.transformOrigin = "center";
+        obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
+
+
+        return;
+      }
+
+      if (key === 'transform' && obj.type === 'txt') {
+        
+        let getTransformValues = (str) => {
+          let tx = 0, ty = 0, rot = 0, scl = 1;
+          if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
+          
+          //let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
+          let rMatch = str.match(/rotate\(([^)]+)\)/);
+          let sMatch = str.match(/scale\(([^)]+)\)/);
+
+          //if (tMatch) { tx = parseFloat(tMatch[1]); ty = parseFloat(tMatch[2]); }
+          if (rMatch) { rot = parseFloat(rMatch[1]); }
+          if (sMatch) { scl = parseFloat(sMatch[1]); }
+          return { rot, scl };
+        };
+
+        let p1 = getTransformValues(v1);
+        let p2 = getTransformValues(v2);
+
+        //let curTx = p1.tx + (p2.tx - p1.tx) * t;
+        //let curTy = p1.ty + (p2.ty - p1.ty) * t;
+        let curRot = p1.rot + (p2.rot - p1.rot) * t;
+        let curScl = p1.scl + (p2.scl - p1.scl) * t;
+    
+
+        obj.SVGElement.style.transformOrigin = "center";
+        obj.SVGElement.style.scale = `${curScl}`;
+        obj.SVGElement.style.rotate = `${curRot}deg`;
 
 
         return;
@@ -1269,7 +1307,7 @@ function parseNum(val) {
       
         if (isSafari) {
           // Safari specific logic (e.g., if it requires absolute or global offsets)
-          SVGElement.style.transformBox = "view-box";
+          SVGElement.style.transformBox = "fill-box";
           return `${w / 2}px ${h / 2}px`;
           
          
@@ -1278,7 +1316,6 @@ function parseNum(val) {
           SVGElement.style.transformBox = "fill-box";
            return "center"; 
         } else {
-          SVGElement.style.transformBox = "fill-box";
           // Chrome, Edge, Opera, etc.
           return "50% 50%";
         }
@@ -1290,7 +1327,7 @@ function parseNum(val) {
       
       SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
       //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
-      //SVGElement.style.transformBox = "fill-box";
+      SVGElement.style.transformBox = "fill-box";
   
       this.SVGElement = SVGElement;
       
