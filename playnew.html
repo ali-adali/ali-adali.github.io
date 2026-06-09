@@ -891,7 +891,7 @@ function renderStateAtTime(ms) {
       }
 
       // Direct SVG structural parameters (cx, cy, r)
-      if (key === 'cx' || key === 'cy' || key === 'r') {
+      if (key === 'cx' || key === 'cy' || key === 'r'|| key === 'x' || key === 'y') {
         obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
         return;
       }
@@ -1300,7 +1300,7 @@ function parseNum(val) {
       this.displayType = 'tx';
   
       // 1. Create a minimal foreignObject envelope
-      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
       SVGElement.style.outline='1px solid red';
