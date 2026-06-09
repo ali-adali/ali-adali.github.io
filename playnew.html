@@ -760,6 +760,9 @@ function renderStateAtTime(ms) {
 
         //obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
         obj.SVGElement.removeAttribute("transform");
+        obj.SVGElement.style.transformBox = "fill-box";
+        obj.SVGElement.style.transformOrigin = "center";
+        
         obj.SVGElement.style.translate = `${curTx}px ${curTy}px`;
         obj.SVGElement.style.rotate = `${curRot}deg`;
         obj.SVGElement.style.scale = `${curScl}`;
