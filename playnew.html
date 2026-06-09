@@ -1303,6 +1303,7 @@ function parseNum(val) {
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.outline='1px solid red';
       function getBrowserOrigin(w, h) {
         const ua = navigator.userAgent.toLowerCase();
         const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
@@ -1370,6 +1371,7 @@ function parseNum(val) {
         // Instead of locking a static string, we wire it to follow parent CSS changes
         innerMathSvg.style.fill = 'currentColor';
         innerMathSvg.setAttribute('fill', 'currentColor');
+        innerMathSvg.style.outline='1px solid blue';
   
         let structuralGroups = innerMathSvg.querySelectorAll('g, path');
         structuralGroups.forEach(node => {
