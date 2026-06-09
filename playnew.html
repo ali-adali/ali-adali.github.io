@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geometry Theorems & Proofs </title>
+  <style>
+    :root {
+      --bg-main: #0f172a;        /* Deep midnight */
+      --bg-panel: #1e293b;       /* Soft slate navy */
+      --bg-card: #334155;        /* Active item background */
+      --text-main: #f8fafc;      /* Crisp off-white */
+      --text-muted: #94a3b8;     /* Secondary soft text */
+      --accent: #10b981;         /* Sophisticated Sage/Emerald highlight */
+      --accent-hover: #059669;
+      --canvas-bg: #ffffff;      /* Keep your geometric canvas pure white */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Outer Navigation Breadcrumb Strip */
+    .out-nav-div {
+      background-color: var(--bg-panel);
+      padding: 12px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .out-nav-div a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .out-nav-div a:hover {
+      color: var(--accent);
+    }
+
+    /* Core Layout Container */
+    .app-container {
+      display: grid;
+      flex: 1;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    /* === PORTRAIT / MOBILE INITIAL STYLES === */
+    @media (orientation: portrait) {
+      .app-container {
+        grid-template-rows: auto auto auto 1fr;
+        grid-template-columns: 100%;
+        overflow-y: auto;
+      }
+
+      .screen-container {
+        justify-self: center;
+        width: 100vw;
+        
+        padding: 10px;
+
+      }
+
+      .control-console {
+        padding: 10px 15px 10px 15px;
+      }
+
+      .nav-in-div {
+        padding: 10px 10px;
+      }
+
+      .thms-div {
+        padding: 10px 10px;
+      }
+    }
+
+    /* === LANDSCAPE / DESKTOP STYLES === */
+    @media (min-width: 768px) and (orientation: landscape) {
+      .app-container {
+        grid-template-columns: 240px 1fr 240px;
+        grid-template-rows: 100%;
+      }
+
+      .thms-div {
+        grid-column: 1;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .screen-container {
+        grid-column: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 2px;
+
+      }
+
+      .nav-in-div {
+        grid-column: 3;
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 30px 20px;
+        gap: 20px;
+      }
+
+      .control-console {
+        width: 100%;
+        
+        margin-top: 15px;
+      }
+    }
+
+    /* Component: Theorem Browser Grid */
+    .thms-div {
+      background-color: var(--bg-panel);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px;
+      min-height: 100px;
+    }
+    .thm-item-card {
+      background-color: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .thm-item-card:hover {
+      background-color: #475569;
+      transform: translateX(2px);
+    }
+    /* Dynamic active class state */
+    .thm-item-card.active {
+      background-color: rgba(16, 185, 129, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Component: The Player Canvas */
+    .screen-div {
+     
+      aspect-ratio: 1 / 1;
+      background-color: var(--canvas-bg);
+      border-radius: 12px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      outline: 0px solid orange;
+    }
+    .screen-div svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      padding:0;
+      margin:0;
+      gap:0;
+    }
+
+    /* Component: Combined Controls Block */
+    .control-console {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Advanced Custom Timline & Touch Tracker */
+    .progress-wrapper {
+      position: relative;
+      width: 100%;
+      height: 24px; /* Expanded interaction target area */
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      background-color: #475569;
+      border-radius: 3px;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent);
+      border-radius: 3px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .progress-thumb {
+      width: 36px;
+      height: 36px;
+      background-color: var(--text-main);
+      border: 5px solid var(--accent);
+      border-radius: 40%;
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: transform 0.1s, background-color 0.1s;
+    }
+    .progress-wrapper:hover .progress-thumb {
+      transform: translate(-50%, -50%) scale(1.25);
+      background-color: var(--accent);
+    }
+
+    /* Consolidated Control Buttons Row */
+    .button-group-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+    .btn-control {
+      background-color: var(--bg-panel);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 0px 0px;
+      height: 64px;
+      aspect-ratio: 1/1;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      font-size: 40px;
+    }
+    .btn-control:hover {
+      background-color: var(--bg-card);
+      border-color: var(--text-muted);
+    }
+    .btn-control#togglePlayBtn {
+      background-color: var(--accent);
+      color: #064e3b;
+      font-weight: 600;
+      border: none;
+    }
+    .btn-control#togglePlayBtn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    /* Component: Inner Multi-directional Navigation */
+    .nav-in-div {
+      background-color: var(--bg-panel);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-step-btn {
+      background-color: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .nav-step-btn:hover:not(:disabled) {
+      background-color: #475569;
+      border-color: var(--accent);
+    }
+    .nav-step-btn:disabled {
+      opacity: 0;
+      pointer-events: none; /* Safely hides it if it's edge of playlist */
+    }
+    .current-thm-banner {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+      flex: 1.2;
+    }
+
+    .app-container:fullscreen
+    {
+      background-color: var(--bg-main); /* Ensure the dark backdrop remains solid */
+      padding: 10px;                   /* Prevents elements from hugging device bezels */
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="out-nav-div">
+    <a href="https://yourwebsite.com">Home</a> &rarr; 
+    <a href="#">Geometry</a> &rarr; 
+    <span>Theorems & Proofs</span>
+  </div>
+
+  <div class="app-container">
+    
+    <div class="thms-div" id="theoremsSidebar">
+      </div>
+
+    <div class="screen-container">
+      <div class="screen-div">
+        <svg class="svg-frame" id="playerSVG" xmlns="http://www.w3.org/2000/svg" width="750" height="750" viewbox="0 0 750 750" >
+          <defs>
+            <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
+            </pattern>
+
+            <pattern id="halfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="lightgray" stroke-width="0.8"/>
+            </pattern>
+          </defs>
+          <rect width="750" height="750" fill="url(#wholeGrid)" />
+          <rect width="750" height="750" fill="url(#halfGrid)" />
+          <g id="mainSVGGroup">
+          </g>
+        </svg>
+      </div>
+
+      <div class="control-console">
+        <div class="progress-wrapper" id="timelineScrubber">
+          <div class="progress-track">
+            <div class="progress-fill" id="timelineProgress"></div>
+            <div class="progress-thumb" id="timelineThumb"></div>
+          </div>
+        </div>
+        
+        <div class="button-group-row">
+          <button class="btn-control" id="togglePlayBtn">&#9654;</button>
+          <button class="btn-control" id="stopBtn">&#8617; </button>
+          <button class="btn-control" id="fullscreenBtn">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-in-div">
+      <button class="nav-step-btn" id="prevThmBtn">&larr; Previous</button>
+      <div class="current-thm-banner" id="currentThmTitle">Loading...</div>
+      <button class="nav-step-btn" id="nextThmBtn">Next &rarr;</button>
+    </div>
+
+  </div>
+
+  <script>
+   // --- 1. SPA Playlist Configuration ---
+    const theoremPlaylist = [
+      { id: 1, title: "Pythagorean Theorem", file: "PythagoreanTheorem.json" },
+      { id: 2, title: "Law of Sines", file: "LoS.json" },
+      { id: 3, title: "Law of Cosines", file: "LoC.json" },
+      { id: 4, title: "Stewart's Theorem", file: "StewartThm.json" },
+      { id: 5, title: "2020 AIME - 2 Problem 13", file: "aime2020E2P13.json" },
+      { id: 6, title: "2021 AIME - 2 Problem 12", file: "aime2021E2P12.json" },
+      { id: 7, title: "2022 AIME - 2 Problem 15", file: "aime2022E2P15.json" },
+      { id: 8, title: "2025 AIME - 2 Problem 14", file: "aime2025E2P14.json" },
+      { id: 9, title: "2025 AIME - 2 Problem 14 LS", file: "aime2025E2P14_LS.json" },
+      { id: 10, title: "2022 AIME - 2 Problem 15 LS", file: "aime2022E2P15_LS.json" },
+      { id: 11, title: "2022 AIME - 2 Problem 13 LS", file: "aime2022E2P13_LS.json" },
+      { id: 12, title: "Law of Cosines LS", file: "LoC_LS.json" },
+      { id: 13, title: "Law of Sines LS", file: "LoS_LS.json" },
+      { id: 14, title: "Pythagorean Theorem Test", file: "py_test.json" }
+    ];
+
+    // --- 2. Core Player State ---
+    let currentActiveIndex = 0;
+    let objects = [];
+    let aliveObjects = [];
+    let globalPlaylist = [];
+    let animations = []; 
+    let animationDuration = 0; 
+    let isPlaying = false;
+    let isScrubbing = false;
+
+    // DOM Elements mapped from the new layout IDs
+    const playerSVG = document.getElementById("playerSVG");
+    const timelineScrubber = document.getElementById("timelineScrubber");
+    const timelineProgress = document.getElementById("timelineProgress");
+    const timelineThumb = document.getElementById("timelineThumb");
+    const togglePlayBtn = document.getElementById("togglePlayBtn");
+    const stopBtn = document.getElementById("stopBtn");
+
+     strokeColors=['black','midnightblue','DarkMagenta','darkgreen','blue', 'red','DarkSeaGreen','Teal','MediumSlateBlue','MediumVioletRed','FireBrick','crimson','saddlebrown','YellowGreen','MediumOrchid','MediumPurple','Tomato','Coral','GoldenRod','OliveDrab','DarkOrange','SeaGreen'];
+
+  fillColors=['DarkOrange','blue','Aquamarine','CornflowerBlue','IndianRed','LightPink','DeepPink','PaleGreen','Teal','MediumOrchid','Tomato','YellowGreen','Violet','DarkGoldenRod','DarkSlateGray','Navy','SeaGreen'];
+
+    // --- 3. UI Synchronization & Navigation ---
+    function initUI() {
+      const sidebar = document.getElementById('theoremsSidebar');
+      sidebar.innerHTML = '';
+
+      theoremPlaylist.forEach((thm, idx) => {
+        const card = document.createElement('div');
+        card.className = `thm-item-card ${idx === currentActiveIndex ? 'active' : ''}`;
+        card.innerText = `${thm.id}. ${thm.title}`;
+        card.onclick = () => loadTheorem(idx);
+        sidebar.appendChild(card);
+      });
+
+      // Handle boundary limits for inner nav buttons
+      document.getElementById('prevThmBtn').disabled = currentActiveIndex === 0;
+      document.getElementById('nextThmBtn').disabled = currentActiveIndex === theoremPlaylist.length - 1;
+      
+      if (currentActiveIndex > 0) {
+        document.getElementById('prevThmBtn').innerText = `← ${theoremPlaylist[currentActiveIndex - 1].title}`;
+      }
+      if (currentActiveIndex < theoremPlaylist.length - 1) {
+        document.getElementById('nextThmBtn').innerText = `${theoremPlaylist[currentActiveIndex + 1].title} →`;
+      }
+
+      document.getElementById('currentThmTitle').innerText = theoremPlaylist[currentActiveIndex].title;
+    }
+
+    // Intercepts next/prev clicks
+    document.getElementById('prevThmBtn').onclick = () => { if (currentActiveIndex > 0) loadTheorem(currentActiveIndex - 1); };
+    document.getElementById('nextThmBtn').onclick = () => { if (currentActiveIndex < theoremPlaylist.length - 1) loadTheorem(currentActiveIndex + 1); };
+
+    // --- 4. Web-Native JSON Loader ---
+    function loadTheorem(index) {
+  currentActiveIndex = index;
+  initUI();
+  resetPlayerState();
+
+  // Hide the rendering container so Safari doesn't flash the full-size text nodes
+  const mainGroup = document.getElementById("mainSVGGroup");
+  if (mainGroup) {
+    mainGroup.style.visibility = "hidden";
+  }
+
+  const fileName = theoremPlaylist[index].file;
+  console.log(`Loading theorem data via fetch: ${fileName}`);
+
+  fetch(fileName)
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      // 1. Recreate your objects into the DOM layout tree
+      parseProjectData(data);
+      
+      // 2. SAFARI FORCE-FIX: Before animating, force every text element's width 
+      // attribute back to its true, maximum size so MathJax can typeset it perfectly.
+      aliveObjects.forEach(obj => {
+        if (obj.type === 'txt' && obj.SVGElement) {
+          obj.SVGElement.setAttribute('width', obj.width);
+        }
+      });
+
+      // 3. Trigger MathJax to format the fully-expanded elements
+      if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+        return MathJax.typesetPromise();
+      }
+      return Promise.resolve();
+    })
+    .then(() => {
+      console.log("MathJax typesetting locked at full scale. Processing animation paths.");
+      
+      // 4. Now that text bounds are calculated cleanly, bake your matrices
+      bakeAnimations();
+
+      // 5. Instantly snap the timeline position down to time 0
+      // This collapses widths from full size to 0px instantly before the user can see it
+      globalCurrentTime = 0;
+      renderStateAtTime(0);
+      updateProgressBarUI(0);
+
+      // 6. Smoothly unhide the main group container for playback
+      if (mainGroup) {
+        mainGroup.style.visibility = "visible";
+      }
+    })
+    .catch(error => {
+      console.error("Failed to load geometry data file:", error);
+      if (mainGroup) mainGroup.style.visibility = "visible";
+    });
+}
+
+    function resetPlayerState() {
+      animations.forEach(anim => anim.cancel());
+      animations = [];
+      objects = [];
+      aliveObjects = [];
+      globalPlaylist = [];
+      animationDuration = 0;
+      isPlaying = false;
+      isScrubbing = false;
+      togglePlayBtn.innerHTML = "&#9654;";
+      const mainGroup = document.getElementById("mainSVGGroup");
+     
+        if (mainGroup) {
+          mainGroup.innerHTML = ""; 
+        }
+      updateProgressBarUI(0);
+    }
+
+    function parseProjectData(data) {
+  // 1. Recreate Objects and instantiate them directly
+    data.initialObjects.forEach(objData => {
+      let newObj;
+      
+      if (objData.type === "pt") {
+          newObj = new basePoint(objData.index, objData.cx, objData.cy);
+      } else if (objData.type === "ptc") {
+          newObj = new point(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale);
+      } else if (objData.type === "txt") {
+          newObj = new text(
+            objData.index, objData.x, objData.y, objData.text, objData.opacity, 
+            objData.scale, objData.textColor, objData.fontSize, objData.rotate,
+            objData.width, objData.height
+          );
+      } else if (objData.type === "pgn") {
+          newObj = new polygon(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+      } else if (objData.type === "pln") {
+          newObj = new polyline(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+      } else if (objData.type === "cr") {
+          newObj = new circle(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.property);
+      } else if (objData.type === "elp") {
+          newObj = new ellipse(objData.index, objData.cx, objData.cy, objData.rx, objData.ry, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+      } else if (objData.type === "ang") {
+          newObj = new angle(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rightAngle);
+      } else if (objData.type === "qcrv") {
+          newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+      } else if (objData.type === "arw") {
+          newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+      }
+  
+      // Transfers all custom properties (including saved objData.svgContent strings)
+      const { SVGElement, spanElement, ...cleanData } = objData;
+      Object.assign(newObj, cleanData);
+  
+      objects[newObj.index] = newObj;
+      aliveObjects.push(newObj);
+    });
+  
+    // 2. Map Playlist steps
+    data.playlist.forEach(stepData => {
+      const targetObj = objects[stepData.objIndex];
+      if (targetObj) {
+        globalPlaylist.push({ 
+          element: targetObj, 
+          wait: stepData.wait, 
+          dur: stepData.dur, 
+          type: stepData.type, 
+          state: stepData.state 
+        });
+      }
+    });
+  
+    // 3. Safe Reference Framework Scanner
+    aliveObjects.forEach(obj => {
+      if (obj.type === 'txt') {
+        let maxWidth = parseFloat(obj.width) || 0;
+        let maxHeight = parseFloat(obj.height) || 0;
+  
+        globalPlaylist.forEach(step => {
+          if (step.element === obj && step.state) {
+            let stepWidth = parseFloat(step.state.width) || 0;
+            let stepHeight = parseFloat(step.state.height) || 0;
+            if (stepWidth > maxWidth) maxWidth = stepWidth;
+            if (stepHeight > maxHeight) maxHeight = stepHeight;
+          }
+        });
+  
+        if (maxWidth > 2) obj.width = Math.ceil(maxWidth);
+        if (maxHeight > 2) obj.height = Math.ceil(maxHeight);
+  
+        // Lock bounds into WAAPI layout rules
+        
+      }
+    });
+  
+    // 4. Fire rendering pipeline immediately
+    render();
+  
+    return Promise.resolve();
+  }
+
+    // --- 5. Unified Animation & Playback Console Controls ---
+   // Global state matrices to track absolute values
+let masterTimelineMatrix = [];
+
+function bakeAnimations() {
+  hideAllBasePoints();
+  animations = []; 
+  masterTimelineMatrix = []; 
+
+  if (globalPlaylist.length === 0) return;
+
+  // Initialize every object's timeline frame array with its frame-0 milestone
+  objects.forEach(obj => {
+    if (!obj) return;
+    obj.timelineFrames = [{
+      time: 0,
+      state: { ...obj.initialState }
+    }];
+  });
+
+  // FIX #3: Track a sequential running clock instead of re-starting at 0 for every object
+  let globalSequenceTime = 0;
+
+  globalPlaylist.forEach(step => {
+    const obj = step.element;
+    
+    // 1. Calculate step milestones relative to the sequential global running clock
+    let stepStartTime = globalSequenceTime + (parseFloat(step.wait) * 1000);
+    let stepEndTime = stepStartTime + (parseFloat(step.dur) * 1000);
+
+    // 2. Advance the master clock sequence forward
+    globalSequenceTime = stepEndTime;
+
+    // 3. Update the specific target object's timeline structure
+    let frames = obj.timelineFrames;
+    let lastKnownState = frames[frames.length - 1].state;
+
+    // Create a holding state milestone at the start of this action block
+    frames.push({
+      time: stepStartTime,
+      state: { ...lastKnownState }
+    });
+
+    // Merge new active properties safely over preceding frame variables
+    let mergedState = { ...lastKnownState, ...step.state };
+    frames.push({
+      time: stepEndTime,
+      state: mergedState
+    });
+  });
+
+  // Pad the final duration limits
+  let endPause = 500; // 0.5s operational padding
+  animationDuration = Math.round(globalSequenceTime + endPause);
+
+  // Pad out every individual object track to stretch cleanly to the terminal timeline edge
+  objects.forEach(obj => {
+    if (!obj) return;
+    let frames = obj.timelineFrames;
+    let lastState = frames[frames.length - 1].state;
+    if (frames[frames.length - 1].time < animationDuration) {
+      frames.push({
+        time: animationDuration,
+        state: { ...lastState }
+      });
+    }
+  });
+
+  console.log(`State-driven engine compiled successfully. Duration: ${animationDuration}ms`);
+}
+
+function renderStateAtTime(ms) {
+  // 1. Clamp time within execution bounds safely
+  ms = Math.max(0, Math.min(animationDuration, ms));
+
+  // Helper utility to safely parse numbers and strip out string units like "px"
+  const parseNum = (val) => {
+    if (val === undefined || val === null) return 0;
+    if (typeof val === 'string') return parseFloat(val.replace(/px/g, '')) || 0;
+    return parseFloat(val) || 0;
+  };
+
+  objects.forEach(obj => {
+    if (!obj || !obj.SVGElement || !obj.timelineFrames) return;
+
+    let frames = obj.timelineFrames;
+    let prev = frames[0];
+    let next = frames[frames.length - 1];
+
+    // Find the current keyframe interval block
+    for (let i = 0; i < frames.length - 1; i++) {
+      if (ms >= frames[i].time && ms <= frames[i + 1].time) {
+        prev = frames[i];
+        next = frames[i + 1];
+        break;
+      }
+    }
+
+    // Calculate progression percentage (t) between these two specific frames
+    let t = 0;
+    let delta = next.time - prev.time;
+    if (delta > 0) t = (ms - prev.time) / delta;
+
+    // Aggregate every single layout state property present in both frames
+    let allKeys = new Set([...Object.keys(prev.state), ...Object.keys(next.state)]);
+
+    allKeys.forEach(key => {
+      let v1 = prev.state[key];
+      let v2 = next.state[key];
+
+      // Fallback assertions if properties are missing on either frame side
+      if (v1 === undefined) v1 = v2;
+      if (v2 === undefined) v2 = v1;
+      if (v1 === undefined) return;
+
+                      
+
+      // --- Category 1: String Constants & Color Swaps ---
+      if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'color') {
+        let activeValue = t < 0.5 ? v1 : v2;
+        obj.SVGElement.setAttribute(key === 'color' ? 'stroke' : key, activeValue);
+        return;
+      }
+
+      // --- Category 2: Complex Spatial Transforms ---
+      if (key === 'transform' && obj.type !== 'ptc') {
+        let getTransformValues = (str) => {
+          let tx = 0, ty = 0, rot = 0, scl = 1;
+          if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
+          
+          let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
+          let rMatch = str.match(/rotate\(([^)]+)\)/);
+          let sMatch = str.match(/scale\(([^)]+)\)/);
+
+          if (tMatch) { tx = parseFloat(tMatch[1]); ty = parseFloat(tMatch[2]); }
+          if (rMatch) { rot = parseFloat(rMatch[1]); }
+          if (sMatch) { scl = parseFloat(sMatch[1]); }
+          return { tx, ty, rot, scl };
+        };
+
+        let p1 = getTransformValues(v1);
+        let p2 = getTransformValues(v2);
+
+        let curTx = p1.tx + (p2.tx - p1.tx) * t;
+        let curTy = p1.ty + (p2.ty - p1.ty) * t;
+        let curRot = p1.rot + (p2.rot - p1.rot) * t;
+        let curScl = p1.scl + (p2.scl - p1.scl) * t;
+
+        obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
+        return;
+      }
+
+      // --- Category 3: Vector Poly-Coordinates ("points") ---
+      if (key === 'points') {
+        let prevCoords = v1.trim().split(/[\s]+/);
+        let nextCoords = v2.trim().split(/[\s]+/);
+
+        if (prevCoords.length !== nextCoords.length) {
+          obj.SVGElement.setAttribute("points", t < 0.5 ? v1 : v2);
+          return;
+        }
+
+        let interpolatedPoints = [];
+        for (let i = 0; i < prevCoords.length; i++) {
+          let p1 = prevCoords[i].split(',').map(Number);
+          let p2 = nextCoords[i].split(',').map(Number);
+
+          if (p1.length === 2 && p2.length === 2) {
+            let x = p1[0] + (p2[0] - p1[0]) * t;
+            let y = p1[1] + (p2[1] - p1[1]) * t;
+            interpolatedPoints.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+          }
+        }
+        obj.SVGElement.setAttribute("points", interpolatedPoints.join(" "));
+        return;
+      }
+
+      // --- Category 4: Numeric Scaling & Properties ---
+    let n1 = parseNum(v1);
+    let n2 = parseNum(v2);
+    let interpolatedNum = n1 + (n2 - n1) * t;
+    
+    if (key === 'width') {
+      // If it's a text element, apply the width to the inner HTML span rather than the SVG container
+      if (obj.type === 'txt' && obj.spanElement) {
+        // Keep the outer container maxed out so Safari doesn't choke or wrap text
+        let maxW = parseNum(obj.width || v2);
+        obj.SVGElement.setAttribute('width', maxW.toFixed(2));
+        
+        // Animate the inner span's horizontal layout space smoothly
+        obj.spanElement.style.display = 'inline-block';
+        obj.spanElement.style.overflow = 'hidden';
+        obj.spanElement.style.width = interpolatedNum.toFixed(2) + 'px';
+      } else {
+        // Fallback for standard shapes (polygons, lines, etc.) if they use width keys
+        obj.SVGElement.setAttribute('width', interpolatedNum.toFixed(2));
+      }
+      return;
+    }
+
+      // Custom Point Point-Pop (ptc type) scaling center locking
+      if (key === 'scale' && obj.type === 'ptc') {
+        obj.SVGElement.style.transformOrigin = "center";
+        obj.SVGElement.style.transform = `scale(${interpolatedNum})`;
+        return;
+      }
+
+      // Direct SVG structural parameters (cx, cy, r)
+      if (key === 'cx' || key === 'cy' || key === 'r') {
+        obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
+        return;
+      }
+
+      // Standard styling layout vectors
+      if (key === 'opacity') {
+        obj.SVGElement.style.opacity = interpolatedNum;
+      } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
+        let attributeName = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
+        obj.SVGElement.setAttribute(attributeName, interpolatedNum.toFixed(2));
+      } else {
+        let svgAttributeName = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+        let finalAttrValue;
+
+        // Force clean unitless rules strictly for SVG vector lines drawing offsets
+        if (svgAttributeName === 'stroke-dasharray' || svgAttributeName === 'stroke-dashoffset') {
+          if (svgAttributeName === 'stroke-dashoffset' && t === 0 && interpolatedNum > 0) {
+            finalAttrValue = interpolatedNum;
+          } else {
+            finalAttrValue = interpolatedNum;
+          }
+        } else {
+          let hasPx = (String(v1).includes('px') || String(v2).includes('px'));
+          finalAttrValue = interpolatedNum + (hasPx ? 'px' : '');
+        }
+
+        obj.SVGElement.setAttribute(svgAttributeName, finalAttrValue);
+      }
+    });
+  });
+}
+    
+
+      
+
+    let wakeLock = null;
+
+    
+
+      let globalCurrentTime = 0;
+let lastTickTime = 0;
+
+function playAnimation() {
+  if (isPlaying) return;
+  isPlaying = true;
+  togglePlayBtn.innerHTML = "&#10074;&#10074;"; // Update UI to Pause symbol
+  requestWakeLock();
+  
+  // Start the high-precision clock loop using requestAnimationFrame
+  let lastTimestamp = performance.now();
+  
+  function loop(now) {
+    if (!isPlaying) return; // Halt loop execution immediately if paused or scrubbed
+
+    let dt = now - lastTimestamp;
+    lastTimestamp = now;
+
+    // Track frame advancement using actual millisecond deltas
+    globalCurrentTime += dt;
+
+    // Check if the runtime has exceeded maximum playlist duration bounds
+    if (globalCurrentTime >= animationDuration) {
+      globalCurrentTime = animationDuration;
+      isPlaying = false;
+      togglePlayBtn.innerHTML = "&#9654;"; // Revert back to Play symbol
+      releaseWakeLock();
+    }
+
+    // Render visual states and update progress width percentages synchronously
+    renderStateAtTime(globalCurrentTime);
+    updateProgressBarUI((globalCurrentTime / animationDuration) * 100);
+
+    if (isPlaying) {
+      requestAnimationFrame(loop);
+    }
+  }
+  
+  requestAnimationFrame(loop);
+}
+
+function pauseAnimation() {
+  releaseWakeLock();
+  isPlaying = false;
+  togglePlayBtn.innerHTML = "&#9654;"; // Update UI to Play symbol
+}
+
+function rewindAnimation() {
+  isPlaying = false;
+  globalCurrentTime = 0;
+  togglePlayBtn.innerHTML = "&#9654;";
+  renderStateAtTime(0);
+  updateProgressBarUI(0);
+  releaseWakeLock();
+}
+
+// --- 2. Button Event Listeners ---
+
+togglePlayBtn.onclick = function() {
+  if (isPlaying) {
+    pauseAnimation();
+  } else {
+    // Automatically loop back to the beginning if the timeline has finished
+    if (globalCurrentTime >= animationDuration) {
+      rewindAnimation();
+    }
+    playAnimation();
+  }
+};
+
+stopBtn.onclick = function() {
+  rewindAnimation();
+};
+
+function updateProgressBarUI(percent) {
+  // Clamp percentages cleanly within absolute 0 to 100 limits
+  percent = Math.max(0, Math.min(100, percent));
+  timelineProgress.style.width = percent + '%';
+  timelineThumb.style.left = percent + '%';
+}
+
+// --- 3. Core Timeline Scrubbing Math Engine ---
+
+function scrub(e) {
+  // Measures track width directly against the timelineScrubber bounding box layout area
+  const rect = timelineScrubber.getBoundingClientRect();
+  let percentage = (e.clientX - rect.left) / rect.width;
+  percentage = Math.max(0, Math.min(1, percentage));
+
+  // Lock global position pointer parameter to the coordinate location
+  globalCurrentTime = percentage * animationDuration;
+  
+  // Render and update UI immediately on input changes
+  renderStateAtTime(globalCurrentTime);
+  updateProgressBarUI(percentage * 100);
+}
+
+function scrubTouch(e) {
+  if (e.touches.length === 0) return;
+  // Map touch positions precisely onto the cursor tracking profile
+  const fakeMouseEvent = {
+    clientX: e.touches[0].clientX
+  };
+  scrub(fakeMouseEvent);
+}
+
+// --- 4. Scroller Interaction Event Listeners (Mouse & Touch) ---
+
+timelineScrubber.addEventListener('mousedown', (e) => {
+  isScrubbing = true;
+  pauseAnimation(); // Halt active running time clocks safely before calculating positions
+  scrub(e);
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (isScrubbing) scrub(e);
+});
+
+window.addEventListener('mouseup', () => {
+  isScrubbing = false;
+});
+
+timelineScrubber.addEventListener('touchstart', (e) => {
+  isScrubbing = true;
+  pauseAnimation();
+  scrubTouch(e);
+}, { passive: false });
+
+window.addEventListener('touchmove', (e) => {
+  if (isScrubbing) {
+    e.preventDefault(); // Stop mobile devices from bouncing layout pages while scrubbing canvas lines
+    scrubTouch(e);
+  }
+}, { passive: false });
+
+window.addEventListener('touchend', () => {
+  isScrubbing = false;
+});
+
+// --- 5. Mobile Device Background WakeLock Management ---
+
+async function requestWakeLock() {
+  if ('wakeLock' in navigator) {
+    try {
+      if (!wakeLock) {
+        wakeLock = await navigator.wakeLock.request('screen');
+        console.log('Screen Wake Lock active.');
+      }
+    } catch (err) {
+      console.log(`Wake Lock request failed: ${err.message}`);
+    }
+  }
+}
+
+function releaseWakeLock() {
+  if (wakeLock !== null) {
+    wakeLock.release()
+      .then(() => {
+        wakeLock = null;
+        console.log('Screen Wake Lock released.');
+      });
+  }
+}
+
+document.addEventListener('visibilitychange', async () => {
+  if (wakeLock !== null && document.visibilityState === 'visible') {
+    await requestWakeLock();
+  }
+});
+
+// --- 6. Fullscreen View Management ---
+
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const appContainer = document.querySelector('.app-container');
+
+if (fullscreenBtn && appContainer) {
+  fullscreenBtn.onclick = function() {
+    if (!document.fullscreenElement) {
+      appContainer.requestFullscreen()
+        .then(() => {
+          if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(true);
+        })
+        .catch((err) => {
+          console.error(`Error entering full-screen mode: ${err.message}`);
+        });
+    } else {
+      document.exitFullscreen();
+      if (typeof updateFullscreenButtonUI === 'function') updateFullscreenButtonUI(false);
+    }
+  };
+}
+    
+    // Listen for system-level escape keys or swipe-to-exits to keep the button label accurate
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        updateFullscreenButtonUI(true);
+      } else {
+        updateFullscreenButtonUI(false);
+      }
+    });
+    
+    function updateFullscreenButtonUI(isFullScreen) {
+      if (isFullScreen) {
+        // Switch icon to "Minimize/Exit Full Screen" brackets
+        fullscreenBtn.innerHTML = `
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+            <path d="M4 14h6v6m10-6h-6v6M4 10h6V4m10 6h-6V4"/>
+          </svg>
+        `;
+      } else {
+        // Switch icon back to regular "Maximize" expand brackets
+        fullscreenBtn.innerHTML = `
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+          </svg>
+        `;
+      }
+    }
+    
+
+    // Bootstrapping initialization launch
+  function launchPlayer()
+  {
+    document.getElementById("mainSVGGroup").style.visibility = "hidden" ;
+    initUI();
+    loadTheorem(0); // Safely runs now that all styles and fonts are loaded
+    setTimeout(() => { document.getElementById("mainSVGGroup").style.visibility = "visible" ;}, 100);
+  }
+
+// Check if MathJax is already completely initialized
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
+  MathJax.startup.promise.then(() => {
+    console.log("MathJax is fully booted. Launching geometry engine configuration.");
+    
+    // 1. Core structural setup (parses objects, attaches nodes to DOM, runs initial render())
+    launchPlayer(); 
+
+    // 2. SAFARI HOOK: Wait for MathJax to finish formatting the newly appended DOM nodes
+    return MathJax.typesetPromise();
+  }).then(() => {
+    console.log("MathJax initial compilation complete. Securing frame layouts for Safari.");
+    
+    // 3. Bake your core animation matrices now that all bounding heights and scales are locked in
+    bakeAnimations();
+    
+    // 4. Set the initial state cleanly at time 0
+    globalCurrentTime = 0;
+    renderStateAtTime(0);
+    updateProgressBarUI(0);
+  }).catch((err) => {
+    console.error("Initialization loop exception:", err);
+  });
+} else {
+  // Fallback: If MathJax script fails or isn't used, launch anyway after DOM settles
+  window.addEventListener('DOMContentLoaded', () => {
+    launchPlayer();
+    bakeAnimations();
+    globalCurrentTime = 0;
+    renderStateAtTime(0);
+    updateProgressBarUI(0);
+  });
+}
+
+function parseNum(val) {
+  if (typeof val === 'string') {
+    return parseFloat(val.replace(/px/g, '')) || 0;
+  }
+  return parseFloat(val) || 0;
+}
+
+  
+
+  class basePoint
+  {
+    constructor(objectIndex, cx, cy )
+    {
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
+      SVGElement.style.cursor= 'pointer';
+      SVGElement.setAttribute("r", 3);
+      SVGElement.setAttribute("stroke-width",1);
+      SVGElement.setAttribute("fill-opacity",0);
+      SVGElement.setAttribute("opacity",1);
+      SVGElement.setAttribute("stroke",'black');
+      SVGElement.setAttribute("fill",'black');
+      SVGElement.style.visibility = "hidden";
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      this.cx = cx;
+      this.cy = cy;
+    
+      this.type = 'pt';
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);    
+    }
+  }
+
+
+
+  class point
+  {
+    constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale )
+    {
+      
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.style.pointerEvents = 'none';
+      
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      
+
+      this.cx = cx;
+      this.cy = cy;
+      this.r = r;
+      this.strokeWidth = strokeWidth;
+      this.fillOpacity = fillOpacity;
+      this.opacity = opacity;
+      this.scale=scale;
+      this.strokeColor = strokeColor;
+      this.fillColor = fillColor;
+      this.type = 'ptc';
+      this.property = 'point';
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);
+      this.SVGElement.setAttribute("r", this.r);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+    }
+  }
+
+
+
+  
+    class text { 
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      this.index = objectIndex;
+      this.x = x;
+      this.y = y;
+  
+      this.text = textStr;
+      this.opacity = opacity;
+      this.scale = scale;
+      this.textColor = textColor;
+      this.fontSize = fontSize;
+      this.rotate = rotate;
+      this.type = 'txt';
+      this.displayType = 'tx';
+  
+      // 1. Create a minimal foreignObject envelope
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+      SVGElement.setAttribute("id", 'SVGText' + objectIndex);
+      SVGElement.style.pointerEvents = 'none';
+      function getBrowserOrigin(w, h) {
+        const ua = navigator.userAgent.toLowerCase();
+        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
+        const isFirefox = ua.includes('firefox');
+      
+        if (isSafari) {
+          // Safari specific logic (e.g., if it requires absolute or global offsets)
+          return `${w / 2}px ${h / 2}px`;
+          SVGElement.style.transformBox = "view-box";
+         
+        } else if (isFirefox) {
+          // Firefox specific fallback
+          SVGElement.style.transformBox = "fill-box";
+           return "center"; 
+        } else {
+          // Chrome, Edge, Opera, etc.
+          return "50% 50%";
+        }
+      }
+      
+      // Application:
+      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
+      let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
+      
+      SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+      //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
+      SVGElement.style.transformBox = "fill-box";
+  
+      this.SVGElement = SVGElement;
+      
+      // Will be populated cleanly from the JSON dataset
+      this.svgContent = ""; 
+  
+      // 2. Set structural frame dimensions
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+  
+      // 3. Establish clean baseline animation key values using original bounds
+      this.initialState = {
+        x: this.x + 'px',
+        y: this.y + 'px',
+        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        color: this.textColor, // WAAPI monitors this property for transitions!
+        height: this.height + 'px',
+        width: this.width + 'px'
+      };
+    }
+  
+    updateSVG() {
+      // Inject the raw vectors natively
+      this.SVGElement.innerHTML = this.svgContent;
+      
+      // Target the inner MathJax structures to pass color responsively
+      let innerMathSvg = this.SVGElement.querySelector('svg');
+      if (innerMathSvg) {
+        //innerMathSvg.style.width = '';
+        innerMathSvg.setAttribute('width', this.width + 'px');
+        innerMathSvg.style.width = this.width + 'px';
+        innerMathSvg.style.minWidth = this.width + 'px';
+
+        innerMathSvg.style.height = '';
+        innerMathSvg.style.display = 'block';
+        innerMathSvg.style.overflow = 'visible'; 
+        
+        // --- THE ANIMATION-PROOF COLOR LINK ---
+        // Instead of locking a static string, we wire it to follow parent CSS changes
+        innerMathSvg.style.fill = 'currentColor';
+        innerMathSvg.setAttribute('fill', 'currentColor');
+  
+        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+        structuralGroups.forEach(node => {
+          // Force nodes to look directly up the DOM tree for their active color matrix
+          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') {
+            node.setAttribute('fill', 'currentColor');
+          }
+          if (node.style.fill && node.style.fill !== 'none') {
+            node.style.fill = 'currentColor';
+          }
+          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') {
+            node.setAttribute('stroke', 'currentColor');
+          }
+          if (node.style.stroke && node.style.stroke !== 'none') {
+            node.style.stroke = 'currentColor';
+          }
+        });
+      }
+  
+      // Apply strict dimensional boundaries and properties on the outer envelope
+      this.SVGElement.style.overflow = 'hidden';
+      this.SVGElement.style.color = this.textColor; // Establishes the baseline color
+      
+      this.SVGElement.setAttribute("height", this.height);
+      this.SVGElement.setAttribute("width", this.width);
+      this.SVGElement.setAttribute("x", this.x);
+      this.SVGElement.setAttribute("y", this.y);
+      
+      this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
+      this.SVGElement.setAttribute("opacity", this.opacity); 
+    }
+  }
+
+  
+
+  /*
+
+  class text { 
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      this.index = objectIndex;
+      this.x = x;
+      this.y = y;
+  
+      this.text = textStr;
+      this.opacity = opacity;
+      this.scale = scale;
+      this.textColor = textColor;
+      this.fontSize = fontSize;
+      this.rotate = rotate;
+      this.type = 'txt';
+      this.displayType = 'tx';
+  
+      // 1. Create a native nested SVG element instead of a foreignObject
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      SVGElement.setAttribute("id", 'SVGText' + objectIndex);
+      SVGElement.style.pointerEvents = 'none';
+      
+      // NATIVE VECTOR GRAPHICS TRANSFORMS: Cross-browser stable center scaling!
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box"; 
+  
+      this.SVGElement = SVGElement;
+      this.svgContent = ""; 
+  
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+  
+      // 2. Keeps your blueprint completely intact for bakeAnimations()
+      this.initialState = {
+        x: this.x + 'px',
+        y: this.y + 'px',
+        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        color: this.textColor,
+        height: this.height + 'px',
+        width: this.width + 'px'
+      };
+    }
+  
+    updateSVG() {
+      // Inject the raw MathJax inner SVG content string directly
+      this.SVGElement.innerHTML = this.svgContent;
+      
+      let innerMathSvg = this.SVGElement.querySelector('svg');
+      if (innerMathSvg) {
+        // Keep the rigid inner boundary so left-to-right clip reveals don't squish
+        innerMathSvg.setAttribute('width', this.width + 'px');
+        innerMathSvg.style.width = this.width + 'px';
+        innerMathSvg.style.minWidth = this.width + 'px';
+        
+        innerMathSvg.style.height = '';
+        innerMathSvg.style.display = 'block';
+        innerMathSvg.style.overflow = 'visible'; 
+        
+        innerMathSvg.style.fill = 'currentColor';
+        innerMathSvg.setAttribute('fill', 'currentColor');
+  
+        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+        structuralGroups.forEach(node => {
+          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
+          if (node.style.fill && node.style.fill !== 'none') node.style.fill = 'currentColor';
+          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') node.setAttribute('stroke', 'currentColor');
+          if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
+        });
+      }
+  
+      // Apply strict dimensional boundaries on the layout container
+      this.SVGElement.style.overflow = 'hidden';
+      this.SVGElement.style.color = this.textColor; 
+      
+      this.SVGElement.setAttribute("width", this.width);
+      this.SVGElement.setAttribute("height", this.height);
+      this.SVGElement.setAttribute("x", this.x);
+      this.SVGElement.setAttribute("y", this.y);
+      
+      // Apply transformations directly onto the flat, cross-browser element
+      this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
+      this.SVGElement.setAttribute("opacity", this.opacity); 
+    }
+  }
+
+  */
+
+    /*
+
+  class text { 
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      this.index = objectIndex;
+      this.x = x;
+      this.y = y;
+  
+      this.text = textStr;
+      this.opacity = opacity;
+      this.scale = scale;
+      this.textColor = textColor;
+      this.fontSize = fontSize;
+      this.rotate = rotate;
+      this.type = 'txt';
+      this.displayType = 'tx';
+  
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+  
+      // 1. Structural Native SVG Elements
+      let masterGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      masterGroup.setAttribute("id", 'SVGTextGroup' + objectIndex);
+      masterGroup.style.transformOrigin = "center";
+      masterGroup.style.transformBox = "fill-box";
+  
+      let maskViewport = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      maskViewport.setAttribute("id", 'SVGText' + objectIndex);
+      maskViewport.style.pointerEvents = 'none';
+      maskViewport.style.overflow = 'hidden';
+  
+      masterGroup.appendChild(maskViewport);
+  
+      this.masterGroup = masterGroup;
+      this.maskViewport = maskViewport;
+      this.svgContent = ""; 
+  
+      // 2. THE ANIMATION PROXY INTERCEPTOR
+      // This allows bakeAnimations() to call standard property changes seamlessly.
+      // It routes spatial layouts to the inner window, and transformations to the stable group!
+      this.SVGElement = new Proxy(masterGroup, {
+        get(target, prop) {
+          // If your renderer checks style properties
+          if (prop === 'style') return target.style;
+          // Redirect execution bindings (like .animate()) safely onto the group container
+          if (typeof target[prop] === 'function') {
+            return target[prop].bind(target);
+          }
+          return target[prop];
+        },
+        set(target, prop, value) {
+          if (prop === 'id') {
+            target.setAttribute('id', value + 'Group');
+            maskViewport.setAttribute('id', value);
+          } else {
+            target[prop] = value;
+          }
+          return true;
+        }
+      });
+  
+      // 3. Keep your original blueprint completely matching your JSON framework properties
+      this.initialState = {
+        x: this.x + 'px',
+        y: this.y + 'px',
+        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        color: this.textColor,
+        height: this.height + 'px',
+        width: this.width + 'px'
+      };
+    }
+  
+    updateSVG() {
+      // Inject the raw MathJax vectors into the inner layout canvas viewport
+      this.maskViewport.innerHTML = this.svgContent;
+      
+      let innerMathSvg = this.maskViewport.querySelector('svg');
+      if (innerMathSvg) {
+        innerMathSvg.setAttribute('width', this.width + 'px');
+        innerMathSvg.style.width = this.width + 'px';
+        innerMathSvg.style.minWidth = this.width + 'px';
+        
+        innerMathSvg.style.height = '';
+        innerMathSvg.style.display = 'block';
+        innerMathSvg.style.overflow = 'visible'; 
+        
+        innerMathSvg.style.fill = 'currentColor';
+        innerMathSvg.setAttribute('fill', 'currentColor');
+  
+        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+        structuralGroups.forEach(node => {
+          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
+          if (node.style.fill && node.style.fill !== 'none') node.style.fill = 'currentColor';
+          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') node.setAttribute('stroke', 'currentColor');
+          if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
+        });
+      }
+  
+      // Assign layout tracking points cleanly onto the inner viewport container
+      this.maskViewport.setAttribute("width", this.width);
+      this.maskViewport.setAttribute("height", this.height);
+      this.maskViewport.setAttribute("x", this.x);
+      this.maskViewport.setAttribute("y", this.y);
+  
+      // Apply baseline rendering states onto the outer group wrapper
+      this.masterGroup.style.color = this.textColor;
+      this.masterGroup.setAttribute("transform", `scale(${this.scale} ${this.scale}) rotate(${this.rotate})`);
+      this.masterGroup.setAttribute("opacity", this.opacity); 
+    }
+  }
+  */
+  
+
+   
+
+
+  class polygon
+  {
+    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale,rotate)
+    {
+      this.index = objectIndex;
+      this.pointsIndices=pointsIndices;
+  
+      this.dx = dx;
+      this.dy = dy;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.fillOpacity = fillOpacity;
+      this.fillColor = fillColor;
+      this.scale=scale;
+      this.rotate = rotate;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+      this.type='pgn';
+
+
+
+
+
+      
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      SVGElement.setAttribute("points", pts);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.style.pointerEvents = 'none';
+
+      this.SVGElement = SVGElement;
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength); 
+    }
+
+
+
+    updateSVG()
+    {
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      this.SVGElement.setAttribute("points", pts);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+    }
+  }
+
+  class polyline
+  {
+    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
+    {
+      this.index = objectIndex;
+      
+      this.pointsIndices=pointsIndices; 
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+      
+      this.dx = dx;
+      this.dy = dy;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.scale=scale;
+      this.rotate=rotate;
+
+      this.type='pln';
+
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+
+      SVGElement.setAttribute("points", pts);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.setAttribute("stroke-linecap",'round');
+      SVGElement.setAttribute("fill",'none');
+
+      
+      this.SVGElement = SVGElement;
+      
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);     
+    }
+
+
+
+    updateSVG()
+    {
+      let ptsArray = [];
+      for (let i = 0; i < this.pointsIndices.length; i++)
+      {
+        let obj=objects[this.pointsIndices[i]];
+        ptsArray.push(obj.cx + "," + obj.cy);
+      }
+      let pts = ptsArray.join(" ");
+      this.SVGElement.setAttribute("points", pts);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+    }
+  }
+
+  class circle
+  {
+    constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, property )
+    {
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute("cx", cx);
+      SVGElement.setAttribute("cy", cy);
+      SVGElement.setAttribute("r", r);
+      this.totalLength = SVGElement.getTotalLength();
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength );
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+
+      this.cx = cx;
+      this.cy = cy;
+      this.center={cx:this.cx,cy:this.cy};
+      this.r = r;
+      this.strokeWidth = strokeWidth;
+      this.fillOpacity = fillOpacity;
+      this.opacity = opacity;
+      this.scale=scale;
+      this.strokeColor = strokeColor;
+      this.fillColor = fillColor;
+      this.type = 'cr';
+
+      this.property = property;
+      
+      
+      this.strokeDashoffset = this.totalLength;
+
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);
+      this.SVGElement.setAttribute("r", this.r);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.SVGElement.setAttribute("transform",'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
+    }
+  }
+
+  class ellipse
+  {
+    constructor(objectIndex, cx, cy, rx,ry, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rotate )
+    {
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute("cx", cx);
+      SVGElement.setAttribute("cy", cy);
+      SVGElement.setAttribute("rx", rx);
+      SVGElement.setAttribute("ry", ry);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+
+
+      this.SVGElement = SVGElement;
+      this.index = objectIndex;
+      this.cx = cx;
+      this.cy = cy;
+      this.rx = rx;
+      this.ry = ry;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.fillOpacity = fillOpacity;
+      this.fillColor = fillColor;
+      this.scale=scale;
+      this.rotate = rotate;
+      this.type = 'elp';
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+    }
+
+    updateSVG()
+    {
+      this.SVGElement.setAttribute("cx", this.cx);
+      this.SVGElement.setAttribute("cy", this.cy);
+      this.SVGElement.setAttribute("rx", this.rx);
+      this.SVGElement.setAttribute("ry", this.ry);
+      this.SVGElement.setAttribute("transform",' rotate('+this.rotate+')'+'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth); 
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);   
+    }
+  }
+
+  class angle
+  {
+    constructor(objectIndex, pointsIndices, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rightAngle )
+    {
+      this.index = objectIndex;
+      this.r = r;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.fillOpacity = fillOpacity;
+      this.fillColor = fillColor;
+      this.scale=scale;
+      
+      this.rightAngle = rightAngle;
+      this.pointsIndices= pointsIndices;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+
+      this.type = 'ang';
+
+      this.dx = 0;
+      this.dy = 0;
+
+      let pathAngleIn = angleInPath(this.pointsIndices,r,rightAngle);
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+      SVGElement.setAttribute('d',pathAngleIn);
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.style.pointerEvents = 'none';
+
+
+      this.SVGElement = SVGElement;
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+    }
+
+    updateSVG()
+    {
+      let rA = String(this.rightAngle) === "true";
+
+      let pathAngleIn = angleInPath(this.pointsIndices,this.r,rA);
+
+      this.SVGElement.setAttribute('d',pathAngleIn);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')');
+      this.SVGElement.setAttribute("fill",this.fillColor);
+      this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+
+      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
+    }
+  }
+
+
+
+  class qcurve
+  {
+    constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
+    {
+      this.index = objectIndex;
+      this.pointsIndices= pointsIndices;
+      this.dx = dx;
+      this.dy = dy;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.scale=scale;
+      this.rotate=rotate;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+
+      this.type='qcrv';
+
+
+      //svg object
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+
+      let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      
+      SVGElement.setAttribute("d", d);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.setAttribute("stroke-linecap",'round');
+      SVGElement.setAttribute("fill",'none');
+
+      
+      
+      this.SVGElement = SVGElement;
+      
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+           
+    }
+
+
+
+    updateSVG()
+    {
+      let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      
+      this.SVGElement.setAttribute("d", d);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+
+      this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+    }
+
+
+  }
+  
+
+  class arrow
+  {
+    constructor(objectIndex,pointsIndices, r , opacity, strokeWidth, strokeColor, scale,rotate)
+    {
+      this.index = objectIndex;
+      this.pointsIndices= pointsIndices;
+      this.r = r;
+      this.dx = 0;
+      this.dy = 0;
+      this.opacity = opacity;
+      this.strokeWidth = strokeWidth;
+      this.strokeColor = strokeColor;
+      this.scale=scale;
+      this.rotate=rotate;
+      this.property = pointsIndices.map(obj => obj + 1).join(',');
+
+      this.type='arw';
+
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+      let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
+      for (let i = 1; i < this.pointsIndices.length; i++) 
+      {
+        d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
+      }
+
+      if(this.pointsIndices.length==3)
+      {
+        d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      }
+
+      let ah = arrowHeadPath(this.pointsIndices,r);
+      d+=ah;
+
+      SVGElement.setAttribute("d", d);
+      SVGElement.style.pointerEvents = 'none';
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box";
+      SVGElement.setAttribute("stroke-linejoin",'round');
+      SVGElement.setAttribute("stroke-linecap",'round');
+      SVGElement.setAttribute("fill",'none');
+
+      this.SVGElement = SVGElement;
+      
+
+      this.totalLength = SVGElement.getTotalLength();
+      this.strokeDashoffset = this.totalLength;
+
+      SVGElement.setAttribute("stroke-dashoffset", this.totalLength);
+      
+
+           
+    }
+
+
+
+    updateSVG()
+    {
+      let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
+      for (let i = 1; i < this.pointsIndices.length; i++) 
+      {
+        d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
+      }
+
+      if(this.pointsIndices.length==3)
+      {
+        d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+      }
+
+      let ah = arrowHeadPath(this.pointsIndices,this.r);
+      d+=ah;
+
+      this.SVGElement.setAttribute("d", d);
+      this.SVGElement.setAttribute("transform",'translate('+this.dx+' '+this.dy+')'+'scale('+this.scale+' '+this.scale+')'+' rotate('+this.rotate+')' );
+
+      this.SVGElement.setAttribute("stroke",this.strokeColor);
+      this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+      this.SVGElement.setAttribute("opacity",this.opacity);
+
+      this.totalLength = this.SVGElement.getTotalLength();
+      this.SVGElement.setAttribute("stroke-dasharray",this.totalLength);
+      this.SVGElement.setAttribute("stroke-dashoffset", this.strokeDashoffset);
+      this.strokeDashoffsetInput.max=this.totalLength.toFixed(0);
+    }
+
+  }
+
+     function sideLength(Point1,Point2)
+  {
+    return Math.hypot(Point1.cx - Point2.cx, Point1.cy - Point2.cy);
+  }
+
+  function weightedPoint(A,B,x,y)
+  {
+    let Px= (Number(A.cx)*Number(y) + Number(B.cx)*Number(x))/Number(x+y);
+    let Py= (Number(A.cy)*Number(y) + Number(B.cy)*Number(x))/Number(x+y);
+    return {cx:Px, cy:Py};
+  }
+
+  function perpendicularPoint(C,A,B)
+  {
+    let a = sideLength(B,C);
+    let b = sideLength(A,C);
+    let c = sideLength(A,B);
+
+    let wb = parseFloat(a*a + c*c - b*b);
+    let wa = parseFloat(-a*a + c*c + b*b);
+
+    let P = weightedPoint(A,B,wa,wb);
+    return P;
+  }
+  
+    
+
+
+
+  function angleInPath(pI,r,rightAngle)
+  {
+
+    let A = objects[pI[0]];
+    let B = objects[pI[1]];
+    let C = objects[pI[2]];
+
+    let a = sideLength(B,A);
+    let c = sideLength(B,C);
+
+    let Bs = weightedPoint(B,A,Number(r),Number(a-r));
+    let Be = weightedPoint(B,C,Number(r),Number(c-r));
+    let pth='';
+    if(rightAngle===true)
+    {
+      let Px= Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
+      let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
+
+      //pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+      pth=`M ${parseFloat(B.cx)} ${parseFloat(B.cy)} L ${parseFloat(Bs.cx)} ${parseFloat(Bs.cy)} L ${parseFloat(Px)} ${parseFloat(Py)} L ${parseFloat(Be.cx)} ${parseFloat(Be.cy)} Z`
+    }
+    //
+
+    else
+    {
+      pth='M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+    }
+    
+    return pth; 
+  }
+
+
+  function angleBoundaryPath(points,r,rightAngle)
+  {
+    let A = points[0];
+    let B = points[1];
+    let C = points[2];
+
+    let a = sideLength(B,A);
+    let c = sideLength(B,C);
+
+    let Bs = weightedPoint(B,A,Number(r),Number(a-r));
+    let Be = weightedPoint(B,C,Number(r),Number(c-r));
+    let pth='M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy;
+
+    if(rightAngle)
+    {
+      let Px= Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
+      let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
+
+      pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy;
+    }
+    
+    return pth; 
+  }
+
+  function arrowHeadPath(pointsIndices,r)
+  {
+    let P = objects[pointsIndices[pointsIndices.length-2]];
+    let Q = objects[pointsIndices[pointsIndices.length-1]];
+
+    
+
+    let a = Q.cx - P.cx;
+    let b = Q.cy - P.cy;
+
+    let dPQ = Math.sqrt(a * a + b * b);
+
+    let xx = (b*r)/dPQ;
+    let yy = (a*r)/dPQ;
+
+    let T1x = (Number(Q.cx) + Number(xx)).toFixed(0);
+    let T1y = (Number(Q.cy) - Number(yy)).toFixed(0);
+
+    let T3x = (Number(Q.cx) - Number(xx)).toFixed(0);
+    let T3y = (Number(Q.cy) + Number(yy)).toFixed(0);
+
+    let T2= weightedPoint(Q,P,-2 * r,dPQ + 2 * r);
+
+    return `L ${T1x} ${T1y} L ${T2.cx} ${T2.cy} L ${T3x} ${T3y} L ${Q.cx} ${Q.cy}`;
+  }
+
+ 
+ 
+
+
+
+  function render()
+  {
+  
+    for(let i=0;i<aliveObjects.length;i++)
+    {
+      let obj = aliveObjects[i];
+      obj.updateSVG();
+      document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
+    }
+
+   
+
+    if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
+        MathJax.typesetPromise() // Tell it exactly which element to format
+          .catch((err) => console.log('MathJax formatting error:', err));
+    } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
+        try {
+            MathJax.typeset();
+        } catch(err) {
+            console.log('MathJax fallback typeset failed:', err);
+        }
+    } else {
+        console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
+    }
+ 
+
+  
+
+  }
+
+    function hideAllBasePoints()
+  {
+    for(let i=0;i<objects.length;i++)
+    {
+      let obj=objects[i];
+      if (obj?.type !== 'pt') continue;
+      if(obj.type=='pt')
+      {
+        obj.SVGElement.setAttribute("opacity",0);
+      }
+    }
+  }
+  </script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['ams']},
+        tags: 'ams'
+      }
+    };
+</script>
+
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</body>
+</html>
