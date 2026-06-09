@@ -758,6 +758,19 @@ function renderStateAtTime(ms) {
         let curRot = p1.rot + (p2.rot - p1.rot) * t;
         let curScl = p1.scl + (p2.scl - p1.scl) * t;
 
+        // 1. Fetch the internal drawing offsets of the shape once
+        if (obj.localOffsetX === undefined) {
+          try {
+            let bbox = obj.SVGElement.getBBox();
+            // Store the local center offsets
+            obj.localOffsetX = bbox.x + bbox.width / 2;
+            obj.localOffsetY = bbox.y + bbox.height / 2;
+          } catch(e) {
+            obj.localOffsetX = 0;
+            obj.localOffsetY = 0;
+          }
+        }
+
         let rad = curRot * (Math.PI / 180);
         let cosVal = Math.cos(rad);
         let sinVal = Math.sin(rad);
