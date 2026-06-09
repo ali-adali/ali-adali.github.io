@@ -1234,12 +1234,12 @@ function parseNum(val) {
       SVGElement.style.pointerEvents = 'none';
       
       // Application:
-      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
-      let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
+      let wwidth = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
+      let hheight =2*parseFloat(y) + parseFloat(originalHeight) || 0;
       
-      SVGElement.style.transformOrigin = getBrowserOrigin(width, height, SVGElement);
+      SVGElement.style.transformOrigin = getBrowserOrigin(wwidth, hheight, SVGElement);
       //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
-      SVGElement.style.transformBox = "fill-box";
+      //SVGElement.style.transformBox = "fill-box";
   
       this.SVGElement = SVGElement;
       
