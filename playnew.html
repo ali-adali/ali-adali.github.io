@@ -799,6 +799,8 @@ function renderStateAtTime(ms) {
         return;
       }
 
+      /*
+
       if (key === 'transform' && obj.type === 'txt') {
         
         let getTransformValues = (str) => {
@@ -836,6 +838,69 @@ function renderStateAtTime(ms) {
 
         return;
       }
+      */
+
+      if (key === 'transform' && obj.type === 'txt') {
+        
+        let getTransformValues = (str, frameState) => {
+          let tx = 0, ty = 0, rot = 0, scl = 1;
+          
+          // 1. Check if explicit 'x' or 'y' keys exist directly in this frame's state block
+          if (frameState) {
+            if (frameState.x !== undefined) tx = parseFloat(frameState.x) || 0;
+            if (frameState.y !== undefined) ty = parseFloat(frameState.y) || 0;
+          }
+
+          // 2. If a transform string exists, let its translate values override or add to x/y
+          if (str && typeof str === 'string') {
+            let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
+            let rMatch = str.match(/rotate\(([^)]+)\)/);
+            let sMatch = str.match(/scale\(([^)]+)\)/);
+
+            if (tMatch) { 
+              tx = parseFloat(tMatch[1]); 
+              ty = parseFloat(tMatch[2]); 
+            }
+            if (rMatch) { rot = parseFloat(rMatch[1]); }
+            if (sMatch) { scl = parseFloat(sMatch[1]); }
+          }
+          
+          return { tx, ty, rot, scl };
+        };
+
+        let p1 = getTransformValues(v1);
+        let p2 = getTransformValues(v2);
+
+        let curTx = p1.tx + (p2.tx - p1.tx) * t;
+        let curTy = p1.ty + (p2.ty - p1.ty) * t;
+
+        let curRot = p1.rot + (p2.rot - p1.rot) * t;
+        let curScl = p1.scl + (p2.scl - p1.scl) * t;
+
+        let rad = curRot * (Math.PI / 180);
+        let cosVal = Math.cos(rad);
+        let sinVal = Math.sin(rad);
+
+        // 3. Compute the compounded Scale + Rotation cells
+        let a = curScl * cosVal;
+        let b = curScl * sinVal;
+        let c = -curScl * sinVal;
+        let d = curScl * cosVal;
+        
+        // 4. Translation values remain pure and linear in their slots
+        let e = curTx;
+        let f = curTy;
+
+        // 5. Inject directly into the SVG presentation attribute
+        obj.SVGElement.setAttribute("transform", 
+          `matrix(${a.toFixed(6)}, ${b.toFixed(6)}, ${c.toFixed(6)}, ${d.toFixed(6)}, ${e.toFixed(2)}, ${f.toFixed(2)})`
+        );
+
+        
+        return;
+      }
+
+      
 
       // --- Category 3: Vector Poly-Coordinates ("points") ---
       if (key === 'points') {
