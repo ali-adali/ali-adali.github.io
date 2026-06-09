@@ -758,14 +758,26 @@ function renderStateAtTime(ms) {
         let curRot = p1.rot + (p2.rot - p1.rot) * t;
         let curScl = p1.scl + (p2.scl - p1.scl) * t;
 
-        //obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
-        obj.SVGElement.removeAttribute("transform");
-        obj.SVGElement.style.transformBox = "fill-box";
-        obj.SVGElement.style.transformOrigin = "center";
+        let rad = curRot * (Math.PI / 180);
+        let cosVal = Math.cos(rad);
+        let sinVal = Math.sin(rad);
+
+        // 3. Compute the compounded Scale + Rotation cells
+        let a = curScl * cosVal;
+        let b = curScl * sinVal;
+        let c = -curScl * sinVal;
+        let d = curScl * cosVal;
         
-        obj.SVGElement.style.translate = `${curTx}px ${curTy}px`;
-        obj.SVGElement.style.rotate = `${curRot}deg`;
-        obj.SVGElement.style.scale = `${curScl}`;
+        // 4. Translation values remain pure and linear in their slots
+        let e = curTx;
+        let f = curTy;
+
+        // 5. Inject directly into the SVG presentation attribute
+        obj.SVGElement.setAttribute("transform", 
+          `matrix(${a.toFixed(6)}, ${b.toFixed(6)}, ${c.toFixed(6)}, ${d.toFixed(6)}, ${e.toFixed(2)}, ${f.toFixed(2)})`
+        );
+
+
         return;
       }
 
@@ -1244,8 +1256,9 @@ function parseNum(val) {
       
         if (isSafari) {
           // Safari specific logic (e.g., if it requires absolute or global offsets)
+          SVGElement.style.transformBox = "fill-box";
           return `${w / 2}px ${h / 2}px`;
-          SVGElement.style.transformBox = "view-box";
+          
          
         } else if (isFirefox) {
           // Firefox specific fallback
