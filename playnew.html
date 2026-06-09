@@ -758,7 +758,8 @@ function renderStateAtTime(ms) {
         let curRot = p1.rot + (p2.rot - p1.rot) * t;
         let curScl = p1.scl + (p2.scl - p1.scl) * t;
 
-        obj.SVGElement.style.transformOrigin = "center";
+        //obj.SVGElement.style.transformOrigin = "center";
+        obj.SVGElement.style.transformOrigin = getBrowserOrigin(obj.width, obj.height, obj.SVGElement);
         obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
         return;
       }
@@ -1231,32 +1232,12 @@ function parseNum(val) {
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
-      function getBrowserOrigin(w, h) {
-        const ua = navigator.userAgent.toLowerCase();
-        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
-        const isFirefox = ua.includes('firefox');
-      
-        if (isSafari) {
-          // Safari specific logic (e.g., if it requires absolute or global offsets)
-          SVGElement.style.transformBox = "fill-box";
-          return `${w / 2}px ${h / 2}px`;
-          
-         
-        } else if (isFirefox) {
-          // Firefox specific fallback
-          SVGElement.style.transformBox = "fill-box";
-           return "center"; 
-        } else {
-          // Chrome, Edge, Opera, etc.
-          return "50% 50%";
-        }
-      }
       
       // Application:
       let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
       let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
       
-      SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+      SVGElement.style.transformOrigin = getBrowserOrigin(width, height, SVGElement);
       //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
       SVGElement.style.transformBox = "fill-box";
   
@@ -1332,6 +1313,28 @@ function parseNum(val) {
       this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
       this.SVGElement.setAttribute("opacity", this.opacity); 
     }
+  }
+
+  function getBrowserOrigin(w, h,element)
+  {
+        const ua = navigator.userAgent.toLowerCase();
+        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
+        const isFirefox = ua.includes('firefox');
+      
+        if (isSafari) {
+          // Safari specific logic (e.g., if it requires absolute or global offsets)
+          element.style.transformBox = "view-box";
+          return `${w / 2}px ${h / 2}px`;
+          
+         
+        } else if (isFirefox) {
+          // Firefox specific fallback
+          element.style.transformBox = "fill-box";
+           return "center"; 
+        } else {
+          // Chrome, Edge, Opera, etc.
+          return "50% 50%";
+        }
   }
   
 
