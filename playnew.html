@@ -1237,7 +1237,7 @@ function parseNum(val) {
       
         if (isSafari) {
           // Safari specific logic (e.g., if it requires absolute or global offsets)
-          SVGElement.style.transformBox = "view-box";
+          SVGElement.style.transformBox = "fill-box";
           return `${w / 2}px ${h / 2}px`;
           
          
