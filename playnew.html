@@ -759,8 +759,13 @@ function renderStateAtTime(ms) {
         let curScl = p1.scl + (p2.scl - p1.scl) * t;
 
         //obj.SVGElement.style.transformOrigin = "center";
-        obj.SVGElement.style.transformOrigin = getBrowserOrigin(obj.width, obj.height, obj.SVGElement);
-        obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
+        //obj.SVGElement.style.transformOrigin = getBrowserOrigin(obj.width, obj.height, obj.SVGElement);
+        //obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
+
+        obj.SVGElement.removeAttribute("transform");
+        obj.SVGElement.style.translate = `${curTx}px ${curTy}px`;
+        obj.SVGElement.style.rotate = `${curRot}deg`;
+        obj.SVGElement.style.scale = `${curScl}`;
         return;
       }
 
