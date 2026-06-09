@@ -802,8 +802,8 @@ function renderStateAtTime(ms) {
       if (key === 'transform' && obj.type === 'txt') {
         
         let getTransformValues = (str) => {
-          let tx = 0, ty = 0, rot = 0, scl = 1;
-          if (!str || typeof str !== 'string') return { tx, ty, rot, scl };
+          let rot = 0, scl = 1;
+          if (!str || typeof str !== 'string') return {rot, scl };
           
           //let tMatch = str.match(/translate\(([^,]+),([^)]+)\)/);
           let rMatch = str.match(/rotate\(([^)]+)\)/);
@@ -825,8 +825,9 @@ function renderStateAtTime(ms) {
     
 
         obj.SVGElement.style.transformOrigin = "center";
-        obj.SVGElement.style.scale = `${curScl}`;
-        obj.SVGElement.style.rotate = `${curRot}deg`;
+        obj.SVGElement.style.transform= `rotate(${curRot}deg) scale(${curScl})`;
+        //obj.SVGElement.style.scale = `${curScl}`;
+        //obj.SVGElement.style.rotate = `${curRot}deg`;
 
 
         return;
