@@ -393,7 +393,7 @@
       { id: 11, title: "2022 AIME - 2 Problem 13 LS", file: "aime2022E2P13_LS.json" },
       { id: 12, title: "Law of Cosines LS", file: "LoC_LS.json" },
       { id: 13, title: "Law of Sines LS", file: "LoS_LS.json" },
-      { id: 14, title: "Pythagorean Theorem Test", file: "py_test.json" }
+      { id: 14, title: "Pythagorean Theorem LS", file: "PythagoreanTheorem_LS.json" }
     ];
 
     // --- 2. Core Player State ---
@@ -758,10 +758,7 @@ function renderStateAtTime(ms) {
         let curRot = p1.rot + (p2.rot - p1.rot) * t;
         let curScl = p1.scl + (p2.scl - p1.scl) * t;
 
-        //obj.SVGElement.style.transformOrigin = "center";
-        //obj.SVGElement.style.transformOrigin = getBrowserOrigin(obj.width, obj.height, obj.SVGElement);
         //obj.SVGElement.setAttribute("transform", `translate(${curTx},${curTy}) rotate(${curRot}) scale(${curScl})`);
-
         obj.SVGElement.removeAttribute("transform");
         obj.SVGElement.style.translate = `${curTx}px ${curTy}px`;
         obj.SVGElement.style.rotate = `${curRot}deg`;
@@ -1237,14 +1234,33 @@ function parseNum(val) {
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
+      function getBrowserOrigin(w, h) {
+        const ua = navigator.userAgent.toLowerCase();
+        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
+        const isFirefox = ua.includes('firefox');
+      
+        if (isSafari) {
+          // Safari specific logic (e.g., if it requires absolute or global offsets)
+          return `${w / 2}px ${h / 2}px`;
+          SVGElement.style.transformBox = "view-box";
+         
+        } else if (isFirefox) {
+          // Firefox specific fallback
+          SVGElement.style.transformBox = "fill-box";
+           return "center"; 
+        } else {
+          // Chrome, Edge, Opera, etc.
+          return "50% 50%";
+        }
+      }
       
       // Application:
-      let wwidth = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
-      let hheight =2*parseFloat(y) + parseFloat(originalHeight) || 0;
+      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
+      let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
       
-      SVGElement.style.transformOrigin = getBrowserOrigin(wwidth, hheight, SVGElement);
+      SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
       //SVGElement.style.transformOrigin = `${ x + parseFloat(originalWidth/2) }px ${y + parseFloat(originalHeight/2)} `;
-      //SVGElement.style.transformBox = "fill-box";
+      SVGElement.style.transformBox = "fill-box";
   
       this.SVGElement = SVGElement;
       
@@ -1320,27 +1336,208 @@ function parseNum(val) {
     }
   }
 
-  function getBrowserOrigin(w, h,element)
-  {
-        const ua = navigator.userAgent.toLowerCase();
-        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
-        const isFirefox = ua.includes('firefox');
+  
+
+  /*
+
+  class text { 
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      this.index = objectIndex;
+      this.x = x;
+      this.y = y;
+  
+      this.text = textStr;
+      this.opacity = opacity;
+      this.scale = scale;
+      this.textColor = textColor;
+      this.fontSize = fontSize;
+      this.rotate = rotate;
+      this.type = 'txt';
+      this.displayType = 'tx';
+  
+      // 1. Create a native nested SVG element instead of a foreignObject
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      SVGElement.setAttribute("id", 'SVGText' + objectIndex);
+      SVGElement.style.pointerEvents = 'none';
       
-        if (isSafari) {
-          // Safari specific logic (e.g., if it requires absolute or global offsets)
-          element.style.transformBox = "view-box";
-          return `${w / 2}px ${h / 2}px`;
-          
-         
-        } else if (isFirefox) {
-          // Firefox specific fallback
-          element.style.transformBox = "fill-box";
-           return "center"; 
-        } else {
-          // Chrome, Edge, Opera, etc.
-          return "50% 50%";
-        }
+      // NATIVE VECTOR GRAPHICS TRANSFORMS: Cross-browser stable center scaling!
+      SVGElement.style.transformOrigin = "center";
+      SVGElement.style.transformBox = "fill-box"; 
+  
+      this.SVGElement = SVGElement;
+      this.svgContent = ""; 
+  
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+  
+      // 2. Keeps your blueprint completely intact for bakeAnimations()
+      this.initialState = {
+        x: this.x + 'px',
+        y: this.y + 'px',
+        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        color: this.textColor,
+        height: this.height + 'px',
+        width: this.width + 'px'
+      };
+    }
+  
+    updateSVG() {
+      // Inject the raw MathJax inner SVG content string directly
+      this.SVGElement.innerHTML = this.svgContent;
+      
+      let innerMathSvg = this.SVGElement.querySelector('svg');
+      if (innerMathSvg) {
+        // Keep the rigid inner boundary so left-to-right clip reveals don't squish
+        innerMathSvg.setAttribute('width', this.width + 'px');
+        innerMathSvg.style.width = this.width + 'px';
+        innerMathSvg.style.minWidth = this.width + 'px';
+        
+        innerMathSvg.style.height = '';
+        innerMathSvg.style.display = 'block';
+        innerMathSvg.style.overflow = 'visible'; 
+        
+        innerMathSvg.style.fill = 'currentColor';
+        innerMathSvg.setAttribute('fill', 'currentColor');
+  
+        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+        structuralGroups.forEach(node => {
+          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
+          if (node.style.fill && node.style.fill !== 'none') node.style.fill = 'currentColor';
+          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') node.setAttribute('stroke', 'currentColor');
+          if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
+        });
+      }
+  
+      // Apply strict dimensional boundaries on the layout container
+      this.SVGElement.style.overflow = 'hidden';
+      this.SVGElement.style.color = this.textColor; 
+      
+      this.SVGElement.setAttribute("width", this.width);
+      this.SVGElement.setAttribute("height", this.height);
+      this.SVGElement.setAttribute("x", this.x);
+      this.SVGElement.setAttribute("y", this.y);
+      
+      // Apply transformations directly onto the flat, cross-browser element
+      this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
+      this.SVGElement.setAttribute("opacity", this.opacity); 
+    }
   }
+
+  */
+
+    /*
+
+  class text { 
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      this.index = objectIndex;
+      this.x = x;
+      this.y = y;
+  
+      this.text = textStr;
+      this.opacity = opacity;
+      this.scale = scale;
+      this.textColor = textColor;
+      this.fontSize = fontSize;
+      this.rotate = rotate;
+      this.type = 'txt';
+      this.displayType = 'tx';
+  
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+  
+      // 1. Structural Native SVG Elements
+      let masterGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      masterGroup.setAttribute("id", 'SVGTextGroup' + objectIndex);
+      masterGroup.style.transformOrigin = "center";
+      masterGroup.style.transformBox = "fill-box";
+  
+      let maskViewport = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      maskViewport.setAttribute("id", 'SVGText' + objectIndex);
+      maskViewport.style.pointerEvents = 'none';
+      maskViewport.style.overflow = 'hidden';
+  
+      masterGroup.appendChild(maskViewport);
+  
+      this.masterGroup = masterGroup;
+      this.maskViewport = maskViewport;
+      this.svgContent = ""; 
+  
+      // 2. THE ANIMATION PROXY INTERCEPTOR
+      // This allows bakeAnimations() to call standard property changes seamlessly.
+      // It routes spatial layouts to the inner window, and transformations to the stable group!
+      this.SVGElement = new Proxy(masterGroup, {
+        get(target, prop) {
+          // If your renderer checks style properties
+          if (prop === 'style') return target.style;
+          // Redirect execution bindings (like .animate()) safely onto the group container
+          if (typeof target[prop] === 'function') {
+            return target[prop].bind(target);
+          }
+          return target[prop];
+        },
+        set(target, prop, value) {
+          if (prop === 'id') {
+            target.setAttribute('id', value + 'Group');
+            maskViewport.setAttribute('id', value);
+          } else {
+            target[prop] = value;
+          }
+          return true;
+        }
+      });
+  
+      // 3. Keep your original blueprint completely matching your JSON framework properties
+      this.initialState = {
+        x: this.x + 'px',
+        y: this.y + 'px',
+        transform: `rotate(${this.rotate}deg) scale(${this.scale})`,
+        opacity: this.opacity,
+        color: this.textColor,
+        height: this.height + 'px',
+        width: this.width + 'px'
+      };
+    }
+  
+    updateSVG() {
+      // Inject the raw MathJax vectors into the inner layout canvas viewport
+      this.maskViewport.innerHTML = this.svgContent;
+      
+      let innerMathSvg = this.maskViewport.querySelector('svg');
+      if (innerMathSvg) {
+        innerMathSvg.setAttribute('width', this.width + 'px');
+        innerMathSvg.style.width = this.width + 'px';
+        innerMathSvg.style.minWidth = this.width + 'px';
+        
+        innerMathSvg.style.height = '';
+        innerMathSvg.style.display = 'block';
+        innerMathSvg.style.overflow = 'visible'; 
+        
+        innerMathSvg.style.fill = 'currentColor';
+        innerMathSvg.setAttribute('fill', 'currentColor');
+  
+        let structuralGroups = innerMathSvg.querySelectorAll('g, path');
+        structuralGroups.forEach(node => {
+          if (node.getAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill', 'currentColor');
+          if (node.style.fill && node.style.fill !== 'none') node.style.fill = 'currentColor';
+          if (node.getAttribute('stroke') && node.getAttribute('stroke') !== 'none') node.setAttribute('stroke', 'currentColor');
+          if (node.style.stroke && node.style.stroke !== 'none') node.style.stroke = 'currentColor';
+        });
+      }
+  
+      // Assign layout tracking points cleanly onto the inner viewport container
+      this.maskViewport.setAttribute("width", this.width);
+      this.maskViewport.setAttribute("height", this.height);
+      this.maskViewport.setAttribute("x", this.x);
+      this.maskViewport.setAttribute("y", this.y);
+  
+      // Apply baseline rendering states onto the outer group wrapper
+      this.masterGroup.style.color = this.textColor;
+      this.masterGroup.setAttribute("transform", `scale(${this.scale} ${this.scale}) rotate(${this.rotate})`);
+      this.masterGroup.setAttribute("opacity", this.opacity); 
+    }
+  }
+  */
   
 
    
