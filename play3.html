@@ -2101,7 +2101,7 @@ function parseNum(val) {
     return parseFloat(v) || 0;
   };
 
-  if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'points' || key === 'cx' || key === 'cy' || key === 'r') {
+  if (key === 'fill' || key === 'stroke' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'points' || key === 'cx' || key === 'cy' || key === 'r'||key === 'x' || key === 'y') {
     obj.SVGElement.setAttribute(key, val);
     return;
   }
@@ -2111,6 +2111,14 @@ function parseNum(val) {
   }
   if (key === 'transform' && obj.type !== 'ptc') {
     let sanitizedTransform = val.trim().replace(/\s*,\s*/g, ',');
+    
+    // 2. SVG attributes do not accept 'deg' units inside rotate(). Convert 'rotate(Xdeg)' to 'rotate(X)'
+    sanitizedTransform = sanitizedTransform.replace(/rotate\(([-+]?\d*\.?\d+)deg\)/g, 'rotate($1)');
+    
+    // 3. SVG attributes do not accept 'px' units inside translate(). Convert 'translate(Xpx,Ypx)' to 'translate(X,Y)'
+    sanitizedTransform = sanitizedTransform.replace(/px/g, '');
+
+    // 4. Safely apply the completely cleaned string to the native SVG transform attribute
     obj.SVGElement.setAttribute("transform", sanitizedTransform);
     return;
   }
