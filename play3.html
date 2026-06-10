@@ -624,7 +624,7 @@ function bakeAnimations()
   sequentialSteps = [];
   
   // Iterate through your playlist items in sequence
-  playlist.forEach((step, index) => {
+  globalPlaylist.forEach((step, index) => {
     let obj = objects[step.objIndex];
     if (!obj) return;
 
@@ -1292,8 +1292,9 @@ function parseNum(val) {
       
         if (isSafari) {
           // Safari specific logic (e.g., if it requires absolute or global offsets)
-          return `${w / 2}px ${h / 2}px`;
           SVGElement.style.transformBox = "view-box";
+          return `${w / 2}px ${h / 2}px`;
+          
          
         } else if (isFirefox) {
           // Firefox specific fallback
