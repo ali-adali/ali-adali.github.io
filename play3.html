@@ -1018,14 +1018,14 @@ function scrub(e) {
   let targetTimeMs = percentage * animationDuration;
   updateProgressBarUI(percentage * 100);
 
-  // Cancel any running native tracking instance
+  // Cancel the master active handle
   if (activeNativeAnimation) {
     activeNativeAnimation.cancel();
     activeNativeAnimation = null;
   }
 
   // 2. Locate which step this timestamp belongs to in the sequential queue
-  let foundIndex = sequentialSteps.length; // Default to the end
+  let foundIndex = sequentialSteps.length; 
   let localProgressOffset = 0;
 
   for (let i = 0; i < sequentialSteps.length; i++) {
@@ -1035,7 +1035,7 @@ function scrub(e) {
 
     if (targetTimeMs >= start && targetTimeMs <= end) {
       foundIndex = i;
-      localProgressOffset = targetTimeMs - start; // Local millisecond timestamp inside this step
+      localProgressOffset = targetTimeMs - start;
       break;
     } else if (targetTimeMs < start) {
       foundIndex = i;
@@ -1047,24 +1047,30 @@ function scrub(e) {
   currentStepIndex = foundIndex;
   stepStartTimeOffset = localProgressOffset;
 
-  // 3. FAST SWEEP RAPID DOM STATE SNAP
-  // Iterate across all items to sync states relative to the scrub pointer
+  // 3. FORCE-CANCEL ALL IN-FLIGHT BROWSER ANIMATIONS FIRST
+  aliveObjects.forEach(obj => {
+    if (obj.SVGElement) {
+      obj.SVGElement.getAnimations().forEach(anim => anim.cancel());
+    }
+  });
+
+  // 4. THE CLEAN FAST SWEEP SNAP
   sequentialSteps.forEach((step, idx) => {
     let el = step.object.SVGElement;
 
     if (idx < currentStepIndex) {
-      // Past Steps: Snap fully to final target states
+      // Past Steps: Snap fully to their final target states
       Object.keys(step.rawState).forEach(key => {
         applyStatePropertyDirectly(step.object, key, step.rawState[key]);
       });
     } else if (idx > currentStepIndex) {
-      // Future Steps: Revert fully to initial base states
+      // Future Steps: Revert fully back to initial clean base states
       Object.keys(step.object.initialState).forEach(key => {
         applyStatePropertyDirectly(step.object, key, step.object.initialState[key]);
       });
     } else {
-      // Current Step: Setup the native animation frame, but freeze its current time 
-      // exactly to the scrubber cursor position
+      // Current Active Step: Set up its native keyframe track, but pause it
+      // exactly at the local scrubber offset time frame
       activeNativeAnimation = el.animate(step.keyframes, {
         duration: step.duration,
         delay: step.delay,
