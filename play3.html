@@ -2110,7 +2110,8 @@ function parseNum(val) {
     return;
   }
   if (key === 'transform' && obj.type !== 'ptc') {
-    obj.SVGElement.setAttribute("transform", val);
+    let sanitizedTransform = val.replace(/\s+,\s+/g, ',').replace(/\s+,\s*/g, ',');
+    obj.SVGElement.setAttribute("transform", sanitizedTransform);
     return;
   }
   if (key === 'opacity') {
