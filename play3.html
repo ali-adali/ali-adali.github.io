@@ -618,37 +618,35 @@ let sequentialSteps = []; // Our new master execution queue
 let currentStepIndex = 0;
 let activeNativeAnimation = null; // References the single currently running animation
 
-function bakeAnimations()
-{
-
+function bakeAnimations() {
   sequentialSteps = [];
-  
-  // Iterate through your playlist items in sequence
-  globalPlaylist.forEach((step, index) => {
+  let runningSum = 0; // Tracks the absolute starting timeline position of each step
+
+  globalPlaylist.forEach((step) => {
     let obj = objects[step.objIndex];
     if (!obj) return;
 
-    // 1. Establish the explicit starting state for this step.
-    // If the object was modified by a prior step, it should transition from that state.
     let startState = getCurrentDOMStateAsKeyframe(obj);
-
-    // 2. Map your target state directly from the JSON step details
     let endState = { ...step.state };
 
-    // 3. Format structural layout values safely (adding px wrappers where necessary)
-    // to prevent browser interpolation bugs
-    formatKeyframeProperties(startState);
-    formatKeyframeProperties(endState);
+    let stepDelay = (step.wait || 0) * 1000;
+    let stepDuration = (step.dur || 0) * 1000;
 
-    // 4. Push this discrete package into our linear step queue
     sequentialSteps.push({
       object: obj,
       keyframes: [startState, endState],
-      duration: (step.dur || 0) * 1000, // Convert seconds to milliseconds for native WAAPI
-      delay: (step.wait || 0) * 1000,
-      rawState: step.state // Keep a copy for rapid state snapping
+      delay: stepDelay,
+      duration: stepDuration,
+      cumulativeStartTime: runningSum, // Anchor point for scrubber tracking
+      rawState: step.state
     });
+
+    // Advance the master clock timeline handle forward
+    runningSum += stepDelay + stepDuration;
   });
+
+  // Assign the complete video runtime length globally
+  animationDuration = runningSum; 
 }
 
 function renderStateAtTime(ms) {
