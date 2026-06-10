@@ -2110,7 +2110,7 @@ function parseNum(val) {
     return;
   }
   if (key === 'transform' && obj.type !== 'ptc') {
-    let sanitizedTransform = val.replace(/\s+,\s+/g, ',').replace(/\s+,\s*/g, ',');
+    let sanitizedTransform = val.trim().replace(/\s*,\s*/g, ',');
     obj.SVGElement.setAttribute("transform", sanitizedTransform);
     return;
   }
@@ -2136,7 +2136,7 @@ function parseNum(val) {
     }
     return;
   }
-  if (key === 'scale' && obj.type === 'ptc') {
+  if (key === 'transform' && obj.type === 'ptc') {
     obj.SVGElement.style.transformOrigin = "center";
     obj.SVGElement.setAttribute("transform", 'scale('+parseNum(val)+' '+parseNum(val)+')' );
     //obj.SVGElement.style.transform = `scale(${parseNum(val)})`;
