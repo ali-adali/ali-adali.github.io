@@ -927,14 +927,14 @@ function renderStateAtTime(ms) {
 
       // Direct SVG structural parameters (cx, cy, r)
       if (key === 'cx' || key === 'cy' || key === 'r'|| key === 'x' || key === 'y') {
-        obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
+        obj.SVGElement.setAttribute(key, interpolatedNum);
         return;
       }
 
       // Standard styling layout vectors
       if (key === 'opacity') {
         //obj.SVGElement.style.opacity = interpolatedNum;
-        obj.SVGElement.setAttribute(key, interpolatedNum.toFixed(2));
+        obj.SVGElement.setAttribute(key, interpolatedNum);
       } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
         let attributeName = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
         obj.SVGElement.setAttribute(attributeName, interpolatedNum.toFixed(2));
