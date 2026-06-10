@@ -1444,8 +1444,20 @@ function parseNum(val) {
 
       this.SVGElement.setAttribute("x", parseFloat(ist.x));
       this.SVGElement.setAttribute("y", parseFloat(ist.y));
+
+      let str = ist.transform;
+
+      // Match anything inside the parentheses of rotate(...) and scale(...)
+      let rMatch = str.match(/rotate\(([^)]+)\)/);
+      let sMatch = str.match(/scale\(([^)]+)\)/);
+
+      // Extract and parse the values safely
+      // parseFloat automatically strips out units like 'deg' or 'px'!
+      let rotation = rMatch ? parseFloat(rMatch[1]) : 0; // Returns 0
+      let scale    = sMatch ? parseFloat(sMatch[1]) : 1; // Returns 3
       
-      this.SVGElement.setAttribute("transform", 'scale(' + parseFloat(ist.scale) + ' ' + parseFloat(ist.scale) + ') ' + 'rotate(' + parseFloat(ist.rotate) + ')');
+      this.SVGElement.setAttribute("transform", 'scale(' + scale + ' ' + scale + ') ' + 'rotate(' + rotation + ')');
+      
       this.SVGElement.setAttribute("opacity", parseFloat(ist.opacity));
 
       //parseFloat(this.initialState.cx)
