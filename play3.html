@@ -2316,7 +2316,8 @@ function parseNum(val) {
     return;
   }
   if (key === 'opacity') {
-    obj.SVGElement.style.opacity = val;
+    //obj.SVGElement.style.opacity = val;
+    obj.SVGElement.setAttribute("opacity", val);
     return;
   }
   if (key === 'fillOpacity' || key === 'strokeOpacity') {
@@ -2338,7 +2339,8 @@ function parseNum(val) {
   }
   if (key === 'scale' && obj.type === 'ptc') {
     obj.SVGElement.style.transformOrigin = "center";
-    obj.SVGElement.style.transform = `scale(${parseNum(val)})`;
+    obj.SVGElement.setAttribute("scale", parseNum(val));
+    //obj.SVGElement.style.transform = `scale(${parseNum(val)})`;
     return;
   }
 
