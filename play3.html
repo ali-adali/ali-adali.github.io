@@ -674,7 +674,18 @@ function renderStateAtTimeZero() {
     Object.keys(obj.initialState).forEach(key => {
       applyStatePropertyDirectly(obj, key, obj.initialState[key]);
     });
+
+    // SIMPLE SAFARI FIX: Ensure width-revealing text containers never drop to a absolute structural 0
+    if (obj.type === 'txt') {
+      if (obj.initialState.width !== undefined && parseFloat(obj.initialState.width) === 0) {
+        obj.SVGElement.setAttribute('width', 0.1);
+      }
+    }
+
+
   });
+
+
 }
 
 function getCurrentDOMStateAsKeyframe(obj) {
@@ -722,6 +733,17 @@ function formatKeyframeProperties(stateObj, obj) {
     stateObj.transformOrigin = "center";
     delete stateObj.scale;
   }
+
+  if (obj.type === 'txt' && stateObj.width !== undefined) {
+    if (parseFloat(stateObj.width) === 0) {
+      stateObj.width = 0.1;
+    } else {
+      // Ensure clean pixel parsing numbers without stray unit formatting issues
+      stateObj.width = parseFloat(stateObj.width);
+    }
+  }
+
+
 }
 
 /*
@@ -2115,6 +2137,12 @@ function parseNum(val) {
     if (typeof v === 'string') return parseFloat(v.replace(/px/g, '')) || 0;
     return parseFloat(v) || 0;
   };
+
+  if (obj.type === 'txt' && key === 'width') {
+    let cleanW = parseFloat(val) === 0 ? 0.1 : parseFloat(val);
+    obj.SVGElement.setAttribute('width', cleanW);
+    return;
+  }
 
   if (key === 'fill' || key === 'stroke' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'points' || key === 'cx' || key === 'cy' || key === 'r'||key === 'x' || key === 'y') {
     obj.SVGElement.setAttribute(key, val);
