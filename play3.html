@@ -624,32 +624,39 @@ let activeNativeAnimation = null; // References the single currently running ani
 
 function bakeAnimations() {
   sequentialSteps = [];
-  let runningSum = 0; // Tracks the absolute starting timeline position of each step
+  let runningSum = 0;
 
   globalPlaylist.forEach((step) => {
     let obj = objects[step.objIndex];
     if (!obj) return;
 
-    let startState = getCurrentDOMStateAsKeyframe(obj);
-    let endState = { ...step.state };
+    // 1. Get copies of the raw source data states
+    let startStateRaw = getCurrentDOMStateAsKeyframe(obj);
+    let endStateRaw = { ...step.state };
+
+    // 2. Create clean, decoupled clones specifically for the WAAPI keyframe track
+    let startKeyframe = { ...startStateRaw };
+    let endKeyframe = { ...endStateRaw };
+
+    // 3. Format only the keyframe clones (leaving raw states and initialStates pristine!)
+    formatKeyframeProperties(startKeyframe, obj);
+    formatKeyframeProperties(endKeyframe, obj);
 
     let stepDelay = (step.wait || 0) * 1000;
     let stepDuration = (step.dur || 0) * 1000;
 
     sequentialSteps.push({
       object: obj,
-      keyframes: [startState, endState],
+      keyframes: [startKeyframe, endKeyframe], // Uses the safely converted syntax clones
       delay: stepDelay,
       duration: stepDuration,
-      cumulativeStartTime: runningSum, // Anchor point for scrubber tracking
-      rawState: step.state
+      cumulativeStartTime: runningSum,
+      rawState: step.state // Keeps the original raw properties intact for scrubbing maps
     });
 
-    // Advance the master clock timeline handle forward
     runningSum += stepDelay + stepDuration;
   });
 
-  // Assign the complete video runtime length globally
   animationDuration = runningSum; 
 }
 
@@ -717,6 +724,7 @@ function formatKeyframeProperties(stateObj, obj) {
   }
 }
 
+/*
 function renderStateAtTime(ms) {
   // 1. Clamp time within execution bounds safely
   ms = Math.max(0, Math.min(animationDuration, ms));
@@ -886,6 +894,7 @@ function renderStateAtTime(ms) {
     });
   });
 }
+*/
 
 
 
@@ -2150,7 +2159,7 @@ function parseNum(val) {
     }
     return;
   }
-  if (key === 'transform' && obj.type === 'ptc') {
+  if (key === 'scale' && obj.type === 'ptc') {
     obj.SVGElement.style.transformOrigin = "center";
     obj.SVGElement.setAttribute("transform", 'scale('+parseNum(val)+' '+parseNum(val)+')' );
     //obj.SVGElement.style.transform = `scale(${parseNum(val)})`;
