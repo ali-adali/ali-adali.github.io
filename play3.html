@@ -679,8 +679,11 @@ function renderStateAtTimeZero() {
     if (obj.type === 'txt') {
       if (obj.initialState.width !== undefined && parseFloat(obj.initialState.width) === 0) {
         obj.SVGElement.setAttribute('width', 0.1);
+      } else if (obj.initialState.width !== undefined) {
+        obj.SVGElement.setAttribute('width', parseFloat(obj.initialState.width));
       }
     }
+    
 
 
   });
@@ -735,13 +738,15 @@ function formatKeyframeProperties(stateObj, obj) {
   }
 
   if (obj.type === 'txt' && stateObj.width !== undefined) {
-    if (parseFloat(stateObj.width) === 0) {
-      stateObj.width = 0.1;
+    let parsedW = parseFloat(stateObj.width);
+    if (parsedW === 0) {
+      stateObj.width = "0.1px"; // Safari baseline anchor with valid CSS unit
     } else {
-      // Ensure clean pixel parsing numbers without stray unit formatting issues
-      stateObj.width = parseFloat(stateObj.width);
+      stateObj.width = parsedW + "px"; // Valid CSS length token
     }
   }
+
+  
 
 
 }
@@ -2139,8 +2144,10 @@ function parseNum(val) {
   };
 
   if (obj.type === 'txt' && key === 'width') {
-    let cleanW = parseFloat(val) === 0 ? 0.1 : parseFloat(val);
-    obj.SVGElement.setAttribute('width', cleanW);
+    let numericW = parseFloat(val);
+    let cleanW = (numericW === 0) ? 0.1 : numericW;
+    
+    obj.SVGElement.setAttribute('width', cleanW); // Uses a pure XML-compliant number
     return;
   }
 
