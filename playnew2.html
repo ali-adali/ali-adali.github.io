@@ -2069,7 +2069,10 @@ function parseNum(val) {
     {
       let obj = aliveObjects[i];
       if(obj.type==='txt')
-        {obj.updateSVG(); obj.setToInitial();}
+        {
+          obj.updateSVG(); 
+          //obj.setToInitial();
+        }
       else{ obj.updateSVG();}
       document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
     }
