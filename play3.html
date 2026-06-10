@@ -493,10 +493,13 @@
       // 4. Now that text bounds are calculated cleanly, bake your matrices
       bakeAnimations();
 
+      currentStepIndex = 0;
+      stepStartTimeOffset = 0;
+
       // 5. Instantly snap the timeline position down to time 0
       // This collapses widths from full size to 0px instantly before the user can see it
       globalCurrentTime = 0;
-      renderStateAtTime(0);
+      renderStateAtTimeZero();
       updateProgressBarUI(0);
 
       // 6. Smoothly unhide the main group container for playback
@@ -571,7 +574,8 @@
     data.playlist.forEach(stepData => {
       const targetObj = objects[stepData.objIndex];
       if (targetObj) {
-        globalPlaylist.push({ 
+        globalPlaylist.push({
+          objIndex: stepData.objIndex, 
           element: targetObj, 
           wait: stepData.wait, 
           dur: stepData.dur, 
@@ -647,6 +651,70 @@ function bakeAnimations() {
 
   // Assign the complete video runtime length globally
   animationDuration = runningSum; 
+}
+
+function renderStateAtTimeZero() {
+  // Cancel any running native animations across elements safely
+  aliveObjects.forEach(obj => {
+    if (obj.SVGElement) {
+      obj.SVGElement.getAnimations().forEach(anim => anim.cancel());
+    }
+  });
+
+  // Re-read initial state settings built by your parser engine
+  aliveObjects.forEach(obj => {
+    if (!obj.initialState || !obj.SVGElement) return;
+    Object.keys(obj.initialState).forEach(key => {
+      applyStatePropertyDirectly(obj, key, obj.initialState[key]);
+    });
+  });
+}
+
+function getCurrentDOMStateAsKeyframe(obj) {
+  let state = {};
+  if (!obj || !obj.SVGElement) return state;
+
+  // Track down current layout values or step backwards to initial defaults
+  let sourceProps = obj.initialState || {};
+  
+  // Look at the latest sequential step for this specific object to chain animations cleanly
+  for (let i = sequentialSteps.length - 1; i >= 0; i--) {
+    if (sequentialSteps[i].object === obj) {
+      sourceProps = sequentialSteps[i].rawState;
+      break;
+    }
+  }
+
+  // Deep clone state properties smoothly
+  Object.keys(sourceProps).forEach(key => {
+    state[key] = sourceProps[key];
+  });
+  
+  return state;
+}
+
+function formatKeyframeProperties(stateObj, obj) {
+  // Normalize variable key transformations into WAAPI standard properties
+  if (stateObj.color) {
+    stateObj.stroke = stateObj.color;
+    delete stateObj.color;
+  }
+  if (stateObj.fillOpacity) {
+    stateObj.fillOpacity = String(stateObj.fillOpacity);
+  }
+  if (stateObj.strokeOpacity) {
+    stateObj.strokeOpacity = String(stateObj.strokeOpacity);
+  }
+  if (stateObj.opacity !== undefined) {
+    stateObj.opacity = String(stateObj.opacity);
+  }
+  
+  // Format point scaling values for ptc components
+  if (stateObj.scale !== undefined && obj.type === 'ptc') {
+    stateObj.transform = `scale(${parseFloat(stateObj.scale)})`;
+    stateObj.transformOrigin = "center";
+    delete stateObj.scale;
+  }
 }
 
 function renderStateAtTime(ms) {
@@ -2225,6 +2293,59 @@ function parseNum(val) {
       }
     }
   }
+
+  function applyStatePropertyDirectly(obj, key, val) {
+  if (val === undefined || val === null || !obj.SVGElement) return;
+
+  const parseNum = (v) => {
+    if (v === undefined || v === null) return 0;
+    if (typeof v === 'string') return parseFloat(v.replace(/px/g, '')) || 0;
+    return parseFloat(v) || 0;
+  };
+
+  if (key === 'fill' || key === 'stroke' || key === 'text' || key === 'strokeLinecap' || key === 'strokeLinejoin' || key === 'points' || key === 'cx' || key === 'cy' || key === 'r') {
+    obj.SVGElement.setAttribute(key, val);
+    return;
+  }
+  if (key === 'color') {
+    obj.SVGElement.setAttribute('stroke', val);
+    return;
+  }
+  if (key === 'transform' && obj.type !== 'ptc') {
+    obj.SVGElement.setAttribute("transform", val);
+    return;
+  }
+  if (key === 'opacity') {
+    obj.SVGElement.style.opacity = val;
+    return;
+  }
+  if (key === 'fillOpacity' || key === 'strokeOpacity') {
+    let attr = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
+    obj.SVGElement.setAttribute(attr, val);
+    return;
+  }
+  if (key === 'width') {
+    if (obj.type === 'txt' && obj.spanElement) {
+      let maxW = parseNum(obj.width || val);
+      obj.SVGElement.setAttribute('width', maxW);
+      obj.spanElement.style.display = 'inline-block';
+      obj.spanElement.style.overflow = 'hidden';
+      obj.spanElement.style.width = parseNum(val) + 'px';
+    } else {
+      obj.SVGElement.setAttribute('width', parseNum(val));
+    }
+    return;
+  }
+  if (key === 'scale' && obj.type === 'ptc') {
+    obj.SVGElement.style.transformOrigin = "center";
+    obj.SVGElement.style.transform = `scale(${parseNum(val)})`;
+    return;
+  }
+
+  let svgAttr = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+  obj.SVGElement.setAttribute(svgAttr, val);
+}
+
   </script>
 
   <script>
