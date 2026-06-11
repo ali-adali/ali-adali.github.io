@@ -1354,7 +1354,8 @@ function parseNum(val) {
       let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
       let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
       
-      SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+      //SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+      SVGElement.style.transformOrigin = 'center';
       SVGElement.style.transformBox = "fill-box";
   
       this.SVGElement = SVGElement;
