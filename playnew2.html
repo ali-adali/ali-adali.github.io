@@ -1317,6 +1317,8 @@ function parseNum(val) {
       this.index = objectIndex;
       this.x = x;
       this.y = y;
+      this.originalWidth = originalWidth;
+      this.originalHeight = originalHeight;
   
       this.text = textStr;
       this.opacity = opacity;
@@ -1415,13 +1417,15 @@ function parseNum(val) {
       this.SVGElement.setAttribute("y", this.y);
 
 
-      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
-      let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
+      let width = 2*parseFloat(this.x)+ parseFloat(this.originalWidth) || 0;
+      let height =2*parseFloat(this.y) + parseFloat(this.originalHeight) || 0;
+
+      this.SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+      this.SVGElement.style.transformBox = "fill-box";
       
       //SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
-
-      this.SVGElement.setAttribute('transform-origin',getBrowserOrigin(width, height));
-      this.SVGElement.setAttribute('transform-box','fill-box');
+      //this.SVGElement.setAttribute('transform-origin',getBrowserOrigin(width, height));
+      //this.SVGElement.setAttribute('transform-box','fill-box');
       
       this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
       this.SVGElement.setAttribute("opacity", this.opacity); 
