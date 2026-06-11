@@ -1355,8 +1355,10 @@ function parseNum(val) {
       let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
       
       //SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
-      SVGElement.style.transformOrigin = 'center';
-      SVGElement.style.transformBox = "fill-box";
+      //SVGElement.style.transformOrigin = 'center';
+      //SVGElement.style.transformBox = "fill-box";
+
+      
   
       this.SVGElement = SVGElement;
       
@@ -1417,6 +1419,8 @@ function parseNum(val) {
           }
         });
       }
+
+      
   
       // Apply strict dimensional boundaries and properties on the outer envelope
       this.SVGElement.style.overflow = 'hidden';
@@ -1426,6 +1430,9 @@ function parseNum(val) {
       this.SVGElement.setAttribute("width", this.width);
       this.SVGElement.setAttribute("x", this.x);
       this.SVGElement.setAttribute("y", this.y);
+
+      this.SVGElement.setAttribute('transform-origin','center');
+      this.SVGElement.setAttribute('transform-box','fill-box');
       
       this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
       this.SVGElement.setAttribute("opacity", this.opacity); 
