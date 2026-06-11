@@ -1331,24 +1331,7 @@ function parseNum(val) {
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
-      function getBrowserOrigin(w, h) {
-        const ua = navigator.userAgent.toLowerCase();
-        const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
-        const isFirefox = ua.includes('firefox');
       
-        if (isSafari) {
-          
-          return `${w / 2}px ${h / 2}px`;
-          
-         
-        } else if (isFirefox) {
-          
-           return "center"; 
-        } else {
-          // Chrome, Edge, Opera, etc.
-          return "50% 50%";
-        }
-      }
       
       // Application:
       let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
@@ -1431,7 +1414,13 @@ function parseNum(val) {
       this.SVGElement.setAttribute("x", this.x);
       this.SVGElement.setAttribute("y", this.y);
 
-      this.SVGElement.setAttribute('transform-origin','center');
+
+      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
+      let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
+      
+      //SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+
+      this.SVGElement.setAttribute('transform-origin',getBrowserOrigin(width, height));
       this.SVGElement.setAttribute('transform-box','fill-box');
       
       this.SVGElement.setAttribute("transform", 'scale(' + this.scale + ' ' + this.scale + ') ' + 'rotate(' + this.rotate + ')');
@@ -1462,6 +1451,16 @@ function parseNum(val) {
 
       //parseFloat(this.initialState.cx)
     }
+  }
+
+  function getBrowserOrigin(w, h)
+  {
+    const ua = navigator.userAgent.toLowerCase();
+    const isSafari = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('android');
+    const isFirefox = ua.includes('firefox');
+    if (isSafari) {return `${w / 2}px ${h / 2}px`;} 
+    else if (isFirefox) {return "center";} 
+    else {return "50% 50%";}
   }
 
   
