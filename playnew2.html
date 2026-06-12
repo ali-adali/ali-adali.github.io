@@ -1333,11 +1333,29 @@ function parseNum(val) {
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
+
+      this.SVGElement.style.transform = '';
+      this.SVGElement.style.transformOrigin = '';
+      this.SVGElement.style.transformBox = '';
+      
+      // 2. Calculate the exact local center coordinates of your text formula box
+      let localCenterX = parseFloat(this.x) + (parseFloat(this.originalWidth) / 2) || 0;
+      let localCenterY = parseFloat(this.y) + (parseFloat(this.originalHeight) / 2) || 0;
+      
+      // 3. Build a native SVG transformation matrix attribute: 
+      // Move to center -> Scale/Rotate -> Move back
+      let nativeTransform = `
+        translate(${localCenterX}, ${localCenterY}) 
+        rotate(${this.rotate}) 
+        scale(${this.scale}) 
+        translate(${-localCenterX}, ${-localCenterY})
+      `.trim();
+      
+      // 4. Assign directly to the XML layout layer
+      this.SVGElement.setAttribute("transform", nativeTransform);
+      //this.SVGElement.style.opacity = this.opacity;
       
       
-      // Application:
-      let width = 2*parseFloat(x)+ parseFloat(originalWidth) || 0;
-      let height =2*parseFloat(y) + parseFloat(originalHeight) || 0;
       
       //SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
       //SVGElement.style.transformOrigin = 'center';
@@ -1420,8 +1438,9 @@ function parseNum(val) {
       let width = 2*parseFloat(this.x)+ parseFloat(this.originalWidth) || 0;
       let height =2*parseFloat(this.y) + parseFloat(this.originalHeight) || 0;
 
-      //this.SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
-      this.SVGElement.style.transformOrigin = 'center center';
+      this.SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+
+      
       this.SVGElement.style.transformBox = "fill-box";
       this.SVGElement.style.transform = `rotate(${this.rotate}deg) scale(${this.scale} ${this.scale})`;
       this.SVGElement.style.opacity = this.opacity;
