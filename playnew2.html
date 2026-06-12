@@ -1334,9 +1334,6 @@ function parseNum(val) {
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
 
-      this.SVGElement.style.transform = '';
-      this.SVGElement.style.transformOrigin = '';
-      this.SVGElement.style.transformBox = '';
       
       // 2. Calculate the exact local center coordinates of your text formula box
       let localCenterX = parseFloat(this.x) + (parseFloat(this.originalWidth) / 2) || 0;
