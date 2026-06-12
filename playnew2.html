@@ -925,8 +925,8 @@ function renderStateAtTime(ms) {
 
       // Standard styling layout vectors
       if (key === 'opacity') {
-        //obj.SVGElement.style.opacity = interpolatedNum;
-        obj.SVGElement.setAttribute(key, interpolatedNum);
+        obj.SVGElement.style.opacity = interpolatedNum;
+        //obj.SVGElement.setAttribute(key, interpolatedNum);
       } else if (key === 'fillOpacity' || key === 'strokeOpacity') {
         let attributeName = key === 'fillOpacity' ? 'fill-opacity' : 'stroke-opacity';
         obj.SVGElement.setAttribute(attributeName, interpolatedNum.toFixed(2));
