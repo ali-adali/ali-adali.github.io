@@ -1333,6 +1333,17 @@ function parseNum(val) {
       let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
       SVGElement.setAttribute("id", 'SVGText' + objectIndex);
       SVGElement.style.pointerEvents = 'none';
+      SVGElement.setAttribute("height", originalHeight);
+      SVGElement.setAttribute("width", originalWidth);
+      SVGElement.setAttribute("x", this.x);
+      SVGElement.setAttribute("y", this.y);
+
+
+      let width = 2*parseFloat(this.x)+ parseFloat(this.originalWidth) || 0;
+      let height =2*parseFloat(this.y) + parseFloat(this.originalHeight) || 0;
+
+      SVGElement.style.transformOrigin = getBrowserOrigin(width, height);
+      SVGElement.style.transformBox = "fill-box";
 
 
       //this.SVGElement.style.opacity = this.opacity;
