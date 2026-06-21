@@ -627,6 +627,8 @@
       this.updateSVG();
     }
   }
+
+  /*
  
   class text { 
     constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
@@ -683,7 +685,7 @@
           innerMathSvg.setAttribute('width', this.fullWidth + 'px');
           innerMathSvg.style.width = this.fullWidth + 'px';
           innerMathSvg.style.minWidth = this.fullWidth + 'px';
-          
+
           innerMathSvg.style.height = '';
           innerMathSvg.style.display = 'block';
           innerMathSvg.style.overflow = 'visible'; 
@@ -752,6 +754,155 @@
       this.textColorRGB[1] = startColor[1] + (endColor[1] - startColor[1]) * t; // Green
       this.textColorRGB[2] = startColor[2] + (endColor[2] - startColor[2]) * t; // Blue
       // Trigger the update pass
+      this.updateSVG();
+    }
+  }
+  */
+
+  class text
+  { 
+    constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      this.index = objectIndex;
+      this.x = parseFloat(x);
+      this.y = parseFloat(y);
+      this.text = textStr; 
+      this.opacity = parseFloat(opacity);
+      this.scale = parseFloat(scale);
+      this.textColor = textColor;
+      this.textColorRGB = parseColorToRGB(this.textColor);
+      this.fontSize = parseFloat(fontSize);
+      this.rotate = parseFloat(rotate);
+      this.type = 'txt';
+     
+      // Safari Fix Step 1: Create a structural wrapper group element
+      let wrapperGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      wrapperGroup.setAttribute("id", 'SVGTextGroup' + objectIndex);
+
+      let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+      SVGElement.setAttribute("id", 'SVGText' + objectIndex);
+      SVGElement.style.pointerEvents = 'none';
+      
+      // Keep structural widths local to the foreignObject box
+      SVGElement.setAttribute("height", originalHeight);
+      SVGElement.setAttribute("width", originalWidth);
+      
+      // CRITICAL SAFARI FIX: Set local box coordinates to 0,0 inside the transforming <g> group
+      SVGElement.setAttribute("x", 0);
+      SVGElement.setAttribute("y", 0);
+      
+      // Append the foreignObject directly into our group envelope
+      wrapperGroup.appendChild(SVGElement);
+      
+      // Expose the wrapper group as the main master handle so your loader/player handles it cleanly
+      this.SVGElement = wrapperGroup; 
+      this.foreignObject = SVGElement; 
+      
+      this.svgContent = ""; 
+      this.width = parseFloat(originalWidth) || 100;
+      this.height = parseFloat(originalHeight) || 30;
+      this.fullWidth = this.width; 
+    }
+  
+    updateSVG()
+    {
+      let [r, g, b] = this.textColorRGB.map(Math.round);
+
+      if (this.svgContent && this.svgContent !== "")
+      {   
+        // Inject inside the internal foreignObject element handle
+        this.foreignObject.innerHTML = this.svgContent; 
+        let innerMathSvg = this.foreignObject.querySelector('svg');
+        if (innerMathSvg)
+        {
+          if (!this.fullWidth || this.fullWidth === 100) {
+             let rawW = innerMathSvg.getAttribute('width');
+             this.fullWidth = rawW ? parseFloat(rawW) : this.width;
+          }
+          innerMathSvg.setAttribute('width', this.fullWidth + 'px');
+          innerMathSvg.style.width = this.fullWidth + 'px';
+          innerMathSvg.style.minWidth = this.fullWidth + 'px'; 
+          innerMathSvg.style.height = '';
+          innerMathSvg.style.display = 'block';
+          innerMathSvg.style.overflow = 'visible'; 
+          innerMathSvg.setAttribute('fill', `rgb(${r},${g},${b})`);
+          innerMathSvg.setAttribute('stroke', `rgb(${r},${g},${b})`);   
+        }
+      } else {
+        if (this.spanElement) {
+          this.spanElement.innerHTML = this.text;
+          this.spanElement.style.fontSize = this.fontSize + 'px';
+        }
+      }
+
+      this.foreignObject.style.overflow = 'hidden';
+      this.foreignObject.style.color = `rgb(${r},${g},${b})`;
+      if (this.fontWeight) this.foreignObject.style.fontWeight = this.fontWeight;
+
+      // Update clipping sizes safely on the inner box
+      this.foreignObject.setAttribute("height", this.height);
+      this.foreignObject.setAttribute("width", this.width);
+
+      // --- CRITICAL SAFARI TRANSFORM REFACTOR ---
+      // 1. Compute explicit geometric centers based on frame metrics
+      let centerX = this.x + this.width / 2;
+      let centerY = this.y + this.height / 2;
+
+      // 2. Clear out tricky CSS transform bindings entirely
+      this.SVGElement.style.transform = '';
+      this.SVGElement.style.transformOrigin = '';
+      this.SVGElement.style.transformBox = '';
+
+      // 3. Apply raw native SVG attributes using a precise transformation matrix sequence:
+      // Translate to the destination coordinates, handle rotation and scaling at the absolute center,
+      // and compensate for centering offset.
+      this.SVGElement.setAttribute("transform", 
+        `translate(${this.x}, ${this.y}) ` +
+        `translate(${this.width/2}, ${this.height/2}) ` +
+        `scale(${this.scale}) ` +
+        `rotate(${this.rotate}) ` +
+        `translate(${-this.width/2}, ${-this.height/2})`
+      );
+
+      // Manage group master visibility smoothly
+      this.SVGElement.setAttribute("opacity", this.opacity);
+    }
+
+    recordState() 
+    {
+      return {
+        x: parseFloat(this.x),
+        y: parseFloat(this.y),
+        fontSize: parseFloat(this.fontSize),
+        rotate: parseFloat(this.rotate),
+        scale: parseFloat(this.scale),
+        opacity: parseFloat(this.opacity),
+        height: parseFloat(this.height),
+        width: parseFloat(this.width),
+        textColor: this.textColor,
+        textColorRGB: [...this.textColorRGB]
+      };
+    }
+
+    setInitialState()
+    {
+      this.initialState = this.recordState();
+    }
+
+    interpolateState(prevState, nextState, t)
+    {
+      this.x = prevState.x + (nextState.x - prevState.x) * t;
+      this.y = prevState.y + (nextState.y - prevState.y) * t;
+      this.fontSize = prevState.fontSize + (nextState.fontSize - prevState.fontSize) * t;
+      this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
+      this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+      this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+      this.height = prevState.height + (nextState.height - prevState.height) * t;
+      this.width = prevState.width + (nextState.width - prevState.width) * t;
+
+      this.textColorRGB[0] = prevState.textColorRGB[0] + (nextState.textColorRGB[0] - prevState.textColorRGB[0]) * t;
+      this.textColorRGB[1] = prevState.textColorRGB[1] + (nextState.textColorRGB[1] - prevState.textColorRGB[1]) * t;
+      this.textColorRGB[2] = prevState.textColorRGB[2] + (nextState.textColorRGB[2] - prevState.textColorRGB[2]) * t;
+
       this.updateSVG();
     }
   }
