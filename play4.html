@@ -2199,6 +2199,29 @@ function parseNum(val) {
       }
     }
   }
+
+  function parseColorToRGB(colorStr) {
+    // If it's already an array or invalid, return a fallback black
+    if (!colorStr) return [0, 0, 0];
+    
+    // Create a temporary hidden element to leverage the browser's native CSS color parser
+    let fakeDiv = document.createElement("div");
+    fakeDiv.style.color = colorStr;
+    document.body.appendChild(fakeDiv);
+    
+    // Get computed style returns "rgb(r, g, b)" or "rgba(r, g, b, a)" natively
+    let computedColor = window.getComputedStyle(fakeDiv).color;
+    document.body.removeChild(fakeDiv);
+    
+    // Match the digits inside the rgb() string
+    let matches = computedColor.match(/\d+/g);
+    if (matches && matches.length >= 3) {
+      return [parseInt(matches[0]), parseInt(matches[1]), parseInt(matches[2])];
+    }
+    
+    return [0, 0, 0]; // Baseline fallback
+  }
+  
   </script>
 
   <script>
