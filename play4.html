@@ -673,7 +673,9 @@
         let innerMathSvg = this.SVGElement.querySelector('svg');
         if (innerMathSvg)
         {
-          innerMathSvg.style.width = ''; 
+          //innerMathSvg.style.width = '';
+          innerMathSvg.style.width = this.width + 'px';
+          innerMathSvg.style.minWidth = this.width + 'px'; 
           innerMathSvg.style.height = '';
           innerMathSvg.style.display = 'block';
           innerMathSvg.style.overflow = 'visible'; 
@@ -2221,7 +2223,7 @@ function parseNum(val) {
     
     return [0, 0, 0]; // Baseline fallback
   }
-  
+
   </script>
 
   <script>
