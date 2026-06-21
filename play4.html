@@ -661,6 +661,8 @@
       // 2. Set structural frame dimensions
       this.width = parseFloat(originalWidth) || 100;
       this.height = parseFloat(originalHeight) || 30;
+
+      this.fullWidth = this.width;
     }
   
     updateSVG()
@@ -673,10 +675,15 @@
         let innerMathSvg = this.SVGElement.querySelector('svg');
         if (innerMathSvg)
         {
-          //innerMathSvg.style.width = '';
-          innerMathSvg.style.width = this.width + 'px';
-          innerMathSvg.style.minWidth = this.width + 'px';
-          innerMathSvg.setAttribute('width', this.width + 'px');
+          if (!this.fullWidth || this.fullWidth === 100) {
+             let rawW = innerMathSvg.getAttribute('width');
+             this.fullWidth = rawW ? parseFloat(rawW) : this.width;
+          }
+
+          innerMathSvg.setAttribute('width', this.fullWidth + 'px');
+          innerMathSvg.style.width = this.fullWidth + 'px';
+          innerMathSvg.style.minWidth = this.fullWidth + 'px';
+          
           innerMathSvg.style.height = '';
           innerMathSvg.style.display = 'block';
           innerMathSvg.style.overflow = 'visible'; 
