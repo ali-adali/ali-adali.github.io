@@ -1,0 +1,30 @@
+<style>
+  .glass-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--blue-border);
+    border-radius: 16px;
+    padding: 24px;
+    color: #f8fafc;
+    
+    /* Adds an elegant dark blue ambient glow */
+    box-shadow: 0 10px 30px -10px var(--blue-glow);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: var(--blue-accent);
+    box-shadow: 0 12px 35px -5px rgba(37, 99, 235, 0.5);
+  }
+
+  .card-subtitle {
+    color: var(--blue-light);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+</style>
+
+<div class="glass-card">
+  <span class="card-subtitle">Tournament Mode</span>
+  <h2>NoipmahC</h2>
+</div>

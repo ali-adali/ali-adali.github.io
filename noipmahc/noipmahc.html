@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Noipmahc (Anti-Champion)</title>
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: #161f33;
+      --accent-gold: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: #1f293d;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color); 
+      color: var(--text-main); 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw; 
+    }
+
+    .mainContainerDiv {
+      outline: 2px solid blue;
+      border-radius: 20px;
+      height: 90dvh;
+      width: 90dvw;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    .headerPlaceDiv {
+      height: 15%;
+      width: 100%;
+      text-align: center;
+      outline: 2px solid pink;
+      border-radius: 20px;
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .headerSpan1 {
+      font-size: 40px;
+      font-weight: bolder;
+    }
+
+    .togglePhaseBtn {
+      position: absolute;
+      right: 20px;
+      padding: 8px 16px;
+      background-color: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--accent-cyan);
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .togglePhaseBtn:hover {
+      background-color: var(--accent-cyan);
+      color: var(--bg-color);
+    }
+
+    .togglePhaseBtn:active {
+      transform: scale(0.95);
+    }
+
+    .yearsDiv {
+      height: 10%;
+      width: 100%;
+      text-align: center;
+      outline: 2px solid green;
+      border-radius: 20px;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      overflow-y: hidden;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .yearButtonPlaceDiv {
+      height: 90%;
+      width: 25%;
+      outline: 1px solid brown;
+
+      flex-shrink: 0;
+
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .yearButton {
+      height: 90%;
+      width: 90%;
+      outline: 1px solid greenyellow;
+      font-size: 24px;
+      font-weight: bold;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+
+      scale: 1;
+      transition: scale 0.2s;
+      cursor: pointer;
+    }
+
+    .yearButton:hover {
+      scale: 1.1;
+      transition: scale 0.2s;
+    }
+
+    .tournamentAndResultPlace {
+      height: 75%;
+      width: 100%;
+      text-align: center;
+      outline: 2px solid blueviolet;
+      border-radius: 20px;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .tournamentPlaces {
+      outline: 1px solid olivedrab;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      
+      view-transition-name: tournament-container;
+    }
+
+    .tournamentPlacesPhase1 {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: calc(100% / 4);
+    }
+
+    .tournamentPlacesPhase2 {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tournamentCell {
+      outline: 1px solid deeppink;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .tournamentCellPhase1 {
+      height: 100%;
+    }
+
+    .tournamentCellPhase2 {
+      height: 25%;
+      flex-shrink: 0;
+    }
+
+    .tournamentSpan {
+      height: 90%;
+      aspect-ratio: 1/1;
+
+      border-radius: 50%;
+      border: 1px solid deepskyblue;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .resultPlace {
+      outline: 3px solid orange;
+      height: 100%;
+      overflow: hidden;
+      
+      view-transition-name: result-container;
+    }
+
+    .resultPlacePhase1 {
+      width: 0%;
+      border: none;
+      opacity: 0;
+    }
+
+    .resultPlacePhase2 {
+      width: 75%;
+      opacity: 1;
+    }
+
+    /* Assign transform origin for view transition so resultPlace shrinks towards the right edge */
+    ::view-transition-old(result-container),
+    ::view-transition-new(result-container) {
+      transform-origin: right center;
+    }
+
+    /* Individual view-transition-names for tournament cells */
+    .tournamentCell:nth-child(1) { view-transition-name: cell-1; }
+    .tournamentCell:nth-child(2) { view-transition-name: cell-2; }
+    .tournamentCell:nth-child(3) { view-transition-name: cell-3; }
+    .tournamentCell:nth-child(4) { view-transition-name: cell-4; }
+    .tournamentCell:nth-child(5) { view-transition-name: cell-5; }
+    .tournamentCell:nth-child(6) { view-transition-name: cell-6; }
+    .tournamentCell:nth-child(7) { view-transition-name: cell-7; }
+    .tournamentCell:nth-child(8) { view-transition-name: cell-8; }
+    .tournamentCell:nth-child(9) { view-transition-name: cell-9; }
+    .tournamentCell:nth-child(10) { view-transition-name: cell-10; }
+    .tournamentCell:nth-child(11) { view-transition-name: cell-11; }
+    .tournamentCell:nth-child(12) { view-transition-name: cell-12; }
+    .tournamentCell:nth-child(13) { view-transition-name: cell-13; }
+    .tournamentCell:nth-child(14) { view-transition-name: cell-14; }
+  </style>
+</head>
+
+<body>
+
+  <div class="mainContainerDiv">
+    <div class="headerPlaceDiv">
+      <span class="headerSpan1">NoipmahC</span>
+      <span>the anti-ChampioN</span>
+      <button id="phaseToggleBtn" class="togglePhaseBtn">Toggle Phase</button>
+    </div>
+
+    <div class="yearsDiv">
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2026</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2025</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2024</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2023</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2022</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2021</span> </div>
+    </div>
+
+    <div class="tournamentAndResultPlace">
+      <div id="tournamentPlaces" class="tournamentPlaces tournamentPlacesPhase1">
+        <div class="tournamentCell tournamentCellPhase1"> <span class="tournamentSpan">Wimbledon</span> </div>
+        <div class="tournamentCell tournamentCellPhase1"> <span class="tournamentSpan">US Open</span> </div>
+        <div class="tournamentCell tournamentCellPhase1"> <span class="tournamentSpan"> Roland Garros </span> </div>
+        <div class="tournamentCell tournamentCellPhase1"> <span class="tournamentSpan">A O </span></div>
+        <div class="tournamentCell tournamentCellPhase1"> <span class="tournamentSpan">World Cup</span></div>
+        <div class="tournamentCell tournamentCellPhase1"> <span class="tournamentSpan">Champions League</span></div>
+        <div class="tournamentCell tournamentCellPhase1"> <span class="tournamentSpan">Europa Cup</span> </div>
+        <div class="tournamentCell tournamentCellPhase1"><span class="tournamentSpan">Tour 1 </span> </div>
+        <div class="tournamentCell tournamentCellPhase1"><span class="tournamentSpan">Tour 2 </span> </div>
+        <div class="tournamentCell tournamentCellPhase1"><span class="tournamentSpan"> Tour 3 </span> </div>
+        <div class="tournamentCell tournamentCellPhase1"><span class="tournamentSpan">Tour 4 </span> </div>
+        <div class="tournamentCell tournamentCellPhase1"><span class="tournamentSpan">Tour 5 </span> </div>
+        <div class="tournamentCell tournamentCellPhase1"><span class="tournamentSpan">Tour 6 </span> </div>
+        <div class="tournamentCell tournamentCellPhase1"><span class="tournamentSpan">Tour 7 </span> </div>
+      </div>
+
+      <div id="resultPlace" class="resultPlace resultPlacePhase1">
+        Results Content Here
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('phaseToggleBtn');
+    const tournamentPlaces = document.getElementById('tournamentPlaces');
+    const resultPlace = document.getElementById('resultPlace');
+    const cells = document.querySelectorAll('.tournamentCell');
+
+    function updateLayout() {
+      tournamentPlaces.classList.toggle('tournamentPlacesPhase1');
+      tournamentPlaces.classList.toggle('tournamentPlacesPhase2');
+
+      resultPlace.classList.toggle('resultPlacePhase1');
+      resultPlace.classList.toggle('resultPlacePhase2');
+
+      cells.forEach(cell => {
+        cell.classList.toggle('tournamentCellPhase1');
+        cell.classList.toggle('tournamentCellPhase2');
+      });
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      if (!document.startViewTransition) {
+        updateLayout();
+        return;
+      }
+
+      document.startViewTransition(() => {
+        updateLayout();
+      });
+    });
+  </script>
+
+</body>
+</html>

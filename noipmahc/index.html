@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Noipmahc (Anti-Champion)</title>
+  <style>
+    :root {
+      --bg-color: black;
+      --mainDiv-bg:  #091f36;
+
+      --accent-gold: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: #1f293d;
+
+      --bg-dark: #0b0f19;
+      --bg-card: #0f172a;
+
+      
+      --blue-accent: #2563eb;       
+      --blue-glow: ghostwhite; 
+      --blue-light: #60a5fa;        
+      --blue-border: #1d4ed8;
+      --result-bg:#1e293b;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color); 
+      color: var(--text-main); 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw; 
+    }
+
+    .mainDiv
+    {
+      height: 98dvh;
+      aspect-ratio: 3/4;
+
+      border-radius: 4vmin;
+
+      outline: 0px solid blueviolet;
+      display: flex;
+      flex-direction: column;
+
+      background-color: var(--mainDiv-bg);
+
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow); 
+    }
+
+    .topDiv
+    {
+      width: 100%;
+      height: 15%;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      outline: 0px solid seagreen;
+
+      overflow: hidden;
+    }
+
+    .topDiv h1
+    {   
+      font-size: clamp(20px, 8cqmin, 56px);
+    }
+
+    .topDiv h6
+    {
+      font-size: clamp(5px, 2cqmin, 14px);
+    }
+
+    .topDiv span
+    {
+      font-size: clamp(5px, 2cqmin, 14px);
+      
+    }
+
+    .topLeftDiv
+    {
+      height: 100%;
+      aspect-ratio: 1/1;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      outline: 0px solid gray;
+
+    }
+
+
+    .topCenterDiv
+    {
+      height: 100%;
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
+
+      outline: 0px solid darkred;
+    }
+
+    .topRightDiv
+    {
+      height: 100%;
+      aspect-ratio: 1/1;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      outline: 0px solid gray;
+    }
+
+    .centerDiv
+    {
+      width: 100%;
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+      outline: 0px solid darkgray;
+    }
+
+    .resultPlaceDiv
+    {
+      width: 100%;
+      height: calc(100%/7);
+      outline: 0px solid darkslategray;
+
+      flex-shrink: 0;
+
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+
+    .resultDiv
+    {
+      height: 75%;
+      width: 85%;
+      outline: 0px solid darkgray;
+      
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 9999px;
+
+      background-color: var(--result-bg);
+      box-shadow: 0.0vmin 0.0vmin 0.3vmin 0.0vmin var(--blue-glow); 
+
+    }
+
+    .iconSpan
+    {
+      height: 100%;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      outline: 0px solid indianred;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+
+      box-shadow: 0.0vmin 0.0vmin 0.8vmin 0.2vmin var(--blue-glow); 
+    }
+
+    .tournementSpan
+    {
+      font-size: clamp(8px, 3cqmin, 18px);
+      font-weight: bold;
+      text-align: center;    
+    }
+
+    .noipSpan
+    {
+      font-size: clamp(8px, 3cqmin, 18px);
+      font-style: italic;
+      text-align: center;
+      margin-right: 3%;
+    }
+
+    .bottomDiv
+    {
+      width: 100%;
+      height: 9%;
+
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      outline: 0px solid seagreen;
+
+      overflow-y: hidden;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+
+      background-color: #064e3b ;
+
+      border-radius: 0vmin 0vmin 4vmin 4vmin;
+    }
+
+    .yearButtonPlaceDiv {
+      height: 100%;
+      width: calc(100%/3);
+      outline: 0px solid brown;
+
+      flex-shrink: 0;
+
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .yearButton {
+      height: 90%;
+      width: 90%;
+      outline: 0px solid darkgray;
+      font-size: clamp(12.5px, 5cqmin, 35px); 
+      font-weight: bold;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      border-radius: 9999px;
+
+      scale: 1;
+      transition: scale 0.2s;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="mainDiv">
+    <div class="topDiv">
+      <div class="topLeftDiv">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50%" aspect-ratio="1/1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>  
+      </div>
+
+      <div class="topCenterDiv">
+        <h1>NoipmahC</h1>
+        <span> </span>
+        <span> </span>
+        <h6></h6>
+        <span> </span>
+        <span><em>tracking the ultimate losing path</em></span>
+        
+      </div>
+
+      <div class="topRightDiv">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50%" aspect-ratio="1/1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+          <path d="M9 18h6"/>
+          <path d="M10 22h4"/>
+        </svg>
+      </div>
+      
+    </div>
+
+    <div class="centerDiv">
+
+      <div class="resultPlaceDiv">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
+          <span class="tournementSpan"> 2026 US OPEN MEN'S </span>
+          <span class="noipSpan"> <em> Martín Landaluce </em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
+          <span class="tournementSpan"> 2026 US OPEN WOMEN'S </span>
+          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
+          <span class="tournementSpan"> 2026 WIMBLEDON MEN'S </span>
+          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
+          <span class="tournementSpan"> 2026 WIMBLEDON WOMEN'S </span>
+          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
+          <span class="tournementSpan"> 2026 ROLAND GARROS MEN'S </span>
+          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
+          <span class="tournementSpan"> 2026 ROLAND GARROS WOMEN'S </span>
+          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('2026_FIFA_World_Cup_emblem.svg'); background-color: white;"> </span> 
+          <span class="tournementSpan"> 2026 FIFA WORLDCUP </span>
+          <span class="noipSpan"> <em> Cambodia </em> </span>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="bottomDiv">
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2026</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2025</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2024</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2023</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2022</span> </div>
+      <div class="yearButtonPlaceDiv"> <span class="yearButton">2021</span> </div>   
+    </div>
+    
+  </div>
+  
+</body>
+
+
+
+</html>
