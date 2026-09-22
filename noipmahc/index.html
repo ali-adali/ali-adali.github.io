@@ -162,6 +162,7 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
+
     }
 
 
@@ -180,7 +181,8 @@
       border-radius: 9999px;
 
       background-color: var(--result-bg);
-      box-shadow: 0.0vmin 0.0vmin 0.3vmin 0.0vmin var(--blue-glow); 
+      box-shadow: 0.0vmin 0.0vmin 0.3vmin 0.0vmin var(--blue-glow);
+      cursor: pointer; 
 
     }
 
@@ -231,9 +233,7 @@
 
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
-
       background-color: #064e3b ;
-
       border-radius: 0vmin 0vmin 4vmin 4vmin;
     }
 
@@ -271,6 +271,125 @@
       cursor: pointer;
     }
 
+    .pathCard
+    {
+      position: fixed;
+      height: 96%;
+      width: 96%;
+      max-width: 480px;
+
+      border-radius: 4vmin;
+
+      outline: 0px solid blueviolet;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      cursor: pointer;
+
+      
+
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      scale: 0;
+      transition: scale 0.4s ease-out;
+    }
+
+    .pathCardPath > * {
+      opacity: 0;
+      transform: translateY(12px) scale(0.95);
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+
+    /* Revealed state triggered when .pathCard gets the .visible class */
+    .pathCard.visible .pathCardPath > * 
+    {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .pathCardLogo
+    {
+      height: 15%;
+      aspect-ratio: 1/1;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+
+
+      outline: 0px solid seagreen;
+      box-shadow: 0.0vmin 0.0vmin 1vmin 0.4vmin var(--blue-glow);
+    }
+
+    .pathCardTournament
+    {
+      height: 7%;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(10px, 5cqmin, 30px);
+      font-weight: bold;
+
+      outline:0px solid seagreen;   
+    }
+
+
+    .pathCardPath
+    {
+      height: 70%;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+      outline: 0px solid deepskyblue;
+      
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex-wrap: nowrap;
+
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .pathRivalSpan
+    {
+      border-radius: 999px;
+      outline: 0px solid red;
+      box-shadow: 0.0vmin 0.0vmin 0.5vmin 0.25vmin var(--blue-glow);
+      padding: 1.0%;
+
+      font-size: clamp(6px, 4cqmin, 20px);
+
+      background-color: #00004d;
+
+      scroll-snap-align: end;
+      scroll-snap-stop: always;
+    }
+
+    .pathStageSpan
+    {
+      font-weight: bold;
+      display: flex;
+      flex-direction: row;
+      width: 30%;
+      justify-content: center;
+
+      outline: 0px solid deeppink;
+
+    }
+
   </style>
 </head>
 
@@ -305,11 +424,11 @@
 
     <div class="centerDiv">
 
-      <div class="resultPlaceDiv">
+      <div class="resultPlaceDiv" onclick="showCard();">
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
           <span class="tournementSpan"> 2026 US OPEN MEN'S </span>
-          <span class="noipSpan"> <em> Martín Landaluce </em> </span>
+          <span class="noipSpan" > <em> Martín Landaluce </em> </span>
         </div>
       </div>
 
@@ -373,8 +492,67 @@
     </div>
     
   </div>
+
+  <div class="pathCard" style="background-color: #000066;" onclick="hideCard();">
+    <div class="pathCardLogo" style="background-image: url('us_open_logo.png');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2026</span> US OPEN MEN'S</span> 
+    </div>
+
+    <div class="pathCardPath">
+      <span class="pathRivalSpan">Alexander Zverev - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Ben Shelton</span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Frances Tiafoe</span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Alex Michelsen</span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Brandon Nakashima</span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Tomás Martín Etcheverry</span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Jacob Fearnley</span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Martín Landaluce -<em> Noipmahc</em></span>
+    </div>
+  </div>
   
 </body>
+
+<script>
+  let card = document.querySelector(".pathCard");
+  let pathElements = document.querySelectorAll(".pathCardPath > *");
+
+  
+  function showCard()
+  {
+  
+    card.style.scale = "1";
+    card.classList.add("visible");
+
+    
+    const totalDuration = 1200; // ms
+    const delayStep = totalDuration / pathElements.length;
+    const delay0 = 400;
+
+    pathElements.forEach((el, index) => {
+    el.style.transitionDelay = `${delay0 + index * delayStep}ms`;});
+  }
+
+function hideCard() {
+    // 1. Scale down the card modal
+    card.style.scale = "0";
+    card.classList.remove("visible");
+
+    // 2. Reset transition delays so hiding happens cleanly without delay
+    pathElements.forEach((el) => {
+      el.style.transitionDelay = "0ms";
+    });
+  }
+</script>
 
 
 
