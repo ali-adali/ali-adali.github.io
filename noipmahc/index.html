@@ -46,6 +46,7 @@
 
     .mainDiv
     {
+      position: absolute;
       height: 96%;
       width: 96%;
       max-width: 480px;
@@ -69,7 +70,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
+      justify-content: space-evenly;
 
       outline: 0px solid seagreen;
 
@@ -78,17 +79,12 @@
 
     .topDiv h1
     {   
-      font-size: clamp(20px, 8cqmin, 56px);
-    }
-
-    .topDiv h6
-    {
-      font-size: clamp(5px, 2cqmin, 14px);
+      font-size: clamp(32px, 8cqmin, 52px);
     }
 
     .topDiv span
     {
-      font-size: clamp(5px, 2cqmin, 14px);
+      font-size: clamp(10px, 2cqmin, 14px);
       
     }
 
@@ -110,7 +106,9 @@
     .topCenterDiv
     {
       height: 100%;
-      flex: 1;
+      
+      
+
 
       display: flex;
       flex-direction: column;
@@ -170,7 +168,7 @@
     .resultDiv
     {
       height: 75%;
-      width: 85%;
+      width: 90%;
       outline: 0px solid darkgray;
       
 
@@ -202,14 +200,26 @@
 
     .tournementSpan
     {
-      font-size: clamp(8px, 3cqmin, 18px);
+      display: flex;
+      height: 100%;
+      width: 50%;
+
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+
+      font-size: clamp(8px, 5cqmin, 18px);
       font-weight: bold;
-      text-align: center;    
+      text-align: center;
+
+      outline: 0px solid gainsboro;    
     }
 
     .noipSpan
     {
-      font-size: clamp(8px, 3cqmin, 18px);
+      flex:1;
+      font-size: clamp(8px, 4cqmin, 18px);
       font-style: italic;
       text-align: center;
       margin-right: 3%;
@@ -362,7 +372,6 @@
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
 
-      padding-block: 1%;
     }
 
     .pathRivalSpan
@@ -438,7 +447,7 @@
       <div class="resultPlaceDiv">
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
-          <span class="tournementSpan"> 2026 US OPEN WOMEN'S </span>
+          <span class="tournementSpan"> 2026 US OPEN WOMEN'S  </span>
           <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
         </div>
       </div>
