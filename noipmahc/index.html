@@ -273,7 +273,7 @@
 
     .pathCard
     {
-      position: fixed;
+      position: absolute;
       height: 96%;
       width: 96%;
       max-width: 480px;
@@ -346,7 +346,7 @@
 
     .pathCardPath
     {
-      height: 70%;
+      height: 68%;
       width: 90%;
       display: flex;
       flex-direction: column;
@@ -361,6 +361,8 @@
 
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
+
+      padding-block: 1%;
     }
 
     .pathRivalSpan
@@ -380,6 +382,7 @@
 
     .pathStageSpan
     {
+      font-size: clamp(6px, 3cqmin, 15px);
       font-weight: bold;
       display: flex;
       flex-direction: row;
