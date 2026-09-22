@@ -436,19 +436,19 @@
 
     <div class="centerDiv">
 
-      <div class="resultPlaceDiv" onclick="showCard();">
+      <div class="resultPlaceDiv" onclick="showCard('uom2026');">
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
           <span class="tournementSpan"> 2026 US OPEN MEN'S </span>
-          <span class="noipSpan" > <em> Martín Landaluce </em> </span>
+          <span class="noipSpan" > <em> Stan Wawrinka </em> </span>
         </div>
       </div>
 
-      <div class="resultPlaceDiv">
+      <div class="resultPlaceDiv" onclick="showCard('uow2026');">
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
           <span class="tournementSpan"> 2026 US OPEN WOMEN'S  </span>
-          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+          <span class="noipSpan"> <em> Luidmila Samsonova </em> </span>
         </div>
       </div>
 
@@ -456,7 +456,7 @@
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
           <span class="tournementSpan"> 2026 WIMBLEDON MEN'S </span>
-          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+          <span class="noipSpan"> <em> Alejandro Tabilo </em> </span>
         </div>
       </div>
 
@@ -464,7 +464,7 @@
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
           <span class="tournementSpan"> 2026 WIMBLEDON WOMEN'S </span>
-          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+          <span class="noipSpan"> <em> Lilli Tagger </em> </span>
         </div>
       </div>
 
@@ -472,7 +472,7 @@
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
           <span class="tournementSpan"> 2026 ROLAND GARROS MEN'S </span>
-          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+          <span class="noipSpan"> <em> Clement Tabur </em> </span>
         </div>
       </div>
 
@@ -480,7 +480,7 @@
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
           <span class="tournementSpan"> 2026 ROLAND GARROS WOMEN'S </span>
-          <span class="noipSpan"> <em> Kimbilir Kim </em> </span>
+          <span class="noipSpan"> <em> Alexandra Eala</em> </span>
         </div>
       </div>
 
@@ -488,7 +488,7 @@
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('2026_FIFA_World_Cup_emblem.svg'); background-color: white;"> </span> 
           <span class="tournementSpan"> 2026 FIFA WORLDCUP </span>
-          <span class="noipSpan"> <em> Cambodia </em> </span>
+          <span class="noipSpan"> <em> Czech Republic </em> </span>
         </div>
       </div>
       
@@ -505,7 +505,7 @@
     
   </div>
 
-  <div class="pathCard" style="background-color: #000066;" onclick="hideCard();">
+  <div id="uom2026" class="pathCard" style="background-color: #000066;" onclick='hideCard("uom2026");'>
     <div class="pathCardLogo" style="background-image: url('us_open_logo.png');"> 
     </div>
 
@@ -513,7 +513,7 @@
       <span> <span style="color:#e6b800;">2026</span> US OPEN MEN'S</span> 
     </div>
 
-    <div class="pathCardPath">
+    <div class="pathCardPath" id="uom2026path">
       <span class="pathRivalSpan">Alexander Zverev - <em> Champion</em></span>
       <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
       <span class="pathRivalSpan">Ben Shelton</span>
@@ -522,25 +522,54 @@
       <span class="pathStageSpan">(QF)↓</span>
       <span class="pathRivalSpan">Alex Michelsen</span>
       <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Brandon Nakashima</span>
+      <span class="pathRivalSpan">Tomas Martin Etcheverry</span>
       <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Tomás Martín Etcheverry</span>
+      <span class="pathRivalSpan">Mariano Navone</span>
       <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Jacob Fearnley</span>
+      <span class="pathRivalSpan">Matteo Berrettini</span>
       <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Martín Landaluce -<em> Noipmahc</em></span>
+      <span class="pathRivalSpan">Stan Wawrinka -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+  <div id="uow2026" class="pathCard" style="background-color: #000066;" onclick='hideCard("uow2026");'>
+    <div class="pathCardLogo" style="background-image: url('us_open_logo.png');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2026</span> US OPEN WOMEN'S</span> 
+    </div>
+
+    <div class="pathCardPath" id="uow2026path">
+      <span class="pathRivalSpan">Elena Rybakina - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Aryna Sabalenka</span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Jesicca Pegula</span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Emma Navarro</span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Anna Kalinskaya</span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Elina Svitolina</span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Maya Joint</span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Luidmila Samsonova -<em> Noipmahc</em></span>
     </div>
   </div>
   
 </body>
 
 <script>
-  let card = document.querySelector(".pathCard");
-  let pathElements = document.querySelectorAll(".pathCardPath > *");
+  
 
   
-  function showCard()
+  function showCard(cardID)
   {
+    let card = document.getElementById(cardID);
+    let pathElements = document.getElementById(cardID+'path').children;
   
     card.style.scale = "1";
     card.classList.add("visible");
@@ -550,17 +579,19 @@
     const delayStep = totalDuration / pathElements.length;
     const delay0 = 400;
 
-    pathElements.forEach((el, index) => {
+    Array.from(pathElements).forEach((el, index) => {
     el.style.transitionDelay = `${delay0 + index * delayStep}ms`;});
   }
 
-function hideCard() {
+function hideCard(cardID) {
+    let card = document.getElementById(cardID);
+    let pathElements = document.getElementById(cardID+'path');
     // 1. Scale down the card modal
     card.style.scale = "0";
     card.classList.remove("visible");
 
     // 2. Reset transition delays so hiding happens cleanly without delay
-    pathElements.forEach((el) => {
+    Array.from(pathElements).forEach((el) => {
       el.style.transitionDelay = "0ms";
     });
   }
