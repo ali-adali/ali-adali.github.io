@@ -143,6 +143,15 @@
       justify-content: space-evenly;
 
       outline: 0px solid darkgray;
+
+      overflow-x: hidden;
+      overflow-y: auto;
+      flex-wrap: nowrap;
+
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+
+
     }
 
     .resultPlaceDiv
@@ -160,6 +169,9 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
+
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
 
     }
 
@@ -340,15 +352,16 @@
 
     .pathCardTournament
     {
-      height: 7%;
+      height: 9%;
       width: 100%;
 
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: clamp(10px, 5cqmin, 30px);
+      font-size: clamp(10px, 6cqmin, 26px);
       font-weight: bold;
+      text-align: center;
 
       outline:0px solid seagreen;   
     }
@@ -468,27 +481,46 @@
         </div>
       </div>
 
-      <div class="resultPlaceDiv" onclick="showCard('rgm2026');">
+      <div class="resultPlaceDiv" onclick="showCard('fom2026');">
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2026 ROLAND GARROS MEN'S </span>
+          <span class="tournementSpan"> 2026 FRENCH OPEN MEN'S </span>
           <span class="noipSpan"> <em> Clement Tabur </em> </span>
         </div>
       </div>
 
-      <div class="resultPlaceDiv" onclick="showCard('rgw2026');">
+      <div class="resultPlaceDiv" onclick="showCard('fow2026');">
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2026 ROLAND GARROS WOMEN'S </span>
+          <span class="tournementSpan"> 2026 FRENCH OPEN WOMEN'S </span>
           <span class="noipSpan"> <em> Alexandra Eala</em> </span>
         </div>
       </div>
 
-      <div class="resultPlaceDiv">
+
+      <div class="resultPlaceDiv" onclick="showCard('aom2026');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('Australian_Open_Logo_2017.svg');"> </span> 
+          <span class="tournementSpan"> 2026 AUSTRALIAN OPEN MEN'S </span>
+          <span class="noipSpan"> <em> Yunchaokete Bu </em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv" onclick="showCard('aow2026');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('Australian_Open_Logo_2017.svg');"> </span> 
+          <span class="tournementSpan"> 2026 AUSTRALIAN OPEN WOMEN'S </span>
+          <span class="noipSpan"> <em> Camila Osorio </em> </span>
+        </div>
+      </div>
+
+
+
+      <div class="resultPlaceDiv" onclick="showCard('fifawc2026');">
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('2026_FIFA_World_Cup_emblem.svg'); background-color: white;"> </span> 
           <span class="tournementSpan"> 2026 FIFA WORLDCUP </span>
-          <span class="noipSpan"> <em> Czech Republic </em> </span>
+          <span class="noipSpan"> <em> 🇨🇿 Czech Republic </em> </span>
         </div>
       </div>
       
@@ -617,15 +649,15 @@
   </div>
 
 
-  <div id="rgm2026" class="pathCard" style="background-color: #97451c" onclick='hideCard("rgm2026");'>
+  <div id="fom2026" class="pathCard" style="background-color: #97451c" onclick='hideCard("fom2026");'>
     <div class="pathCardLogo" style="background-image: url('Roland-Garros_logo.svg');"> 
     </div>
 
     <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> ROLAND GARROS MEN'S</span> 
+      <span> <span style="color:#e6b800;">2026</span> FRENCH OPEN MEN'S</span> 
     </div>
 
-    <div class="pathCardPath" id="rgm2026path">
+    <div class="pathCardPath" id="fom2026path">
       <span class="pathRivalSpan">Alexander Zverev- <em> Champion</em></span>
       <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
       <span class="pathRivalSpan">Flavio Cobolli</span>
@@ -645,15 +677,15 @@
   </div>
 
 
-  <div id="rgw2026" class="pathCard" style="background-color: #97451c" onclick='hideCard("rgw2026");'>
+  <div id="fow2026" class="pathCard" style="background-color: #97451c" onclick='hideCard("fow2026");'>
     <div class="pathCardLogo" style="background-image: url('Roland-Garros_logo.svg');"> 
     </div>
 
     <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> ROLAND GARROS MEN'S</span> 
+      <span> <span style="color:#e6b800;">2026</span> FRENCH OPEN WOMEN'S</span> 
     </div>
 
-    <div class="pathCardPath" id="rgw2026path">
+    <div class="pathCardPath" id="fow2026path">
       <span class="pathRivalSpan">Mirra Andreeva- <em> Champion</em></span>
       <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
       <span class="pathRivalSpan">Maja Chwalińska </span>
@@ -671,6 +703,97 @@
       <span class="pathRivalSpan">Alexandra Eala  -<em> Noipmahc</em></span>
     </div>
   </div>
+
+
+  <div id="aom2026" class="pathCard" style="background-color: #006999;" onclick='hideCard("aom2026");'>
+    <div class="pathCardLogo" style="background-image: url('Australian_Open_Logo_2017.svg');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2026</span> AUSTRALIAN OPEN MEN'S</span> 
+    </div>
+
+    <div class="pathCardPath" id="aom2026path">
+      <span class="pathRivalSpan"> Carlos Alcaraz- <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Novak Djokovic </span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Jannik Sinner </span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Ben Shelton </span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Casper Ruud </span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Marin Čilić </span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Denis Shapovalov </span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Yunchaokete Bu  -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+  <div id="aow2026" class="pathCard" style="background-color: #006999;" onclick='hideCard("aow2026");'>
+    <div class="pathCardLogo" style="background-image: url('Australian_Open_Logo_2017.svg');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2026</span> AUSTRALIAN OPEN WOMEN'S</span> 
+    </div>
+
+    <div class="pathCardPath" id="aow2026path">
+      <span class="pathRivalSpan">Elena Rybakina - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Aryna Sabalenka</span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Elina Svitolina</span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Coco Gauff</span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Karolína Muchová</span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Magda Linette</span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Ann Li</span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">María Camila Osorio Serrano -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+  <div id="fifawc2026" class="pathCard" style="background-color: #730d10;" onclick='hideCard("fifawc2026");'>
+    <div class="pathCardLogo" style="background-image: url('2026_FIFA_World_Cup_emblem.svg');background-color: white;"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2026</span> FIFA WORLD CUP</span> 
+    </div>
+
+    <div class="pathCardPath" id="fifawc2026path">
+      <span class="pathRivalSpan">Spain  - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">🇦🇷 Argentina </span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England </span>
+      <span class="pathStageSpan">(3RD)↓</span>
+      <span class="pathRivalSpan">🇫🇷 France </span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">🇲🇦 Morocco </span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">🇨🇦 Canada </span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">🇿🇦 South Africa </span>
+      <span class="pathStageSpan">(GROUP)↓</span>
+      <span class="pathRivalSpan">🇰🇷 South Korea </span>
+      <span class="pathStageSpan">(GROUP)↓</span>
+      <span class="pathRivalSpan"> 🇨🇿 Czech Republic  -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+
+
+
 
   
 </body>
