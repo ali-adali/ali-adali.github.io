@@ -420,7 +420,7 @@
       box-shadow: 0.0vmin 0.0vmin 0.5vmin 0.25vmin var(--blue-glow);
       padding: 1.0%;
 
-      font-size: clamp(14px, 5cqmin, 20px);
+      font-size: clamp(14px, 4.5cqmin, 20px);
 
       background-color: #00004d;
 
@@ -571,6 +571,25 @@
           <span class="noipSpan"> <em> McNeese State </em> </span>
         </div>
       </div>
+
+
+      <div class="resultPlaceDiv" onclick="showCard('nba2026');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('National_Basketball_Association_logo.svg');background-color: white; "> </span> 
+          <span class="tournementSpan"> 2026 NBA FINALS</span>
+          <span class="noipSpan"> <em> Rockets </em> </span>
+        </div>
+      </div>
+
+
+      <div class="resultPlaceDiv" onclick="showCard('cl2026');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('UEFA_Champions_League_logo.svg');background-color: white; "> </span> 
+          <span class="tournementSpan"> 2026 CHAMPIONS LEAGUE</span>
+          <span class="noipSpan"> <em> Qarabağ </em> </span>
+        </div>
+      </div>
+
       
     </div>
 
@@ -906,6 +925,111 @@
           McNeese State - <em> Noipmahc</em>
         </span>
         
+      </span>
+    </div>
+  </div>
+
+
+
+
+  <div id="nba2026" class="pathCard" style="background-color: #163269;" onclick='hideCard("nba2026");'>
+    <div class="pathCardLogo" style="background-image: url('National_Basketball_Association_logo.svg');background-color: white;"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2026</span> NBA FINALS</span> 
+    </div>
+
+    <div class="pathCardPath" id="nba2026path">
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('New_York_Knicks_logo.svg'); "></span>
+        <span>New York Knicks - <em> 🏆 Champion</em></span>
+      </span>
+      <span class="pathStageSpan"><span> (NBA F)</span> <span>↓</span> </span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('San_Antonio_Spurs.svg'); background-color: white; border-radius: 50%; ">
+        </span>
+        <span>San Antonio Spurs</span>
+         
+      </span>
+      <span class="pathStageSpan">(CONF F)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Oklahoma_City_Thunder.svg'); background-color: white; border-radius: 50%; ">
+        </span>
+        <span>Oklahama City Thunder</span>
+      </span>
+      <span class="pathStageSpan">(CONF SF)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Los_Angeles_Lakers_logo.svg'); ">
+        </span>
+        <span>Los Angeles Lakers</span>
+      </span>
+      <span class="pathStageSpan">(PO R1)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Houston_Rockets.svg'); ">
+        </span>
+        <span>
+          Houston Rockets - <em> Noipmahc</em>
+        </span>
+      </span>
+    </div>
+  </div>
+
+
+  <div id="cl2026" class="pathCard" style="background-color:  #00001a;" onclick='hideCard("cl2026");'>
+    <div class="pathCardLogo" style="background-image: url('UEFA_Champions_League_logo.svg');background-color: white;"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2026</span> UEFA CHAMPIONS LEAGUE</span> 
+    </div>
+
+    <div class="pathCardPath" id="cl2026path">
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Paris_Saint-Germain_FC.svg'); "></span>
+        <span>Paris Saint-Germain - <em> 🏆 Champion</em></span>
+      </span>
+      <span class="pathStageSpan"><span> (F)</span> <span>↓</span> </span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Arsenal_FC.svg'); ">
+        </span>
+        <span>Arsenal</span>
+         
+      </span>
+      <span class="pathStageSpan">(SF)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Atletico_Madrid_Logo_2024.svg'); ">
+        </span>
+        <span>Atlético Madrid</span>
+      </span>
+      <span class="pathStageSpan">(QF)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('FC_Barcelona.svg'); ">
+        </span>
+        <span>Barcelona</span>
+      </span>
+      <span class="pathStageSpan">(R16)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Newcastle_United_Logo.svg'); ">
+        </span>
+        <span>Newcastle United</span>
+      </span>
+      <span class="pathStageSpan">(R32)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Qarabag_FK_logo.svg'); ">
+        </span>
+        <span>
+          Qarabağ - <em> Noipmahc</em>
+        </span>
       </span>
     </div>
   </div>
