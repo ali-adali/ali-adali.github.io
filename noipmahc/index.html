@@ -40,8 +40,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      width: 100vw; 
+      
+
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height as fallback/standard */
+      height: 100svh;     /* Small viewport height - stays fixed even when address bar is expanded */
+      width: 100%;
+      
+      /* Prevent browser pull-to-refresh and bounce scrolling on outer body */
+      overscroll-behavior: none;
+      overflow: hidden; 
     }
 
     .mainDiv
@@ -221,7 +229,7 @@
       align-items: center;
 
 
-      font-size: clamp(8px, 5cqmin, 18px);
+      font-size: clamp(8px, 5cqmin, 16px);
       font-weight: bold;
       text-align: center;
 
@@ -310,8 +318,6 @@
 
       cursor: pointer;
 
-      
-
       box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
 
       scale: 0;
@@ -384,6 +390,12 @@
 
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
+      padding-top: 1%;
+      padding-bottom: 1%;
+
+      /* 2. Match scroll-padding so snapping aligns correctly with the padded edges */
+      scroll-padding-top: 1%;
+      scroll-padding-bottom: 1%;
 
     }
 
@@ -485,7 +497,7 @@
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
           <span class="tournementSpan"> 2026 FRENCH OPEN MEN'S </span>
-          <span class="noipSpan"> <em> Clement Tabur </em> </span>
+          <span class="noipSpan"> <em> Corentin Moutet </em> </span>
         </div>
       </div>
 
