@@ -240,7 +240,7 @@
     .noipSpan
     {
       flex:1;
-      font-size: clamp(8px, 4cqmin, 18px);
+      font-size: clamp(8px, 4.5cqmin, 18px);
       font-style: italic;
       text-align: center;
       margin-right: 3%;
@@ -402,12 +402,23 @@
 
     .pathRivalSpan
     {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      
+      gap:1vw;
+      padding-inline: 2vw;
+
+      
+     
+
       border-radius: 999px;
       outline: 0px solid red;
       box-shadow: 0.0vmin 0.0vmin 0.5vmin 0.25vmin var(--blue-glow);
       padding: 1.0%;
 
-      font-size: clamp(14px, 6cqmin, 20px);
+      font-size: clamp(14px, 5cqmin, 20px);
 
       background-color: #00004d;
 
@@ -426,6 +437,19 @@
 
       outline: 0px solid deeppink;
 
+    }
+
+    .schoolLogo
+    {
+      width: 5vh;
+      aspect-ratio: 1/1;
+
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+
+      outline: 0px solid pink;
     }
 
   </style>
@@ -534,6 +558,15 @@
           <span class="iconSpan" style="background-image: url('2026_FIFA_World_Cup_emblem.svg'); background-color: white;"> </span> 
           <span class="tournementSpan"> 2026 FIFA WORLDCUP </span>
           <span class="noipSpan"> <em> 🇨🇿 Czech Republic </em> </span>
+        </div>
+      </div>
+
+
+      <div class="resultPlaceDiv" onclick="showCard('mmm2026');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('NCAA_logo.svg');background-color: #009CDE; "> </span> 
+          <span class="tournementSpan"> 2026 MARCH MADNESS MEN'S 🏀 </span>
+          <span class="noipSpan"> <em> McNeese </em> </span>
         </div>
       </div>
       
@@ -800,6 +833,78 @@
       <span class="pathRivalSpan">🇰🇷 South Korea </span>
       <span class="pathStageSpan">(GROUP)↓</span>
       <span class="pathRivalSpan"> 🇨🇿 Czech Republic  -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+
+  <div id="mmm2026" class="pathCard" style="background-color:#005980;" onclick='hideCard("mmm2026");'>
+    <div class="pathCardLogo" style="background-image: url('NCAA_logo.svg');background-color: #009CDE;"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2026</span> MARCH MADNESS MEN'S BASKETBALL</span> 
+    </div>
+
+    <div class="pathCardPath" id="mmm2026path">
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Michigan_Wolverines_logo.svg'); "></span>
+        <span>Michigan - <em> 🏆 Champion</em></span>
+      </span>
+      <span class="pathStageSpan"><span> (F)</span> <span>↓</span> </span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Uconn_Connecticut_Huskies_wordmark.svg'); ">
+        </span>
+        <span>UConn</span>
+         
+      </span>
+      <span class="pathStageSpan">(SF)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Illinois_Fighting_Illini_logo.svg'); ">
+        </span>
+        <span>Illinois</span>
+        
+      </span>
+      <span class="pathStageSpan">(ELITE 8)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Iowa_Hawkeyes_wordmark.svg'); ">
+        </span>
+        <span>Iowa</span>
+        
+      </span>
+      <span class="pathStageSpan">(SWEET 16)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Nebraska_Cornhuskers_logo.svg'); ">
+        </span>
+        <span>
+          Nebraska
+        </span>
+        
+      </span>
+      <span class="pathStageSpan">(R32)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('Vanderbilt_Athletics_logo.svg'); ">
+        </span>
+        <span>
+          Vanderbilt
+        </span>
+        
+      </span>
+      <span class="pathStageSpan">(R64)↓</span>
+
+      <span class="pathRivalSpan">
+        <span class="schoolLogo" style=" background-image: url('McNeese_Athletics_logo.svg'); ">
+        </span>
+        <span>
+          McNeese - <em> Noipmahc</em>
+        </span>
+        
+      </span>
     </div>
   </div>
 
