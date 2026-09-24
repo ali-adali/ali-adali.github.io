@@ -146,6 +146,9 @@
       top:15%;
       width: 100%;
       height: 0%;
+
+      opacity: 1;
+
       outline: 0px solid green;
       border-radius: 0vmin 0vmin 4vmin 4vmin;
       background-color: var(--mainDiv-bg);
@@ -162,12 +165,12 @@
 
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
-      transition: height 0.4s ease-out;
+      transition: height 0.4s linear;
 
-      gap:1%;
+      gap:0%;
 
-      padding-top: 0.5%;
-      padding-bottom: 0.5%;
+      padding-top: 0.0%;
+      padding-bottom: 0.0%;
 
 
       scroll-padding-top: 0.5%;
@@ -181,14 +184,19 @@
     .updatesDiv.open, .infoDiv.open
     {
       height: 85%;
+      gap:1%;
+
+      padding-top: 0.5%;
+      padding-bottom: 0.5%;
     }
 
-    .updatesDiv, .updatesPlaceDiv, .infoDiv, .infoPlaceDiv
+     .updatesPlaceDiv, .infoPlaceDiv
     {
       opacity: 0;
       transform: translateY(12px) scale(0.95);
       transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    }
+      transition-delay: opacity  0.5s, transform 0.5s;
+    } 
 
     .updatesPlaceDiv, .infoPlaceDiv
     {
@@ -208,15 +216,16 @@
 
       background-color: #0f3257;
       box-shadow: 0.0vmin 0.0vmin 0.55vmin 0.15vmin var(--blue-glow);
+      z-index: 6;
 
 
     }
 
-    .updatesDiv.open, .updatesPlaceDiv, .infoDiv.open, .infoPlaceDiv 
+    .updatesPlaceDiv.open, .infoPlaceDiv.open 
     {
       opacity: 1;
       transform: translateY(0) scale(1);
-      transition-delay: 0.2s; 
+      
     }
 
     .updatesDateSpan, .infoTitleSpan
@@ -1271,18 +1280,48 @@
   const bellIcon = document.getElementById('bellIcon');
   const bellIconBall = document.getElementById('bellIconBall');
   const updatesDiv = document.querySelector('.updatesDiv');
+  const updatesPlaceDiv = document.querySelectorAll('.updatesPlaceDiv');
 
   const bulbIcon = document.getElementById('bulbIcon');
   const bulbIconIn = document.querySelector('.bulbIconIn');
   const infoDiv = document.querySelector('.infoDiv');
+  const infoPlaceDiv = document.querySelectorAll('.infoPlaceDiv');
 
 
   bellIcon.addEventListener('click', () => {
-    updatesDiv.classList.toggle('open'); bellIconBall.style.scale=0;
+    infoDiv.classList.remove('open');
+    bulbIconIn.classList.remove('open');
+
+
+    infoPlaceDiv.forEach(element => {
+      element.classList.remove('open');
+    });
+
+    updatesDiv.classList.toggle('open');
+
+    updatesPlaceDiv.forEach(element => {
+      element.classList.toggle('open');
+    });
+
+    bellIconBall.style.scale=0;
   });
 
   bulbIcon.addEventListener('click', () => {
-    infoDiv.classList.toggle('open'); bulbIconIn.classList.toggle('open');
+
+    updatesDiv.classList.remove('open');
+
+    updatesPlaceDiv.forEach(element => {
+      element.classList.remove('open');
+    });
+
+    infoDiv.classList.toggle('open');
+
+
+    infoPlaceDiv.forEach(element => {
+      element.classList.toggle('open');
+    });
+
+    bulbIconIn.classList.toggle('open');
   });
 
 
