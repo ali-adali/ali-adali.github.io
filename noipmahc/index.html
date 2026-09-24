@@ -140,6 +140,108 @@
       outline: 0px solid gray;
     }
 
+    .updatesDiv, .infoDiv
+    {
+      position: absolute;
+      top:15%;
+      width: 100%;
+      height: 0%;
+      outline: 0px solid green;
+      border-radius: 0vmin 0vmin 4vmin 4vmin;
+      background-color: var(--mainDiv-bg);
+      z-index: 5;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+
+      overflow-x: hidden;
+      overflow-y: auto;
+      flex-wrap: nowrap;
+
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      transition: height 0.4s ease-out;
+
+      gap:1%;
+
+      padding-top: 0.5%;
+      padding-bottom: 0.5%;
+
+
+      scroll-padding-top: 0.5%;
+      scroll-padding-bottom: 0.5%;
+
+      /* 2. Match scroll-padding so snapping aligns correctly with the padded edges */
+     
+
+    }
+
+    .updatesDiv.open, .infoDiv.open
+    {
+      height: 85%;
+    }
+
+    .updatesDiv, .updatesPlaceDiv, .infoDiv, .infoPlaceDiv
+    {
+      opacity: 0;
+      transform: translateY(12px) scale(0.95);
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+
+    .updatesPlaceDiv, .infoPlaceDiv
+    {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+      margin-top: 1%;
+      scroll-snap-align: end;
+      scroll-snap-stop: always;
+
+
+      outline:0px solid yellowgreen;
+      border-radius: 3vmin;
+
+      background-color: #0f3257;
+      box-shadow: 0.0vmin 0.0vmin 0.55vmin 0.15vmin var(--blue-glow);
+
+
+    }
+
+    .updatesDiv.open, .updatesPlaceDiv, .infoDiv.open, .infoPlaceDiv 
+    {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.2s; 
+    }
+
+    .updatesDateSpan, .infoTitleSpan
+    {
+      width: 100%;
+      text-align: center;
+      border-radius: 3vmin 3vmin 0vmin 0vmin;
+      background-color: #006666;
+
+      padding: 1%;
+
+      font-weight: bold;
+    }
+
+    .updatesContentSpan, .infoContentSpan
+    {
+      width: 92%;
+      
+      outline:0px solid blueviolet;
+      
+      margin: 1%;
+
+    }
+
+
     .centerDiv
     {
       width: 100%;
@@ -158,8 +260,6 @@
 
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
-
-
     }
 
     .resultPlaceDiv
@@ -178,8 +278,7 @@
       justify-content: center;
       align-items: center;
 
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
+      
 
     }
 
@@ -446,12 +545,21 @@
       width: 5vh;
       aspect-ratio: 1/1;
 
-
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
 
       outline: 0px solid pink;
+    }
+
+    .bulbIconIn
+    {
+      fill-opacity: 0;
+    }
+
+    .bulbIconIn.open
+    {
+      fill-opacity: 1;
     }
 
   </style>
@@ -461,8 +569,14 @@
   <div class="mainDiv">
     <div class="topDiv">
       <div class="topLeftDiv">
-        <svg xmlns="http://www.w3.org/2000/svg" width="50%" aspect-ratio="1/1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg style="display: none;" xmlns="http://www.w3.org/2000/svg" width="50%" aspect-ratio="1/1" viewBox="0 0 25 25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+
+        <svg id="bellIcon" xmlns="http://www.w3.org/2000/svg" width="40%" height="40%" viewBox="0 0 25 25" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          <circle id="bellIconBall" cx="20.0" cy="3.5" r="3.5" fill="#e60000" stroke="none" > </circle>
         </svg>  
       </div>
 
@@ -477,8 +591,8 @@
       </div>
 
       <div class="topRightDiv">
-        <svg xmlns="http://www.w3.org/2000/svg" width="50%" aspect-ratio="1/1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+        <svg id="bulbIcon" xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;">
+          <path class="bulbIconIn" d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" fill-opacity="0" fill="#cc9900" />
           <path d="M9 18h6"/>
           <path d="M10 22h4"/>
         </svg>
@@ -486,8 +600,120 @@
       
     </div>
 
-    <div class="centerDiv">
 
+    <div class="updatesDiv">
+      <div class="updatesPlaceDiv">
+        <span class="updatesDateSpan">23 September 2026 </span>
+        <span class="updatesContentSpan"> The website launched!</span>
+
+        
+        <span class="updatesContentSpan"> <em>Tennis</em> - 2026 Grand Slams ( Australian Open, French Open, Wimbledon and US Open) for Men's and Women's results are added.</span>
+
+        
+        <span class="updatesContentSpan"> <em>Football </em>- FIFA World Cup 2026 and UEFA Champion's League 2026 results are added.</span>
+
+        <span class="updatesContentSpan"> <em>Basketball </em>- NBA 2026 Finals and March Madness results are added. </span>
+        
+      </div>  
+    </div>
+
+    <div class="infoDiv">
+      <div class="infoPlaceDiv">
+        <span class="infoTitleSpan">What is a <em>Noipmahc</em>?</span>
+        
+        <span class="infoContentSpan"> Noipmahc (Champion spelled backwards) is the anti-champion.
+        </span>
+        <span class="infoContentSpan"><b>ChampioN</b> - ultimate winner of the longest winning chain &rightleftarrows; <b>NoipmahC</b> - ultimate loser of the longest losing chain </span>
+
+      </div>
+
+      <div class="infoPlaceDiv">
+        <span class="infoTitleSpan">the Algoritm</span>
+
+        <span class="infoContentSpan">the Noipmahc is found by tracing the chain of defeat backward. Let <em>C<sub>1</sub></em>  be the champion.
+        </span>
+        <span class="infoContentSpan">- Let <em>C<sub>2</sub></em>  be who lost to <em>C<sub>1</sub></em>  in the final. </span>
+        <span class="infoContentSpan">- Let C<sub>3</sub> be who lost to C<sub>2</sub> in the previous round. In general <em>C<sub>k+1</sub> </em>  is lost to <em>C<sub>k</sub> </em> in the next round.</span>
+        <span class="infoContentSpan">- Continue this path (<em>C<sub>4</sub> </em>,...,<em>C<sub>n</sub> </em>) until it stops at <em>C<sub>n</sub> </em>.  <em>C<sub>n</sub> </em> is the <em>noipmahc</em>.</span> 
+      </div>
+
+      <div class="infoPlaceDiv" style="background-color: darkgoldenrod; ">
+        <span class="infoTitleSpan">🏆 🔄  <span style="display: inline-block; transform:rotate(180deg) translateZ(0);">🏆</span>  </span>
+
+        <span class="infoContentSpan"> If every match result in a single-elimination bracket (turning all wins into losses) is reversed, the original Champion becomes the Noipmahc, and the original Noipmahc becomes the new Champion!  </span> 
+      </div>
+
+
+      <div class="infoPlaceDiv">
+        <span class="infoTitleSpan">What This Site Does & How to Explore</span>
+
+        <span class="infoContentSpan">This platform tracks the Noipmahc across major global tournaments, including: Tennis Grand Slams (<b> Wimbledon</b>, <b>US Open</b>, <b>French Open</b>, <b>Australian Open</b>), Football ( <b>World Cup</b>, <b>Champions League</b>), Basketball (<b>NCAA March Madness</b>, <b>NBA Playoffs</b>) and more.
+        </span>
+
+        <span class="infoContentSpan">
+          -Tournaments are listed from top to bottom, with the most recent events at the top. Scroll up or down through the main list to browse across seasons.
+        </span>
+
+        <span class="infoContentSpan">
+          -Click on any tournament card to reveal its complete Noipmahc path. Click anywhere on the card again to close it.
+        </span>
+
+        <span class="infoContentSpan">
+          -Use the horizontal year slider at the bottom of your screen to jump across time.
+        </span>
+      </div>
+
+
+      <div class="infoPlaceDiv">
+        <span class="infoTitleSpan"> Research & Open Questions </span>
+
+        <span class="infoContentSpan">Comparing how Champions and Noipmahcs emerge opens up fascinating analytical questions:
+        </span>
+
+        <span class="infoContentSpan"> - <b>Randomness:</b>  Are Noipmahcs significantly more random or unpredictable than Champions?
+        </span>
+
+        <span class="infoContentSpan"> - <b>Dominance:</b>   Certain legends dominate and win multiple championships. Do specific players or teams frequently end up as the Noipmahc, or are the dynamics completely different?
+        </span>
+
+        <span class="infoContentSpan"> - <b>Recurrence:</b> Does becoming a Noipmahc once make a player more prone to repeating it in future tournaments?  
+        </span>
+
+        <span class="infoContentSpan"> - <b>Predictability:</b> Is predicting a tournament’s Noipmahc inherently harder than predicting its Champion? 
+        </span>
+
+         <span class="infoContentSpan"> - <b>Cross-Tournament Links:</b> Does the Noipmahc chain of one tournament hold predictive signal for future champions or Noipmahcs?
+        </span>
+  
+      </div>
+
+
+
+      <div class="infoPlaceDiv">
+        <span class="infoTitleSpan"> The AI Benchmark Test</span>
+
+        <span class="infoContentSpan">Surprisingly, tracking a Noipmahc serves as an excellent benchmark for testing structural reasoning in large language models (LLMs).
+        </span>
+
+        <span class="infoContentSpan">Despite the step-by-step algorithm being straightforward, popular AI models frequently hallucinate or diverge when tracing brackets:
+        </span>
+
+        <span class="infoContentSpan"> - <b>Gemini</b>   (as of Sept 2026) required four iterative corrections to successfully trace the 2026 US Open Men's Noipmahc, but then diverged when attempting the Women's bracket.
+        </span>
+
+        <span class="infoContentSpan"> - <b>ChatGPT</b>  failed the initial 2026 US Open Men's trace after reading the algorithm, but adapted over two corrections and successfully traced the Women's bracket on its next attempt.
+        </span>
+
+        <span class="infoContentSpan">Because LLMs struggle to maintain strict multi-step graph traversal without straying, finding a Noipmahc doubles as a lightweight litmus test for AI logical reasoning and rapidly adapting to simple algorithms. 
+        </span>
+      </div>
+
+
+      
+    </div>
+
+
+    <div class="centerDiv">
       <div class="resultPlaceDiv" onclick="showCard('uom2026');">
         <div class="resultDiv">
           <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
@@ -1037,12 +1263,29 @@
 
 
 
-
-
   
 </body>
 
 <script>
+
+  const bellIcon = document.getElementById('bellIcon');
+  const bellIconBall = document.getElementById('bellIconBall');
+  const updatesDiv = document.querySelector('.updatesDiv');
+
+  const bulbIcon = document.getElementById('bulbIcon');
+  const bulbIconIn = document.querySelector('.bulbIconIn');
+  const infoDiv = document.querySelector('.infoDiv');
+
+
+  bellIcon.addEventListener('click', () => {
+    updatesDiv.classList.toggle('open'); bellIconBall.style.scale=0;
+  });
+
+  bulbIcon.addEventListener('click', () => {
+    infoDiv.classList.toggle('open'); bulbIconIn.classList.toggle('open');
+  });
+
+
   
 
   
