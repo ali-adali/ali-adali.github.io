@@ -207,7 +207,7 @@
       justify-content: space-evenly;
 
       margin-top: 1%;
-      scroll-snap-align: end;
+      scroll-snap-align: start;
       scroll-snap-stop: always;
 
 
@@ -613,7 +613,7 @@
     <div class="updatesDiv">
       <div class="updatesPlaceDiv">
         <span class="updatesDateSpan">23 September 2026 </span>
-        <span class="updatesContentSpan"> The website launched!</span>
+        <span class="updatesContentSpan"> The website is launched!</span>
 
         
         <span class="updatesContentSpan"> <em>Tennis</em> - 2026 Grand Slams ( Australian Open, French Open, Wimbledon and US Open) for Men's and Women's results are added.</span>
@@ -716,9 +716,6 @@
         <span class="infoContentSpan">Because LLMs struggle to maintain strict multi-step graph traversal without straying, finding a Noipmahc doubles as a lightweight litmus test for AI logical reasoning and rapidly adapting to simple algorithms. 
         </span>
       </div>
-
-
-      
     </div>
 
 
@@ -822,6 +819,73 @@
           <span class="iconSpan" style="background-image: url('UEFA_Champions_League_logo.svg');background-color: white; "> </span> 
           <span class="tournementSpan"> 2026 CHAMPIONS LEAGUE</span>
           <span class="noipSpan"> <em> Qarabağ </em> </span>
+        </div>
+      </div>
+
+
+      <div class="resultPlaceDiv" onclick="showCard('uom2025');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
+          <span class="tournementSpan"> 2025 US OPEN MEN'S </span>
+          <span class="noipSpan" > <em> Nishesh Basavareddy </em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv" onclick="showCard('uow2025');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
+          <span class="tournementSpan"> 2025 US OPEN WOMEN'S </span>
+          <span class="noipSpan" > <em> Madison Keys</em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv" onclick="showCard('wm2025');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
+          <span class="tournementSpan"> 2025 WIMBLEDON MEN'S </span>
+          <span class="noipSpan"> <em> Elias Ymer </em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv" onclick="showCard('ww2025');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
+          <span class="tournementSpan"> 2025 WIMBLEDON WOMEN'S </span>
+          <span class="noipSpan"> <em>Kimberly Birrell</em> </span>
+        </div>
+      </div>
+
+
+      <div class="resultPlaceDiv" onclick="showCard('fom2025');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
+          <span class="tournementSpan"> 2025 FRENCH OPEN MEN'S </span>
+          <span class="noipSpan"> <em>Dušan Lajović</em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv" onclick="showCard('fow2025');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
+          <span class="tournementSpan"> 2025 FRENCH OPEN WOMEN'S </span>
+          <span class="noipSpan"> <em>Linda Nosková </em> </span>
+        </div>
+      </div>
+
+
+       <div class="resultPlaceDiv" onclick="showCard('aom2025');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('Australian_Open_Logo_2017.svg');"> </span> 
+          <span class="tournementSpan"> 2025 AUSTRALIAN OPEN MEN'S </span>
+          <span class="noipSpan"> <em>Lukas Klein</em> </span>
+        </div>
+      </div>
+
+      <div class="resultPlaceDiv" onclick="showCard('aow2025');">
+        <div class="resultDiv">
+          <span class="iconSpan" style="background-image: url('Australian_Open_Logo_2017.svg');"> </span> 
+          <span class="tournementSpan"> 2025 AUSTRALIAN OPEN WOMEN'S </span>
+          <span class="noipSpan"> <em>Nadia Podoroska</em> </span>
         </div>
       </div>
 
@@ -1266,6 +1330,233 @@
           Qarabağ - <em> Noipmahc</em>
         </span>
       </span>
+    </div>
+  </div>
+
+
+  <div id="uom2025" class="pathCard" style="background-color: #000066;" onclick='hideCard("uom2025");'>
+    <div class="pathCardLogo" style="background-image: url('us_open_logo.png');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> 
+        <span style="color:#e6b800;">2025</span> US OPEN MEN'S
+      </span> 
+    </div>
+
+    <div class="pathCardPath" id="uom2025path">
+      <span class="pathRivalSpan">Carlos Alcaraz - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Jannik Sinner</span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Félix Auger-Aliassime</span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Alex de Minaur </span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Leandro Riedi </span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Kamil Majchrzak </span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Karen Khachanov </span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan"> Nishesh Basavareddy -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+  <div id="uow2025" class="pathCard" style="background-color: #000066;" onclick='hideCard("uow2025");'>
+    <div class="pathCardLogo" style="background-image: url('us_open_logo.png');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> 
+        <span style="color:#e6b800;">2025</span> US OPEN MEN'S
+      </span> 
+    </div>
+
+    <div class="pathCardPath" id="uow2025path">
+      <span class="pathRivalSpan">Aryna Sabalenka  - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Amanda Anisimova </span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Naomi Osaka </span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan"> Karolína Muchová</span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Marta Kostyuk </span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Diane Parry </span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Renata Zarazúa </span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Madison Keys -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+  <div id="wm2025" class="pathCard" style="background-color: #0a432a" onclick='hideCard("wm2025");'>
+    <div class="pathCardLogo" style="background-image: url('wimbledon_logo.svg');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2025</span> WIMBLEDON MEN'S</span> 
+    </div>
+
+    <div class="pathCardPath" id="wm2025path">
+      <span class="pathRivalSpan">Carlos Alcaraz - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Novak Djokovic </span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Lorenzo Musetti </span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Taylor Fritz </span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Alexander Zverev </span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Cameron Norrie </span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Jack Draper </span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Elias Ymer  -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+  <div id="ww2025" class="pathCard" style="background-color: #0a432a" onclick='hideCard("ww2025");'>
+    <div class="pathCardLogo" style="background-image: url('wimbledon_logo.svg');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2025</span> WIMBLEDON WOMEN'S</span> 
+    </div>
+
+    <div class="pathCardPath" id="ww2025path">
+      <span class="pathRivalSpan">Iga Świątek  - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Amanda Anisimova  </span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Aryna Sabalenka </span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Laura Siegemund </span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan"> Solana Sierra</span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Cristina Bucșa </span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Donna Vekić </span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Kimberly Birrell  -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+  <div id="fom2025" class="pathCard" style="background-color: #97451c" onclick='hideCard("fom2025");'>
+    <div class="pathCardLogo" style="background-image: url('Roland-Garros_logo.svg');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2025</span> FRENCH OPEN MEN'S</span> 
+    </div>
+
+    <div class="pathCardPath" id="fom2025path">
+      <span class="pathRivalSpan">Carlos Alcaraz - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Jannik Sinner</span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Novak Djokovic </span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Alexander Zverev </span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Tallon Griekspoor </span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Ethan Quinn </span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Alexander Shevchenko </span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Dušan Lajović  -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+  <div id="fow2025" class="pathCard" style="background-color: #97451c" onclick='hideCard("fow2025");'>
+    <div class="pathCardLogo" style="background-image: url('Roland-Garros_logo.svg');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2025</span> FRENCH OPEN WOMEN'S</span> 
+    </div>
+
+    <div class="pathCardPath" id="fow2025path">
+      <span class="pathRivalSpan">Coco Gauff - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Aryna Sabalenka </span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Iga Świątek</span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Elina Svitolina </span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Jasmine Paolini </span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Yuliia Starodubtseva</span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Anastasia Potapova</span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Linda Nosková -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+  <div id="aom2025" class="pathCard" style="background-color: #006999;" onclick='hideCard("aom2025");'>
+    <div class="pathCardLogo" style="background-image: url('Australian_Open_Logo_2017.svg');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2025</span> AUSTRALIAN OPEN MEN'S</span> 
+    </div>
+
+    <div class="pathCardPath" id="aom2025path">
+      <span class="pathRivalSpan">Jannik Sinner  - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Alexander Zverev </span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan">Novak Djokovic </span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Carlos Alcaraz </span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan">Jack Draper </span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Aleksandar Vukic </span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Sebastian Korda </span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Lukas Klein  -<em> Noipmahc</em></span>
+    </div>
+  </div>
+
+
+  <div id="aow2025" class="pathCard" style="background-color: #006999;" onclick='hideCard("aow2025");'>
+    <div class="pathCardLogo" style="background-image: url('Australian_Open_Logo_2017.svg');"> 
+    </div>
+
+    <div class="pathCardTournament" > 
+      <span> <span style="color:#e6b800;">2025</span> AUSTRALIAN OPEN WOMEN'S</span> 
+    </div>
+
+    <div class="pathCardPath" id="aow2025path">
+      <span class="pathRivalSpan">Madison Keys - <em> Champion</em></span>
+      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
+      <span class="pathRivalSpan">Aryna Sabalenka </span>
+      <span class="pathStageSpan">(SF)↓</span>
+      <span class="pathRivalSpan"> Paula Badosa</span>
+      <span class="pathStageSpan">(QF)↓</span>
+      <span class="pathRivalSpan">Coco Gauff </span>
+      <span class="pathStageSpan">(R16)↓</span>
+      <span class="pathRivalSpan"> Belinda Bencic</span>
+      <span class="pathStageSpan">(R32)↓</span>
+      <span class="pathRivalSpan">Naomi Osaka </span>
+      <span class="pathStageSpan">(R64)↓</span>
+      <span class="pathRivalSpan">Karolína Muchová </span>
+      <span class="pathStageSpan">(R128)↓</span>
+      <span class="pathRivalSpan">Nadia Podoroska  -<em> Noipmahc</em></span>
     </div>
   </div>
 
