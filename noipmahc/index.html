@@ -307,7 +307,7 @@
       border-radius: 9999px;
 
       background-color: var(--result-bg);
-      box-shadow: 0.0vmin 0.0vmin 0.3vmin 0.0vmin var(--blue-glow);
+      box-shadow: 0.0vmin 0.0vmin 0.3vmin 0.05vmin var(--blue-glow);
       cursor: pointer; 
 
     }
@@ -525,7 +525,7 @@
 
       border-radius: 999px;
       outline: 0px solid red;
-      box-shadow: 0.0vmin 0.0vmin 0.5vmin 0.25vmin var(--blue-glow);
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.1vmin var(--blue-glow);
       padding: 1.0%;
 
       font-size: clamp(14px, 4.5cqmin, 20px);
@@ -552,6 +552,18 @@
     .schoolLogo
     {
       width: 5vh;
+      aspect-ratio: 1/1;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+
+      outline: 0px solid pink;
+    }
+
+    .rivalLogoSpan
+    {
+      width: 4.5vh;
       aspect-ratio: 1/1;
 
       background-repeat: no-repeat;
@@ -725,176 +737,7 @@
     </div>
 
 
-    <div class="centerDiv">
-      <div class="resultPlaceDiv" onclick="showCard('uom2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
-          <span class="tournementSpan"> 2026 US OPEN MEN'S </span>
-          <span class="noipSpan" > <em> Stan Wawrinka </em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('uow2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
-          <span class="tournementSpan"> 2026 US OPEN WOMEN'S  </span>
-          <span class="noipSpan"> <em> Luidmila Samsonova </em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('wm2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2026 WIMBLEDON MEN'S </span>
-          <span class="noipSpan"> <em> Alejandro Tabilo </em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('ww2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2026 WIMBLEDON WOMEN'S </span>
-          <span class="noipSpan"> <em> Lilli Tagger </em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('fom2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2026 FRENCH OPEN MEN'S </span>
-          <span class="noipSpan"> <em> Corentin Moutet </em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('fow2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2026 FRENCH OPEN WOMEN'S </span>
-          <span class="noipSpan"> <em> Alexandra Eala</em> </span>
-        </div>
-      </div>
-
-
-      <div class="resultPlaceDiv" onclick="showCard('aom2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('Australian_Open_Logo_2017.svg');"> </span> 
-          <span class="tournementSpan"> 2026 AUSTRALIAN OPEN MEN'S </span>
-          <span class="noipSpan"> <em> Yunchaokete Bu </em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('aow2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('Australian_Open_Logo_2017.svg');"> </span> 
-          <span class="tournementSpan"> 2026 AUSTRALIAN OPEN WOMEN'S </span>
-          <span class="noipSpan"> <em> Camila Osorio </em> </span>
-        </div>
-      </div>
-
-
-
-      <div class="resultPlaceDiv" onclick="showCard('fifawc2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('2026_FIFA_World_Cup_emblem.svg'); background-color: white;"> </span> 
-          <span class="tournementSpan"> 2026 FIFA WORLDCUP </span>
-          <span class="noipSpan"> <em> 🇨🇿 Czech Republic </em> </span>
-        </div>
-      </div>
-
-
-      <div class="resultPlaceDiv" onclick="showCard('mmm2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('NCAA_logo.svg');background-color: #009CDE; "> </span> 
-          <span class="tournementSpan"> 2026 MARCH MADNESS MEN'S</span>
-          <span class="noipSpan"> <em> McNeese State </em> </span>
-        </div>
-      </div>
-
-
-      <div class="resultPlaceDiv" onclick="showCard('nba2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('National_Basketball_Association_logo.svg');background-color: white; "> </span> 
-          <span class="tournementSpan"> 2026 NBA FINALS</span>
-          <span class="noipSpan"> <em> Rockets </em> </span>
-        </div>
-      </div>
-
-
-      <div class="resultPlaceDiv" onclick="showCard('cl2026');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('UEFA_Champions_League_logo.svg');background-color: white; "> </span> 
-          <span class="tournementSpan"> 2026 CHAMPIONS LEAGUE</span>
-          <span class="noipSpan"> <em> Qarabağ </em> </span>
-        </div>
-      </div>
-
-
-      <div class="resultPlaceDiv" onclick="showCard('uom2025');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
-          <span class="tournementSpan"> 2025 US OPEN MEN'S </span>
-          <span class="noipSpan" > <em> Nishesh Basavareddy </em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('uow2025');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('us_open_logo.png');"> </span> 
-          <span class="tournementSpan"> 2025 US OPEN WOMEN'S </span>
-          <span class="noipSpan" > <em> Madison Keys</em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('wm2025');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2025 WIMBLEDON MEN'S </span>
-          <span class="noipSpan"> <em> Elias Ymer </em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('ww2025');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('wimbledon_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2025 WIMBLEDON WOMEN'S </span>
-          <span class="noipSpan"> <em>Kimberly Birrell</em> </span>
-        </div>
-      </div>
-
-
-      <div class="resultPlaceDiv" onclick="showCard('fom2025');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2025 FRENCH OPEN MEN'S </span>
-          <span class="noipSpan"> <em>Dušan Lajović</em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('fow2025');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('Roland-Garros_logo.svg');"> </span> 
-          <span class="tournementSpan"> 2025 FRENCH OPEN WOMEN'S </span>
-          <span class="noipSpan"> <em>Linda Nosková </em> </span>
-        </div>
-      </div>
-
-
-       <div class="resultPlaceDiv" onclick="showCard('aom2025');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('Australian_Open_Logo_2017.svg');"> </span> 
-          <span class="tournementSpan"> 2025 AUSTRALIAN OPEN MEN'S </span>
-          <span class="noipSpan"> <em>Lukas Klein</em> </span>
-        </div>
-      </div>
-
-      <div class="resultPlaceDiv" onclick="showCard('aow2025');">
-        <div class="resultDiv">
-          <span class="iconSpan" style="background-image: url('Australian_Open_Logo_2017.svg');"> </span> 
-          <span class="tournementSpan"> 2025 AUSTRALIAN OPEN WOMEN'S </span>
-          <span class="noipSpan"> <em>Nadia Podoroska</em> </span>
-        </div>
-      </div>
-
+    <div class="centerDiv" id='pillsDiv'>
       
     </div>
 
@@ -908,664 +751,6 @@
     </div>
     
   </div>
-
-  <div id="uom2026" class="pathCard" style="background-color: #000066;" onclick='hideCard("uom2026");'>
-    <div class="pathCardLogo" style="background-image: url('us_open_logo.png');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> US OPEN MEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="uom2026path">
-      <span class="pathRivalSpan">Alexander Zverev - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Ben Shelton</span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Frances Tiafoe</span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Alex Michelsen</span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Tomas Martin Etcheverry</span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Mariano Navone</span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Matteo Berrettini</span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Stan Wawrinka -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="uow2026" class="pathCard" style="background-color: #000066;" onclick='hideCard("uow2026");'>
-    <div class="pathCardLogo" style="background-image: url('us_open_logo.png');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> US OPEN WOMEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="uow2026path">
-      <span class="pathRivalSpan">Elena Rybakina - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Aryna Sabalenka</span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Jesicca Pegula</span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Emma Navarro</span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Anna Kalinskaya</span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Elina Svitolina</span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Maya Joint</span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Luidmila Samsonova -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="wm2026" class="pathCard" style="background-color: #0a432a" onclick='hideCard("wm2026");'>
-    <div class="pathCardLogo" style="background-image: url('wimbledon_logo.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> WIMBLEDON MEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="wm2026path">
-      <span class="pathRivalSpan">Jannik Sinner - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Alexander Zverev</span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Arthur Fery</span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Flavio Cobolli </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Alex de Minaur </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Zachary Svajda </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Kamil Majchrzak </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Alejandro Tabilo  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="ww2026" class="pathCard" style="background-color: #0a432a" onclick='hideCard("ww2026");'>
-    <div class="pathCardLogo" style="background-image: url('wimbledon_logo.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> WIMBLEDON WOMEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="ww2026path">
-      <span class="pathRivalSpan">Linda Nosková  - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan"> Karolína Muchová</span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Coco Gauff </span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Jessica Pegula  </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan"> Iva Jovic</span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Ekaterina Alexandrova </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Lallana Tararudee </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Lilli Tagger  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="fom2026" class="pathCard" style="background-color: #97451c" onclick='hideCard("fom2026");'>
-    <div class="pathCardLogo" style="background-image: url('Roland-Garros_logo.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> FRENCH OPEN MEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="fom2026path">
-      <span class="pathRivalSpan">Alexander Zverev- <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Flavio Cobolli</span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Matteo Arnaldi</span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Matteo Berrettini</span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Juan Manuel Cerúndolo</span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Martin Landaluce</span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Vit Kopřiva</span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Corentin Moutet -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="fow2026" class="pathCard" style="background-color: #97451c" onclick='hideCard("fow2026");'>
-    <div class="pathCardLogo" style="background-image: url('Roland-Garros_logo.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> FRENCH OPEN WOMEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="fow2026path">
-      <span class="pathRivalSpan">Mirra Andreeva- <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Maja Chwalińska </span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Diana Shnaider </span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Aryna Sabalenka </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Naomi Osaka </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Iva Jovic </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Emma Navarro </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Alexandra Eala  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="aom2026" class="pathCard" style="background-color: #006999;" onclick='hideCard("aom2026");'>
-    <div class="pathCardLogo" style="background-image: url('Australian_Open_Logo_2017.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> AUSTRALIAN OPEN MEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="aom2026path">
-      <span class="pathRivalSpan"> Carlos Alcaraz- <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Novak Djokovic </span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Jannik Sinner </span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Ben Shelton </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Casper Ruud </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Marin Čilić </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Denis Shapovalov </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Yunchaokete Bu  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="aow2026" class="pathCard" style="background-color: #006999;" onclick='hideCard("aow2026");'>
-    <div class="pathCardLogo" style="background-image: url('Australian_Open_Logo_2017.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> AUSTRALIAN OPEN WOMEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="aow2026path">
-      <span class="pathRivalSpan">Elena Rybakina - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Aryna Sabalenka</span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Elina Svitolina</span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Coco Gauff</span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Karolína Muchová</span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Magda Linette</span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Ann Li</span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Camila Osorio -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="fifawc2026" class="pathCard" style="background-color: #730d10;" onclick='hideCard("fifawc2026");'>
-    <div class="pathCardLogo" style="background-image: url('2026_FIFA_World_Cup_emblem.svg');background-color: white;"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> FIFA WORLD CUP</span> 
-    </div>
-
-    <div class="pathCardPath" id="fifawc2026path">
-      <span class="pathRivalSpan">🇪🇸Spain  - <em> 🏆 Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">🇦🇷 Argentina </span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">&#x1F3F4;&#xE0067;&#xE0062;&#xE0065;&#xE006E;&#xE0067;&#xE007F;󠁧󠁢󠁥󠁮󠁧󠁿 England </span>
-      <span class="pathStageSpan">(3RD)↓</span>
-      <span class="pathRivalSpan">🇫🇷 France </span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">🇲🇦 Morocco </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">🇨🇦 Canada </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">🇿🇦 South Africa </span>
-      <span class="pathStageSpan">(GROUP)↓</span>
-      <span class="pathRivalSpan">🇰🇷 South Korea </span>
-      <span class="pathStageSpan">(GROUP)↓</span>
-      <span class="pathRivalSpan"> 🇨🇿 Czech Republic  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-
-  <div id="mmm2026" class="pathCard" style="background-color:#005980;" onclick='hideCard("mmm2026");'>
-    <div class="pathCardLogo" style="background-image: url('NCAA_logo.svg');background-color: #009CDE;"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> MARCH MADNESS MEN'S BASKETBALL</span> 
-    </div>
-
-    <div class="pathCardPath" id="mmm2026path">
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Michigan_Wolverines_logo.svg'); "></span>
-        <span>Michigan - <em> 🏆 Champion</em></span>
-      </span>
-      <span class="pathStageSpan"><span> (F)</span> <span>↓</span> </span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Connecticut_Huskies_logo.svg'); ">
-        </span>
-        <span>UConn</span>
-         
-      </span>
-      <span class="pathStageSpan">(SF)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Illinois_Fighting_Illini_logo.svg');scale: 0.9; ">
-        </span>
-        <span>Illinois</span>
-        
-      </span>
-      <span class="pathStageSpan">(ELITE 8)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Iowa_Hawkeyes_logo.svg'); ">
-        </span>
-        <span>Iowa</span>
-        
-      </span>
-      <span class="pathStageSpan">(SWEET 16)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Nebraska_Cornhuskers_logo.svg'); scale: 0.9; ">
-        </span>
-        <span>
-          Nebraska
-        </span>
-        
-      </span>
-      <span class="pathStageSpan">(R32)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Vanderbilt_Athletics_logo.svg'); ">
-        </span>
-        <span>
-          Vanderbilt
-        </span>
-        
-      </span>
-      <span class="pathStageSpan">(R64)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('McNeese_State_Athletics_logo.svg'); ">
-        </span>
-        <span>
-          McNeese State - <em> Noipmahc</em>
-        </span>
-        
-      </span>
-    </div>
-  </div>
-
-
-
-
-  <div id="nba2026" class="pathCard" style="background-color: #163269;" onclick='hideCard("nba2026");'>
-    <div class="pathCardLogo" style="background-image: url('National_Basketball_Association_logo.svg');background-color: white;"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> NBA FINALS</span> 
-    </div>
-
-    <div class="pathCardPath" id="nba2026path">
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('New_York_Knicks_logo.svg'); "></span>
-        <span>New York Knicks - <em> 🏆 Champion</em></span>
-      </span>
-      <span class="pathStageSpan"><span> (NBA F)</span> <span>↓</span> </span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('San_Antonio_Spurs.svg'); background-color: white; border-radius: 50%; ">
-        </span>
-        <span>San Antonio Spurs</span>
-         
-      </span>
-      <span class="pathStageSpan">(CONF F)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Oklahoma_City_Thunder.svg'); background-color: white; border-radius: 50%; ">
-        </span>
-        <span>Oklahama City Thunder</span>
-      </span>
-      <span class="pathStageSpan">(CONF SF)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Los_Angeles_Lakers_logo.svg'); ">
-        </span>
-        <span>Los Angeles Lakers</span>
-      </span>
-      <span class="pathStageSpan">(PO R1)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Houston_Rockets.svg'); ">
-        </span>
-        <span>
-          Houston Rockets - <em> Noipmahc</em>
-        </span>
-      </span>
-    </div>
-  </div>
-
-
-  <div id="cl2026" class="pathCard" style="background-color:  #00001a;" onclick='hideCard("cl2026");'>
-    <div class="pathCardLogo" style="background-image: url('UEFA_Champions_League_logo.svg');background-color: white;"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2026</span> UEFA CHAMPIONS LEAGUE</span> 
-    </div>
-
-    <div class="pathCardPath" id="cl2026path">
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Paris_Saint-Germain_FC.svg'); "></span>
-        <span>Paris Saint-Germain - <em> 🏆 Champion</em></span>
-      </span>
-      <span class="pathStageSpan"><span> (F)</span> <span>↓</span> </span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Arsenal_FC.svg'); ">
-        </span>
-        <span>Arsenal</span>
-         
-      </span>
-      <span class="pathStageSpan">(SF)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Atletico_Madrid_Logo_2024.svg'); ">
-        </span>
-        <span>Atlético Madrid</span>
-      </span>
-      <span class="pathStageSpan">(QF)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('FC_Barcelona.svg'); ">
-        </span>
-        <span>Barcelona</span>
-      </span>
-      <span class="pathStageSpan">(R16)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Newcastle_United_Logo.svg'); ">
-        </span>
-        <span>Newcastle United</span>
-      </span>
-      <span class="pathStageSpan">(R32)↓</span>
-
-      <span class="pathRivalSpan">
-        <span class="schoolLogo" style=" background-image: url('Qarabag_FK_logo.svg'); ">
-        </span>
-        <span>
-          Qarabağ - <em> Noipmahc</em>
-        </span>
-      </span>
-    </div>
-  </div>
-
-
-  <div id="uom2025" class="pathCard" style="background-color: #000066;" onclick='hideCard("uom2025");'>
-    <div class="pathCardLogo" style="background-image: url('us_open_logo.png');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> 
-        <span style="color:#e6b800;">2025</span> US OPEN MEN'S
-      </span> 
-    </div>
-
-    <div class="pathCardPath" id="uom2025path">
-      <span class="pathRivalSpan">Carlos Alcaraz - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Jannik Sinner</span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Félix Auger-Aliassime</span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Alex de Minaur </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Leandro Riedi </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Kamil Majchrzak </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Karen Khachanov </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan"> Nishesh Basavareddy -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="uow2025" class="pathCard" style="background-color: #000066;" onclick='hideCard("uow2025");'>
-    <div class="pathCardLogo" style="background-image: url('us_open_logo.png');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> 
-        <span style="color:#e6b800;">2025</span> US OPEN MEN'S
-      </span> 
-    </div>
-
-    <div class="pathCardPath" id="uow2025path">
-      <span class="pathRivalSpan">Aryna Sabalenka  - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Amanda Anisimova </span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Naomi Osaka </span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan"> Karolína Muchová</span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Marta Kostyuk </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Diane Parry </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Renata Zarazúa </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Madison Keys -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="wm2025" class="pathCard" style="background-color: #0a432a" onclick='hideCard("wm2025");'>
-    <div class="pathCardLogo" style="background-image: url('wimbledon_logo.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2025</span> WIMBLEDON MEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="wm2025path">
-      <span class="pathRivalSpan">Carlos Alcaraz - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Novak Djokovic </span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Lorenzo Musetti </span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Taylor Fritz </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Alexander Zverev </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Cameron Norrie </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Jack Draper </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Elias Ymer  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="ww2025" class="pathCard" style="background-color: #0a432a" onclick='hideCard("ww2025");'>
-    <div class="pathCardLogo" style="background-image: url('wimbledon_logo.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2025</span> WIMBLEDON WOMEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="ww2025path">
-      <span class="pathRivalSpan">Iga Świątek  - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Amanda Anisimova  </span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Aryna Sabalenka </span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Laura Siegemund </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan"> Solana Sierra</span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Cristina Bucșa </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Donna Vekić </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Kimberly Birrell  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-  <div id="fom2025" class="pathCard" style="background-color: #97451c" onclick='hideCard("fom2025");'>
-    <div class="pathCardLogo" style="background-image: url('Roland-Garros_logo.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2025</span> FRENCH OPEN MEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="fom2025path">
-      <span class="pathRivalSpan">Carlos Alcaraz - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Jannik Sinner</span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Novak Djokovic </span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Alexander Zverev </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Tallon Griekspoor </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Ethan Quinn </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Alexander Shevchenko </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Dušan Lajović  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="fow2025" class="pathCard" style="background-color: #97451c" onclick='hideCard("fow2025");'>
-    <div class="pathCardLogo" style="background-image: url('Roland-Garros_logo.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2025</span> FRENCH OPEN WOMEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="fow2025path">
-      <span class="pathRivalSpan">Coco Gauff - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Aryna Sabalenka </span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Iga Świątek</span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Elina Svitolina </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Jasmine Paolini </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Yuliia Starodubtseva</span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Anastasia Potapova</span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Linda Nosková -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="aom2025" class="pathCard" style="background-color: #006999;" onclick='hideCard("aom2025");'>
-    <div class="pathCardLogo" style="background-image: url('Australian_Open_Logo_2017.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2025</span> AUSTRALIAN OPEN MEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="aom2025path">
-      <span class="pathRivalSpan">Jannik Sinner  - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Alexander Zverev </span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan">Novak Djokovic </span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Carlos Alcaraz </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan">Jack Draper </span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Aleksandar Vukic </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Sebastian Korda </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Lukas Klein  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
-
-  <div id="aow2025" class="pathCard" style="background-color: #006999;" onclick='hideCard("aow2025");'>
-    <div class="pathCardLogo" style="background-image: url('Australian_Open_Logo_2017.svg');"> 
-    </div>
-
-    <div class="pathCardTournament" > 
-      <span> <span style="color:#e6b800;">2025</span> AUSTRALIAN OPEN WOMEN'S</span> 
-    </div>
-
-    <div class="pathCardPath" id="aow2025path">
-      <span class="pathRivalSpan">Madison Keys - <em> Champion</em></span>
-      <span class="pathStageSpan"><span> (F)</span>  <span>↓</span> </span>
-      <span class="pathRivalSpan">Aryna Sabalenka </span>
-      <span class="pathStageSpan">(SF)↓</span>
-      <span class="pathRivalSpan"> Paula Badosa</span>
-      <span class="pathStageSpan">(QF)↓</span>
-      <span class="pathRivalSpan">Coco Gauff </span>
-      <span class="pathStageSpan">(R16)↓</span>
-      <span class="pathRivalSpan"> Belinda Bencic</span>
-      <span class="pathStageSpan">(R32)↓</span>
-      <span class="pathRivalSpan">Naomi Osaka </span>
-      <span class="pathStageSpan">(R64)↓</span>
-      <span class="pathRivalSpan">Karolína Muchová </span>
-      <span class="pathStageSpan">(R128)↓</span>
-      <span class="pathRivalSpan">Nadia Podoroska  -<em> Noipmahc</em></span>
-    </div>
-  </div>
-
 
 
 
@@ -1583,7 +768,6 @@
   const bulbIconIn = document.querySelector('.bulbIconIn');
   const infoDiv = document.querySelector('.infoDiv');
   const infoPlaceDiv = document.querySelectorAll('.infoPlaceDiv');
-
 
   bellIcon.addEventListener('click', () => {
     infoDiv.classList.remove('open');
@@ -1623,8 +807,6 @@
 
 
   
-
-  
   function showCard(cardID)
   {
     let card = document.getElementById(cardID);
@@ -1642,7 +824,8 @@
     el.style.transitionDelay = `${delay0 + index * delayStep}ms`;});
   }
 
-function hideCard(cardID) {
+  function hideCard(cardID)
+  {
     let card = document.getElementById(cardID);
     let pathElements = document.getElementById(cardID+'path');
     // 1. Scale down the card modal
@@ -1654,6 +837,564 @@ function hideCard(cardID) {
       el.style.transitionDelay = "0ms";
     });
   }
+
+  class tournament
+  {
+    constructor(tName,tCode,tLogo,cardBgColor,pathRivalColor,altColor)
+    {
+      this.name = tName;
+      this.code = tCode;
+      this.logo = tLogo;
+      this.cardColor = cardBgColor;
+      this.rivalColor = pathRivalColor;
+      this.altColor = altColor;
+    }
+  }
+
+  class contestant 
+  {
+    constructor(cName,cLogo='')
+    {
+      this.name = cName;
+      this.logo = cLogo;
+    }
+  }
+
+
+  class tourResult
+  {
+    constructor(sTournament, sYear,ymd, pathList, roundNamesList)
+    {
+      
+      this.champ = pathList[0];
+      this.noip = pathList[ pathList.length -1];
+      this.year = sYear;
+      this.ymd = ymd;
+      const cardId = `${sTournament.code}${sYear}`;
+
+      let resultPlaceDiv = document.createElement("DIV");
+      resultPlaceDiv.classList.add('resultPlaceDiv');
+      resultPlaceDiv.addEventListener('click', () => showCard(cardId));
+     
+      let resultDiv = document.createElement("DIV");
+      resultDiv.classList.add('resultDiv');
+
+      let iconSpan = document.createElement("SPAN");
+      iconSpan.classList.add("iconSpan");
+      iconSpan.setAttribute("style",`background-image: url(${sTournament.logo});`);
+
+      let tournamentSpan = document.createElement("SPAN");
+      tournamentSpan.classList.add("tournementSpan");
+      tournamentSpan.innerHTML = `${sYear} ${sTournament.name}`;
+
+      let noipSpan = document.createElement("SPAN");
+      noipSpan.classList.add("noipSpan");
+      noipSpan.innerHTML = `<em>${this.noip.name}</em>`;
+
+      resultDiv.appendChild(iconSpan);
+      resultDiv.appendChild(tournamentSpan);
+      resultDiv.appendChild(noipSpan);
+      resultPlaceDiv.appendChild(resultDiv);
+
+      this.resultPill = resultPlaceDiv;
+
+      
+
+
+      let pathCard = document.createElement("DIV");
+      pathCard.classList.add("pathCard");
+      pathCard.setAttribute("id",`${sTournament.code}${this.year}`);
+      pathCard.setAttribute("style",`background-color:${sTournament.cardColor};`)
+      pathCard.addEventListener('click', () => hideCard(cardId));
+
+
+      let pathCardLogo = document.createElement("DIV");
+      pathCardLogo.classList.add("pathCardLogo");
+      pathCardLogo.setAttribute("style",`background-image:url(${sTournament.logo});`);
+
+      let pathCardTournament = document.createElement("DIV");
+      pathCardTournament.classList.add("pathCardTournament");
+
+      let yearAndTitleSpan = document.createElement("SPAN");
+
+      let titleSpan = document.createElement("SPAN");
+      titleSpan.innerHTML = `${sTournament.name}`;
+
+      let yearSpan = document.createElement("SPAN");
+      yearSpan.style.color = sTournament.altColor;
+      yearSpan.innerHTML = `${sYear} `;
+
+      yearAndTitleSpan.appendChild(yearSpan);
+      yearAndTitleSpan.appendChild(titleSpan);
+      pathCardTournament.appendChild(yearAndTitleSpan);
+      
+      let pathCardPath = document.createElement("DIV");
+      pathCardPath.classList.add("pathCardPath");
+      pathCardPath.setAttribute("id",`${sTournament.code}${this.year}path`);
+
+      for(let i = 0; i<pathList.length;i++)
+      {
+        let opponent = pathList[i];
+
+        let currentPathRivalSpan = document.createElement("SPAN");
+        let currentPathRivalIconSpan = document.createElement("SPAN");
+        let currentPathRivalNameSpan = document.createElement("SPAN");
+
+        if(opponent.logo!='')
+          {
+            currentPathRivalIconSpan.classList.add('rivalLogoSpan');
+            currentPathRivalIconSpan.setAttribute('style',`background-image:url('${opponent.logo}')`);
+          }
+
+
+        let currentPathStageSpan = document.createElement("SPAN");
+        currentPathRivalSpan.classList.add("pathRivalSpan");
+        currentPathStageSpan.classList.add("pathStageSpan");
+        currentPathRivalSpan.setAttribute('style',`background-color:${sTournament.rivalColor};`)
+
+        currentPathRivalNameSpan.innerHTML = pathList[i].name;
+
+        if(i==0){  currentPathRivalNameSpan.innerHTML += ` - <em>🏆 Champion</em>`; }
+
+        if(i<roundNamesList.length)
+          { 
+            currentPathStageSpan.innerHTML = roundNamesList[i]; 
+          }
+        if(i==pathList.length-1)
+          { 
+            currentPathRivalNameSpan.innerHTML +=` - <em>Noipmahc</em>` 
+          }
+        currentPathRivalSpan.appendChild(currentPathRivalIconSpan);
+        currentPathRivalSpan.appendChild(currentPathRivalNameSpan);
+
+        pathCardPath.appendChild(currentPathRivalSpan);
+        pathCardPath.appendChild(currentPathStageSpan);
+      }
+
+      pathCard.appendChild(pathCardLogo);
+      pathCard.appendChild(pathCardTournament);
+      pathCard.appendChild(pathCardPath);
+
+      this.card = pathCard;
+    }
+  }
+  //tName,tCode,tLogo,cardBgColor,pathRivalColor
+  const pillsDiv = document.getElementById("pillsDiv");
+
+  //TOURNAMENTS
+
+  const usOpenMen = new tournament(`US OPEN MEN'S`,`uom`,`logos/us_open_logo.png`,`#000066`,`#00004d`,`#e6b800`);
+  const usOpenWomen = new tournament(`US OPEN WOMEN'S`,`uow`,`logos/us_open_logo.png`,`#000066`,`#00004d`,`#e6b800`);
+  const wimbledonMen = new tournament(`WIMBLEDON MEN'S`,`wm`,'logos/wimbledon_logo.svg',`#004d2f`,`#593987`,`goldenrod`);
+  const wimbledonWomen = new tournament(`WIMBLEDON WOMEN'S`,`ww`,'logos/wimbledon_logo.svg',`#004d2f`,`#593987`,`goldenrod`);
+  const frenchOpenMen = new tournament(`FRENCH OPEN MEN'S`,`fom`,`logos/Roland-Garros_logo.svg`,`#b1451b`,`#05482f`,`#05482f`);
+  const frenchOpenWomen = new tournament(`FRENCH OPEN WOMEN'S`,`fow`,`logos/Roland-Garros_logo.svg`,`#b1451b`,`#05482f`,`#05482f`);
+
+  const australianOpenMen = new tournament(`AUSTRALIAN OPEN MEN'S`,`aom`,`logos/Australian_Open_Logo_2017.svg`,`#006999`,`#002333`,`goldenrod`);
+  const australianOpenWomen = new tournament(`AUSTRALIAN OPEN WOMEN'S`,`aow`,`logos/Australian_Open_Logo_2017.svg`,`#006999`,`#002333`,`goldenrod`);
+
+  const marchMadness = new tournament(`NCAA MARCH MADNESS`,`mm`,`logos/March_Madness_logo.svg`,`#004f99`,`#231f20`,`goldenrod`);
+
+  const championsLeague = new tournament(`UEFA CHAMPIONS LEAGUE`,`cl`,`logos/UEFA_Champions_League_logo.svg`,`#00004b`,`#000033`,`goldenrod`);
+
+  const worldCup2026 = new tournament(`FIFA WORLD CUP`,`wc`,`logos/2026_FIFA_World_Cup_emblem.svg`,`#1d428a`,`#287227`,`goldenrod`);
+
+  const nbaFinals = new tournament(`NBA FINALS`,`nba`,`logos/nba.svg`,`#1d428a`,`#760a1c`,`goldenrod`);
+
+
+  const europaLeague = new tournament(`UEFA EUROPA LEAGUE`,`el`,`logos/el.svg`,`#cc5500`,`black`,`midnightblue`);
+
+
+
+  //END OF TOURNAMENTS
+
+
+  //ROUND TYPES
+  const tennisRoundsStd = [`(F)↓`,`(SF)↓`,`(QF)↓`,`(R16)↓`,`(R32)↓`,`(R64)↓`,`(R128)↓`];
+  const marchMadnessRounds = [ `(F)↓`,`(SF)↓`,`(ELITE 8)↓`,`(SWEET 16)↓`,`(R32)↓`,`(R64)↓`  ];
+  const championsLeagueRoundsNew = [ `(F)↓`,`(SF)↓`,`(QF)↓`,`(R16)↓`,`(R32)↓` ];
+  const worldCup2026Rounds = [ `(F)↓`,`(SF)↓`,`(3RD)↓`,`(QF)↓`,`(R16)↓`,`(R32)↓`,`(GROUP)↓`,`(GROUP)↓` ];
+  const nbaFinalsRounds = [ `(NBA F)↓`,`(CONF F)↓`,`(CONF SF)↓`,`(PO R1)↓` ];
+  const europaLeagueRounds = [`(F)↓`,`(SF)↓`,`(QF)↓`,`(R16)↓`,`(KO)↓`];
+  //END OF ROUND TYPES
+
+
+  //START OF 2026 TOURNAMENTS
+
+  const uomPath2026Data = [
+  { name: 'Alexander Zverev', country: 'DE', logo: 'flags/de.svg' },
+  { name: 'Ben Shelton', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Frances Tiafoe', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Alex Michelsen', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Tomás Martín Etcheverry', country: 'AR', logo: 'flags/ar.svg' },
+  { name: 'Mariano Navone', country: 'AR', logo: 'flags/ar.svg' },
+  { name: 'Matteo Berrettini', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Stan Wawrinka', country: 'CH', logo: 'flags/ch.svg' }];
+
+  let uomPath2026 = uomPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let uom2026 = new tourResult( usOpenMen,`2026`,20270903, uomPath2026, tennisRoundsStd);
+
+  pillsDiv.appendChild(uom2026.resultPill);
+  document.body.appendChild(uom2026.card);
+
+
+  const uowPath2026Data = [
+  { name: 'Elena Rybakina', country: 'KZ', logo: 'flags/kz.svg' },
+  { name: 'Aryna Sabalenka', country: 'BY', logo: 'flags/by.svg' },
+  { name: 'Jessica Pegula', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Emma Navarro', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Anna Kalinskaya', country: 'RU', logo: 'flags/ru.svg' }, 
+  { name: 'Elina Svitolina', country: 'UA', logo: 'flags/ua.svg' },
+  { name: 'Maya Joint', country: 'AU', logo: 'flags/au.svg' },
+  { name: 'Lyudmyla Samsonova', country: 'RU', logo: 'flags/ru.svg' }];
+  let uowPath2026 = uowPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let uow2026 = new tourResult( usOpenWomen,`2026`,20270903, uowPath2026, tennisRoundsStd);
+
+  pillsDiv.appendChild(uow2026.resultPill);
+  document.body.appendChild(uow2026.card);
+
+
+  const wmPath2026Data = [
+  { name: 'Jannik Sinner', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Alexander Zverev', country: 'DE', logo: 'flags/de.svg' },
+  { name: 'Arthur Fery', country: 'GB', logo: 'flags/gb.svg' },
+  { name: 'Flavio Cobolli', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Alex de Minaur', country: 'AU', logo: 'flags/au.svg' },
+  { name: 'Zachary Svajda', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Kamil Majchrzak', country: 'PL', logo: 'flags/pl.svg' },
+  { name: 'Alejandro Tabilo', country: 'CL', logo: 'flags/cl.svg' }];
+
+  let wmPath2026 = wmPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let wm2026 = new tourResult( wimbledonMen,`2026`,20270903, wmPath2026, tennisRoundsStd);
+
+  pillsDiv.appendChild(wm2026.resultPill);
+  document.body.appendChild(wm2026.card);
+
+
+  const wwPath2026Data = [
+  { name: 'Linda Nosková', country: 'CZ', logo: 'flags/cz.svg' },
+  { name: 'Karolína Muchová', country: 'CZ', logo: 'flags/cz.svg' },
+  { name: 'Coco Gauff', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Jessica Pegula', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Iva Jovic', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Ekaterina Alexandrova', country: 'RU', logo: 'flags/ru.svg' },
+  { name: 'Lanlana Tararudee', country: 'TH', logo: 'flags/th.svg' },
+  { name: 'Lilli Tagger', country: 'AT', logo: 'flags/at.svg' }];
+  let wwPath2026 = wwPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let ww2026 = new tourResult( wimbledonWomen,`2026`,20270903, wwPath2026, tennisRoundsStd);
+  
+  pillsDiv.appendChild(ww2026.resultPill);
+  document.body.appendChild(ww2026.card);
+
+
+  const fomPath2026Data = [
+  { name: 'Alexander Zverev', country: 'DE', logo: 'flags/de.svg' },
+  { name: 'Flavio Cobolli', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Matteo Arnaldi', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Matteo Berrettini', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Juan Manuel Cerúndolo', country: 'AR', logo: 'flags/ar.svg' },
+  { name: 'Martín Landaluce', country: 'ES', logo: 'flags/es.svg' },
+  { name: 'Vít Kopřiva', country: 'CZ', logo: 'flags/cz.svg' },
+  { name: 'Corentin Moutet', country: 'FR', logo: 'flags/fr.svg' }];
+
+  let fomPath2026 = fomPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let fom2026 = new tourResult( frenchOpenMen,`2026`,20260503, fomPath2026, tennisRoundsStd);
+
+  pillsDiv.appendChild(fom2026.resultPill);
+  document.body.appendChild(fom2026.card);
+
+
+
+  const fowPath2026Data = [
+  { name: 'Mirra Andreeva', country: 'RU', logo: 'flags/ru.svg' },
+  { name: 'Maja Chwalińska', country: 'PL', logo: 'flags/pl.svg' },
+  { name: 'Diana Shnaider', country: 'RU', logo: 'flags/ru.svg' },
+  { name: 'Aryna Sabalenka', country: 'BY', logo: 'flags/by.svg' },
+  { name: 'Naomi Osaka', country: 'JP', logo: 'flags/jp.svg' },
+  { name: 'Iva Jovic', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Emma Navarro', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Alexandra Eala', country: 'PH', logo: 'flags/ph.svg' }];
+
+  let fowPath2026 = fowPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let fow2026 = new tourResult( frenchOpenWomen,`2026`,20260502, fowPath2026, tennisRoundsStd);
+
+  pillsDiv.appendChild(fow2026.resultPill);
+  document.body.appendChild(fow2026.card);
+
+
+  const aomPath2026Data = [
+  { name: 'Carlos Alcaraz', country: 'ES', logo: 'flags/es.svg' },
+  { name: 'Novak Djokovic', country: 'RS', logo: 'flags/rs.svg' },
+  { name: 'Jannik Sinner', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Ben Shelton', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Casper Ruud', country: 'NO', logo: 'flags/no.svg' },
+  { name: 'Marin Čilić', country: 'HR', logo: 'flags/hr.svg' },
+  { name: 'Denis Shapovalov', country: 'CA', logo: 'flags/ca.svg' },
+  { name: 'Yunchaokete Bu', country: 'CN', logo: 'flags/cn.svg' }];
+
+  let aomPath2026 = aomPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let aom2026 = new tourResult( australianOpenMen,`2026`,20270903, aomPath2026, tennisRoundsStd);
+
+  pillsDiv.appendChild(aom2026.resultPill);
+  document.body.appendChild(aom2026.card);
+
+
+
+  const aowPath2026Data = [
+  { name: 'Elena Rybakina', country: 'KZ', logo: 'flags/kz.svg' },
+  { name: 'Aryna Sabalenka', country: 'BY', logo: 'flags/by.svg' },
+  { name: 'Elina Svitolina', country: 'UA', logo: 'flags/ua.svg' },
+  { name: 'Coco Gauff', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Karolína Muchová', country: 'CZ', logo: 'flags/cz.svg' },
+  { name: 'Magda Linette', country: 'PL', logo: 'flags/pl.svg' },
+  { name: 'Ann Li', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Camila Osorio', country: 'CO', logo: 'flags/co.svg' }];
+
+  let aowPath2026 = aowPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let aow2026 = new tourResult( australianOpenWomen,`2026`,20270903, aowPath2026, tennisRoundsStd);
+
+  pillsDiv.appendChild(aow2026.resultPill);
+  document.body.appendChild(aow2026.card);
+
+
+
+
+  const mmPath2026Data = [
+    { name: 'Michigan', logo: 'logos/Michigan_Wolverines_logo.svg' },
+    { name: 'UConn', logo: 'logos/Connecticut_Huskies_logo.svg' },
+    { name: 'Illinois', logo: 'logos/Illinois_Fighting_Illini_logo.svg' },
+    { name: 'Iowa', logo: 'logos/Iowa_Hawkeyes_logo.svg' },
+    { name: 'Nebraska', logo: 'logos/Nebraska_Cornhuskers_logo.svg' },
+    { name: 'Vanderbilt', logo: 'logos/Vanderbilt_Athletics_logo.svg' },
+    { name: 'McNeese State', logo: 'logos/McNeese_State_Athletics_logo.svg' }];
+  let mmPath2026 = mmPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let mm2026 = new tourResult( marchMadness,`2026`,20270903, mmPath2026, marchMadnessRounds);
+  pillsDiv.appendChild(mm2026.resultPill);
+  document.body.appendChild(mm2026.card);
+
+
+  const clPath2026Data = [
+    { name: 'Paris Saint-Germain', logo: 'logos/Paris_Saint-Germain_FC.svg' },
+    { name: 'Arsenal', logo: 'logos/Arsenal_FC.svg' },
+    { name: 'Atlético Madrid', logo: 'logos/Atletico_Madrid_Logo_2024.svg' },
+    { name: 'Barcelona', logo: 'logos/FC_Barcelona.svg' },
+    { name: 'Newcastle United', logo: 'logos/Newcastle_United_Logo.svg' },
+    { name: 'Qarabağ', logo: 'logos/Qarabag_FK_logo.svg' }];
+  let clPath2026 = clPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let cl2026 = new tourResult( championsLeague,`2026`,20270903, clPath2026, championsLeagueRoundsNew);
+
+  pillsDiv.appendChild(cl2026.resultPill);
+  document.body.appendChild(cl2026.card);
+
+
+  const elPath2026Data = [
+    { name: 'Aston Villa', logo: 'logos/astonVilla.svg' },
+    { name: 'SC Freiburg', logo: 'logos/freiburg.svg' },
+    { name: 'SC Braga', logo: 'logos/scBraga.svg' },
+    { name: 'Real Betis', logo: 'logos/realBetis.svg' },
+    { name: 'Panathinaikos', logo: 'logos/panathinakos.svg' },
+    { name: 'Viktoria Plzeň', logo: 'logos/viktoriaPlzen.svg' }];
+  let elPath2026 = elPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let el2026 = new tourResult( europaLeague,`2026`,20270903, elPath2026, europaLeagueRounds);
+
+  pillsDiv.appendChild(el2026.resultPill);
+  document.body.appendChild(el2026.card);
+
+
+  const wcPath2026Data = [
+    { name: 'Spain', logo: 'flags/es.svg' },
+    { name: 'Argentina', logo: 'flags/ar.svg' },
+    { name: 'England', logo: 'flags/gb-eng.svg' },
+    { name: 'France', logo: 'flags/fr.svg' },
+    { name: 'Morocco', logo: 'flags/ma.svg' },
+    { name: 'Canada', logo: 'flags/ca.svg' },
+    { name: 'South Africa', logo: 'flags/za.svg' },
+    { name: 'South Korea', logo: 'flags/kr.svg' },
+    { name: 'Czech Republic', logo: 'flags/cz.svg' }];
+  let wcPath2026 = wcPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let wc2026 = new tourResult( worldCup2026,`2026`,20270903, wcPath2026, worldCup2026Rounds);
+
+  pillsDiv.appendChild(wc2026.resultPill);
+  document.body.appendChild(wc2026.card);
+
+
+  const nbaPath2026Data = [
+    { name: 'New York Knicks', logo: 'logos/New_York_Knicks_logo.svg' },
+    { name: 'San Antonio Spurs', logo: 'logos/San_Antonio_Spurs.svg' },
+    { name: 'Oklahama City Thunder', logo: 'logos/Oklahoma_City_Thunder.svg' },
+    { name: 'Los Angeles Lakers', logo: 'logos/Los_Angeles_Lakers_logo.svg' },
+    { name: 'Houston Rockets', logo: 'logos/Houston_Rockets.svg' }];
+  let nbaPath2026 = nbaPath2026Data.map(p => new contestant(p.name, p.logo));
+
+  let nba2026 = new tourResult( nbaFinals,`2026`,20270903, nbaPath2026, nbaFinalsRounds);
+
+  pillsDiv.appendChild(nba2026.resultPill);
+  document.body.appendChild(nba2026.card);
+
+  //// END of 2026 TOURNAMENTS 
+
+  //////////////////
+
+
+  ///START of 2025 TOURNAMENTS
+
+  const uomPath2025Data = [
+  { name: 'Carlos Alcaraz', country: 'ES', logo: 'flags/es.svg' },
+  { name: 'Jannik Sinner', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Félix Auger-Aliassime', country: 'CA', logo: 'flags/ca.svg' },
+  { name: 'Alex de Minaur', country: 'AU', logo: 'flags/au.svg' },
+  { name: 'Leandro Riedi', country: 'CH', logo: 'flags/ch.svg' },
+  { name: 'Kamil Majchrzak', country: 'PL', logo: 'flags/pl.svg' },
+  { name: 'Karen Khachanov', country: 'RU', logo: 'flags/ru.svg' }, 
+  { name: 'Nishesh Basavareddy', country: 'US', logo: 'flags/us.svg' }];
+
+  let uomPath2025 = uomPath2025Data.map(p => new contestant(p.name, p.logo));
+
+  let uom2025 = new tourResult( usOpenMen,`2025`,20250903, uomPath2025, tennisRoundsStd);
+
+  pillsDiv.appendChild(uom2025.resultPill);
+  document.body.appendChild(uom2025.card);
+
+
+  const uowPath2025Data = [
+  { name: 'Aryna Sabalenka', country: 'BY', logo: 'flags/by.svg' },
+  { name: 'Amanda Anisimova', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Naomi Osaka', country: 'JP', logo: 'flags/jp.svg' },
+  { name: 'Karolína Muchová', country: 'CZ', logo: 'flags/cz.svg' },
+  { name: 'Marta Kostyuk', country: 'UA', logo: 'flags/ua.svg' },
+  { name: 'Diane Parry', country: 'FR', logo: 'flags/fr.svg' },
+  { name: 'Renata Zarazúa', country: 'MX', logo: 'flags/mx.svg' },
+  { name: 'Madison Keys', country: 'US', logo: 'flags/us.svg' }];
+  let uowPath2025 = uowPath2025Data.map(p => new contestant(p.name, p.logo));
+
+  let uow2025 = new tourResult( usOpenWomen,`2025`,20250902, uowPath2025, tennisRoundsStd);
+
+  pillsDiv.appendChild(uow2025.resultPill);
+  document.body.appendChild(uow2025.card);
+
+
+  const wmPath2025Data = [
+  { name: 'Carlos Alcaraz', country: 'ES', logo: 'flags/es.svg' },
+  { name: 'Novak Djokovic', country: 'RS', logo: 'flags/rs.svg' },
+  { name: 'Lorenzo Musetti', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Taylor Fritz', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Alexander Zverev', country: 'DE', logo: 'flags/de.svg' },
+  { name: 'Cameron Norrie', country: 'GB', logo: 'flags/gb.svg' },
+  { name: 'Jack Draper', country: 'GB', logo: 'flags/gb.svg' },
+  { name: 'Elias Ymer', country: 'SE', logo: 'flags/se.svg' }];
+
+  let wmPath2025 = wmPath2025Data.map(p => new contestant(p.name, p.logo));
+
+  let wm2025 = new tourResult( wimbledonMen,`2025`,20250703, wmPath2025, tennisRoundsStd);
+
+  pillsDiv.appendChild(wm2025.resultPill);
+  document.body.appendChild(wm2025.card);
+
+
+  const wwPath2025Data = [
+  { name: 'Iga Świątek', country: 'PL', logo: 'flags/pl.svg' },
+  { name: 'Amanda Anisimova', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Aryna Sabalenka', country: 'BY', logo: 'flags/by.svg' }, 
+  { name: 'Laura Siegemund', country: 'DE', logo: 'flags/de.svg' },
+  { name: 'Solana Sierra', country: 'AR', logo: 'flags/ar.svg' },
+  { name: 'Cristina Bucșa', country: 'ES', logo: 'flags/es.svg' },
+  { name: 'Donna Vekić', country: 'HR', logo: 'flags/hr.svg' },
+  { name: 'Kimberly Birrell', country: 'AU', logo: 'flags/au.svg' }];
+  let wwPath2025 = wwPath2025Data.map(p => new contestant(p.name, p.logo));
+
+  let ww2025 = new tourResult( wimbledonWomen,`2025`,20250703, wwPath2025, tennisRoundsStd);
+  
+  pillsDiv.appendChild(ww2025.resultPill);
+  document.body.appendChild(ww2025.card);
+
+
+  const fomPath2025Data = [
+  { name: 'Carlos Alcaraz', country: 'ES', logo: 'flags/es.svg' },
+  { name: 'Jannik Sinner', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Novak Djokovic', country: 'RS', logo: 'flags/rs.svg' },
+  { name: 'Alexander Zverev', country: 'DE', logo: 'flags/de.svg' },
+  { name: 'Tallon Griekspoor', country: 'NL', logo: 'flags/nl.svg' },
+  { name: 'Ethan Quinn', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Alexander Shevchenko', country: 'KZ', logo: 'flags/kz.svg' },
+  { name: 'Dušan Lajović', country: 'RS', logo: 'flags/rs.svg' }];
+
+  let fomPath2025 = fomPath2025Data.map(p => new contestant(p.name, p.logo));
+
+  let fom2025 = new tourResult( frenchOpenMen,`2025`,20250503, fomPath2025, tennisRoundsStd);
+
+  pillsDiv.appendChild(fom2025.resultPill);
+  document.body.appendChild(fom2025.card);
+
+
+
+  const fowPath2025Data = [
+  { name: 'Coco Gauff', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Aryna Sabalenka', country: 'BY', logo: 'flags/by.svg' }, 
+  { name: 'Iga Świątek', country: 'PL', logo: 'flags/pl.svg' },
+  { name: 'Elina Svitolina', country: 'UA', logo: 'flags/ua.svg' },
+  { name: 'Jasmine Paolini', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Yuliia Starodubtseva', country: 'UA', logo: 'flags/ua.svg' },
+  { name: 'Anastasia Potapova', country: 'RU', logo: 'flags/ru.svg' }, 
+  { name: 'Linda Nosková', country: 'CZ', logo: 'flags/cz.svg' }];
+
+  let fowPath2025 = fowPath2025Data.map(p => new contestant(p.name, p.logo));
+
+  let fow2025 = new tourResult( frenchOpenWomen,`2025`,20250502, fowPath2025, tennisRoundsStd);
+
+  pillsDiv.appendChild(fow2025.resultPill);
+  document.body.appendChild(fow2025.card);
+
+
+  const aomPath2025Data = [
+  { name: 'Jannik Sinner', country: 'IT', logo: 'flags/it.svg' },
+  { name: 'Alexander Zverev', country: 'DE', logo: 'flags/de.svg' },
+  { name: 'Novak Djokovic', country: 'RS', logo: 'flags/rs.svg' },
+  { name: 'Carlos Alcaraz', country: 'ES', logo: 'flags/es.svg' },
+  { name: 'Jack Draper', country: 'GB', logo: 'flags/gb.svg' },
+  { name: 'Aleksandar Vukic', country: 'AU', logo: 'flags/au.svg' },
+  { name: 'Sebastian Korda', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Lukas Klein', country: 'SK', logo: 'flags/sk.svg' }];
+
+  let aomPath2025 = aomPath2025Data.map(p => new contestant(p.name, p.logo));
+
+  let aom2025 = new tourResult( australianOpenMen,`2025`,20250103, aomPath2025, tennisRoundsStd);
+
+  pillsDiv.appendChild(aom2025.resultPill);
+  document.body.appendChild(aom2025.card);
+
+
+
+  const aowPath2025Data = [
+  { name: 'Madison Keys', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Aryna Sabalenka', country: 'BY', logo: 'flags/by.svg' },
+  { name: 'Paula Badosa', country: 'ES', logo: 'flags/es.svg' },
+  { name: 'Coco Gauff', country: 'US', logo: 'flags/us.svg' },
+  { name: 'Belinda Bencic', country: 'CH', logo: 'flags/ch.svg' },
+  { name: 'Naomi Osaka', country: 'JP', logo: 'flags/jp.svg' },
+  { name: 'Karolína Muchová', country: 'CZ', logo: 'flags/cz.svg' },
+  { name: 'Nadia Podoroska', country: 'AR', logo: 'flags/ar.svg' }];
+
+  let aowPath2025 = aowPath2025Data.map(p => new contestant(p.name, p.logo));
+
+  let aow2025 = new tourResult( australianOpenWomen,`2025`,20250103, aowPath2025, tennisRoundsStd);
+
+  pillsDiv.appendChild(aow2025.resultPill);
+  document.body.appendChild(aow2025.card);
+
+
+
 </script>
 
 
