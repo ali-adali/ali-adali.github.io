@@ -995,14 +995,14 @@
 
   const marchMadness = new tournament(`NCAA MARCH MADNESS`,`mm`,`logos/March_Madness_logo.svg`,`#004f99`,`#231f20`,`goldenrod`);
 
-  const championsLeague = new tournament(`UEFA CHAMPIONS LEAGUE`,`cl`,`logos/UEFA_Champions_League_logo.svg`,`#00004b`,`#000033`,`goldenrod`);
+  const championsLeague = new tournament(`CHAMPIONS LEAGUE`,`cl`,`logos/UEFA_Champions_League_logo.svg`,`#00004b`,`#000033`,`goldenrod`);
 
   const worldCup2026 = new tournament(`FIFA WORLD CUP`,`wc`,`logos/2026_FIFA_World_Cup_emblem.svg`,`#1d428a`,`#287227`,`goldenrod`);
 
   const nbaFinals = new tournament(`NBA FINALS`,`nba`,`logos/nba.svg`,`#1d428a`,`#760a1c`,`goldenrod`);
 
 
-  const europaLeague = new tournament(`UEFA EUROPA LEAGUE`,`el`,`logos/el.svg`,`#cc5500`,`black`,`midnightblue`);
+  const europaLeague = new tournament(`EUROPA LEAGUE`,`el`,`logos/el.svg`,`#cc5500`,`black`,`midnightblue`);
 
 
 
@@ -1011,7 +1011,7 @@
 
   //ROUND TYPES
   const tennisRoundsStd = [`(F)↓`,`(SF)↓`,`(QF)↓`,`(R16)↓`,`(R32)↓`,`(R64)↓`,`(R128)↓`];
-  const marchMadnessRounds = [ `(F)↓`,`(SF)↓`,`(ELITE 8)↓`,`(SWEET 16)↓`,`(R32)↓`,`(R64)↓`  ];
+  const marchMadnessRounds = [ `(N CH)↓`,`(N SF)↓`,`(ELITE 8)↓`,`(SWEET 16)↓`,`(R32)↓`,`(R64)↓`  ];
   const championsLeagueRoundsNew = [ `(F)↓`,`(SF)↓`,`(QF)↓`,`(R16)↓`,`(R32)↓` ];
   const worldCup2026Rounds = [ `(F)↓`,`(SF)↓`,`(3RD)↓`,`(QF)↓`,`(R16)↓`,`(R32)↓`,`(GROUP)↓`,`(GROUP)↓` ];
   const nbaFinalsRounds = [ `(NBA F)↓`,`(CONF F)↓`,`(CONF SF)↓`,`(PO R1)↓` ];
@@ -1392,6 +1392,31 @@
 
   pillsDiv.appendChild(aow2025.resultPill);
   document.body.appendChild(aow2025.card);
+
+
+  const mmPath2025Data = [
+    { name: 'Florida', logo: 'logos/Florida_Gators.svg ' },
+    { name: 'Houston', logo: 'logos/Houston_Cougars.svg' },
+    { name: 'Duke', logo: 'logos/Duke_Blue_Devils.svg' },
+    { name: 'Alabama', logo: 'logos/Alabama_Crimson_Tide.svg' },
+    { name: 'BYU', logo: 'logos/BYU_Stretch_Y.png' },
+    { name: 'Wisconsin', logo: 'logos/Wisconsin_Badgers.svg' },
+    { name: 'Montana', logo: 'logos/Montana_Griz.svg' }];
+  let mmPath2025 = mmPath2025Data.map(p => new contestant(p.name, p.logo));
+
+  let mm2025 = new tourResult( marchMadness,`2025`,20250303, mmPath2025, marchMadnessRounds);
+  pillsDiv.appendChild(mm2025.resultPill);
+  document.body.appendChild(mm2025.card);
+
+
+
+
+
+
+  
+
+
+
 
 
 
