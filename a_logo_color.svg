@@ -1,17 +1,18 @@
-<svg viewBox="40 30 280 270"
-     xmlns="http://www.w3.org/2000/svg" style="background-color:white">
+<svg viewBox="40 26 280 266"
+     xmlns="http://www.w3.org/2000/svg" style="background-color:none">
+     <circle cx="180" cy="160" r="130" stroke-width="16" fill="ghostwhite" stroke="none"/>
 
   <path stroke-width="2" stroke="midnightblue" fill="none" stroke-linecap="round"  class="SamplePath" d="M 192,140 Q 160,140  60,90 Q  160,140 180,205 Q 210,270 180,272 Q 150,270  180,205 Q 200,140 300,90" />
   
   <circle cx="182" cy="90" r="22" stroke-width="16" fill="none" stroke="black"/>
   
-  <path stroke-width="20" stroke="goldenrod" fill="none" stroke-linecap="round"  class="SamplePath" d="M 180,205 Q 210,270 180,272 Q 150,270  180,205" />
+  <path stroke-width="22" stroke="goldenrod" fill="none" stroke-linecap="round"  class="SamplePath" d="M 180,205 Q 210,270 180,272 Q 150,270  180,205" />
   
   
-  <path stroke-width="20" stroke="midnightblue" fill="none" stroke-linecap="round"  class="SamplePath" d="M 60,90 Q  160,140 180,205" />
+  <path stroke-width="22" stroke="midnightblue" fill="none" stroke-linecap="round"  class="SamplePath" d="M 60,90 Q  160,140 180,205" />
   
-  <path stroke-width="20" stroke="crimson" fill="none" stroke-linecap="round"  class="SamplePath" d="M 192,140 Q 160,140  60,90" />
+  <path stroke-width="22" stroke="crimson" fill="none" stroke-linecap="round"  class="SamplePath" d="M 192,140 Q 160,140  60,90" />
   
-  <path stroke-width="20" stroke="darkgreen" fill="none" stroke-linecap="round"  class="SamplePath" d="M 180,205 Q 200,140 300,90" />
+  <path stroke-width="22" stroke="darkgreen" fill="none" stroke-linecap="round"  class="SamplePath" d="M 180,205 Q 200,140 300,90" />
 
 </svg>
