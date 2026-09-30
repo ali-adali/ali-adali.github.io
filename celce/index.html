@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Celce</title>
+  <style>
+    :root {
+      --bg-color: black;
+      --mainDiv-bg:  #091f36;
+
+      --accent-gold: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: #1f293d;
+
+      --bg-dark: #0b0f19;
+      --bg-card: #0f172a;
+
+      
+      --blue-accent: #2563eb;       
+      --blue-glow: ghostwhite; 
+      --blue-light: #60a5fa;        
+      --blue-border: #1d4ed8;
+      --result-bg:#1e293b;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family:  'Courier New', monospace;
+    }
+
+    body {
+      background-color: var(--bg-color); 
+      color: var(--text-main); 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height as fallback/standard */
+      height: 100svh;     /* Small viewport height - stays fixed even when address bar is expanded */
+      width: 100%;
+      
+      /* Prevent browser pull-to-refresh and bounce scrolling on outer body */
+      overscroll-behavior: none;
+      overflow: hidden;
+      
+    }
+    .mainDiv
+    {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      height: 96%;
+      width: 96%;
+      max-width: 500px;
+
+      border-radius: 0vmin;
+
+      outline: 0px solid blueviolet;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      background-color: var(--bg-color);
+      overflow-y:auto;
+      padding-block: 3%;
+      gap: 1.2%;
+
+      flex-wrap: nowrap;
+
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+
+    }
+
+    .miniDivs
+    {
+      width: 98%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1%;
+
+      outline: 0px solid gray;
+      border-radius: 2vmin;
+
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+
+      background-color: var(--mainDiv-bg);
+    }
+
+    .miniDivs span
+    {
+      width: 98%;
+      text-align: left;
+      font-size:  clamp(15px, 3.0cqmin, 25px);
+    }
+
+  </style>
+
+ 
+
+
+</head>
+
+<body>
+  <div class="mainDiv">
+    <div class="miniDivs" >
+      <span style="text-align: center;">Bismillâĥirrahmânirraĥîm </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Bede’tu bi bismillahi rûĥi bihih tedet</span>
+      <span>İlâ keşfi esrârin bi bâŧınihin ŧavet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve śalleytu biš šânî alâ ħayri ħalqıhî </span>
+      <span>Muĥammedin men zâĥađ đalâlete vel ğalet</span>
+    </div>
+
+    <div class="miniDivs">
+      <span>İlâhî leqad aqsemtu bismike dâiyen</span>
+      <span>Bi âcin ve mâhûcin celet fete celcelet</span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Seeltuke bil ismil muaźźami qadruhu </span>
+      <span>Ve yessir umûrî  yâ ilâhî bi śalmehet</span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve yâ ĥayyû yâ qayyûmu ed’ûke râciyen</span>
+      <span>Bi âcin eyûcin celceliyyûtin helhelet</span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi śamśâmin ŧamŧâmin veyâ ħayra bâziħin</span>
+      <span>Bimiĥrâši mihrâşin bihin nâru uħmidet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Bi âcin ehûcin yâ ilahî muhevvicin </span>
+      <span>Veyâ celcelûtin bîl icâbeti helhelet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Li tuĥyî ĥayâtel qalbi min denesin bihî </span>
+      <span>Bi qayyûmin qâmes sirru fîhi ve eşraqat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Aleyye điyâun min bevâriqi nûrihî </span>
+      <span> Felâĥa alâ vechî senâun ve ebraqat</span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve śubbe alâ qalbî şeâbîbu raĥmetin </span>
+      <span> Bi ĥikmeti mevlânâl kerîmi fe enŧaqat</span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Eĥaŧat biyel envâru min kulli cânibin </span>
+      <span>Ve heybetu mevlânal aźîmi binâ alet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Fe subĥanekellahumme yâ ħayra ħâliqin </span>
+      <span>Ve yâ ħayra ħallâqin ve ekreme men beat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Fe belliğnî qaśdî ve kulle meâribî </span>
+      <span>Bi ĥaqqı ĥurûfin bil hicâi tecemmeat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Bi sırrı ĥurûfin ûdiat fî azîmetî </span>
+      <span>Bi nûri senâil ismi ver rûĥi qad alet  </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Efiđ lî minel envâri feyđate muşriqin </span>
+      <span>Aleyye ve eĥyî meyte qalbî bi ŧayŧağat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Elâ ve elbisennî heybeten ve celâleten </span>
+      <span>Ve kuffâ yedâl a’dâi annî bi ğalmehet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Elâ vaĥcubenni min aduvvin ve ĥâsidin </span>
+      <span>Bi ĥaqqı şemâħin eşmeħin sellemet semet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Bi nûri celâlin bâziħin ve şerânŧaħin </span>
+      <span>Bi quddûsi berkûtin bihiź źulmetun celet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Elâ veqđi yâ rabbehu bin nûri ĥâceti </span>
+      <span>Bi nûri eşmeħin celyâ serîan qadin qađat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Bi yâhin ve yâyûhin numûhin eśaliyen </span>
+      <span>Ve yâ âliyân yessir umûrî bi śayśalet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve em neĥnî yâ žel celâli kerâmeten </span>
+      <span>Bi esrâri ılmin yâ ĥalimu biken celet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve ħalliśnî min kulli hevlin ve şiddetin</span>
+      <span>Bi neśśi ĥakîmin qâŧıis sırrı esbelet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve eĥrisnî yâ žel celâli be kêfi kun </span>
+      <span>E yâ câbiral qalbil kesîri minel ħabet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve sellim bi baĥrin ve e’ŧinî ħayra berrihâ </span>
+      <span>Fe ente melâžî vel kurûbu biken celet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve śubbe aleyyer rızqa śabbete raĥmetin </span>
+      <span>Fe ente recâul âlemîne velev ŧağet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve eśmim ve ebkim šumme e’mi aduvvenâ</span>
+      <span>Ve eħrishum yâ žel celâli bi ĥavsemet  </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve fî ĥavsemin mea devsemin ve berâsemin </span>
+      <span>Teĥaśśantu bil ismil aźîmi minel ğalet  </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve e’ŧif qulûbel alemîne bi esrihâ </span>
+      <span>Aleyye ve elbisenni qabûlen bi şelmehet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve ellif qulûbel âlemîne cemîahâ </span>
+      <span>Alâ risâletin nûri ve e’ŧihâl qabûle bi şelmehet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve yessir umûrî yâ ilâhî ve e’ŧinâ </span>
+      <span> Minel ızzi vel ulyâ bi şemħin ve eşmeħat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve esbil aleynâs setra veşfi qulûbenâ </span>
+      <span> Fe ente şifâun lil qulûbi minel ğaşet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve bârik lenâ allahumme fî cemîı kesbinâ </span>
+      <span> Ve ĥulle uqûdel usri bi yâyûhin irteĥat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Bi yâhin ve yâyûhin ve yâ ħayra bâziħin </span>
+      <span>Ve yâ men lenâl erzâqu min cûdihî nemet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Neruddu bikel e’dâe min kulli vichetin  </span>
+      <span>Ve bil ismi termîhim minel bu’di biş şetet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span>Ve eħžilhum yâ žel celâli bi fađli men </span>
+      <span>İleyhi seat đabbul felâti ve qad şeket </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe ente recâî yâ ilâhî ve seyyidî </span>
+      <span> Fe fulle lemîmel ceyşi in râme bî abet  </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve kuffe cemîal muđirrîne keydehum </span>
+      <span>Ve annî bi eqsâmike ĥatmên ve mâ ĥavet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe yâ ħayra mes’ûlin ve ekreme men aŧâ </span>
+      <span> Ve yâ ħayra me’mûlin ilâ ummetin ħalet</span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Eqid kevkebî bil ismi nûrân ve behceten </span>
+      <span> Medâd dehri vel eyyâmi yâ nûru celcelet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi âcin ehûcin celmehûcin celâletin </span>
+      <span> Celîlin celceleyyûtin cemâhin temehracet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi te’dâdi ebrûmin ve simrâzi ebramin </span>
+      <span> Ve behreti tibrîzin ve ummin tebarreket </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Tuqâdu sirâcun nûri sırrân beyâneten</span>
+      <span> Tuqâdu sirâcus surci sırrân tenevveret </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi nûri celâlin bâziħin ve şeranŧaħin </span>
+      <span> Bi quddûsi berkûtin bihin nâru uħmidet </span>
+    </div>
+
+     <div class="miniDivs">
+      <span> Bi yâhin ve yâyûhin numûhin eśâliyên </span>
+      <span> Bi ŧamŧâmi mihrâşin li nâril idâ semet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi hâlin ehîlin şel’in şel’ûbin şâliin</span>
+      <span> Ŧahiyyin ŧahûbin ŧayŧahûbin ŧayaŧŧahet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Enûħin bi yemlûħin ve ebrûħin uqsimet </span>
+      <span> Bi temlîħi âyâtin şemûħin teşemmeħat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ebâžîħa beyžûħin ve žeymûħin be’dehâ </span>
+      <span> Ħamârûħin yeşrûħin bi şerħin teşemmeħat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bibelħin ve simyânin ve bêzûħin be’dehâ </span>
+      <span> Bi žeymûħin eşmûħin bihil kevnu ummirat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi şelmeħatin iqbal duâî ve kun meî </span>
+      <span> Ve kun lî minel e’dâi ĥasbî fe qad beğat </span>
+    </div>
+
+     <div class="miniDivs">
+      <span> Fe yâ şemħašâ yâ şemħašâ ente şemleħâ </span>
+      <span> Ve yâ ayŧalâ heŧlur riyâĥi teħalħalet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bikel ĥavlu veś śavluş şedîdu limen etâ </span>
+      <span> Li bâbi cenâbike vel tecâ źulmetun celet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi ŧâ hâ ve yâ sîn ve ŧâ sîn kun lenâ </span>
+      <span> Bi ŧâ sîn ve mîmin lis sâadeti iqbelet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve kâfin ve hâ yâ in ve aynin ve śâdihâ </span>
+      <span> Kifâyetunâ min kulli aynin binâ ĥavet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi ĥâ mîme aynin šumme sînin ve qâfihâ </span>
+      <span> ĥimâyetuna min kulli sûin bi şelmehet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi qâfin ve nûnin šumme ĥâmîmin be’dehâ </span>
+      <span> Ve fî sûretid dûĥâni sırrân qad uĥkimet </span>
+    </div>
+
+     <div class="miniDivs">
+      <span> Bi elfin ve lâmin ven nisâ ve uqûdihâ </span>
+      <span> Ve fî suretil en’âmi ven nûri nuvvirat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve elfin ve lâmin šumme râin bi sırrıhâ </span>
+      <span> Alevtu bi nûril ismi min kulli mâ cenet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve elfin ve lâmin šumme mîmin ve râihâ </span>
+      <span> İlâ mecmeil ervâĥi ver rûhu qad alet</span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi sırrı ĥavâmîmil kitâbi cemîıhâ </span>
+      <span> Aleyke bi fađlin nûri yâ nûru uqsimet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi amme abese ven nâziati ve ŧârıqin </span>
+      <span> Ve fî ves semâi žâtil burûci ve zulzilet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi ĥaqqı tebâreke šumme nûnin ve sâilin </span>
+      <span> Ve fî sûretit tehmîzi veş şemsi kuvvirat </span>
+    </div>
+
+     <div class="miniDivs">
+      <span> Ve biž žâriyâtiž žerri ven necmi iž hevâ </span>
+      <span> Ve bîqterabet liyel umûru teqarrebet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve fî suveril qur’âni ĥizben ve âyeten </span>
+      <span> Adede mâ qaraâl qârî ve mâ qad tenezzelet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe es’eluke yâ mevlâye fî fađlikelležî </span>
+      <span> Alâ kulli mâ enzelte kutben tefeđđalet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi êhiyyân şerâhiyyan ežûnâyî śabvetin </span>
+      <span> Eśbâvušin âli şeddâye aqsemtu bi ŧayŧağat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi sırrı budûĥin echezeŧin beŧadin zehecin </span>
+      <span> Bi vâĥil ve ĥâ bil fetĥi ven naśri esraat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Bi nûri feceşin mea šeźħazin yâ seyyidî </span>
+      <span> Ve bil âyâtil kubrâ eminnî minel fecet </span>
+    </div>
+
+     <div class="miniDivs">
+      <span> Bi ĥaqqi feqacin mea meħmetin yâ ilâhenâ </span>
+      <span> Bi esmâikel ĥusnâ ecirnî mineş şetet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> ĥurûfun li behrâmin alet ve teşâmeħat </span>
+      <span> ve ismu aśâ mûsâ bihiź źulmetun celet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Tevesseltu yâ rabbi ileyke bi sırrıhâ </span>
+      <span> Tevessule žî žulî bihin nâsu ihtedet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> ĥurûfun bi ma’nâhâ lehâl fađlu şurrifet </span>
+      <span> medâd dehri vel eyyâmi yâ rabbi inĥanet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Deavtuke yâ allâhu ĥaqqân ve innenî </span>
+      <span> Tevesseltu bil âyâti cem’ân bi mâ ĥavet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe tilke ĥurûfun nûri fêcme’ ħavaśśahâ </span>
+      <span> Ve ĥaqqiq meânîhâ bihâl ħayru tummimet  </span>
+    </div>
+
+     <div class="miniDivs">
+      <span> ve uĥđiranî avnân ħadîmân museħħarân </span>
+      <span> Ŧuheymefyâîlu bihil kurbetun celet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe seħħirlî fîhâ ħadîmân yuŧiunî </span>
+      <span> Bi fađli ĥurûfi ummil kitâbi ve mâ telet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> ve es’eluke yâ mevlâye fî ismikelležî </span>
+      <span> Bihi ižâ duiye cem’ul umûri teyesseret  </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> İlâhî fêrĥam đa’fî vâğfirlî zelletî </span>
+      <span> Bimâ qad deatkel enbiyâu ve tevesselet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> E yâ ħâliqî yâ seyyidî iqđi ĥâcetî </span>
+      <span> İleyke umûri yâ ilâhi tesellemet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Tevesseltu yâ rabbi ileyke bi aĥmedâ </span>
+      <span> Ve esmâikel ĥusnâlletî hiye cummiat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe cud ve’fû vâśfeĥ yâ ilâhî bi tevbetin </span>
+      <span> Alâ abdikel miskîni min neźratin abet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve veffeqnî lil ħayri veś śıdqi vet tuqâ </span>
+      <span> Ve eskinnenîl firdevse mea firqatin alet  </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve kun bî raûfân fî ĥayâtî ve be’demâ </span>
+      <span> Emûtu ve elqâ źulmetel qabri incelet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve fîl ĥaşri beyyiđ yâ ilahî śaĥifetî </span>
+      <span> Ve šeqqil mevâzînî bi lutfike in ħaffat  </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve cevviznî ĥaddaś śırâŧi muhervilân </span>
+      <span> Ve eĥmimî min ĥarri nârin ve mâ ĥavet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve sêmiĥnî min kulli ženbin ceneytuhu </span>
+      <span> Veğfir ħaŧîatil iźâme ve in alet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe yâ ĥamilel ismilleži celle qadruhû </span>
+      <span> Teveqqâ bihî kullel umûri tesellemet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe qâtil ve lâ teħşe ve ĥârib ve lâ teħaf </span>
+      <span> Ve dus kulle erđin bil vuĥûşi teammeret </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve eqbil ve lâ tehrab ve ħâśim men teşâu </span>
+      <span> Ve lâ tehşe be’sên lil mulûki velev ĥavet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe lâ ĥayyetun teħşâ ve lâ aqrabun terâ </span>
+      <span> Ve lâ esedun ye’tî ileyke bi hemhemet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve lâ teħşe min seyfin ve lâ ŧa’ni ħancerin </span>
+      <span> Velâ teħşe min rumĥin ve lâ şerrin eshemet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Cezâ men qarâ hežâ şefâatu aĥmedâ </span>
+      <span> Fe yuĥşeru fîl cenneti mea ĥûrin śuffiqat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve a’lem bi ennel muśŧafâ ħayru murselin </span>
+      <span> Ve efđalu ħalqillâhi men qad teferraqat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve śaddir bihî min câhihî kulle ĥâcetin </span>
+      <span> Ve selhu likey tencû ve minel cevri veŧ ŧağat </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve śalli ilâhî kulle yevmin ve sâatin </span>
+      <span> Alâl muśŧafâl muħtâri mâ nesmetun semet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve śalli alâl muħtâri vel âli kullihim </span>
+      <span> Ke addi nebâtil arđi ver rîĥi mâ seret </span>
+    </div>
+
+     <div class="miniDivs">
+      <span> Ve śalli śalâten temleul arđe ves semâe </span>
+      <span> Kevebli ğamâmin mea raûdin tecelcelet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Fe yekfîke ennellâhe śallâ bi nefsihî </span>
+      <span> Ve emlâkehu śallat aleyhi ve sellemet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Ve sellim aleyhi dâimân mutevessilen </span>
+      <span> Medâd dehri vel eyyâmi mâ şemsun eşreqat </span>
+    </div>
+
+     <div class="miniDivs">
+      <span> Ve sellim alâl eŧhâri min âli hâşimin </span>
+      <span> Adede mâ ĥaccel ĥacîcu ve sellemet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Vêrđe yâ ilâhî an ebî bekrin mea umara </span>
+      <span> Vêrđe alâ ušmâne mea ĥaydâriš šebet </span>
+    </div>
+
+    <div class="miniDivs">
+      <span> Kežâl âlu vel eśĥâbu cem’ân cemîuhum </span>
+      <span> Meâl evliyâi veś śâliĥîne ve mâ ĥavet </span>
+    </div>
+
+     <div class="miniDivs">
+      <span> Meqâlu aliyyin vêbni ammi muĥammedin </span>
+      <span> Ve sırru ulûmin lil ħalâiqi cummiat </span>
+    </div>
+
+  </div>
+
+  
+</body>
+
+
+
