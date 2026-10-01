@@ -59,7 +59,7 @@
       position: absolute;
       height: 96%;
       width: 96%;
-      max-width: 500px;
+      max-width: 600px;
 
       border-radius: 0vmin;
 
@@ -67,10 +67,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+
 
       background-color: var(--bg-color);
       overflow-y:auto;
-      padding-block: 3%;
+      padding-block: 0%;
       gap: 1.2%;
 
       flex-wrap: nowrap;
@@ -78,31 +80,53 @@
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
 
+      padding-block: 1vmin; 
+
     }
 
     .miniDivs
     {
-      width: 98%;
+      width: 99%;
+      height: calc(99dvh/9);
+      flex-shrink: 0;
+
+
+
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 1%;
+      justify-content: space-evenly;
+      padding: 0%;
 
       outline: 0px solid gray;
       border-radius: 2vmin;
 
-      scroll-snap-align: center;
+      scroll-snap-align: start;
       scroll-snap-stop: always;
+      scroll-margin-top: 1vmin; 
+
 
       background-color: var(--mainDiv-bg);
+
+      box-shadow: 0.0vmin 0.0vmin 0.0vmin 0.0vmin ghostwhite;
+     
+    }
+
+    .miniDivs.open
+    {
+      box-shadow: 0.0vmin 0.0vmin 0.5vmin 0.3vmin ghostwhite;
     }
 
     .miniDivs span
     {
       width: 98%;
-      text-align: left;
-      font-size:  clamp(18px, 3.0cqmin, 25px);
+      font-family:  'Courier New', monospace;
+      text-align: center;
+      font-size: clamp(12px, 4.5cqmin, 24px)  ; 
+      letter-spacing: -0.3cqmin;
+
+      flex-shrink: 0;
+      outline: 0.0px solid gray;
     }
 
   </style>
@@ -632,6 +656,18 @@
 
   
 </body>
+
+<script>
+  const miniDivs = document.querySelectorAll('.miniDivs');
+
+  miniDivs.forEach(container => {
+    container.addEventListener('click', (event) => {
+      container.classList.toggle('open');
+    });
+  });
+
+
+</script>
 
 
 
