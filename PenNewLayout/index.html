@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pen 3</title>
+
+  <style>
+    :root {
+      --phi: 1.61803398875;
+
+      --bg-color: black;
+      --mainDiv-bg:  #091f36;
+
+      --accent-gold: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: #1f293d;
+
+      --bg-dark: #0b0f19;
+      --bg-card: #0f172a;
+
+      
+      --blue-accent: #2563eb;       
+      --blue-glow: ghostwhite; 
+      --blue-light: #60a5fa;        
+      --blue-border: #1d4ed8;
+      --result-bg:#1e293b;
+      
+
+    }
+
+    *{
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color); 
+      color: var(--text-main); 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height as fallback/standard */
+      height: 100svh;     /* Small viewport height - stays fixed even when address bar is expanded */
+      width: 100%;
+      
+      /* Prevent browser pull-to-refresh and bounce scrolling on outer body */
+      overscroll-behavior: none;
+      overflow: hidden; 
+    }
+
+    .mainDiv
+    {
+      aspect-ratio: 16 / 9;
+
+      width: min(98vw, calc(98svh * (16 / 9)));
+      height: min(98svh, calc(98vw * (9 / 16)));
+
+      outline: 1px solid blueviolet;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      background-color: var(--mainDiv-bg);
+
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease; 
+    }
+
+    @media (orientation: portrait)
+    {
+      .mainDiv
+      {
+        aspect-ratio: 9 / 16;
+        width: min(98vw, calc(98svh * (9 / 16)));
+        height: min(98svh, calc(98vw * (16 / 9)));
+        flex-direction: column;
+
+      }
+    }
+
+    .squareDiv
+    {
+      height: 100%;
+      aspect-ratio: 1/1;
+
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease; 
+    }
+
+    @media (orientation: portrait)
+    {
+      .squareDiv
+      {
+        width: 100%;
+      }
+    }
+
+    .centerDiv
+    {
+      height: 100%;
+      aspect-ratio: 6/9;
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      display: flex;
+    }
+
+    @media (orientation: portrait)
+    {
+      .centerDiv
+      {
+        width: 100%;
+        aspect-ratio: 9/6;
+      }
+    }
+
+    .rightDiv
+    {
+      height: 100%;
+      aspect-ratio: 1/9;
+
+      display: flex;
+      flex-direction: column;
+
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    @media (orientation: portrait)
+    {
+      .rightDiv
+      {
+        width: 100%;
+        aspect-ratio: 9/1;
+        flex-direction: row;
+
+      }
+    }
+
+    .navPlaceDiv
+    {
+      
+      width: 100%;
+      height: calc(100%/3);
+      display: flex;
+      flex-direction: column;
+
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+    }
+
+    @media (orientation: portrait)
+    {
+      .navPlaceDiv
+      {
+        height: 100%;
+        
+      }
+    }
+
+  </style>
+
+</head>
+
+<body>
+  <div class="mainDiv">
+    <div class="squareDiv">
+      
+    </div>
+
+    <div class="centerDiv">
+      
+    </div>
+
+    <div class="rightDiv">
+      <div class="navPlaceDiv">
+      </div>
+
+      <div class="navPlaceDiv">
+      </div>
+
+      <div class="navPlaceDiv">
+      </div>
+    </div>
+    
+  </div>
+  
+</body>
+
+</html>
