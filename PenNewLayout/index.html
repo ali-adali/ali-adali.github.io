@@ -3,7 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pen 3</title>
+  <title>Pen 3 Layout</title>
 
   <style>
     :root {
@@ -66,13 +66,16 @@
       outline: 1px solid blueviolet;
       display: flex;
       flex-direction: row;
-      align-items: center;
+      align-items: flex-start;
+      justify-content: flex-start;
 
       background-color: var(--mainDiv-bg);
 
       box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
 
-      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease; 
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+      container-type: size; 
     }
 
     @media (orientation: portrait)
@@ -98,6 +101,8 @@
       justify-content: flex-start;
       align-items: center;
 
+      background-color: whitesmoke;
+
       outline: 1px solid blueviolet;
       box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
 
@@ -115,10 +120,22 @@
     .centerDiv
     {
       height: 100%;
-      aspect-ratio: 6/9;
+      width: calc(100%/16);
+      aspect-ratio: 1/9;
       outline: 1px solid blueviolet;
       box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
       display: flex;
+      flex-direction: column;
+
+      overflow-y:auto;
+      flex-wrap: nowrap;
+
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+
+      flex-shrink: 0;   /* Prevents it from getting squished by the table */
+      flex-grow: 0;     
+
     }
 
     @media (orientation: portrait)
@@ -126,19 +143,52 @@
       .centerDiv
       {
         width: 100%;
-        aspect-ratio: 9/6;
+        aspect-ratio: 9/1;
+        height: calc(100%/16);
+        flex-direction: row;
+        overflow-x:auto;
+        scroll-snap-type: x mandatory;
       }
     }
+
+    .centerButtonPlaceDiv
+    {
+      
+      width: 100%;
+      height: calc(100%/12);
+      aspect-ratio: 3/4;
+      display: flex;
+      flex-direction: column;
+
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+    }
+
+    @media (orientation: portrait)
+    {
+      .centerButtonPlaceDiv
+      {
+        height: 100%;
+        width: calc(100%/12);
+        aspect-ratio: 4/3;
+        flex-direction: row;
+        
+      }
+    }
+
 
     .rightDiv
     {
       height: 100%;
-      aspect-ratio: 1/9;
+      aspect-ratio: 6/9;
 
       display: flex;
       flex-direction: column;
 
-      justify-content: space-evenly;
+      justify-content: flex-start;
       align-items: center;
     }
 
@@ -147,33 +197,257 @@
       .rightDiv
       {
         width: 100%;
-        aspect-ratio: 9/1;
+        aspect-ratio: 9/6;
         flex-direction: row;
-
+        justify-content: flex-start;
+        align-items: flex-start;
       }
     }
 
-    .navPlaceDiv
-    {
-      
-      width: 100%;
-      height: calc(100%/3);
-      display: flex;
-      flex-direction: column;
+    
 
+    .rightTopDiv
+    {
+      width: 100%;
+      height: calc(100%/12);
+      aspect-ratio: 8/1;
+
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: flex-start;
       outline: 1px solid blueviolet;
       box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      flex-shrink: 0;   /* Prevents it from getting squished by the table */
+      flex-grow: 0; 
     }
 
     @media (orientation: portrait)
     {
-      .navPlaceDiv
+      .rightTopDiv
       {
         height: 100%;
-        
+        width: calc(100%/12);
+        aspect-ratio: 1/8;
+
+        flex-direction: column;
+
       }
     }
 
+
+    .rightTopPlaceDiv
+    {
+      height: 100%;
+      width: calc(100%/6);
+      aspect-ratio: 4/3;
+
+      display: flex;
+      flex-direction: row;
+
+      justify-content: space-evenly;
+      align-items: center;
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      flex-shrink: 0;   /* Prevents it from getting squished by the table */
+      flex-grow: 0; 
+
+
+    }
+
+    @media (orientation: portrait)
+    {
+      .rightTopPlaceDiv
+      {
+        width: 100%;
+        height: calc(100%/6) ;
+        aspect-ratio: 3/4;
+        flex-direction: column;
+
+      }
+    }
+
+
+    .rightCenterDiv
+    {
+      width: 100%;
+      height: calc(100%/2);
+      aspect-ratio: 4/3;
+
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: flex-start;
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      flex-shrink: 0;   /* Prevents it from getting squished by the table */
+      flex-grow: 0; 
+    }
+
+    @media (orientation: portrait)
+    {
+      .rightCenterDiv
+      {
+        height: 100%;
+        width: calc(100%/2);
+        aspect-ratio: 3/4;
+
+        flex-direction: column;
+
+      }
+    }
+
+
+    .rightBottomDiv
+    {
+      width: 100%;
+      height: calc(100%*5/12);
+      aspect-ratio: 8/5;
+
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: flex-start;
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      flex-shrink: 0;   /* Prevents it from getting squished by the table */
+      flex-grow: 0; 
+    }
+
+    @media (orientation: portrait)
+    {
+      .rightBottomDiv
+      {
+        height: 100%;
+        width: calc(100%*5/12);
+        aspect-ratio: 5/8;
+        flex-direction: column;
+
+      }
+    }
+
+    .figButton
+    {
+      height: 98%;
+      width: 98%;
+      border-radius: 2vmin;
+      background-color: seagreen;
+      text-align: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.4cqmin;
+
+      flex-shrink: 0;   /* Prevents it from getting squished by the table */
+      flex-grow: 0;
+
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.15vmin; 
+      cursor: pointer;
+    }
+
+  </style>
+
+  <style>
+    .draggable {
+      position: fixed;
+
+      
+      background: #0f172a;
+      border: 1px solid #1f293d;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      cursor: grab;
+      user-select: none;
+      touch-action: none; /* Prevents touch scrolling while dragging */
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      transition: box-shadow 0.15s ease, transform 0.15s ease, scale 0.2s ease;
+    }
+
+    .draggable:active {
+      cursor: grabbing;
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+      border-color: #06b6d4;
+    }
+
+    .btn-action {
+      
+      border-radius: 4px;
+      border: none;
+      background: #1e293b;
+      color: #9ca3af;
+      font-size: 2.4cqmin;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .btn-action:hover {
+      
+    }
+
+    .btn-ok
+    {
+      width: 100%;
+      height: 6cqh;
+    }
+
+    .btn-ok:hover {
+      background: #059669;
+      color: #ffffff;
+    }
+
+    .btn-close
+    {
+      width: 5cqmin;
+      height: 5cqmin;
+      aspect-ratio: 1; 
+    }
+
+    .btn-close:hover {
+      background: #dc2626;
+      color: #ffffff;
+    }
+
+
+    .editDivClass
+    {
+      width: 30cqw;
+      height: 30cqh;
+      scale: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+
+    }
+
+    .editDivTitle
+    {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 3cqmin;
+
+    }
   </style>
 
 </head>
@@ -181,26 +455,143 @@
 <body>
   <div class="mainDiv">
     <div class="squareDiv">
+      <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 750 750" >
+      <defs>
+        <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
+        </pattern>
+
+        <pattern id="halfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 30 0 L 0 0 0 30" fill="none" stroke="lightgray" stroke-width="0.8"/>
+        </pattern>
+      </defs>
+      <rect width="750" height="750" fill="url(#wholeGrid)" />
+      <rect width="750" height="750" fill="url(#halfGrid)" />
+      <g id="mainSVGGroup">
+      </g>
+    </svg>
       
     </div>
 
     <div class="centerDiv">
+      <div class="centerButtonPlaceDiv"> <div class="figButton"> MathJax </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton" onclick='document.getElementById("editDiv").style.scale = 1;'> Edit </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton"> Delete </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton"> Uncheck </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton"> to Grid </div> </div>
+
+      <div class="centerButtonPlaceDiv"> <div class="figButton" id="pointButton">
+        <svg viewBox="0 0 100 100" ><circle cx="50" cy="50" r="10" stroke="none" fill="black" />Point</svg> </div> </div>
+
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  P-Line </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  P-gon </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Arrow </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Text </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Circle </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Ellipse </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Reg P-gon </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Weighted Point </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Angle </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  O </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  I </div>  </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Perp </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Weighted Angle</div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Meet</div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton">  Snap</div> </div>
       
     </div>
 
     <div class="rightDiv">
-      <div class="navPlaceDiv">
+      <div class="rightTopDiv">
+        <div class="rightTopPlaceDiv"> <div class="figButton"> Initial State </div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton"> Capture </div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton"> Set Animations </div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton"> Save</div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton"> Load</div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton"> New</div></div>
       </div>
 
-      <div class="navPlaceDiv">
+      <div class="rightCenterDiv">
       </div>
 
-      <div class="navPlaceDiv">
-      </div>
+    </div>
+
+
+    <div class="editDivClass draggable" id="editDiv">
+      <div class="editDivTitle"> <span></span>  <span> EdIT </span> <button class="btn-action btn-close" title="Close">✕</button> </div>
+      
+      <div>Some Element</div>
+      <div> some element</div>
+      <button class="btn-action btn-ok" title="Confirm">✓</button>
+      
     </div>
     
   </div>
+
+  
   
 </body>
+
+
+
+<script>
+    const draggables = document.querySelectorAll('.draggable');
+
+    draggables.forEach(elem => {
+      let active = false;
+      let startX, startY, initialX, initialY;
+
+      // 1. DRAG LOGIC
+      elem.addEventListener('pointerdown', (e) => {
+        active = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        initialX = elem.offsetLeft;
+        initialY = elem.offsetTop;
+
+        elem.setPointerCapture(e.pointerId);
+      });
+
+      elem.addEventListener('pointermove', (e) => {
+        if (!active) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        elem.style.left = `${initialX + dx}px`;
+        elem.style.top = `${initialY + dy}px`;
+      });
+
+      const stopDrag = (e) => {
+        if (!active) return;
+        active = false;
+        elem.releasePointerCapture(e.pointerId);
+      };
+
+      elem.addEventListener('pointerup', stopDrag);
+      elem.addEventListener('pointercancel', stopDrag);
+
+      // 2. BUTTON EVENT HANDLERS (Stop propagation prevents dragging)
+      const btnOk = elem.querySelector('.btn-ok');
+      const btnClose = elem.querySelector('.btn-close');
+
+      // Stop pointerdown from starting a drag operation
+      const preventDragStart = (e) => {
+        e.stopPropagation();
+      };
+
+      btnOk.addEventListener('pointerdown', preventDragStart);
+      btnOk.addEventListener('click', (e) => {
+        e.stopPropagation();
+        elem.style.scale=0;
+      });
+
+      btnClose.addEventListener('pointerdown', preventDragStart);
+      btnClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        elem.style.scale=0;
+      });
+    });
+</script>
 
 </html>
