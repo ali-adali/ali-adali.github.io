@@ -122,7 +122,7 @@
       height: 100%;
       width: calc(100%/16);
       aspect-ratio: 1/9;
-      outline: 1px solid blueviolet;
+      outline: 0px solid blueviolet;
       box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
       display: flex;
       flex-direction: column;
@@ -168,7 +168,7 @@
       scroll-snap-align: start;
       scroll-snap-stop: always;
 
-      outline: 1px solid blueviolet;
+      outline: 0px solid blueviolet;
       box-shadow: 0.0vmin 0.0vmin 0.0vmin 0.0vmin var(--blue-glow);
     }
 
@@ -222,8 +222,8 @@
 
       justify-content: flex-start;
       align-items: flex-start;
-      outline: 1px solid blueviolet;
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      outline: 0px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.0vmin 0.0vmin var(--blue-glow);
 
       flex-shrink: 0;   /* Prevents it from getting squished by the table */
       flex-grow: 0; 
@@ -254,8 +254,8 @@
 
       justify-content: space-evenly;
       align-items: center;
-      outline: 1px solid blueviolet;
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      outline: 0px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.0vmin 0.0vmin var(--blue-glow);
       flex-shrink: 0;   /* Prevents it from getting squished by the table */
       flex-grow: 0; 
 
@@ -364,7 +364,9 @@
 
   <style>
     .draggable {
-      position: fixed;
+      position: absolute;
+      top:1cqmin;
+      left: calc(100cqw * 9/16 + (100% - 100cqw)/2);
 
       
       background: #0f172a;
@@ -390,7 +392,6 @@
     }
 
     .btn-action {
-      
       border-radius: 1cqmin;
       border: none;
       background: #1e293b;
@@ -427,6 +428,12 @@
       
     }
 
+    .btn-icon {
+      aspect-ratio: 1/1;
+      height: 96%;
+      pointer-events: none; /* Helps maintain drag/click propagation logic */
+    }
+
 
     .editDivClass
     {
@@ -454,6 +461,7 @@
     .editDivTitle
     {
       width: 100%;
+      height: 5cqmin;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -467,7 +475,7 @@
       height: 5cqmin;
       display: flex;
       flex-direction: row;
-      justify-content: space-evenly;
+      justify-content: center;
       align-items: center;
     }
 
@@ -645,9 +653,11 @@
        7. METALLIC DARK GRAY (Space Gray / Gunmetal Titanium)
        ========================================================= */
     .btn-darkgray {
+
       background: linear-gradient(145deg, #52525b 0%, #27272a 100%);
       color: #f4f4f5;
       border: 1px solid #71717a;
+      border-radius: 1cqmin;
       box-shadow: 
         inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
         inset 0 -2px 4px rgba(0, 0, 0, 0.6),
@@ -685,7 +695,7 @@
 <body>
   <div class="mainDiv">
     <div class="squareDiv">
-      <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 750 750" >
+      <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" style="width: 100cqmin; height: 100cqmin;" viewbox="0 0 750 750" >
       <defs>
         <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
           <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
@@ -710,8 +720,8 @@
       <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-blue"> Uncheck </div> </div>
       <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green"> to Grid </div> </div>
 
-      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" id="pointButton" onclick='document.getElementById("pointDiv").style.scale = 1;'>
-        <svg viewBox="0 0 100 100" ><circle cx="50" cy="50" r="10" stroke="none" fill="black" />Point</svg> </div> </div>
+      <div class="centerButtonPlaceDiv">
+        <div class="figButton btn-metallic btn-green" id="pointButton" onclick='document.getElementById("pointDiv").style.scale = 1;'>Point</div></div>
 
       <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("polylineDiv").style.scale = 1;'>  P-Line </div> </div>
       <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("polygonDiv").style.scale = 1;'>  P-gon </div> </div>
@@ -748,7 +758,13 @@
 
 
     <div class="editDivClass draggable" id="editDiv">
-      <div class="editDivTitle"> <span></span>  <span> EDIT </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle  btn-darkgray"> 
+        <span></span>  
+        <span> EDIT </span> 
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>Id</span>
@@ -769,11 +785,19 @@
       
       <div >Some Element</div>
       <div> some element</div>
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button> 
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="pointDiv">
-      <div class="editDivTitle"> <span></span>  <span> POINT </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span>
+        <span> POINT </span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>Id</span>
@@ -787,11 +811,19 @@
       
       <div>Some Element</div>
       <div> some element</div>
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="textDiv">
-      <div class="editDivTitle"> <span></span>  <span> TEXT </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray"> 
+        <span></span>
+        <span> TEXT </span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>text</span>
@@ -807,11 +839,19 @@
       
       <div class="editDivHeader">Some Element</div>
       <div class="editDivHeader"> some element</div>
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="polygonDiv">
-      <div class="editDivTitle"> <span></span>  <span> POLYGON </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span>
+        <span> POLYGON </span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>d Off</span>
@@ -826,14 +866,21 @@
       
       <div>One Element</div>
       
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="polylineDiv">
-      <div class="editDivTitle"> <span></span>  <span> POLY-LINE </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span>
+        <span> POLY-LINE </span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
-        
         <span>d Off</span>
         <span>sW</span>
         <span>sC</span>
@@ -844,11 +891,19 @@
       
       <div>One Element</div>
       
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="arrowDiv">
-      <div class="editDivTitle"> <span></span>  <span> ARROW </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span>
+        <span> ARROW </span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>r</span>
@@ -862,11 +917,19 @@
       
       <div>One Element</div>
       
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="circleDiv">
-      <div class="editDivTitle"> <span></span>  <span> CIRCLE </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span>
+        <span> CIRCLE </span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>Id</span> 
@@ -881,11 +944,19 @@
       
       <div>Some Element</div>
       <div> some element</div>
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="ellipseDiv">
-      <div class="editDivTitle"> <span></span>  <span> ELLIPSE </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span>
+        <span> ELLIPSE </span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>Id</span>
@@ -902,11 +973,19 @@
       
       <div>One Element</div>
       
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="regularPolygonDiv">
-      <div class="editDivTitle"> <span></span>  <span> REGULAR POLYGON</span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span>
+        <span> REGULAR POLYGON</span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>Id</span>
@@ -924,11 +1003,19 @@
       
       <div>Some Element</div>
       <div> some element</div>
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="weightedPointDiv">
-      <div class="editDivTitle"> <span></span>  <span> WEIGHTED POINT</span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span>
+        <span> WEIGHTED POINT</span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>POINT_1</span>
@@ -939,11 +1026,19 @@
       
       <div>One Element</div>
       
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="angleDiv">
-      <div class="editDivTitle"> <span></span>  <span> ANGLE </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span>
+        <span> ANGLE </span>
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
         <span>Id</span>
@@ -958,26 +1053,52 @@
       
       <div>One Element</div>
       
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     <div class="editDivClass draggable" id="weightedAngleDiv">
-      <div class="editDivTitle"> <span></span>  <span> WEIGHTED ANGLE</span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+      <div class="editDivTitle btn-darkgray">
+        <span></span> 
+        <span> WEIGHTED ANGLE</span>
+
+        <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">
+          <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-cross"></use></svg>
+        </button>
+      </div>
 
       <div class="editDivHeader">
-        <span>POINT_1</span>
+        <span>P_1</span>
         <span>n_1</span>
-        <span>POINT_2</span>
-        <span>n_2</span>  
+        <span>n_2</span>
+        <span>P_2</span>  
       </div>
       
       <div>One Element</div>
       
-      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">
+        <svg viewbox="0 0 24 24" class="btn-icon"><use href="#icon-check"></use></svg>
+      </button>
     </div>
 
     
   </div>
+
+
+
+  <svg style="display: none;">
+    <defs>
+      <g id="icon-check">
+        <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <!-- Cross Symbol -->
+      <g id="icon-cross">
+        <path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </defs>
+  </svg>
 
   
   
