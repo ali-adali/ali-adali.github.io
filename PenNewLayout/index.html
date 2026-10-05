@@ -127,8 +127,10 @@
       display: flex;
       flex-direction: column;
 
-      overflow-y:auto;
+      overflow-y: overlay;
       flex-wrap: nowrap;
+
+
 
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
@@ -159,12 +161,15 @@
       aspect-ratio: 3/4;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
 
       scroll-snap-align: start;
       scroll-snap-stop: always;
 
       outline: 1px solid blueviolet;
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      box-shadow: 0.0vmin 0.0vmin 0.0vmin 0.0vmin var(--blue-glow);
     }
 
     @media (orientation: portrait)
@@ -334,7 +339,7 @@
 
     .figButton
     {
-      height: 98%;
+      height: 96%;
       width: 98%;
       border-radius: 2vmin;
       background-color: seagreen;
@@ -351,6 +356,8 @@
       font-family: 'Inter', sans-serif;
       letter-spacing: -0.15vmin; 
       cursor: pointer;
+
+      box-shadow: 0.0vmin 0.0vmin 1vmin 0.5vmin var(--blue-glow);
     }
 
   </style>
@@ -377,14 +384,14 @@
 
     .draggable:active {
       cursor: grabbing;
-      transform: scale(1.02);
+      transform: scale(1.00);
       box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
       border-color: #06b6d4;
     }
 
     .btn-action {
       
-      border-radius: 4px;
+      border-radius: 1cqmin;
       border: none;
       background: #1e293b;
       color: #9ca3af;
@@ -397,44 +404,50 @@
       transition: all 0.15s ease;
     }
 
-    .btn-action:hover {
-      
-    }
+  
 
     .btn-ok
     {
       width: 100%;
-      height: 6cqh;
+      height: 6cqmin;
     }
 
     .btn-ok:hover {
-      background: #059669;
-      color: #ffffff;
+      
     }
 
     .btn-close
     {
-      width: 5cqmin;
-      height: 5cqmin;
+      width: 4.5cqmin;
+      height: 4.5cqmin;
       aspect-ratio: 1; 
     }
 
     .btn-close:hover {
-      background: #dc2626;
-      color: #ffffff;
+      
     }
 
 
     .editDivClass
     {
-      width: 30cqw;
-      height: 30cqh;
+      width: calc(100cqw*7/16);
+      height: auto;
       scale: 0;
 
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
+
+    }
+
+    @media (orientation: portrait)
+    {
+      .editDivClass
+      {
+        width: 100cqw;
+        height: auto;
+      }
 
     }
 
@@ -446,7 +459,224 @@
       justify-content: space-between;
       align-items: center;
       font-size: 3cqmin;
+    }
 
+    .editDivHeader
+    {
+      width: 100%;
+      height: 5cqmin;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    .editDivHeader span
+    {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: calc(100%/12);
+      text-align: center;
+      outline: 0.5px solid ghostwhite;
+      vertical-align: center;
+      font-size: 2cqmin;
+    }
+  </style>
+
+  <style>
+    .btn-metallic {
+      
+      /* Interactivity & Drag Safety */
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+      
+      /* Smooth tactile transitions */
+      transition: transform 0.12s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle sheen overlay sweep on hover */
+    .btn-metallic::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+      );
+      transform: skewX(-20deg);
+      transition: left 0.0s ease;
+    }
+
+    .btn-metallic:hover::before {
+      left: 160%;
+      transition: left 0.5s ease;
+    }
+
+    .btn-metallic:active {
+      transform: scale(0.97) translateY(1px);
+    }
+
+    /* =========================================================
+       1. METALLIC DARK ORANGE (Sunset Titanium / Burnt Amber)
+       ========================================================= */
+    .btn-orange {
+      background: linear-gradient(145deg, #d97706 0%, #78350f 100%);
+      color: #fff7ed;
+      border: 0.1cqmin solid #f59e0b;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.5),
+        0 0.4cqmin 1.4cqmin rgba(180, 83, 9, 0.35);
+      text-shadow: 0 0.1cqmin 0.2cqmin rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-orange:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.5vmin 0.1vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       2. METALLIC DARK GREEN (Alpine Pine / Deep Emerald)
+       ========================================================= */
+    .btn-green {
+      background: linear-gradient(145deg, #059669 0%, #064e3b 100%);
+      color: #ecfdf5;
+      border: 0.1cqmin solid #10b981;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.5),
+        0 0.4cqmin 1.4cqmin rgba(6, 78, 59, 0.4);
+      text-shadow: 0 0.1cqmin 0.2cqmin rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-green:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       3. METALLIC BLUE (Pacific Blue / Sierra Navy)
+       ========================================================= */
+    .btn-blue {
+      background: linear-gradient(145deg, #1d4ed8 0%, #0f172a 100%);
+      color: #eff6ff;
+      border: 0.1cqmin solid #3b82f6;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.6),
+        0 0.4cqmin 1.4cqmin rgba(29, 78, 216, 0.4);
+      text-shadow: 0 0.1cqmin 0.2cqmin rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-blue:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       4. METALLIC SILVER (Natural Titanium / Platinum Chrome)
+       ========================================================= */
+    .btn-silver {
+      background: linear-gradient(145deg, #e2e8f0 0%, #64748b 100%);
+      color: #0f172a;
+      border: 0.1cqmin solid #cbd5e1;
+      box-shadow: 
+        inset 0 0.1cqmin 0.15cqmin rgba(255, 255, 255, 0.8),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.4),
+        0 0.4cqmin 1.4cqmin rgba(148, 163, 184, 0.25);
+      font-weight: 700;
+      text-shadow: 0 0.1cqmin 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-silver:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.05);
+    }
+    /* =========================================================
+       5. METALLIC TURQUOISE (Alpine Cyan / Anodized Teal)
+       ========================================================= */
+    .btn-turquoise {
+      background: linear-gradient(145deg, #06b6d4 0%, #155e75 100%);
+      color: #ecfeff;
+      border: 1px solid #22d3ee;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 4px 14px rgba(8, 145, 178, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-turquoise:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       6. METALLIC BLACKISH (Midnight Onyx / Obsidian)
+       ========================================================= */
+    .btn-blackish {
+      background: linear-gradient(145deg, #262626 0%, #0a0a0a 100%);
+      color: #f5f5f5;
+      border: 1px solid #404040;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.25),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+        0 4px 14px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    }
+
+    .btn-blackish:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.12);
+    }
+
+    /* =========================================================
+       7. METALLIC DARK GRAY (Space Gray / Gunmetal Titanium)
+       ========================================================= */
+    .btn-darkgray {
+      background: linear-gradient(145deg, #52525b 0%, #27272a 100%);
+      color: #f4f4f5;
+      border: 1px solid #71717a;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 14px rgba(39, 39, 42, 0.5);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-darkgray:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       8. METALLIC DARK RED (Crimson / Deep Ruby)
+       ========================================================= */
+    .btn-darkred {
+      background: linear-gradient(145deg, #b91c1c 0%, #450a0a 100%);
+      color: #fef2f2;
+      border: 1px solid #ef4444;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 14px rgba(185, 28, 28, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-darkred:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
     }
   </style>
 
@@ -474,41 +704,41 @@
     </div>
 
     <div class="centerDiv">
-      <div class="centerButtonPlaceDiv"> <div class="figButton"> MathJax </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton" onclick='document.getElementById("editDiv").style.scale = 1;'> Edit </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton"> Delete </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton"> Uncheck </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton"> to Grid </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class=" btn-metallic btn-blue figButton"> MathJax </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-blue" onclick='document.getElementById("editDiv").style.scale = 1;'> Edit </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-darkred"> Delete </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-blue"> Uncheck </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green"> to Grid </div> </div>
 
-      <div class="centerButtonPlaceDiv"> <div class="figButton" id="pointButton">
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" id="pointButton" onclick='document.getElementById("pointDiv").style.scale = 1;'>
         <svg viewBox="0 0 100 100" ><circle cx="50" cy="50" r="10" stroke="none" fill="black" />Point</svg> </div> </div>
 
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  P-Line </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  P-gon </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Arrow </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Text </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Circle </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Ellipse </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Reg P-gon </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Weighted Point </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Angle </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  O </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  I </div>  </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Perp </div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Weighted Angle</div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Meet</div> </div>
-      <div class="centerButtonPlaceDiv"> <div class="figButton">  Snap</div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("polylineDiv").style.scale = 1;'>  P-Line </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("polygonDiv").style.scale = 1;'>  P-gon </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("arrowDiv").style.scale = 1;'>  Arrow </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("textDiv").style.scale = 1;'>  Text </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("circleDiv").style.scale = 1;'>  Circle </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("ellipseDiv").style.scale = 1;'>  Ellipse </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("regularPolygonDiv").style.scale = 1;'>  Reg P-gon </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("weightedPointDiv").style.scale = 1;'>  Weighted Point </div> </div>
+      <div class="centerButtonPlaceDiv" onclick='document.getElementById("angleDiv").style.scale = 1;'> <div class="figButton btn-metallic btn-green">  Angle </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green">  O </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green">  I </div>  </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green">  Perp </div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green" onclick='document.getElementById("weightedAngleDiv").style.scale = 1;'>  Weighted Angle</div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green">  Meet</div> </div>
+      <div class="centerButtonPlaceDiv"> <div class="figButton btn-metallic btn-green">  Snap</div> </div>
       
     </div>
 
     <div class="rightDiv">
       <div class="rightTopDiv">
-        <div class="rightTopPlaceDiv"> <div class="figButton"> Initial State </div> </div>
-        <div class="rightTopPlaceDiv"> <div class="figButton"> Capture </div> </div>
-        <div class="rightTopPlaceDiv"> <div class="figButton"> Set Animations </div> </div>
-        <div class="rightTopPlaceDiv"> <div class="figButton"> Save</div> </div>
-        <div class="rightTopPlaceDiv"> <div class="figButton"> Load</div> </div>
-        <div class="rightTopPlaceDiv"> <div class="figButton"> New</div></div>
+        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-orange"> Initial State </div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-orange"> Capture </div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-orange"> Set Animations </div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-turquoise"> Save</div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-turquoise"> Load</div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-darkred"> New</div></div>
       </div>
 
       <div class="rightCenterDiv">
@@ -518,13 +748,234 @@
 
 
     <div class="editDivClass draggable" id="editDiv">
-      <div class="editDivTitle"> <span></span>  <span> EdIT </span> <button class="btn-action btn-close" title="Close">✕</button> </div>
+      <div class="editDivTitle"> <span></span>  <span> EDIT </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>Id</span>
+        <span>type</span>
+        <span>x</span>
+        <span>y</span>
+        <span>r/rot</span>
+        <span>sW</span>
+        <span>fOp</span>
+        <span>op</span>
+        <span>zoom</span>
+        <span>sC</span>
+        <span>fC</span>
+        <span>d Off</span>
+        <span>rx</span>
+        <span>ry</span>
+      </div>
+      
+      <div >Some Element</div>
+      <div> some element</div>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button> 
+    </div>
+
+    <div class="editDivClass draggable" id="pointDiv">
+      <div class="editDivTitle"> <span></span>  <span> POINT </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>Id</span>
+        <span>sW</span>
+        <span>fOp</span>
+        <span>op</span>
+        <span>zoom</span>
+        <span>sC</span>
+        <span>fC</span>
+      </div>
       
       <div>Some Element</div>
       <div> some element</div>
-      <button class="btn-action btn-ok" title="Confirm">✓</button>
-      
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
     </div>
+
+    <div class="editDivClass draggable" id="textDiv">
+      <div class="editDivTitle"> <span></span>  <span> TEXT </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>text</span>
+        <span>x</span>
+        <span>y</span>
+        <span>size</span>
+        <span>sW</span>
+        <span>sC</span>
+        <span>op</span>
+        <span>zoom</span>
+        <span>rot</span>
+      </div>
+      
+      <div class="editDivHeader">Some Element</div>
+      <div class="editDivHeader"> some element</div>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
+    <div class="editDivClass draggable" id="polygonDiv">
+      <div class="editDivTitle"> <span></span>  <span> POLYGON </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>d Off</span>
+        <span>sW</span>
+        <span>sC</span>
+        <span>fOp</span>
+        <span>fC</span>
+        <span>op</span>
+        <span>rot</span>
+        <span>zoom</span>
+      </div>
+      
+      <div>One Element</div>
+      
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
+    <div class="editDivClass draggable" id="polylineDiv">
+      <div class="editDivTitle"> <span></span>  <span> POLY-LINE </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        
+        <span>d Off</span>
+        <span>sW</span>
+        <span>sC</span>
+        <span>op</span>
+        <span>rot</span>
+        <span>zoom</span>
+      </div>
+      
+      <div>One Element</div>
+      
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
+    <div class="editDivClass draggable" id="arrowDiv">
+      <div class="editDivTitle"> <span></span>  <span> ARROW </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>r</span>
+        <span>d Off</span>
+        <span>sW</span>
+        <span>sC</span>
+        <span>op</span>
+        <span>rot</span>
+        <span>zoom</span>
+      </div>
+      
+      <div>One Element</div>
+      
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
+    <div class="editDivClass draggable" id="circleDiv">
+      <div class="editDivTitle"> <span></span>  <span> CIRCLE </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>Id</span> 
+        <span>r</span>
+        <span>d Off</span>
+        <span>sW</span>
+        <span>sC</span>
+        <span>fC</span>
+        <span>fOp</span>
+        <span>op</span>
+      </div>
+      
+      <div>Some Element</div>
+      <div> some element</div>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
+    <div class="editDivClass draggable" id="ellipseDiv">
+      <div class="editDivTitle"> <span></span>  <span> ELLIPSE </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>Id</span>
+        <span>rx</span>
+        <span>ry</span>
+        <span>d Off</span>
+        <span>sW</span>
+        <span>sC</span>
+        <span>fC</span>
+        <span>fOp</span>
+        <span>op</span>
+        <span>rot</span>
+      </div>
+      
+      <div>One Element</div>
+      
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
+    <div class="editDivClass draggable" id="regularPolygonDiv">
+      <div class="editDivTitle"> <span></span>  <span> REGULAR POLYGON</span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>Id</span>
+        <span>n</span>
+        <span>r</span>
+        <span>d Off</span>
+        <span>rot</span>
+        <span>sW</span>
+        <span>fOp</span>
+        <span>op</span>
+        <span>zoom</span>
+        <span>sC</span>
+        <span>fC</span>   
+      </div>
+      
+      <div>Some Element</div>
+      <div> some element</div>
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
+    <div class="editDivClass draggable" id="weightedPointDiv">
+      <div class="editDivTitle"> <span></span>  <span> WEIGHTED POINT</span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>POINT_1</span>
+        <span>n_1</span>
+        <span>POINT_2</span>
+        <span>n_2</span>  
+      </div>
+      
+      <div>One Element</div>
+      
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
+    <div class="editDivClass draggable" id="angleDiv">
+      <div class="editDivTitle"> <span></span>  <span> ANGLE </span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>Id</span>
+        <span>r</span>
+        <span>d Off</span>
+        <span>sW</span>
+        <span>sC</span>
+        <span>fC</span>
+        <span>fOp</span>
+        <span>op</span>
+      </div>
+      
+      <div>One Element</div>
+      
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
+    <div class="editDivClass draggable" id="weightedAngleDiv">
+      <div class="editDivTitle"> <span></span>  <span> WEIGHTED ANGLE</span> <button class="btn-action btn-close btn-metallic btn-darkred" title="Close">✕</button> </div>
+
+      <div class="editDivHeader">
+        <span>POINT_1</span>
+        <span>n_1</span>
+        <span>POINT_2</span>
+        <span>n_2</span>  
+      </div>
+      
+      <div>One Element</div>
+      
+      <button class="btn-action btn-ok btn-green btn-metallic" title="Confirm">✓</button>
+    </div>
+
     
   </div>
 
