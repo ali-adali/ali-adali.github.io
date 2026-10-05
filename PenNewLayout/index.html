@@ -383,6 +383,15 @@
       font-weight: 600;
       transition: box-shadow 0.15s ease, transform 0.15s ease, scale 0.2s ease;
     }
+    
+    @media (orientation: portrait)
+    {
+      .draggable
+      {
+        left: calc((100% - 100cqw)/2);
+        top: 113cqmin;
+      }
+    }
 
     .draggable:active {
       cursor: grabbing;
