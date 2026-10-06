@@ -383,7 +383,7 @@
       font-weight: 600;
       transition: box-shadow 0.15s ease, transform 0.15s ease, scale 0.2s ease;
     }
-    
+
     @media (orientation: portrait)
     {
       .draggable
@@ -699,26 +699,233 @@
     }
   </style>
 
+  <style id="scrubbingComponent">
+
+    .player-controls-bar
+    {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 3cqmin;
+      padding-right: 2cqmin;
+
+      width: 100cqmin;
+      top: calc(100%/2 - 100cqh/2 + 100cqmin*11/12);
+      
+      
+      border-radius: 4cqmin;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.1),
+        0 1.6cqmin 3.6cqmin rgba(0, 0, 0, 0.6);
+      user-select: none;
+      -webkit-user-select: none;
+      container-type: inline-size;
+
+      /* Smooth Fade Transitions */
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1s ease;
+      outline: 0px solid blueviolet;
+    }
+
+    .player-controls-bar.is-hidden
+    {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    /* Play/Pause Button */
+    .btn-play-pause {
+      width: 8cqmin;
+      
+      aspect-ratio: 1/1;
+  
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1d4ed8 0%, #0f172a 100%);
+      border: 0.15cqmin solid #3b82f6;
+      color: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 
+        inset 0 0.1cqmin 0.2cqmin rgba(255, 255, 255, 0.45),
+        0 0.6cqmin 1.6cqmin rgba(29, 78, 216, 0.4);
+      transition: transform 0.12s ease, filter 0.15s ease, box-shadow 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-play-pause:hover {
+      filter: brightness(1.12);
+      box-shadow: 
+        inset 0 0.2cqmin 0.4cqmin rgba(255, 255, 255, 0.6),
+        0 1.2cqmin 3.0cqmin rgba(59, 130, 246, 0.5);
+    }
+
+    .btn-play-pause:active {
+      transform: scale(0.92);
+    }
+
+    
+
+    /* Scrubber Track */
+    .scrubber-container {
+      position: relative;
+      flex: 1;
+      height: 4cqmin;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      touch-action: none;
+      
+      transition: opacity 1s ease;
+      
+    }
+
+    .scrubber-container.is-hidden
+    {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .scrubber-track {
+      position: relative;
+      width: 100%;
+      height: 80%;
+      background: #1e293b;
+      border-radius: 0.5cqmin;
+      overflow: visible;
+      box-shadow: inset 0 0.1cqmin 0.3cqmin rgba(0, 0, 0, 0.8);
+      outline: 0px solid blueviolet;
+    }
+
+    .scrubber-fill {
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #38bdf8);
+      border-radius: 0.5cqmin;
+      box-shadow: 0 0 1cqmin rgba(56, 189, 248, 0.6);
+      pointer-events: none;
+      outline: 1px solid blueviolet;
+    }
+
+    /* Handle */
+    .scrubber-handle {
+      position: absolute;
+      bottom: 0.7cqmin;
+      left: 0%;
+      width: 4cqmin;
+      height: 6.5cqmin;
+      margin-left: -2cqmin;
+      clip-path: polygon(
+        20% 0%, 80% 0%, 100% 25%, 100% 65%, 50% 100%, 0% 65%, 0% 25%
+      );
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 45%, #64748b 85%, #38bdf8 100%);
+      box-shadow: 0 0.4cqmin 1.2cqmin rgba(0, 0, 0, 0.6);
+      cursor: grab;
+      transition: transform 0.12s ease, filter 0.15s ease;
+    }
+
+    .scrubber-handle::before {
+      content: '';
+      position: absolute;
+      top: 1cqmin;
+      left: 0.6cqmin;
+      right: 0.6cqmin;
+      height: 1.6cqmin;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(15, 23, 42, 0.4),
+        rgba(15, 23, 42, 0.4)  0.3dvmin,
+        transparent 0.3dvmin,
+        transparent 0.6dvmin
+      );
+      border-radius: 0.4cqmin;
+    }
+
+    .scrubber-container:hover .scrubber-handle {
+      transform: scale(1.22) translateY(-0.5dvmin);
+      filter: brightness(1.1);
+    }
+
+    .scrubber-container.dragging .scrubber-handle {
+      cursor: grabbing;
+      transform: scale(1.22) translateY(-0.5dvmin);
+      filter: brightness(1.15);
+      background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 45%, #475569 85%, #38bdf8 100%);
+    }
+
+    /* Time Display */
+    .time-display {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 2.3cqmin;
+      font-weight: 600;
+      color: #94a3b8;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .time-current {
+      color: darkorange;
+    }
+
+    .time-divider {
+      margin: 0 0px;
+      color: #475569;
+    }
+  </style>
+
 </head>
 
 <body>
   <div class="mainDiv">
     <div class="squareDiv">
       <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" style="width: 100cqmin; height: 100cqmin;" viewbox="0 0 750 750" >
-      <defs>
-        <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
-          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
-        </pattern>
+        <defs>
+          <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
+          </pattern>
 
-        <pattern id="halfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
-          <path d="M 30 0 L 0 0 0 30" fill="none" stroke="lightgray" stroke-width="0.8"/>
-        </pattern>
-      </defs>
-      <rect width="750" height="750" fill="url(#wholeGrid)" />
-      <rect width="750" height="750" fill="url(#halfGrid)" />
-      <g id="mainSVGGroup">
-      </g>
-    </svg>
+          <pattern id="halfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="lightgray" stroke-width="0.8"/>
+          </pattern>
+        </defs>
+        <rect width="750" height="750" fill="url(#wholeGrid)" />
+        <rect width="750" height="750" fill="url(#halfGrid)" />
+        <g id="mainSVGGroup">
+          
+        </g>
+      </svg>
+
+        <!-- Control Bar Component -->
+        <div class="player-controls-bar" id="controlsBar">
+          
+          <div class="btn-play-pause" id="playPauseBtn" role="button" aria-label="Play animation">
+            <svg id="playIcon" viewbox="0 0 24 24" style="height: 6cqmin; width:6cqmin;aspect-ratio: 1/1; fill: currentColor;"><use href="#icon-play"></use></svg>
+            <svg id="pauseIcon" viewbox="0 0 24 24" style="display: none; height: 6cqmin; width:6cqmin;aspect-ratio: 1/1; fill: currentColor;"><use href="#icon-pause"></use></svg>
+          </div>
+
+          <div class="scrubber-container" id="scrubberContainer">
+            <div class="scrubber-track">
+              <div class="scrubber-fill" id="scrubberFill"></div>
+              <div class="scrubber-handle" id="scrubberHandle"></div>
+            </div>
+          </div>
+
+          <div class="time-display">
+            <span class="time-current" id="timeCurrent">0:00.00</span>
+            <span class="time-divider">/</span>
+            <span class="time-total" id="timeTotal">3:20.18</span>
+          </div>
+
+        </div>
+      
       
     </div>
 
@@ -754,10 +961,11 @@
       <div class="rightTopDiv">
         <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-orange"> Initial State </div> </div>
         <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-orange"> Capture </div> </div>
-        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-orange"> Set Animations </div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-orange" onclick="document.getElementById('controlsBar').style.scale=1;"> Set Animations </div> </div>
+        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-orange" onclick="document.getElementById('controlsBar').style.scale=0;"> Unset</div></div>
         <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-turquoise"> Save</div> </div>
         <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-turquoise"> Load</div> </div>
-        <div class="rightTopPlaceDiv"> <div class="figButton btn-metallic btn-darkred"> New</div></div>
+        
       </div>
 
       <div class="rightCenterDiv">
@@ -1091,7 +1299,6 @@
       </button>
     </div>
 
-    
   </div>
 
 
@@ -1106,6 +1313,14 @@
       <g id="icon-cross">
         <path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </g>
+
+      <g id="icon-play">
+        <path d="M6 4l14 8-14 8V4z"/>
+      </g>
+      <g id="icon-pause">
+        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+      </g>
+
     </defs>
   </svg>
 
@@ -1173,6 +1388,165 @@
         elem.style.scale=0;
       });
     });
+</script>
+
+
+<script id="scrubbingComponentScript">
+    const TOTAL_DURATION = 200.18;
+    let currentTime = 0;
+    let isPlaying = false;
+    let isDragging = false;
+    let animFrameId = null;
+    let lastTimestamp = null;
+
+    
+    const playerControlsBar = document.getElementById('controlsBar');
+    const controlsBar = document.getElementById('controlsBar');
+
+    let hideTimeout = null;
+    const HIDE_DELAY_MS = 1500; // 2.5s idle fade out
+
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const scrubberContainer = document.getElementById('scrubberContainer');
+    const scrubberFill = document.getElementById('scrubberFill');
+    const scrubberHandle = document.getElementById('scrubberHandle');
+    const timeCurrent = document.getElementById('timeCurrent');
+    const timeTotal = document.getElementById('timeTotal');
+
+    /* =========================================================
+       Auto-Hide Logic
+       ========================================================= */
+    function showControls() {
+      scrubberContainer.classList.remove('is-hidden');
+      resetHideTimer();
+    }
+
+    function hideControls() {
+      if (isDragging || !isPlaying) return; // Keep visible if paused or dragging
+      scrubberContainer.classList.add('is-hidden');
+    }
+
+    function resetHideTimer() {
+      clearTimeout(hideTimeout);
+      if (isPlaying) {
+        hideTimeout = setTimeout(hideControls, HIDE_DELAY_MS);
+      }
+    }
+
+    // Attach listeners to the outer wrapper element
+    playerControlsBar.addEventListener('pointermove', showControls);
+    playerControlsBar.addEventListener('pointerdown', showControls);
+    playerControlsBar.addEventListener('pointerleave', () => {
+      if (isPlaying && !isDragging) {
+        resetHideTimer();
+      }
+    });
+
+    /* =========================================================
+       Time & Animation Engine
+       ========================================================= */
+    function formatTime(sec) {
+      const mins = Math.floor(sec / 60);
+      const secs = Math.floor(sec % 60);
+      const millis = Math.floor((sec % 1) * 100);
+
+      const paddedSecs = secs.toString().padStart(2, '0');
+      const paddedMillis = millis.toString().padStart(2, '0');
+
+      return `${mins}:${paddedSecs}.${paddedMillis}`;
+    }
+
+    timeTotal.textContent = formatTime(TOTAL_DURATION);
+
+    function updateUI() {
+      const percentage = Math.min(Math.max((currentTime / TOTAL_DURATION) * 100, 0), 100);
+      scrubberFill.style.width = `${percentage}%`;
+      scrubberHandle.style.left = `${percentage}%`;
+      timeCurrent.textContent = formatTime(currentTime);
+    }
+
+    function step(timestamp) {
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const delta = (timestamp - lastTimestamp) / 1000;
+      lastTimestamp = timestamp;
+
+      if (isPlaying && !isDragging) {
+        currentTime += delta;
+        if (currentTime >= TOTAL_DURATION) {
+          currentTime = TOTAL_DURATION;
+          togglePlay(false);
+        }
+        updateUI();
+      }
+
+      if (isPlaying) {
+        animFrameId = requestAnimationFrame(step);
+      }
+    }
+
+    function togglePlay(play) {
+      isPlaying = play !== undefined ? play : !isPlaying;
+      if (isPlaying) {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+        lastTimestamp = null;
+        animFrameId = requestAnimationFrame(step);
+        resetHideTimer(); // Start timer on play
+      } else {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        showControls(); // Stay visible when paused
+        clearTimeout(hideTimeout);
+      }
+    }
+
+    playPauseBtn.addEventListener('pointerdown', (e) => e.stopPropagation());
+    playPauseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      togglePlay();
+    });
+
+    /* =========================================================
+       Scrubber Dragging Logic
+       ========================================================= */
+    function updateScrubberFromPointer(e) {
+      const rect = scrubberContainer.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const ratio = Math.min(Math.max(offsetX / rect.width, 0), 1);
+      
+      currentTime = ratio * TOTAL_DURATION;
+      updateUI();
+    }
+
+    scrubberContainer.addEventListener('pointerdown', (e) => {
+      e.stopPropagation();
+      isDragging = true;
+      scrubberContainer.classList.add('dragging');
+      scrubberContainer.setPointerCapture(e.pointerId);
+      updateScrubberFromPointer(e);
+    });
+
+    scrubberContainer.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      updateScrubberFromPointer(e);
+    });
+
+    const stopScrubbing = (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      scrubberContainer.classList.remove('dragging');
+      if (e.pointerId) scrubberContainer.releasePointerCapture(e.pointerId);
+      resetHideTimer();
+    };
+
+    scrubberContainer.addEventListener('pointerup', stopScrubbing);
+    scrubberContainer.addEventListener('pointercancel', stopScrubbing);
+
+    updateUI();
+
 </script>
 
 </html>
