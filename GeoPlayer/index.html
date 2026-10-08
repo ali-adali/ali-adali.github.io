@@ -1,0 +1,2664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoPlayer </title>
+  <style>
+    :root {
+      --bg-main: #0f172a;        /* Deep midnight */
+      --bg-panel: #1e293b;       /* Soft slate navy */
+      --bg-card: #334155;        /* Active item background */
+      --text-main: #f8fafc;      /* Crisp off-white */
+      --text-muted: #94a3b8;     /* Secondary soft text */
+      --accent: #10b981;         /* Sophisticated Sage/Emerald highlight */
+      --accent-hover: #059669;
+      --canvas-bg: #ffffff;      /* Keep your geometric canvas pure white */
+
+
+      --phi: 1.61803398875;
+      --w: min(98vw, calc(98svh * var(--phi)));
+
+      --bg-color: black;
+      --mainDiv-bg:  #091f36;
+
+      --accent-gold: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: #1f293d;
+
+      --bg-dark: #0b0f19;
+      --bg-card: #0f172a;
+
+      
+      --blue-accent: #2563eb;       
+      --blue-glow: ghostwhite; 
+      --blue-light: #60a5fa;        
+      --blue-border: #1d4ed8;
+      --result-bg:#1e293b;
+    }
+
+    @media (orientation: portrait)
+    {
+      :root 
+      {
+        --w : min(98svh, calc(98vw * var(--phi)));
+      }
+    }
+
+
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body
+    {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color); 
+      color: var(--text-main); 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height as fallback/standard */
+      height: 100svh;     /* Small viewport height - stays fixed even when address bar is expanded */
+      width: 100%;
+      
+      /* Prevent browser pull-to-refresh and bounce scrolling on outer body */
+      overscroll-behavior: none;
+      overflow: hidden; 
+    }
+
+    .rectangle0Div {
+      
+
+      width: var(--w);
+      height: calc( var(--w)/var(--phi) );
+
+      outline: 1px solid blueviolet;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      background-color: var(--mainDiv-bg);
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+      container-type: size; 
+    }
+
+    @media (orientation: portrait) {
+      .rectangle0Div {
+        width: calc( var(--w)/var(--phi) );
+        height: var(--w);
+        flex-direction: column;
+      }
+    }
+
+    .square1Div {
+      height: calc( var(--w) / var(--phi) );
+      width: calc( var(--w) / var(--phi) );
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease; 
+    }
+
+
+    .rectangle1Div {
+      opacity: 1;
+      height: calc( var(--w) / var(--phi) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi)) );
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      
+    }
+
+    @media (orientation: portrait) {
+      .rectangle1Div
+      {
+        width: calc( var(--w) / var(--phi) );
+        height: calc( var(--w) / var(--phi)   / var(--phi) );
+        flex-direction: row;
+      }
+    }
+
+    .square2Div {
+      opacity: 1;
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      width: calc( var(--w) / (var(--phi)   * var(--phi)) );
+      height: calc( var(--w) / (var(--phi)   * var(--phi)) );
+      
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease; 
+    }
+
+
+  
+
+
+
+    .rectangle2Div {
+
+      opacity: 1;
+      
+      width: calc( var(--w) / (var(--phi)   * var(--phi)) );
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      aspect-ratio: var(--phi) / 1;
+
+
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+     
+    }
+
+    @media (orientation: portrait) {
+      .rectangle2Div 
+      {
+        height: calc( var(--w) / (var(--phi)   * var(--phi)) );
+        width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+        flex-direction: column;
+      }
+    }
+
+    .square3Div {
+      
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      opacity: 1;
+     
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+
+
+    }
+
+    
+
+    .rectangle3Div {
+      /* In landscape, remaining height inside rectangle1Div */
+      opacity: 1;
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+     
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+     
+      
+    }
+
+    @media (orientation: portrait) {
+      .rectangle3Div {
+        width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      
+        height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+       
+        
+        flex-direction: row;
+      }
+    }
+
+    .square4Div {
+      
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      
+      
+      
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      outline: 1px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+    }
+
+    /* Outer Navigation Breadcrumb Strip */
+    .out-nav-div {
+      background-color: red;
+      padding: 12px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+      outline: 3px solid blueviolet;
+    }
+    .out-nav-div a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .out-nav-div a:hover {
+      color: var(--accent);
+    }
+
+    
+
+    /* === PORTRAIT / MOBILE INITIAL STYLES === */
+    @media (orientation: portrait) {
+      
+      .screen-container {
+        justify-self: center;
+        width: 100vw;
+        
+        padding: 10px;
+
+      }
+
+      .control-console {
+        padding: 10px 15px 10px 15px;
+      }
+
+      .nav-in-div {
+        padding: 10px 10px;
+      }
+
+     
+    }
+
+
+
+    .playlistTitleDiv
+    {
+      width: 100%;
+      height: 15%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      vertical-align: center;
+      
+
+      font-size: 4cqmin;
+      font-weight: 600;
+    }
+
+    .thms-div {
+      width: 100%;
+      height: 85%;
+
+      gap:2%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      
+      padding-block: 1%;
+
+      flex-wrap: nowrap; 
+
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;  
+
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);   
+    }
+
+    .thm-item-card {
+      background-color: var(--bg-card);
+      width: 95%;
+      height: 15%;
+      flex-shrink: 0;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+
+      padding-inline: 3cqmin;
+      gap: 3cqmin;
+      
+      cursor: pointer;
+      font-size: 3.5cqmin;
+      font-weight: 500;
+      border: 0.3cqmin solid transparent;
+      border-radius: 3cqmin;
+      transition: all 0.25s ease;
+
+      outline: 1px solid blueviolet;
+
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      scroll-margin-top: 1vmin;
+
+      box-shadow: 0.0vmin 0.0vmin 0.3vmin 0.1vmin var(--blue-glow);
+    }
+
+    .thm-item-card:hover {
+      background-color: #475569;
+      transform: translateX(2px);
+    }
+    /* Dynamic active class state */
+    
+    .thm-item-card.active {
+      background-color: rgba(16, 185, 129, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: scale(1.03);
+      box-shadow: 0.0vmin 0.0vmin 0.7vmin 0.25vmin var(--blue-glow);
+    }
+
+    /* Component: The Player Canvas */
+    .screen-div {
+     
+      aspect-ratio: 1 / 1;
+      background-color: var(--canvas-bg);
+      border-radius: 12px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      outline: 0px solid orange;
+    }
+    
+
+    /* Component: Combined Controls Block */
+    .control-console {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Advanced Custom Timline & Touch Tracker */
+    .progress-wrapper {
+      position: relative;
+      width: 100%;
+      height: 24px; /* Expanded interaction target area */
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      background-color: #475569;
+      border-radius: 3px;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent);
+      border-radius: 3px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .progress-thumb {
+      width: 36px;
+      height: 36px;
+      background-color: var(--text-main);
+      border: 5px solid var(--accent);
+      border-radius: 40%;
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: transform 0.1s, background-color 0.1s;
+    }
+    .progress-wrapper:hover .progress-thumb {
+      transform: translate(-50%, -50%) scale(1.25);
+      background-color: var(--accent);
+    }
+
+    /* Consolidated Control Buttons Row */
+    .button-group-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+    .btn-control {
+      background-color: var(--bg-panel);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 0px 0px;
+      height: 64px;
+      aspect-ratio: 1/1;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      font-size: 40px;
+    }
+    .btn-control:hover {
+      background-color: var(--bg-card);
+      border-color: var(--text-muted);
+    }
+    
+    
+
+   
+    
+
+ 
+  </style>
+
+  <style id="scrubbingComponent">
+    .player-controls-bar
+    {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 3cqmin;
+      padding-right: 2cqmin;
+
+      width: 100cqmin;
+      top: calc(100%/2 - 100cqh/2 + 100cqmin*11/12 + 0.4cqmin );
+      
+      
+      border-radius: 4cqmin;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.1),
+        0 1.6cqmin 3.6cqmin rgba(0, 0, 0, 0.6);
+      user-select: none;
+      -webkit-user-select: none;
+      container-type: inline-size;
+
+      /* Smooth Fade Transitions */
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1s ease;
+      outline: 0px solid blueviolet;
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+    }
+
+    .player-controls-bar.is-hidden
+    {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+
+    .btn-play-pause {
+      width: 8cqmin;
+      
+      aspect-ratio: 1/1;
+  
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1d4ed8 0%, #0f172a 100%);
+      border: 0.15cqmin solid #3b82f6;
+      color: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 
+        inset 0 0.1cqmin 0.2cqmin rgba(255, 255, 255, 0.45),
+        0 0.6cqmin 1.6cqmin rgba(29, 78, 216, 0.4);
+      transition: transform 0.12s ease, filter 0.15s ease, box-shadow 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-play-pause:hover {
+      filter: brightness(1.12);
+      box-shadow: 
+        inset 0 0.2cqmin 0.4cqmin rgba(255, 255, 255, 0.6),
+        0 1.2cqmin 3.0cqmin rgba(59, 130, 246, 0.5);
+    }
+
+    .btn-play-pause:active {
+      transform: scale(0.92);
+    }
+
+    /* Scrubber Track */
+    .scrubber-container {
+      position: relative;
+      flex: 1;
+      height: 4cqmin;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      touch-action: none;
+      
+      transition: opacity 1s ease;
+      
+    }
+
+    .scrubber-container.is-hidden
+    {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .scrubber-track {
+      position: relative;
+      width: 100%;
+      height: 80%;
+      background: #1e293b;
+      border-radius: 0.5cqmin;
+      overflow: visible;
+      box-shadow: inset 0 0.1cqmin 0.3cqmin rgba(0, 0, 0, 0.8);
+      outline: 0px solid blueviolet;
+    }
+
+    .scrubber-fill {
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #38bdf8);
+      border-radius: 0.5cqmin;
+      box-shadow: 0 0 1cqmin rgba(56, 189, 248, 0.6);
+      pointer-events: none;
+      outline: 1px solid blueviolet;
+    }
+
+    /* Handle */
+    .scrubber-handle {
+      position: absolute;
+      bottom: 0.7cqmin;
+      left: 0%;
+      width: 4cqmin;
+      height: 6.5cqmin;
+      margin-left: -2cqmin;
+      clip-path: polygon(
+        20% 0%, 80% 0%, 100% 25%, 100% 65%, 50% 100%, 0% 65%, 0% 25%
+      );
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 45%, #64748b 85%, #38bdf8 100%);
+      box-shadow: 0 0.4cqmin 1.2cqmin rgba(0, 0, 0, 0.6);
+      cursor: grab;
+      transition: transform 0.12s ease, filter 0.15s ease;
+    }
+
+    .scrubber-handle::before {
+      content: '';
+      position: absolute;
+      top: 1cqmin;
+      left: 0.6cqmin;
+      right: 0.6cqmin;
+      height: 1.6cqmin;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(15, 23, 42, 0.4),
+        rgba(15, 23, 42, 0.4)  0.3dvmin,
+        transparent 0.3dvmin,
+        transparent 0.6dvmin
+      );
+      border-radius: 0.4cqmin;
+    }
+
+    .scrubber-container:hover .scrubber-handle {
+      transform: scale(1.22) translateY(-0.5dvmin);
+      filter: brightness(1.1);
+    }
+
+    .scrubber-container.dragging .scrubber-handle {
+      cursor: grabbing;
+      transform: scale(1.22) translateY(-0.5dvmin);
+      filter: brightness(1.15);
+      background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 45%, #475569 85%, #38bdf8 100%);
+    }
+
+
+    .time-display {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 2.3cqmin;
+      font-weight: 600;
+      color: #94a3b8;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .time-current {
+      color: darkorange;
+    }
+
+    .time-divider {
+      margin: 0 0px;
+      color: #475569;
+    }
+
+  </style>
+
+</head>
+<body>
+  <svg class="svg-defs" style="display: none;">
+    <defs>
+      <g id="icon-play"><path d="M6 4l14 8-14 8V4z"/></g>
+      <g id="icon-pause"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></g>
+    </defs>
+  </svg>
+
+  
+  <div class="rectangle0Div">
+    
+    <div class="square1Div">
+      <div class="screen-div">
+        <svg class="svg-frame" id="playerSVG" xmlns="http://www.w3.org/2000/svg" style="width: 100cqmin; height: 100cqmin;" viewbox="0 0 750 750" >
+          <defs>
+            <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
+            </pattern>
+
+            <pattern id="halfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="lightgray" stroke-width="0.8"/>
+            </pattern>
+          </defs>
+          <rect width="750" height="750" fill="url(#wholeGrid)" />
+          <rect width="750" height="750" fill="url(#halfGrid)" />
+          <g id="mainSVGGroup">
+          </g>
+        </svg>
+      </div>
+
+      <div class="player-controls-bar" id="controlsBar">
+        <div class="btn-play-pause" id="togglePlayBtn" role="button" aria-label="Play animation">
+            <svg id="playIcon" viewbox="0 0 24 24" style="height: 6cqmin; width:6cqmin;aspect-ratio: 1/1; fill: currentColor;"><use href="#icon-play"></use>
+            </svg>
+            <svg id="pauseIcon" viewbox="0 0 24 24" style="display: none; height: 6cqmin; width:6cqmin;aspect-ratio: 1/1; fill: currentColor;"><use href="#icon-pause"></use>
+            </svg>
+        </div>
+      
+
+        <div class="scrubber-container" id="timelineScrubber">
+          <div class="scrubber-track">
+            <div class="scrubber-fill" id="timelineProgress"></div>
+            <div class="scrubber-handle" id="timelineThumb"></div>
+          </div>
+        </div>
+
+        <div class="time-display">
+          <span class="time-current" id="timeCurrent">0:00.00</span>
+          <span class="time-divider">/</span>
+          <span class="time-total" id="timeTotal">0:00.00</span>
+        </div>
+        
+        
+
+      </div>
+    </div>
+
+    <div class="rectangle1Div">
+      <div class="square2Div" >
+        <span class="playlistTitleDiv"> Playlist : Geometry Theorems </span>
+        <div class="thms-div" id="theoremsSidebar"> </div>
+        
+      </div>
+      
+      <div class="rectangle2Div">
+        <div class="square3Div"> </div>
+        <div class="rectangle3Div">
+          <div class="square4Div"> </div>
+        </div>
+      </div>
+      
+    </div>
+
+    
+
+    
+
+    
+  </div>
+
+   <script>
+   // --- 1. SPA Playlist Configuration ---
+    const theoremPlaylist = [
+      { id: 1, title: "Law of Sines", file: "nv_test_LoS.json" },
+      { id: 2, title: "Law of Cosines", file: "nv_test_LoS.json" },
+      { id: 3, title: "Sine Area Formula", file: "nv_test_LoS.json" },
+      { id: 4, title: "Pythagorean Theorem", file: "nv_test_LoS.json" },
+      { id: 5, title: "Stewart's Theorem", file: "nv_test_LoS.json" },
+      { id: 6, title: "Manelous' Theorem", file: "nv_test_LoS.json" },
+      { id: 7, title: "Ceva's Theorem", file: "nv_test_LoS.json" },
+      { id: 8, title: "Intersection of Angle Bisectors", file: "nv_test_LoS.json" },
+      { id: 9, title: "Manelous' Theorem", file: "nv_test_LoS.json" },
+      { id: 10, title: "Ceva's Theorem", file: "nv_test_LoS.json" },
+      { id: 11, title: "Intersection of Angle Bisectors", file: "nv_test_LoS.json" }
+    ];
+
+    // --- 2. Core Player State ---
+    let currentActiveIndex = 0;
+    let objects = [];
+    let aliveObjects = [];
+    let globalPlaylist = [];
+    let animations = []; 
+    let animationDuration = 0; 
+    let isPlaying = false;
+    let isScrubbing = false;
+
+
+
+    // DOM Elements mapped from the new layout IDs
+    const playerSVG = document.getElementById("playerSVG");
+    const timelineScrubber = document.getElementById("timelineScrubber");
+    const timelineProgress = document.getElementById("timelineProgress");
+    const timelineThumb = document.getElementById("timelineThumb");
+    const togglePlayBtn = document.getElementById("togglePlayBtn");
+    //const stopBtn = document.getElementById("stopBtn");
+    const playerControlsBar = document.getElementById('controlsBar');
+    const timeCurrent = document.getElementById('timeCurrent');
+    const timeTotal = document.getElementById('timeTotal');
+
+    let hideTimeout = null;
+    const HIDE_DELAY_MS = 1500; // 2.5s idle fade out
+
+
+     strokeColors=['black','midnightblue','DarkMagenta','darkgreen','blue', 'red','DarkSeaGreen','Teal','MediumSlateBlue','MediumVioletRed','FireBrick','crimson','saddlebrown','YellowGreen','MediumOrchid','MediumPurple','Tomato','Coral','GoldenRod','OliveDrab','DarkOrange','SeaGreen'];
+
+    fillColors=['DarkOrange','blue','Aquamarine','CornflowerBlue','IndianRed','LightPink','DeepPink','PaleGreen','Teal','MediumOrchid','Tomato','YellowGreen','Violet','DarkGoldenRod','DarkSlateGray','Navy','SeaGreen'];
+
+
+      /* =========================================================
+         Auto-Hide Logic
+         ========================================================= */
+      function showControls() {
+        timelineScrubber.classList.remove('is-hidden');
+        resetHideTimer();
+      }
+
+      function hideControls() {
+        if (isScrubbing || !isPlaying) return; // Keep visible if paused or dragging
+        timelineScrubber.classList.add('is-hidden');
+      }
+
+      function resetHideTimer() {
+        clearTimeout(hideTimeout);
+        if (isPlaying) {
+          hideTimeout = setTimeout(hideControls, HIDE_DELAY_MS);
+        }
+      }
+
+      // Attach listeners to the outer wrapper element
+      playerControlsBar.addEventListener('pointermove', showControls);
+      playerControlsBar.addEventListener('pointerdown', showControls);
+      playerControlsBar.addEventListener('pointerleave', () => {
+        if (isPlaying && !isScrubbing) {
+          resetHideTimer();
+        }
+      });
+
+
+    // --- 3. UI Synchronization & Navigation ---
+    function initUI() {
+      const sidebar = document.getElementById('theoremsSidebar');
+      sidebar.innerHTML = '';
+
+      theoremPlaylist.forEach((thm, idx) => {
+        const card = document.createElement('div');
+        let cardId = document.createElement('SPAN');
+        let cardTitle = document.createElement('SPAN');
+
+        cardId.textContent = `${thm.id}.`;
+        cardTitle.textContent = thm.title;
+
+        card.appendChild(cardId);
+        card.appendChild(cardTitle);
+
+        card.className = `thm-item-card ${idx === currentActiveIndex ? 'active' : ''}`;
+        card.innerText = `${thm.id}. ${thm.title}`;
+        card.onclick = () => loadTheorem(idx);
+        sidebar.appendChild(card);
+      });
+
+    }
+
+   
+
+    // --- 4. Web-Native JSON Loader ---
+    function loadTheorem(index)
+    {
+      currentActiveIndex = index;
+      initUI();
+      resetPlayerState();
+
+      // Hide the rendering container so Safari doesn't flash the full-size text nodes
+      const mainGroup = document.getElementById("mainSVGGroup");
+      if (mainGroup) {mainGroup.style.visibility = "hidden";}
+
+      const fileName = theoremPlaylist[index].file;
+      console.log(`Loading theorem data via fetch: ${fileName}`);
+
+      fetch(fileName)
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          // 1. Recreate your objects into the DOM layout tree
+          parseProjectData(data);
+          return Promise.resolve();
+        })
+        .then(() => {
+          console.log("MathJax typesetting locked at full scale. Processing animation paths.");
+          
+          // 4. Now that text bounds are calculated cleanly, bake your matrices
+          bakeAnimations();
+
+          // 5. Instantly snap the timeline position down to time 0
+          // This collapses widths from full size to 0px instantly before the user can see it
+          globalCurrentTime = 0;
+          renderStateAtTime(0);
+          updateProgressBarUI(0);
+
+          // 6. Smoothly unhide the main group container for playback
+          if (mainGroup) {mainGroup.style.visibility = "visible";}
+        })
+        .catch(error => {
+          console.error("Failed to load geometry data file:", error);
+          if (mainGroup) mainGroup.style.visibility = "visible";
+        });
+    }
+
+    class basePoint
+    {
+      constructor(objectIndex, cx, cy )
+      {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.setAttribute('onclick', `document.getElementById('checkbox${objectIndex}').click();`);
+        SVGElement.style.cursor= 'pointer';
+        SVGElement.setAttribute("r", 3);
+        SVGElement.setAttribute("stroke-width",1);
+        SVGElement.setAttribute("fill-opacity",0);
+        SVGElement.setAttribute("opacity",1);
+        SVGElement.setAttribute("stroke",'black');
+        SVGElement.setAttribute("fill",'black');
+        SVGElement.style.visibility = "hidden";
+
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+
+        this.cx = cx;
+        this.cy = cy;
+      
+        this.type = 'pt';
+      }
+
+      updateSVG()
+      {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);    
+      }
+
+      setInitialState()
+      {
+        this.initialState =
+        {
+          cx: parseFloat(this.cx),
+          cy: parseFloat(this.cy)
+        };
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        this.cx = prevState.cx + (nextState.cx - prevState.cx) * t;
+        this.cy = prevState.cy + (nextState.cy - prevState.cy) * t;
+        this.updateSVG();
+      }
+    }
+
+    class point
+    {
+      constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale )
+      {
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.style.transformOrigin = "center";
+        SVGElement.style.transformBox = "fill-box";
+        SVGElement.style.pointerEvents = 'none';
+        this.SVGElement = SVGElement;
+        this.index = objectIndex;
+        this.cx = parseFloat(cx);
+        this.cy = parseFloat(cy);
+        this.r = parseFloat(r);
+        this.strokeWidth = parseFloat(strokeWidth);
+        this.fillOpacity = fillOpacity;
+        this.opacity = parseFloat(opacity);
+        this.scale=parseFloat(scale);
+        this.strokeColor = strokeColor;
+        this.strokeColorRGB = parseColorToRGB(this.strokeColor);
+        this.fillColor = fillColor;
+        this.fillColorRGB = parseColorToRGB(this.fillColor);
+        this.type = 'ptc';
+        this.property = 'point';
+      }
+
+      updateSVG()
+      {
+        //svg
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);
+        this.SVGElement.setAttribute("r", this.r);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+        let [rS, gS, bS] = this.strokeColorRGB.map(Math.round);
+        let [rF, gF, bF] = this.fillColorRGB.map(Math.round);
+        this.SVGElement.setAttribute("stroke",`rgb(${rS},${gS},${bS})`);
+        this.SVGElement.setAttribute("fill",`rgb(${rF},${gF},${bF})`);
+        //css
+        this.SVGElement.style.opacity = this.opacity;
+        this.SVGElement.style.transform = `scale(${this.scale})`;
+      }
+
+      recordState() 
+      {
+        const stateSnapshot =
+        {
+          cx: parseFloat(this.cx),
+          cy: parseFloat(this.cy),
+          r: parseFloat(this.r),
+          strokeWidth: parseFloat(this.strokeWidth),
+          fillOpacity: this.fillOpacity,
+          opacity: parseFloat(this.opacity),
+          scale: parseFloat(this.scale),
+          strokeColor: this.strokeColor,
+          strokeColorRGB:[...this.strokeColorRGB],
+          fillColor: this.fillColor,
+          fillColorRGB: [...this.fillColorRGB] 
+        };
+
+        return stateSnapshot;
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        this.cx = prevState.cx + (nextState.cx - prevState.cx) * t;
+        this.cy = prevState.cy + (nextState.cy - prevState.cy) * t;
+        this.r = prevState.r + (nextState.r - prevState.r) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.strokeWidth = prevState.strokeWidth + (nextState.strokeWidth - prevState.strokeWidth) * t;
+        this.fillOpacity = prevState.fillOpacity + (nextState.fillOpacity - prevState.fillOpacity) * t;
+        let startStrokeColor = parseColorToRGB(prevState.strokeColor);
+        let endStrokeColor = parseColorToRGB(nextState.strokeColor);
+        this.strokeColorRGB[0] = startStrokeColor[0] + (endStrokeColor[0] - startStrokeColor[0]) * t; // Red
+        this.strokeColorRGB[1] = startStrokeColor[1] + (endStrokeColor[1] - startStrokeColor[1]) * t; // Green
+        this.strokeColorRGB[2] = startStrokeColor[2] + (endStrokeColor[2] - startStrokeColor[2]) * t; // Blue
+        let startFillColor = parseColorToRGB(prevState.fillColor);
+        let endFillColor = parseColorToRGB(nextState.fillColor);
+        this.fillColorRGB[0] = startFillColor[0] + (endFillColor[0] - startFillColor[0]) * t; // Red
+        this.fillColorRGB[1] = startFillColor[1] + (endFillColor[1] - startFillColor[1]) * t; // Green
+        this.fillColorRGB[2] = startFillColor[2] + (endFillColor[2] - startFillColor[2]) * t; // Blue
+        this.updateSVG();
+      }
+    }
+
+    class text
+    { 
+      constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+        this.index = objectIndex;
+        this.x = parseFloat(x);
+        this.y = parseFloat(y);
+        this.text = textStr; 
+        this.opacity = parseFloat(opacity);
+        this.scale = parseFloat(scale);
+        this.textColor = textColor;
+        this.textColorRGB = parseColorToRGB(this.textColor);
+        this.fontSize = parseFloat(fontSize);
+        this.rotate = parseFloat(rotate);
+        this.type = 'txt';
+       
+        // Safari Fix Step 1: Create a structural wrapper group element
+        let wrapperGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        wrapperGroup.setAttribute("id", 'SVGTextGroup' + objectIndex);
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+        SVGElement.setAttribute("id", 'SVGText' + objectIndex);
+        SVGElement.style.pointerEvents = 'none';
+        
+        // Keep structural widths local to the foreignObject box
+        SVGElement.setAttribute("height", originalHeight);
+        SVGElement.setAttribute("width", originalWidth);
+        
+        // CRITICAL SAFARI FIX: Set local box coordinates to 0,0 inside the transforming <g> group
+        SVGElement.setAttribute("x", 0);
+        SVGElement.setAttribute("y", 0);
+        
+        // Append the foreignObject directly into our group envelope
+        wrapperGroup.appendChild(SVGElement);
+        
+        // Expose the wrapper group as the main master handle so your loader/player handles it cleanly
+        this.SVGElement = wrapperGroup; 
+        this.foreignObject = SVGElement; 
+        
+        this.svgContent = ""; 
+        this.width = parseFloat(originalWidth) || 100;
+        this.height = parseFloat(originalHeight) || 30;
+        this.fullWidth = this.width; 
+      }
+    
+      updateSVG()
+      {
+        let [r, g, b] = this.textColorRGB.map(Math.round);
+
+        if (this.svgContent && this.svgContent !== "")
+        {   
+          // Inject inside the internal foreignObject element handle
+          this.foreignObject.innerHTML = this.svgContent; 
+          let innerMathSvg = this.foreignObject.querySelector('svg');
+          if (innerMathSvg)
+          {
+            if (!this.fullWidth || this.fullWidth === 100) {
+               let rawW = innerMathSvg.getAttribute('width');
+               this.fullWidth = rawW ? parseFloat(rawW) : this.width;
+            }
+            innerMathSvg.setAttribute('width', this.fullWidth + 'px');
+            innerMathSvg.style.width = this.fullWidth + 'px';
+            innerMathSvg.style.minWidth = this.fullWidth + 'px'; 
+            innerMathSvg.style.height = '';
+            innerMathSvg.style.display = 'block';
+            innerMathSvg.style.overflow = 'visible'; 
+            innerMathSvg.setAttribute('fill', `rgb(${r},${g},${b})`);
+            innerMathSvg.setAttribute('stroke', `rgb(${r},${g},${b})`);   
+          }
+        } else {
+          if (this.spanElement) {
+            this.spanElement.innerHTML = this.text;
+            this.spanElement.style.fontSize = this.fontSize + 'px';
+          }
+        }
+
+        this.foreignObject.style.overflow = 'hidden';
+        this.foreignObject.style.color = `rgb(${r},${g},${b})`;
+        if (this.fontWeight) this.foreignObject.style.fontWeight = this.fontWeight;
+
+        // Update clipping sizes safely on the inner box
+        this.foreignObject.setAttribute("height", this.height);
+        this.foreignObject.setAttribute("width", this.width);
+
+        // --- CRITICAL SAFARI TRANSFORM REFACTOR ---
+        // 1. Compute explicit geometric centers based on frame metrics
+        let centerX = this.x + this.width / 2;
+        let centerY = this.y + this.height / 2;
+
+        // 2. Clear out tricky CSS transform bindings entirely
+        this.SVGElement.style.transform = '';
+        this.SVGElement.style.transformOrigin = '';
+        this.SVGElement.style.transformBox = '';
+
+        // 3. Apply raw native SVG attributes using a precise transformation matrix sequence:
+        // Translate to the destination coordinates, handle rotation and scaling at the absolute center,
+        // and compensate for centering offset.
+        this.SVGElement.setAttribute("transform", 
+          `translate(${this.x}, ${this.y}) ` +
+          `translate(${this.width/2}, ${this.height/2}) ` +
+          `scale(${this.scale}) ` +
+          `rotate(${this.rotate}) ` +
+          `translate(${-this.width/2}, ${-this.height/2})`
+        );
+
+        // Manage group master visibility smoothly
+        this.SVGElement.setAttribute("opacity", this.opacity);
+      }
+
+      recordState() 
+      {
+        return {
+          x: parseFloat(this.x),
+          y: parseFloat(this.y),
+          fontSize: parseFloat(this.fontSize),
+          rotate: parseFloat(this.rotate),
+          scale: parseFloat(this.scale),
+          opacity: parseFloat(this.opacity),
+          height: parseFloat(this.height),
+          width: parseFloat(this.width),
+          textColor: this.textColor,
+          textColorRGB: [...this.textColorRGB]
+        };
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        this.x = prevState.x + (nextState.x - prevState.x) * t;
+        this.y = prevState.y + (nextState.y - prevState.y) * t;
+        this.fontSize = prevState.fontSize + (nextState.fontSize - prevState.fontSize) * t;
+        this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.height = prevState.height + (nextState.height - prevState.height) * t;
+        this.width = prevState.width + (nextState.width - prevState.width) * t;
+
+        this.textColorRGB[0] = prevState.textColorRGB[0] + (nextState.textColorRGB[0] - prevState.textColorRGB[0]) * t;
+        this.textColorRGB[1] = prevState.textColorRGB[1] + (nextState.textColorRGB[1] - prevState.textColorRGB[1]) * t;
+        this.textColorRGB[2] = prevState.textColorRGB[2] + (nextState.textColorRGB[2] - prevState.textColorRGB[2]) * t;
+
+        this.updateSVG();
+      }
+    }
+
+    class polygon
+    {
+      constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale,rotate)
+      {
+        this.index = objectIndex;
+        this.pointsIndices=pointsIndices;
+    
+        this.dx = parseFloat(dx);
+        this.dy = parseFloat(dy);
+        this.scale=parseFloat(scale);
+        this.rotate = parseFloat(rotate);
+        this.opacity = parseFloat(opacity);
+        this.fillOpacity = parseFloat(fillOpacity);
+        this.strokeWidth = parseFloat(strokeWidth);
+        this.strokeColor = strokeColor;
+        this.strokeColorRGB = parseColorToRGB(this.strokeColor);
+        this.fillColor = fillColor;
+        this.fillColorRGB = parseColorToRGB(this.fillColor);
+        this.type='pgn';
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+
+        let ptsArray = [];
+        for (let i = 0; i < this.pointsIndices.length; i++)
+        {
+          let obj=objects[this.pointsIndices[i]];
+          ptsArray.push(obj.cx + "," + obj.cy);
+        }
+        let pts = ptsArray.join(" ");
+
+        this.points = pts;
+        SVGElement.setAttribute("points", pts);
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.setAttribute("stroke-linecap",'round');
+        SVGElement.style.pointerEvents = 'none';
+        this.SVGElement = SVGElement;
+        this.totalLength = SVGElement.getTotalLength();
+        this.strokeDashoffset = this.totalLength;
+      }
+
+
+
+      updateSVG()
+      {
+        let ptsArray = [];
+        for (let i = 0; i < this.pointsIndices.length; i++)
+        {
+          let obj=objects[this.pointsIndices[i]];
+          ptsArray.push(obj.cx + "," + obj.cy);
+        }
+        let pts = ptsArray.join(" ");
+
+        this.points = pts;
+
+        this.SVGElement.setAttribute("points", this.points);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+
+        let [rS, gS, bS] = this.strokeColorRGB.map(Math.round);
+        let [rF, gF, bF] = this.fillColorRGB.map(Math.round);
+
+        this.SVGElement.setAttribute("stroke",`rgb(${rS},${gS},${bS})`);
+        this.SVGElement.setAttribute("fill",`rgb(${rF},${gF},${bF})`);
+
+        //css
+        this.SVGElement.style.transformOrigin = "center";
+        this.SVGElement.style.transformBox = "fill-box";
+        this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`;
+        this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
+        this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
+        this.SVGElement.style.opacity = this.opacity;
+
+        this.totalLength = this.SVGElement.getTotalLength();
+        if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+      }
+
+      recordState() 
+      {
+        const stateSnapshot =
+        {
+          scale:this.scale,
+          rotate:this.rotate,
+          dx:this.dx,
+          dy:this.dy,
+          opacity: this.opacity,
+          strokeColor: this.strokeColor,
+          strokeColorRGB:[...this.strokeColorRGB],
+          fillColor: this.fillColor,
+          fillColorRGB: [...this.fillColorRGB],
+          fillOpacity:this.fillOpacity,
+          strokeWidth:this.strokeWidth,
+          strokeDasharray: this.totalLength,
+          strokeDashoffset: this.strokeDashoffset
+        };
+
+        return stateSnapshot;
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+        this.initialState.strokeDasharray= parseFloat(this.totalLength); 
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        
+        let ptsArray = [];
+        for (let i = 0; i < this.pointsIndices.length; i++) {
+          let obj = objects[this.pointsIndices[i]];
+          ptsArray.push(obj.cx + "," + obj.cy);
+        }
+        this.points = ptsArray.join(" ");
+
+        this.dx = prevState.dx + (nextState.dx - prevState.dx) * t;
+        this.dy = prevState.dy + (nextState.dy - prevState.dy) * t;
+
+        this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.strokeWidth = prevState.strokeWidth + (nextState.strokeWidth - prevState.strokeWidth) * t;
+        this.fillOpacity = prevState.fillOpacity + (nextState.fillOpacity - prevState.fillOpacity) * t;
+
+        this.strokeDashoffset = prevState.strokeDashoffset + (nextState.strokeDashoffset - prevState.strokeDashoffset) * t;
+       
+        this.strokeColorRGB[0] = prevState.strokeColorRGB[0] + (nextState.strokeColorRGB[0] - prevState.strokeColorRGB[0]) * t;
+        this.strokeColorRGB[1] = prevState.strokeColorRGB[1] + (nextState.strokeColorRGB[1] - prevState.strokeColorRGB[1]) * t;
+        this.strokeColorRGB[2] = prevState.strokeColorRGB[2] + (nextState.strokeColorRGB[2] - prevState.strokeColorRGB[2]) * t;
+
+        this.fillColorRGB[0] = prevState.fillColorRGB[0] + (nextState.fillColorRGB[0] - prevState.fillColorRGB[0]) * t;
+        this.fillColorRGB[1] = prevState.fillColorRGB[1] + (nextState.fillColorRGB[1] - prevState.fillColorRGB[1]) * t;
+        this.fillColorRGB[2] = prevState.fillColorRGB[2] + (nextState.fillColorRGB[2] - prevState.fillColorRGB[2]) * t;
+
+        this.updateSVG();
+      }
+    }
+
+    class polyline
+    {
+      constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
+      {
+        this.index = objectIndex;
+        this.pointsIndices=pointsIndices; 
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.dx = parseFloat(dx);
+        this.dy = parseFloat(dy);
+        this.opacity = parseFloat(opacity);
+        this.strokeWidth = parseFloat(strokeWidth);
+        this.strokeColor = strokeColor;
+        this.strokeColorRGB = parseColorToRGB(this.strokeColor);
+        this.scale=parseFloat(scale);
+        this.rotate=parseFloat(rotate);
+        this.type='pln';
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        let ptsArray = [];
+        for (let i = 0; i < this.pointsIndices.length; i++)
+        {
+          let obj=objects[this.pointsIndices[i]];
+          ptsArray.push(obj.cx + "," + obj.cy);
+        }
+        let pts = ptsArray.join(" ");
+        this.points = pts;
+        SVGElement.setAttribute("points", pts);
+        SVGElement.style.pointerEvents = 'none';
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.setAttribute("stroke-linecap",'round');
+        SVGElement.setAttribute("fill",'none');
+
+        this.SVGElement = SVGElement;
+        this.totalLength = SVGElement.getTotalLength();
+        this.strokeDashoffset = this.totalLength;
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';     
+      }
+
+
+
+      updateSVG()
+      {
+        let ptsArray = [];
+        for (let i = 0; i < this.pointsIndices.length; i++)
+        {
+          let obj=objects[this.pointsIndices[i]];
+          ptsArray.push(obj.cx + "," + obj.cy);
+        }
+        let pts = ptsArray.join(" ");
+        this.points=pts;
+
+        this.SVGElement.setAttribute("points", this.points);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+
+        let [rS, gS, bS] = this.strokeColorRGB.map(Math.round);
+        this.SVGElement.setAttribute("stroke",`rgb(${rS},${gS},${bS})`);
+
+        this.SVGElement.style.transformOrigin = "center";
+        this.SVGElement.style.transformBox = "fill-box";
+
+        this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`;
+        this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
+        this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
+        this.SVGElement.style.opacity = this.opacity;
+
+        this.totalLength = this.SVGElement.getTotalLength();
+      }
+
+      recordState() 
+      {
+        const stateSnapshot =
+        {
+          dx:this.dx,
+          dy:this.dy,
+          rotate:this.rotate,
+          scale:this.scale,
+          opacity: this.opacity,
+          strokeColor: this.strokeColor,
+          strokeColorRGB:[...this.strokeColorRGB],
+          strokeWidth:this.strokeWidth,
+          strokeDasharray: this.totalLength,
+          strokeDashoffset: this.strokeDashoffset
+        };
+      
+        return stateSnapshot;
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+        this.initialState.strokeDasharray= parseFloat(this.totalLength); 
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        let ptsArray = [];
+        for (let i = 0; i < this.pointsIndices.length; i++) {
+          let obj = objects[this.pointsIndices[i]];
+          ptsArray.push(obj.cx + "," + obj.cy);
+        }
+        this.points = ptsArray.join(" ");
+        this.dx = prevState.dx + (nextState.dx - prevState.dx) * t;
+        this.dy = prevState.dy + (nextState.dy - prevState.dy) * t;
+        this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.strokeWidth = prevState.strokeWidth + (nextState.strokeWidth - prevState.strokeWidth) * t;
+        this.strokeDashoffset = prevState.strokeDashoffset + (nextState.strokeDashoffset - prevState.strokeDashoffset) * t;
+        this.strokeColorRGB[0] = prevState.strokeColorRGB[0] + (nextState.strokeColorRGB[0] - prevState.strokeColorRGB[0]) * t;
+        this.strokeColorRGB[1] = prevState.strokeColorRGB[1] + (nextState.strokeColorRGB[1] - prevState.strokeColorRGB[1]) * t;
+        this.strokeColorRGB[2] = prevState.strokeColorRGB[2] + (nextState.strokeColorRGB[2] - prevState.strokeColorRGB[2]) * t;
+        // D. Synchronize directly to the XML rendering canvas
+        this.updateSVG();
+      }
+    }
+
+    class circle
+    {
+      constructor(objectIndex, cx, cy, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, property )
+      {
+        this.index = objectIndex;
+
+        this.cx = cx;
+        this.cy = cy;
+        this.center={cx:this.cx,cy:this.cy};
+        this.r = r;
+        this.strokeWidth = strokeWidth;
+        this.fillOpacity = fillOpacity;
+        this.opacity = opacity;
+        this.scale=scale;
+        this.strokeColor = strokeColor;
+        this.fillColor = fillColor;
+        this.type = 'cr';
+        this.property = property;
+
+        this.strokeColorRGB = parseColorToRGB(this.strokeColor);
+        this.fillColorRGB = parseColorToRGB(this.fillColor);
+
+        //svg object
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.setAttribute("cx", cx);
+        SVGElement.setAttribute("cy", cy);
+        SVGElement.setAttribute("r", r);
+        SVGElement.style.pointerEvents = 'none';
+
+        this.SVGElement = SVGElement;
+        this.totalLength = SVGElement.getTotalLength();
+        this.strokeDashoffset = this.totalLength;
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';
+      }
+
+      updateSVG()
+      {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);
+        this.SVGElement.setAttribute("r", this.r);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+        let [rS, gS, bS] = this.strokeColorRGB.map(Math.round);
+        let [rF, gF, bF] = this.fillColorRGB.map(Math.round);
+        this.SVGElement.setAttribute("stroke",`rgb(${rS},${gS},${bS})`);
+        this.SVGElement.setAttribute("fill",`rgb(${rF},${gF},${bF})`);
+        this.SVGElement.style.transformOrigin = "center";
+        this.SVGElement.style.transformBox = "fill-box";
+        this.SVGElement.style.transform = `scale(${this.scale})`;
+        this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
+        this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
+        this.SVGElement.style.opacity = this.opacity;
+        this.totalLength = this.SVGElement.getTotalLength();
+      }
+
+      recordState() 
+      {
+        const stateSnapshot = 
+        {
+          cx: parseFloat(this.cx),
+          cy: parseFloat(this.cy),
+          r: parseFloat(this.r),
+          opacity: parseFloat(this.opacity),
+          scale: parseFloat(this.scale),
+          strokeWidth: parseFloat(this.strokeWidth),
+          fillOpacity: parseFloat(this.fillOpacity),
+          strokeColor: this.strokeColor,
+          strokeColorRGB:[...this.strokeColorRGB],
+          fillColor: this.fillColor,
+          fillColorRGB: [...this.fillColorRGB],
+          strokeDasharray:parseFloat(this.totalLength),
+          strokeDashoffset: parseFloat(this.strokeDashoffset)
+        };
+
+        return stateSnapshot;
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+        this.initialState.strokeDasharray= parseFloat(this.totalLength);
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        this.cx = prevState.cx + (nextState.cx - prevState.cx) * t;
+        this.cy = prevState.cy + (nextState.cy - prevState.cy) * t;
+        this.r = prevState.r + (nextState.r - prevState.r) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.strokeWidth = prevState.strokeWidth + (nextState.strokeWidth - prevState.strokeWidth) * t;
+        this.fillOpacity = prevState.fillOpacity + (nextState.fillOpacity - prevState.fillOpacity) * t;
+        this.strokeDashoffset = prevState.strokeDashoffset + (nextState.strokeDashoffset - prevState.strokeDashoffset) * t;
+        this.strokeColorRGB[0] = prevState.strokeColorRGB[0] + (nextState.strokeColorRGB[0] - prevState.strokeColorRGB[0]) * t;
+        this.strokeColorRGB[1] = prevState.strokeColorRGB[1] + (nextState.strokeColorRGB[1] - prevState.strokeColorRGB[1]) * t;
+        this.strokeColorRGB[2] = prevState.strokeColorRGB[2] + (nextState.strokeColorRGB[2] - prevState.strokeColorRGB[2]) * t;
+        this.fillColorRGB[0] = prevState.fillColorRGB[0] + (nextState.fillColorRGB[0] - prevState.fillColorRGB[0]) * t;
+        this.fillColorRGB[1] = prevState.fillColorRGB[1] + (nextState.fillColorRGB[1] - prevState.fillColorRGB[1]) * t;
+        this.fillColorRGB[2] = prevState.fillColorRGB[2] + (nextState.fillColorRGB[2] - prevState.fillColorRGB[2]) * t;
+
+        // D. Synchronize directly to the XML rendering canvas
+        this.updateSVG();
+      }
+    }
+
+    class ellipse
+    {
+      constructor(objectIndex, cx, cy, rx,ry, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rotate )
+      {
+        this.index = objectIndex;
+        this.cx = cx;
+        this.cy = cy;
+        this.rx = rx;
+        this.ry = ry;
+        this.scale=scale;
+        this.rotate = rotate;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.fillOpacity = fillOpacity;
+        this.fillColor = fillColor;
+          
+        this.type = 'elp';
+
+        this.strokeColorRGB = parseColorToRGB(this.strokeColor);
+        this.fillColorRGB = parseColorToRGB(this.fillColor);
+
+        //svg object
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.setAttribute("cx", cx);
+        SVGElement.setAttribute("cy", cy);
+        SVGElement.setAttribute("rx", rx);
+        SVGElement.setAttribute("ry", ry);
+        SVGElement.style.pointerEvents = 'none';
+
+        this.SVGElement = SVGElement;
+        this.totalLength = SVGElement.getTotalLength();
+        this.strokeDashoffset = this.totalLength;
+
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';
+      }
+
+      updateSVG()
+      {
+        this.SVGElement.setAttribute("cx", this.cx);
+        this.SVGElement.setAttribute("cy", this.cy);
+        this.SVGElement.setAttribute("rx", this.rx);
+        this.SVGElement.setAttribute("ry", this.ry);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+
+        let [rS, gS, bS] = this.strokeColorRGB.map(Math.round);
+        let [rF, gF, bF] = this.fillColorRGB.map(Math.round);
+
+        this.SVGElement.setAttribute("stroke",`rgb(${rS},${gS},${bS})`);
+        this.SVGElement.setAttribute("fill",`rgb(${rF},${gF},${bF})`);
+
+        this.SVGElement.style.transformOrigin = "center";
+        this.SVGElement.style.transformBox = "fill-box";
+        this.SVGElement.style.transform = `rotate(${this.rotate}deg) scale(${this.scale})`;
+        this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
+        this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
+        this.SVGElement.style.opacity = this.opacity;
+
+        this.totalLength = this.SVGElement.getTotalLength();
+      }
+
+      recordState() 
+      {
+        const stateSnapshot =
+        {
+          cx: this.cx,
+          cy: this.cy,
+          rx: this.rx,
+          ry: this.ry,
+          opacity: this.opacity,
+          scale: this.scale,
+          rotate:this.rotate,
+          strokeWidth: this.strokeWidth,
+          fillOpacity: this.fillOpacity,
+          strokeColor: this.strokeColor,
+          strokeColorRGB:[...this.strokeColorRGB],
+          fillColor: this.fillColor,
+          fillColorRGB: [...this.fillColorRGB],
+          strokeDasharray:this.totalLength,
+          strokeDashoffset: this.strokeDashoffset
+        };
+
+        return stateSnapshot;
+
+
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+        this.initialState.strokeDasharray= parseFloat(this.totalLength);
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        this.cx = prevState.cx + (nextState.cx - prevState.cx) * t;
+        this.cy = prevState.cy + (nextState.cy - prevState.cy) * t;
+        this.rx = prevState.rx + (nextState.rx - prevState.rx) * t;
+        this.ry = prevState.ry + (nextState.ry - prevState.ry) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.strokeWidth = prevState.strokeWidth + (nextState.strokeWidth - prevState.strokeWidth) * t;
+        this.fillOpacity = prevState.fillOpacity + (nextState.fillOpacity - prevState.fillOpacity) * t;
+        this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
+        this.strokeDashoffset = prevState.strokeDashoffset + (nextState.strokeDashoffset - prevState.strokeDashoffset) * t;
+        this.strokeColorRGB[0] = prevState.strokeColorRGB[0] + (nextState.strokeColorRGB[0] - prevState.strokeColorRGB[0]) * t;
+        this.strokeColorRGB[1] = prevState.strokeColorRGB[1] + (nextState.strokeColorRGB[1] - prevState.strokeColorRGB[1]) * t;
+        this.strokeColorRGB[2] = prevState.strokeColorRGB[2] + (nextState.strokeColorRGB[2] - prevState.strokeColorRGB[2]) * t;
+        this.fillColorRGB[0] = prevState.fillColorRGB[0] + (nextState.fillColorRGB[0] - prevState.fillColorRGB[0]) * t;
+        this.fillColorRGB[1] = prevState.fillColorRGB[1] + (nextState.fillColorRGB[1] - prevState.fillColorRGB[1]) * t;
+        this.fillColorRGB[2] = prevState.fillColorRGB[2] + (nextState.fillColorRGB[2] - prevState.fillColorRGB[2]) * t;
+        // D. Synchronize directly to the XML rendering canvas
+        this.updateSVG();
+      }
+    }
+
+    class angle
+    {
+      constructor(objectIndex, pointsIndices, r, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale, rightAngle )
+      {
+        this.index = objectIndex;
+        this.pointsIndices= pointsIndices;
+        this.r = r;
+        this.dx = 0;
+        this.dy = 0;
+        this.scale=scale;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.fillOpacity = fillOpacity;
+        this.fillColor = fillColor;
+        this.strokeColorRGB = parseColorToRGB(this.strokeColor);
+        this.fillColorRGB = parseColorToRGB(this.fillColor);
+        this.rightAngle = rightAngle;
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.type = 'ang';
+        let pathAngleIn = angleInPath(this.pointsIndices,r,rightAngle);
+        this.d = pathAngleIn;
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        SVGElement.setAttribute('d',pathAngleIn);
+        SVGElement.style.pointerEvents = 'none';
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.setAttribute("stroke-linecap",'round');
+
+        this.SVGElement = SVGElement;
+        this.totalLength = SVGElement.getTotalLength();
+        this.strokeDashoffset = this.totalLength;
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';
+
+      }
+
+      updateSVG()
+      {
+        let rA = String(this.rightAngle) === "true";
+        let pathAngleIn = angleInPath(this.pointsIndices,this.r,rA);
+        this.d=pathAngleIn;
+        this.SVGElement.setAttribute('d',this.d);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+        let [rS, gS, bS] = this.strokeColorRGB.map(Math.round);
+        let [rF, gF, bF] = this.fillColorRGB.map(Math.round);
+        this.SVGElement.setAttribute("stroke",`rgb(${rS},${gS},${bS})`);
+        this.SVGElement.setAttribute("fill",`rgb(${rF},${gF},${bF})`);
+        //css
+        this.SVGElement.style.transformOrigin = "center";
+        this.SVGElement.style.transformBox = "fill-box";
+        this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) scale(${this.scale})`;
+        this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
+        this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
+        this.SVGElement.style.opacity = this.opacity;
+
+        this.totalLength = this.SVGElement.getTotalLength();
+      }
+
+      recordState() 
+      {
+        const stateSnapshot = 
+        {
+          scale:this.scale,
+          dx:this.dx,
+          dy:this.dy,
+          opacity: this.opacity,
+          fillOpacity:this.fillOpacity,
+          strokeWidth:this.strokeWidth,
+          strokeColor: this.strokeColor,
+          strokeColorRGB:[...this.strokeColorRGB],
+          fillColor: this.fillColor,
+          fillColorRGB: [...this.fillColorRGB],
+          strokeDasharray: this.totalLength,
+          strokeDashoffset: this.strokeDashoffset
+        };
+
+        return stateSnapshot;
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+        this.initialState.strokeDasharray= parseFloat(this.totalLength);
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        let rA = String(this.rightAngle) === "true";
+        let pathAngleIn = angleInPath(this.pointsIndices,this.r,rA);
+        this.d=pathAngleIn;
+        this.dx = prevState.dx + (nextState.dx - prevState.dx) * t;
+        this.dy = prevState.dy + (nextState.dy - prevState.dy) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.strokeWidth = prevState.strokeWidth + (nextState.strokeWidth - prevState.strokeWidth) * t;
+        this.fillOpacity = prevState.fillOpacity + (nextState.fillOpacity - prevState.fillOpacity) * t;
+        this.strokeDashoffset = prevState.strokeDashoffset + (nextState.strokeDashoffset - prevState.strokeDashoffset) * t;     
+        this.strokeColorRGB[0] = prevState.strokeColorRGB[0] + (nextState.strokeColorRGB[0] - prevState.strokeColorRGB[0]) * t;
+        this.strokeColorRGB[1] = prevState.strokeColorRGB[1] + (nextState.strokeColorRGB[1] - prevState.strokeColorRGB[1]) * t;
+        this.strokeColorRGB[2] = prevState.strokeColorRGB[2] + (nextState.strokeColorRGB[2] - prevState.strokeColorRGB[2]) * t;
+        this.fillColorRGB[0] = prevState.fillColorRGB[0] + (nextState.fillColorRGB[0] - prevState.fillColorRGB[0]) * t;
+        this.fillColorRGB[1] = prevState.fillColorRGB[1] + (nextState.fillColorRGB[1] - prevState.fillColorRGB[1]) * t;
+        this.fillColorRGB[2] = prevState.fillColorRGB[2] + (nextState.fillColorRGB[2] - prevState.fillColorRGB[2]) * t;
+        // D. Synchronize directly to the XML rendering canvas
+        this.updateSVG();
+      }
+    }
+
+    class qcurve
+    {
+      constructor(objectIndex,pointsIndices,dx, dy, opacity, strokeWidth, strokeColor, scale,rotate )
+      {
+        this.index = objectIndex;
+        this.pointsIndices= pointsIndices;
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.dx = dx;
+        this.dy = dy;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.scale=scale;
+        this.rotate=rotate;
+        this.type='qcrv';
+        this.strokeColorRGB = parseColorToRGB(this.strokeColor);
+        //svg object
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+        this.d = d;
+        
+        SVGElement.setAttribute("d", this.d);
+        SVGElement.style.pointerEvents = 'none';
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.setAttribute("stroke-linecap",'round');
+        SVGElement.setAttribute("fill",'none');
+
+        this.SVGElement = SVGElement;
+        this.totalLength = SVGElement.getTotalLength();
+        this.strokeDashoffset = this.totalLength;
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';        
+      }
+
+
+
+      updateSVG()
+      {
+        let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+        this.d=d;
+        
+        this.SVGElement.setAttribute("d", this.d);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        let [rS, gS, bS] = this.strokeColorRGB.map(Math.round);
+        this.SVGElement.setAttribute("stroke",`rgb(${rS},${gS},${bS})`);
+        this.SVGElement.style.transformOrigin = "center";
+        this.SVGElement.style.transformBox = "fill-box";
+        this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`;
+        this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
+        this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
+        this.SVGElement.style.opacity = this.opacity;
+        this.totalLength = this.SVGElement.getTotalLength();
+        if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+      }
+
+      recordState() 
+      {
+        const stateSnapshot =
+        {
+          dx:this.dx,
+          dy:this.dy,
+          rotate:this.rotate,
+          scale:this.scale,
+          opacity: this.opacity,
+          strokeColor: this.strokeColor,
+          strokeColorRGB:[...this.strokeColorRGB],
+          strokeWidth:this.strokeWidth,
+          strokeDasharray: this.totalLength,
+          strokeDashoffset: this.strokeDashoffset
+        };
+
+        return stateSnapshot;
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+        this.initialState.strokeDasharray= parseFloat(this.totalLength);
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+        this.d=d;
+        this.dx = prevState.dx + (nextState.dx - prevState.dx) * t;
+        this.dy = prevState.dy + (nextState.dy - prevState.dy) * t;
+        this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.strokeWidth = prevState.strokeWidth + (nextState.strokeWidth - prevState.strokeWidth) * t;
+        this.strokeDashoffset = prevState.strokeDashoffset + (nextState.strokeDashoffset - prevState.strokeDashoffset) * t;
+        this.strokeColorRGB[0] = prevState.strokeColorRGB[0] + (nextState.strokeColorRGB[0] - prevState.strokeColorRGB[0]) * t;
+        this.strokeColorRGB[1] = prevState.strokeColorRGB[1] + (nextState.strokeColorRGB[1] - prevState.strokeColorRGB[1]) * t;
+        this.strokeColorRGB[2] = prevState.strokeColorRGB[2] + (nextState.strokeColorRGB[2] - prevState.strokeColorRGB[2]) * t;
+        // D. Synchronize directly to the XML rendering canvas
+        this.updateSVG();
+      }
+    }
+  
+    class arrow
+    {
+      constructor(objectIndex,pointsIndices, r , opacity, strokeWidth, strokeColor, scale,rotate)
+      {
+        this.index = objectIndex;
+        this.pointsIndices= pointsIndices;
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.r = r;
+        this.dx = 0;
+        this.dy = 0;
+        this.opacity = opacity;
+        this.strokeWidth = strokeWidth;
+        this.strokeColor = strokeColor;
+        this.strokeColorRGB = parseColorToRGB(this.strokeColor);
+        this.scale=scale;
+        this.rotate=rotate;
+        this.type='arw';
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        SVGElement.setAttribute("id",'SVGElement'+objectIndex);
+        let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
+        for (let i = 1; i < this.pointsIndices.length; i++) 
+        {
+          d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
+        }
+        if(this.pointsIndices.length==3)
+        {
+          d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+        }
+        let ah = arrowHeadPath(this.pointsIndices,r);
+        d+=ah;
+        this.d=d;
+        SVGElement.setAttribute("d", d);
+        SVGElement.style.pointerEvents = 'none';
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.setAttribute("stroke-linecap",'round');
+        SVGElement.setAttribute("fill",'none');
+        this.SVGElement = SVGElement;
+        this.totalLength = SVGElement.getTotalLength();
+        this.strokeDashoffset = this.totalLength;
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';
+      }
+
+      updateSVG()
+      {
+        let d = `M ${objects[this.pointsIndices[0]].cx} ${ objects[this.pointsIndices[0]].cy}`;
+        for (let i = 1; i < this.pointsIndices.length; i++) 
+        {
+          d+=` L ${objects[this.pointsIndices[i]].cx} ${objects[this.pointsIndices[i]].cy}`;
+        }
+        if(this.pointsIndices.length==3)
+        {
+          d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+        }
+        let ah = arrowHeadPath(this.pointsIndices,this.r);
+        d+=ah;
+        this.d = d;
+        this.SVGElement.setAttribute("d", this.d);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        let [rS, gS, bS] = this.strokeColorRGB.map(Math.round);
+        this.SVGElement.setAttribute("stroke",`rgb(${rS},${gS},${bS})`);
+        this.SVGElement.style.transformOrigin = "center";
+        this.SVGElement.style.transformBox = "fill-box";
+        this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`;
+        this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
+        this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
+        this.SVGElement.style.opacity = this.opacity;
+        this.totalLength = this.SVGElement.getTotalLength();
+        if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+      }
+
+      recordState() 
+      {
+        const stateSnapshot =
+        {
+          dx:this.dx,
+          dy:this.dy,
+          rotate:this.rotate,
+          scale:this.scale,
+          opacity: this.opacity,
+          strokeColor: this.strokeColor,
+          strokeColorRGB:[...this.strokeColorRGB],
+          strokeWidth:this.strokeWidth,
+          strokeDasharray: this.totalLength,
+          strokeDashoffset: this.strokeDashoffset
+        };
+
+        return stateSnapshot;
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+        this.initialState.strokeDasharray= parseFloat(this.totalLength);
+      }
+
+      interpolateState(prevState, nextState, t)
+      { 
+        let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+        let ah = arrowHeadPath(this.pointsIndices,this.r);
+        d+=ah;
+        this.d=d;
+        this.dx = prevState.dx + (nextState.dx - prevState.dx) * t;
+        this.dy = prevState.dy + (nextState.dy - prevState.dy) * t;
+        this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.strokeWidth = prevState.strokeWidth + (nextState.strokeWidth - prevState.strokeWidth) * t;
+        this.strokeDashoffset = prevState.strokeDashoffset + (nextState.strokeDashoffset - prevState.strokeDashoffset) * t;
+        this.strokeColorRGB[0] = prevState.strokeColorRGB[0] + (nextState.strokeColorRGB[0] - prevState.strokeColorRGB[0]) * t;
+        this.strokeColorRGB[1] = prevState.strokeColorRGB[1] + (nextState.strokeColorRGB[1] - prevState.strokeColorRGB[1]) * t;
+        this.strokeColorRGB[2] = prevState.strokeColorRGB[2] + (nextState.strokeColorRGB[2] - prevState.strokeColorRGB[2]) * t;
+        // D. Synchronize directly to the XML rendering canvas
+        this.updateSVG();
+      }
+    }
+
+    function resetPlayerState()
+    {
+      animations.forEach(anim => anim.cancel());
+      animations = [];
+      objects = [];
+      aliveObjects = [];
+      globalPlaylist = [];
+      animationDuration = 0;
+      isPlaying = false;
+      isScrubbing = false;
+      //togglePlayBtn.innerHTML = "&#9654;";
+      const mainGroup = document.getElementById("mainSVGGroup");
+     
+      if (mainGroup) {
+        mainGroup.innerHTML = ""; 
+        }
+      updateProgressBarUI(0);
+    }
+
+    function parseProjectData(data)
+    {
+    // 1. Recreate Objects and instantiate them directly
+    data.initialObjects.forEach(objData => {
+      let newObj;
+      
+      if (objData.type === "pt") {
+            newObj = new basePoint(objData.index, objData.cx, objData.cy);
+        } else if (objData.type === "ptc") {
+            newObj = new point(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale);
+        } else if (objData.type === "txt") {
+            newObj = new text(
+              objData.index, objData.x, objData.y, objData.text, objData.opacity, 
+              objData.scale, objData.textColor, objData.fontSize, objData.rotate,
+              objData.width, objData.height
+            );
+        } else if (objData.type === "pgn") {
+            newObj = new polygon(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "pln") {
+            newObj = new polyline(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "cr") {
+            newObj = new circle(objData.index, objData.cx, objData.cy, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.property);
+        } else if (objData.type === "elp") {
+            newObj = new ellipse(objData.index, objData.cx, objData.cy, objData.rx, objData.ry, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rotate);
+        } else if (objData.type === "ang") {
+            newObj = new angle(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity, objData.fillColor, objData.scale, objData.rightAngle);
+        } else if (objData.type === "qcrv") {
+            newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if (objData.type === "arw") {
+            newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        }
+    
+        // Transfers all custom properties (including saved objData.svgContent strings)
+        const { SVGElement, spanElement, ...cleanData } = objData;
+        Object.assign(newObj, cleanData);
+    
+        objects[newObj.index] = newObj;
+        aliveObjects.push(newObj);
+      });
+    
+      // 2. Map Playlist steps
+      data.playlist.forEach(stepData => {
+        const targetObj = objects[stepData.objIndex];
+        if (targetObj) {
+          globalPlaylist.push({ 
+            element: targetObj, 
+            wait: stepData.wait, 
+            dur: stepData.dur, 
+            type: stepData.type, 
+            state: stepData.state 
+          });
+        }
+      });
+    
+      // 3. Safe Reference Framework Scanner
+      aliveObjects.forEach(obj => {
+        if (obj.type === 'txt') {
+          let maxWidth = parseFloat(obj.width) || 0;
+          let maxHeight = parseFloat(obj.height) || 0;
+    
+          globalPlaylist.forEach(step => {
+            if (step.element === obj && step.state) {
+              let stepWidth = parseFloat(step.state.width) || 0;
+              let stepHeight = parseFloat(step.state.height) || 0;
+              if (stepWidth > maxWidth) maxWidth = stepWidth;
+              if (stepHeight > maxHeight) maxHeight = stepHeight;
+            }
+          });
+    
+          if (maxWidth > 2) obj.width = Math.ceil(maxWidth);
+          if (maxHeight > 2) obj.height = Math.ceil(maxHeight);
+    
+          // Lock bounds into WAAPI layout rules
+          
+        }
+      });
+    
+      // 4. Fire rendering pipeline immediately
+      render();
+
+      //renderAll();
+      //updateTimelineUI();
+    
+      return Promise.resolve();
+    }
+
+    // --- 5. Unified Animation & Playback Console Controls ---
+   // Global state matrices to track absolute values
+    let masterTimelineMatrix = [];
+
+    function bakeAnimations() {
+      hideAllBasePoints();
+      animations = []; 
+      masterTimelineMatrix = []; 
+
+      if (globalPlaylist.length === 0) return;
+
+      // Initialize every object's timeline frame array with its frame-0 milestone
+      objects.forEach(obj => {
+        if (!obj) return;
+        obj.timelineFrames = [{
+          time: 0,
+          state: { ...obj.initialState }
+        }];
+      });
+
+      // FIX #3: Track a sequential running clock instead of re-starting at 0 for every object
+      let globalSequenceTime = 0;
+
+      globalPlaylist.forEach(step => {
+        const obj = step.element;
+        
+        // 1. Calculate step milestones relative to the sequential global running clock
+        let stepStartTime = globalSequenceTime + (parseFloat(step.wait) * 1000);
+        let stepEndTime = stepStartTime + (parseFloat(step.dur) * 1000);
+
+        // 2. Advance the master clock sequence forward
+        globalSequenceTime = stepEndTime;
+
+        // 3. Update the specific target object's timeline structure
+        let frames = obj.timelineFrames;
+        let lastKnownState = frames[frames.length - 1].state;
+
+        // Create a holding state milestone at the start of this action block
+        frames.push({
+          time: stepStartTime,
+          state: { ...lastKnownState }
+        });
+
+        // Merge new active properties safely over preceding frame variables
+        let mergedState = { ...lastKnownState, ...step.state };
+        frames.push({
+          time: stepEndTime,
+          state: mergedState
+        });
+      });
+
+      // Pad the final duration limits
+      let endPause = 500; // 0.5s operational padding
+      animationDuration = Math.round(globalSequenceTime + endPause);
+
+      // Pad out every individual object track to stretch cleanly to the terminal timeline edge
+      objects.forEach(obj => {
+        if (!obj) return;
+        let frames = obj.timelineFrames;
+        let lastState = frames[frames.length - 1].state;
+        if (frames[frames.length - 1].time < animationDuration) {
+          frames.push({
+            time: animationDuration,
+            state: { ...lastState }
+          });
+        }
+      });
+
+      globalCurrentTime = 0;
+      renderStateAtTime(0);
+      updateProgressBarUI(0);
+
+      console.log(`State-driven engine compiled successfully. Duration: ${animationDuration}ms`);
+
+      timeTotal.textContent = formatTime(animationDuration/1000);
+    }
+
+    function formatTime(sec)
+    {
+      const mins = Math.floor(sec / 60);
+      const secs = Math.floor(sec % 60);
+      const millis = Math.floor((sec % 1) * 100);
+
+      const paddedSecs = secs.toString().padStart(2, '0');
+      const paddedMillis = millis.toString().padStart(2, '0');
+
+      return `${mins}:${paddedSecs}.${paddedMillis}`;
+    }
+
+
+    function renderStateAtTime(ms)
+    {
+      ms = Math.max(0, Math.min(animationDuration, ms));
+
+      objects.forEach(obj => {
+        if (!obj || !obj.timelineFrames) return;
+
+        let frames = obj.timelineFrames;
+        let prev = frames[0];
+        let next = frames[frames.length - 1];
+
+        // Find the current keyframe interval block
+        for (let i = 0; i < frames.length - 1; i++) {
+          if (ms >= frames[i].time && ms <= frames[i + 1].time) {
+            prev = frames[i];
+            next = frames[i + 1];
+            break;
+          }
+        }
+
+        let t = 0;
+        let delta = next.time - prev.time;
+        if (delta > 0) t = (ms - prev.time) / delta;
+
+        // Zero redundancy: Every class handles its own math and updates its own DOM elements
+        if (typeof obj.interpolateState === 'function') {
+          obj.interpolateState(prev.state, next.state, t);
+        }
+      });
+    }
+
+    let wakeLock = null;
+    let globalCurrentTime = 0;
+    let lastTickTime = 0;
+
+    function playAnimation()
+    {
+      if (isPlaying) return;
+      isPlaying = true;
+      //togglePlayBtn.innerHTML = "&#10074;&#10074;"; // Update UI to Pause symbol
+      requestWakeLock();
+      
+      // Start the high-precision clock loop using requestAnimationFrame
+      let lastTimestamp = performance.now();
+      
+      function loop(now) {
+        if (!isPlaying) return; // Halt loop execution immediately if paused or scrubbed
+
+        let dt = now - lastTimestamp;
+        lastTimestamp = now;
+
+        // Track frame advancement using actual millisecond deltas
+        globalCurrentTime += dt;
+
+        // Check if the runtime has exceeded maximum playlist duration bounds
+        if (globalCurrentTime >= animationDuration) {
+          globalCurrentTime = animationDuration;
+          isPlaying = false;
+          //togglePlayBtn.innerHTML = "&#9654;"; // Revert back to Play symbol
+          releaseWakeLock();
+        }
+
+        // Render visual states and update progress width percentages synchronously
+        renderStateAtTime(globalCurrentTime);
+        updateProgressBarUI((globalCurrentTime / animationDuration) * 100);
+
+
+        if (isPlaying) {
+          requestAnimationFrame(loop);
+        }
+      }
+      
+      requestAnimationFrame(loop);
+    }
+
+    function pauseAnimation()
+    {
+      releaseWakeLock();
+      isPlaying = false;
+      //togglePlayBtn.innerHTML = "&#9654;"; // Update UI to Play symbol
+    }
+
+    function rewindAnimation()
+    {
+      isPlaying = false;
+      globalCurrentTime = 0;
+      //togglePlayBtn.innerHTML = "&#9654;";
+      renderStateAtTime(0);
+      updateProgressBarUI(0);
+      releaseWakeLock();
+    }
+
+   // --- 2. Button Event Listeners ---
+
+    togglePlayBtn.onclick = function(){
+      if (isPlaying) {
+        pauseAnimation();
+      } else {
+        // Automatically loop back to the beginning if the timeline has finished
+        if (globalCurrentTime >= animationDuration) {
+          rewindAnimation();
+        }
+        playAnimation();
+      }
+    };
+
+    /*
+
+    stopBtn.onclick = function() {
+      rewindAnimation();
+    };
+    */
+
+    function updateProgressBarUI(percent)
+    {
+      // Clamp percentages cleanly within absolute 0 to 100 limits
+      percent = Math.max(0, Math.min(100, percent));
+      timelineProgress.style.width = percent + '%';
+      timelineThumb.style.left = percent + '%';
+      timeCurrent.textContent = formatTime(percent * animationDuration/100000);
+    }
+
+   // --- 3. Core Timeline Scrubbing Math Engine ---
+
+    function scrub(e)
+    {
+      // Measures track width directly against the timelineScrubber bounding box layout area
+      const rect = timelineScrubber.getBoundingClientRect();
+      let percentage = (e.clientX - rect.left) / rect.width;
+      percentage = Math.max(0, Math.min(1, percentage));
+
+      // Lock global position pointer parameter to the coordinate location
+      globalCurrentTime = percentage * animationDuration;
+      
+      // Render and update UI immediately on input changes
+      renderStateAtTime(globalCurrentTime);
+      updateProgressBarUI(percentage * 100);
+    }
+
+    function scrubTouch(e)
+    {
+      if (e.touches.length === 0) return;
+      // Map touch positions precisely onto the cursor tracking profile
+      const fakeMouseEvent = {
+        clientX: e.touches[0].clientX
+      };
+      scrub(fakeMouseEvent);
+    }
+
+   // --- 4. Scroller Interaction Event Listeners (Mouse & Touch) ---
+
+    timelineScrubber.addEventListener('mousedown', (e) => {
+      isScrubbing = true;
+      pauseAnimation(); // Halt active running time clocks safely before calculating positions
+      scrub(e);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isScrubbing) scrub(e);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isScrubbing = false;
+    });
+
+    timelineScrubber.addEventListener('touchstart', (e) => {
+      isScrubbing = true;
+      pauseAnimation();
+      scrubTouch(e);
+    }, { passive: false });
+
+    window.addEventListener('touchmove', (e) => {
+      if (isScrubbing) {
+        e.preventDefault(); // Stop mobile devices from bouncing layout pages while scrubbing canvas lines
+        scrubTouch(e);
+      }
+    }, { passive: false });
+
+    window.addEventListener('touchend', () => {
+      isScrubbing = false;
+    });
+
+   // --- 5. Mobile Device Background WakeLock Management ---
+
+    async function requestWakeLock()
+    {
+      if ('wakeLock' in navigator) {
+        try {
+          if (!wakeLock) {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log('Screen Wake Lock active.');
+          }
+        } catch (err) {
+          console.log(`Wake Lock request failed: ${err.message}`);
+        }
+      }
+    }
+
+    function releaseWakeLock() {
+      if (wakeLock !== null) {
+        wakeLock.release()
+          .then(() => {
+            wakeLock = null;
+            console.log('Screen Wake Lock released.');
+          });
+      }
+    }
+
+    document.addEventListener('visibilitychange', async () => {
+      if (wakeLock !== null && document.visibilityState === 'visible') {
+        await requestWakeLock();
+      }
+    });
+
+   
+    
+
+    // Bootstrapping initialization launch
+    function launchPlayer()
+    {
+      document.getElementById("mainSVGGroup").style.visibility = "hidden" ;
+      initUI();
+      loadTheorem(0); // Safely runs now that all styles and fonts are loaded
+      setTimeout(() => { document.getElementById("mainSVGGroup").style.visibility = "visible" ;}, 100);
+    }
+
+    // Check if MathJax is already completely initialized
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise)
+    {
+    MathJax.startup.promise.then(() => {
+      console.log("MathJax is fully booted. Launching geometry engine configuration.");
+      
+      // 1. Core structural setup (parses objects, attaches nodes to DOM, runs initial render())
+      launchPlayer(); 
+
+      // 2. SAFARI HOOK: Wait for MathJax to finish formatting the newly appended DOM nodes
+      return MathJax.typesetPromise();
+    }).then(() => {
+      console.log("MathJax initial compilation complete. Securing frame layouts for Safari.");
+      
+      // 3. Bake your core animation matrices now that all bounding heights and scales are locked in
+      bakeAnimations();
+      
+      // 4. Set the initial state cleanly at time 0
+      globalCurrentTime = 0;
+      renderStateAtTime(0);
+      updateProgressBarUI(0);
+    }).catch((err) => {
+      console.error("Initialization loop exception:", err);
+    });
+    } 
+    else
+    {
+        // Fallback: If MathJax script fails or isn't used, launch anyway after DOM settles
+        window.addEventListener('DOMContentLoaded', () => {
+        launchPlayer();
+        bakeAnimations();
+        globalCurrentTime = 0;
+        renderStateAtTime(0);
+        updateProgressBarUI(0);
+      });
+    }
+
+    function parseNum(val)
+    {
+      if (typeof val === 'string') {
+        return parseFloat(val.replace(/px/g, '')) || 0;
+      }
+      return parseFloat(val) || 0;
+    }
+
+    function sideLength(Point1,Point2)
+    {
+      return Math.hypot(Point1.cx - Point2.cx, Point1.cy - Point2.cy);
+    }
+
+    function weightedPoint(A,B,x,y)
+    {
+      let Px= (Number(A.cx)*Number(y) + Number(B.cx)*Number(x))/Number(x+y);
+      let Py= (Number(A.cy)*Number(y) + Number(B.cy)*Number(x))/Number(x+y);
+      return {cx:Px, cy:Py};
+    }
+
+    function perpendicularPoint(C,A,B)
+    {
+      let a = sideLength(B,C);
+      let b = sideLength(A,C);
+      let c = sideLength(A,B);
+
+      let wb = parseFloat(a*a + c*c - b*b);
+      let wa = parseFloat(-a*a + c*c + b*b);
+
+      let P = weightedPoint(A,B,wa,wb);
+      return P;
+    }
+  
+
+    function angleInPath(pI,r,rightAngle)
+    {
+
+      let A = objects[pI[0]];
+      let B = objects[pI[1]];
+      let C = objects[pI[2]];
+
+      let a = sideLength(B,A);
+      let c = sideLength(B,C);
+
+      let Bs = weightedPoint(B,A,Number(r),Number(a-r));
+      let Be = weightedPoint(B,C,Number(r),Number(c-r));
+      let pth='';
+      if(rightAngle===true)
+      {
+        let Px= Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
+        let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
+
+        //pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+        pth=`M ${parseFloat(B.cx)} ${parseFloat(B.cy)} L ${parseFloat(Bs.cx)} ${parseFloat(Bs.cy)} L ${parseFloat(Px)} ${parseFloat(Py)} L ${parseFloat(Be.cx)} ${parseFloat(Be.cy)} Z`
+      }
+      //
+
+      else
+      {
+        pth='M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+      }
+      
+      return pth; 
+    }
+
+
+    function angleBoundaryPath(points,r,rightAngle)
+    {
+      let A = points[0];
+      let B = points[1];
+      let C = points[2];
+
+      let a = sideLength(B,A);
+      let c = sideLength(B,C);
+
+      let Bs = weightedPoint(B,A,Number(r),Number(a-r));
+      let Be = weightedPoint(B,C,Number(r),Number(c-r));
+      let pth='M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy;
+
+      if(rightAngle)
+      {
+        let Px= Number(Be.cx)+Number(Bs.cx)-Number(B.cx);
+        let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
+
+        pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy;
+      }
+      
+      return pth; 
+    }
+
+    function arrowHeadPath(pointsIndices,r)
+    {
+      let P = objects[pointsIndices[pointsIndices.length-2]];
+      let Q = objects[pointsIndices[pointsIndices.length-1]];
+
+      
+
+      let a = Q.cx - P.cx;
+      let b = Q.cy - P.cy;
+
+      let dPQ = Math.sqrt(a * a + b * b);
+
+      let xx = (b*r)/dPQ;
+      let yy = (a*r)/dPQ;
+
+      let T1x = (Number(Q.cx) + Number(xx)).toFixed(0);
+      let T1y = (Number(Q.cy) - Number(yy)).toFixed(0);
+
+      let T3x = (Number(Q.cx) - Number(xx)).toFixed(0);
+      let T3y = (Number(Q.cy) + Number(yy)).toFixed(0);
+
+      let T2= weightedPoint(Q,P,-2 * r,dPQ + 2 * r);
+
+      return `L ${T1x} ${T1y} L ${T2.cx} ${T2.cy} L ${T3x} ${T3y} L ${Q.cx} ${Q.cy}`;
+    }
+
+
+    function render()
+    {
+    
+      for(let i=0;i<aliveObjects.length;i++)
+      {
+        let obj = aliveObjects[i];
+        if(obj.type==='txt')
+          {
+            obj.updateSVG(); 
+            //obj.setToInitial();
+          }
+        else{ obj.updateSVG();}
+        document.getElementById("mainSVGGroup").appendChild(obj.SVGElement);
+      }
+
+     
+
+      if (typeof MathJax !== 'undefined' && typeof MathJax.typesetPromise === 'function') {
+          MathJax.typesetPromise() // Tell it exactly which element to format
+            .catch((err) => console.log('MathJax formatting error:', err));
+      } else if (typeof MathJax !== 'undefined' && typeof MathJax.typeset === 'function') {
+          try {
+              MathJax.typeset();
+          } catch(err) {
+              console.log('MathJax fallback typeset failed:', err);
+          }
+      } else {
+          console.log("MathJax engine is still bootstrapping. Rendering text as plain string temporarily.");
+      }
+    }
+
+    function hideAllBasePoints()
+    {
+      for(let i=0;i<objects.length;i++)
+      {
+        let obj=objects[i];
+        if (obj?.type !== 'pt') continue;
+        if(obj.type=='pt')
+        {
+          obj.SVGElement.setAttribute("opacity",0);
+        }
+      }
+    }
+
+    function parseColorToRGB(colorStr)
+    {
+      // If it's already an array or invalid, return a fallback black
+      if (!colorStr) return [0, 0, 0];
+      
+      // Create a temporary hidden element to leverage the browser's native CSS color parser
+      let fakeDiv = document.createElement("div");
+      fakeDiv.style.color = colorStr;
+      document.body.appendChild(fakeDiv);
+      
+      // Get computed style returns "rgb(r, g, b)" or "rgba(r, g, b, a)" natively
+      let computedColor = window.getComputedStyle(fakeDiv).color;
+      document.body.removeChild(fakeDiv);
+      
+      // Match the digits inside the rgb() string
+      let matches = computedColor.match(/\d+/g);
+      if (matches && matches.length >= 3) {
+        return [parseInt(matches[0]), parseInt(matches[1]), parseInt(matches[2])];
+      }
+      
+      return [0, 0, 0]; // Baseline fallback
+    }
+  </script>
+
+ 
+
+<script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['ams']},
+        tags: 'ams'
+      }
+    };
+</script>
+
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</body>
+</html>
