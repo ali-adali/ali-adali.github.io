@@ -800,6 +800,9 @@
     const timeCurrent = document.getElementById('timeCurrent');
     const timeTotal = document.getElementById('timeTotal');
 
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+
     let hideTimeout = null;
     const HIDE_DELAY_MS = 1500; // 2.5s idle fade out
 
@@ -2235,6 +2238,9 @@
     {
       if (isPlaying) return;
       isPlaying = true;
+
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
       //togglePlayBtn.innerHTML = "&#10074;&#10074;"; // Update UI to Pause symbol
       requestWakeLock();
       
@@ -2254,6 +2260,8 @@
         if (globalCurrentTime >= animationDuration) {
           globalCurrentTime = animationDuration;
           isPlaying = false;
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
           //togglePlayBtn.innerHTML = "&#9654;"; // Revert back to Play symbol
           releaseWakeLock();
         }
@@ -2275,12 +2283,16 @@
     {
       releaseWakeLock();
       isPlaying = false;
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
       //togglePlayBtn.innerHTML = "&#9654;"; // Update UI to Play symbol
     }
 
     function rewindAnimation()
     {
       isPlaying = false;
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
       globalCurrentTime = 0;
       //togglePlayBtn.innerHTML = "&#9654;";
       renderStateAtTime(0);
