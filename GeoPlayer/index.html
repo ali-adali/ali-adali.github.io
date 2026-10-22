@@ -17,7 +17,7 @@
 
 
       --phi: 1.61803398875;
-      --w: min(98vw, calc(98svh * var(--phi)));
+      --w: min(99vw, calc(99svh * var(--phi)));
 
       --bg-color: black;
       --mainDiv-bg:  #091f36;
@@ -43,7 +43,7 @@
     {
       :root 
       {
-        --w : min(98svh, calc(98vw * var(--phi)));
+        --w : min(99svh, calc(99vw * var(--phi)));
       }
     }
 
@@ -89,7 +89,7 @@
       justify-content: flex-start;
 
       background-color: var(--mainDiv-bg);
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
 
@@ -114,7 +114,8 @@
       align-items: center;
 
       outline: 1px solid blueviolet;
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+
+      box-shadow: 0.0vmin 0.0vmin 0.0vmin 0.0vmin var(--blue-glow);
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease; 
     }
@@ -129,7 +130,7 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+     
 
       
     }
@@ -156,8 +157,8 @@
       justify-content: flex-start;
       align-items: center;
 
-      outline: 1px solid blueviolet;
       box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+     
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease; 
     }
@@ -180,7 +181,6 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
      
     }
 
@@ -208,7 +208,7 @@
       align-items: center;
 
       outline: 1px solid blueviolet;
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
 
@@ -230,7 +230,7 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      
      
       
     }
@@ -261,7 +261,7 @@
       align-items: center;
 
       outline: 1px solid blueviolet;
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
 
@@ -322,11 +322,28 @@
       justify-content: center;
       text-align: center;
       vertical-align: center;
+
+      border-radius:  3cqmin ;
       
 
       font-size: 4cqmin;
       font-weight: 600;
+
+      pointer-events: none;
+
+      background: linear-gradient(145deg, #123187 0%, #0f172a 100%);
+      color: #eff6ff;
+      border: 0.3cqmin solid #0c215a;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.6),
+        0 0.4cqmin 1.4cqmin rgba(29, 78, 216, 0.4);
+      text-shadow: 0 0.1cqmin 0.2cqmin rgba(0, 0, 0, 0.6);
+      filter: brightness(1.08);
     }
+
+
+    
 
     .thms-div {
       width: 100%;
@@ -346,7 +363,7 @@
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;  
 
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);   
+      box-shadow: 0.0vmin 0.0vmin 0.0vmin 0.0vmin var(--blue-glow);   
     }
 
     .thm-item-card {
@@ -386,11 +403,14 @@
     /* Dynamic active class state */
     
     .thm-item-card.active {
-      background-color: rgba(16, 185, 129, 0.15);
-      border-color: var(--accent);
-      color: var(--accent);
+      
       transform: scale(1.03);
-      box-shadow: 0.0vmin 0.0vmin 0.7vmin 0.25vmin var(--blue-glow);
+      
+      background: linear-gradient(145deg, #b91c1c 0%, #450a0a 100%);
+      color: #fef2f2;
+      border: 0.2cqmin solid #ef4444;
+      box-shadow: 0.0vmin 0.0vmin 0.6vmin 0.2vmin var(--blue-glow);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
     }
 
     /* Component: The Player Canvas */
@@ -398,11 +418,21 @@
      
       aspect-ratio: 1 / 1;
       background-color: var(--canvas-bg);
-      border-radius: 12px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      border-radius: 3cqmin 0cqmin 0cqmin 3cqmin;
       overflow: hidden;
       outline: 0px solid orange;
     }
+
+    @media (orientation: portrait)
+    {
+      .screen-div
+      {
+        border-radius: 3cqmin 3cqmin 0cqmin 0cqmin ;
+      }
+
+    }
+
+
     
 
     /* Component: Combined Controls Block */
@@ -489,11 +519,6 @@
       background-color: var(--bg-card);
       border-color: var(--text-muted);
     }
-    
-    
-
-   
-    
 
  
   </style>
@@ -663,21 +688,216 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 2.3cqmin;
       font-weight: 600;
-      color: #94a3b8;
+      color: black;
       letter-spacing: 0.02em;
       white-space: nowrap;
       flex-shrink: 0;
     }
 
     .time-current {
-      color: darkorange;
+      color: darkred;
     }
 
     .time-divider {
       margin: 0 0px;
       color: #475569;
     }
+  </style>
 
+  <style id="metallicButtons">
+    .btn-metallic {
+      
+      /* Interactivity & Drag Safety */
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+      
+      /* Smooth tactile transitions */
+      transition: transform 0.12s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle sheen overlay sweep on hover */
+    .btn-metallic::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+      );
+      transform: skewX(-20deg);
+      transition: left 0.0s ease;
+    }
+
+    .btn-metallic:hover::before {
+      left: 160%;
+      transition: left 0.5s ease;
+    }
+
+    .btn-metallic:active {
+      transform: scale(0.97) translateY(1px);
+    }
+
+    /* =========================================================
+       1. METALLIC DARK ORANGE (Sunset Titanium / Burnt Amber)
+       ========================================================= */
+    .btn-orange {
+      background: linear-gradient(145deg, #d97706 0%, #78350f 100%);
+      color: #fff7ed;
+      border: 0.1cqmin solid #f59e0b;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.5),
+        0 0.4cqmin 1.4cqmin rgba(180, 83, 9, 0.35);
+      text-shadow: 0 0.1cqmin 0.2cqmin rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-orange:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.5vmin 0.1vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       2. METALLIC DARK GREEN (Alpine Pine / Deep Emerald)
+       ========================================================= */
+    .btn-green {
+      background: linear-gradient(145deg, #059669 0%, #064e3b 100%);
+      color: #ecfdf5;
+      border: 0.2cqmin solid #10b981;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.5),
+        0 0.4cqmin 1.4cqmin rgba(6, 78, 59, 0.4);
+      text-shadow: 0 0.1cqmin 0.2cqmin rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-green:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       3. METALLIC BLUE (Pacific Blue / Sierra Navy)
+       ========================================================= */
+    .btn-blue {
+      background: linear-gradient(145deg, #1d4ed8 0%, #0f172a 100%);
+      color: #eff6ff;
+      border: 0.1cqmin solid #3b82f6;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.6),
+        0 0.4cqmin 1.4cqmin rgba(29, 78, 216, 0.4);
+      text-shadow: 0 0.1cqmin 0.2cqmin rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-blue:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       4. METALLIC SILVER (Natural Titanium / Platinum Chrome)
+       ========================================================= */
+    .btn-silver {
+      background: linear-gradient(145deg, #e2e8f0 0%, #64748b 100%);
+      color: #0f172a;
+      border: 0.1cqmin solid #cbd5e1;
+      box-shadow: 
+        inset 0 0.1cqmin 0.15cqmin rgba(255, 255, 255, 0.8),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.4),
+        0 0.4cqmin 1.4cqmin rgba(148, 163, 184, 0.25);
+      font-weight: 700;
+      text-shadow: 0 0.1cqmin 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-silver:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.05);
+    }
+    /* =========================================================
+       5. METALLIC TURQUOISE (Alpine Cyan / Anodized Teal)
+       ========================================================= */
+    .btn-turquoise {
+      background: linear-gradient(145deg, #06b6d4 0%, #155e75 100%);
+      color: #ecfeff;
+      border: 1px solid #22d3ee;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 4px 14px rgba(8, 145, 178, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-turquoise:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       6. METALLIC BLACKISH (Midnight Onyx / Obsidian)
+       ========================================================= */
+    .btn-blackish {
+      background: linear-gradient(145deg, #262626 0%, #0a0a0a 100%);
+      color: #f5f5f5;
+      border: 1px solid #404040;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.25),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+        0 4px 14px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    }
+
+    .btn-blackish:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.12);
+    }
+
+    /* =========================================================
+       7. METALLIC DARK GRAY (Space Gray / Gunmetal Titanium)
+       ========================================================= */
+    .btn-darkgray {
+
+      background: linear-gradient(145deg, #52525b 0%, #27272a 100%);
+      color: #f4f4f5;
+      border: 1px solid #71717a;
+      border-radius: 1cqmin;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 14px rgba(39, 39, 42, 0.5);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-darkgray:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       8. METALLIC DARK RED (Crimson / Deep Ruby)
+       ========================================================= */
+    .btn-darkred {
+      background: linear-gradient(145deg, #b91c1c 0%, #450a0a 100%);
+      color: #fef2f2;
+      border: 1px solid #ef4444;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 14px rgba(185, 28, 28, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-darkred:hover {
+      box-shadow: 0.0vmin 0.0vmin 0.4vmin 0.2vmin var(--blue-glow);
+      filter: brightness(1.08);
+    }
   </style>
 
 </head>
@@ -740,7 +960,7 @@
 
     <div class="rectangle1Div">
       <div class="square2Div" >
-        <span class="playlistTitleDiv"> Playlist : Geometry Theorems </span>
+        <span class="playlistTitleDiv"> Playlist - Geometry Theorems </span>
         <div class="thms-div" id="theoremsSidebar"> </div>
         
       </div>
@@ -764,17 +984,9 @@
    <script>
    // --- 1. SPA Playlist Configuration ---
     const theoremPlaylist = [
-      { id: 1, title: "Law of Sines", file: "nv_test_LoS.json" },
-      { id: 2, title: "Law of Cosines", file: "nv_test_LoS.json" },
-      { id: 3, title: "Sine Area Formula", file: "nv_test_LoS.json" },
-      { id: 4, title: "Pythagorean Theorem", file: "nv_test_LoS.json" },
-      { id: 5, title: "Stewart's Theorem", file: "nv_test_LoS.json" },
-      { id: 6, title: "Manelous' Theorem", file: "nv_test_LoS.json" },
-      { id: 7, title: "Ceva's Theorem", file: "nv_test_LoS.json" },
-      { id: 8, title: "Intersection of Angle Bisectors", file: "nv_test_LoS.json" },
-      { id: 9, title: "Manelous' Theorem", file: "nv_test_LoS.json" },
-      { id: 10, title: "Ceva's Theorem", file: "nv_test_LoS.json" },
-      { id: 11, title: "Intersection of Angle Bisectors", file: "nv_test_LoS.json" }
+      { id: 1, title: "Problem - 1", file: "problem_1_complete.json" },
+      { id: 2, title: "Pythagorean Theorem", file: "pythagorean_thm.json" },
+      { id: 3, title: "Law of Sines", file: "nv_test_LoS.json" }
     ];
 
     // --- 2. Core Player State ---
@@ -859,6 +1071,9 @@
         card.appendChild(cardTitle);
 
         card.className = `thm-item-card ${idx === currentActiveIndex ? 'active' : ''}`;
+        card.classList.add('btn-metallic');
+        card.classList.add('btn-green');
+        //btn-green
         card.innerText = `${thm.id}. ${thm.title}`;
         card.onclick = () => loadTheorem(idx);
         sidebar.appendChild(card);
@@ -1054,10 +1269,10 @@
 
     class text
     { 
-      constructor(objectIndex, x, y, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
+      constructor(objectIndex, dx, dy, textStr, opacity, scale, textColor, fontSize, rotate, originalWidth, originalHeight) {
         this.index = objectIndex;
-        this.x = parseFloat(x);
-        this.y = parseFloat(y);
+        this.dx = parseFloat(dx);
+        this.dy = parseFloat(dy);
         this.text = textStr; 
         this.opacity = parseFloat(opacity);
         this.scale = parseFloat(scale);
@@ -1137,8 +1352,8 @@
 
         // --- CRITICAL SAFARI TRANSFORM REFACTOR ---
         // 1. Compute explicit geometric centers based on frame metrics
-        let centerX = this.x + this.width / 2;
-        let centerY = this.y + this.height / 2;
+        let centerX = this.dx + this.width / 2;
+        let centerY = this.dy + this.height / 2;
 
         // 2. Clear out tricky CSS transform bindings entirely
         this.SVGElement.style.transform = '';
@@ -1149,7 +1364,7 @@
         // Translate to the destination coordinates, handle rotation and scaling at the absolute center,
         // and compensate for centering offset.
         this.SVGElement.setAttribute("transform", 
-          `translate(${this.x}, ${this.y}) ` +
+          `translate(${this.dx}, ${this.dy}) ` +
           `translate(${this.width/2}, ${this.height/2}) ` +
           `scale(${this.scale}) ` +
           `rotate(${this.rotate}) ` +
@@ -1163,8 +1378,8 @@
       recordState() 
       {
         return {
-          x: parseFloat(this.x),
-          y: parseFloat(this.y),
+          dx: parseFloat(this.dx),
+          dy: parseFloat(this.dy),
           fontSize: parseFloat(this.fontSize),
           rotate: parseFloat(this.rotate),
           scale: parseFloat(this.scale),
@@ -1183,8 +1398,8 @@
 
       interpolateState(prevState, nextState, t)
       {
-        this.x = prevState.x + (nextState.x - prevState.x) * t;
-        this.y = prevState.y + (nextState.y - prevState.y) * t;
+        this.dx = prevState.dx + (nextState.dx - prevState.dx) * t;
+        this.dy = prevState.dy + (nextState.dy - prevState.dy) * t;
         this.fontSize = prevState.fontSize + (nextState.fontSize - prevState.fontSize) * t;
         this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
         this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
@@ -1237,8 +1452,15 @@
         SVGElement.setAttribute("stroke-linecap",'round');
         SVGElement.style.pointerEvents = 'none';
         this.SVGElement = SVGElement;
-        this.totalLength = SVGElement.getTotalLength();
+        //this.totalLength = SVGElement.getTotalLength();
+        //this.strokeDashoffset = this.totalLength;
+        let tl = SVGElement.getTotalLength();
+        this.totalLength = Math.ceil(tl)+2;
         this.strokeDashoffset = this.totalLength;
+        this.strokeDasharray = this.totalLength;
+
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';
+        SVGElement.style.strokeDasharray = this.totalLength+'px';
       }
 
 
@@ -1269,11 +1491,15 @@
         this.SVGElement.style.transformOrigin = "center";
         this.SVGElement.style.transformBox = "fill-box";
         this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`;
+
+        let tl = this.SVGElement.getTotalLength();
+        this.totalLength = parseFloat(Math.ceil(tl)+2);
         this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
-        this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
+        this.SVGElement.style.strokeDasharray =  (this.totalLength)+'px';
+
         this.SVGElement.style.opacity = this.opacity;
 
-        this.totalLength = this.SVGElement.getTotalLength();
+        //this.totalLength = this.SVGElement.getTotalLength();
         if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
       }
 
@@ -1281,19 +1507,19 @@
       {
         const stateSnapshot =
         {
-          scale:this.scale,
-          rotate:this.rotate,
-          dx:this.dx,
-          dy:this.dy,
-          opacity: this.opacity,
+          scale:parseFloat(this.scale),
+          rotate:parseFloat(this.rotate),
+          dx:parseFloat(this.dx),
+          dy:parseFloat(this.dy),
+          opacity: parseFloat(this.opacity),
           strokeColor: this.strokeColor,
           strokeColorRGB:[...this.strokeColorRGB],
-          fillColor: this.fillColor,
+          fillColor: parseFloat(this.fillColor),
           fillColorRGB: [...this.fillColorRGB],
-          fillOpacity:this.fillOpacity,
-          strokeWidth:this.strokeWidth,
-          strokeDasharray: this.totalLength,
-          strokeDashoffset: this.strokeDashoffset
+          fillOpacity:parseFloat(this.fillOpacity),
+          strokeWidth:parseFloat(this.strokeWidth),
+          strokeDasharray: parseFloat(this.totalLength),
+          strokeDashoffset: parseFloat(this.strokeDashoffset)
         };
 
         return stateSnapshot;
@@ -1372,7 +1598,9 @@
         SVGElement.setAttribute("fill",'none');
 
         this.SVGElement = SVGElement;
-        this.totalLength = SVGElement.getTotalLength();
+        //this.totalLength = SVGElement.getTotalLength();
+        let tl = SVGElement.getTotalLength();
+        this.totalLength = Math.ceil(tl)+2;
         this.strokeDashoffset = this.totalLength;
         SVGElement.style.strokeDashoffset = this.totalLength+'px';     
       }
@@ -1400,11 +1628,15 @@
         this.SVGElement.style.transformBox = "fill-box";
 
         this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`;
+
+        let tl = this.SVGElement.getTotalLength();
+        this.totalLength = parseFloat(Math.ceil(tl)+2);
+
         this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
         this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
         this.SVGElement.style.opacity = this.opacity;
 
-        this.totalLength = this.SVGElement.getTotalLength();
+        //this.totalLength = this.SVGElement.getTotalLength();
       }
 
       recordState() 
@@ -1487,8 +1719,14 @@
 
         this.SVGElement = SVGElement;
         this.totalLength = SVGElement.getTotalLength();
+        let tl = SVGElement.getTotalLength();
+        this.totalLength = Math.ceil(tl)+2;
+
         this.strokeDashoffset = this.totalLength;
+        this.strokeDasharray = this.totalLength;
+
         SVGElement.style.strokeDashoffset = this.totalLength+'px';
+        SVGElement.style.strokeDasharray = this.totalLength+'px';
       }
 
       updateSVG()
@@ -1505,10 +1743,13 @@
         this.SVGElement.style.transformOrigin = "center";
         this.SVGElement.style.transformBox = "fill-box";
         this.SVGElement.style.transform = `scale(${this.scale})`;
+
+        let tl = this.SVGElement.getTotalLength();
+        this.totalLength = parseFloat(Math.ceil(tl)+2);
         this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
         this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
         this.SVGElement.style.opacity = this.opacity;
-        this.totalLength = this.SVGElement.getTotalLength();
+        //this.totalLength = this.SVGElement.getTotalLength();
       }
 
       recordState() 
@@ -1593,10 +1834,15 @@
         SVGElement.style.pointerEvents = 'none';
 
         this.SVGElement = SVGElement;
-        this.totalLength = SVGElement.getTotalLength();
+        //this.totalLength = SVGElement.getTotalLength();
+        let tl = SVGElement.getTotalLength();
+        this.totalLength = Math.ceil(tl)+2;
+
         this.strokeDashoffset = this.totalLength;
+        this.strokeDasharray = this.totalLength;
 
         SVGElement.style.strokeDashoffset = this.totalLength+'px';
+        SVGElement.style.strokeDasharray = this.totalLength+'px';
       }
 
       updateSVG()
@@ -1617,11 +1863,14 @@
         this.SVGElement.style.transformOrigin = "center";
         this.SVGElement.style.transformBox = "fill-box";
         this.SVGElement.style.transform = `rotate(${this.rotate}deg) scale(${this.scale})`;
+
+        let tl = this.SVGElement.getTotalLength();
+        this.totalLength = parseFloat(Math.ceil(tl)+2);
+
         this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
         this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
         this.SVGElement.style.opacity = this.opacity;
 
-        this.totalLength = this.SVGElement.getTotalLength();
       }
 
       recordState() 
@@ -1685,14 +1934,14 @@
       {
         this.index = objectIndex;
         this.pointsIndices= pointsIndices;
-        this.r = r;
+        this.r = parseFloat(r);
         this.dx = 0;
         this.dy = 0;
-        this.scale=scale;
-        this.opacity = opacity;
-        this.strokeWidth = strokeWidth;
+        this.scale=parseFloat(scale);
+        this.opacity = parseFloat(opacity);
+        this.strokeWidth = parseFloat(strokeWidth);
         this.strokeColor = strokeColor;
-        this.fillOpacity = fillOpacity;
+        this.fillOpacity = parseFloat(fillOpacity);
         this.fillColor = fillColor;
         this.strokeColorRGB = parseColorToRGB(this.strokeColor);
         this.fillColorRGB = parseColorToRGB(this.fillColor);
@@ -1710,10 +1959,15 @@
         SVGElement.setAttribute("stroke-linecap",'round');
 
         this.SVGElement = SVGElement;
-        this.totalLength = SVGElement.getTotalLength();
-        this.strokeDashoffset = this.totalLength;
-        SVGElement.style.strokeDashoffset = this.totalLength+'px';
 
+        let tl = SVGElement.getTotalLength();
+        this.totalLength = Math.ceil(tl)+2;
+        //this.totalLength = SVGElement.getTotalLength();
+        this.strokeDashoffset = this.totalLength;
+        this.strokeDasharray = this.totalLength;
+
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';
+        SVGElement.style.strokeDasharray = this.totalLength+'px';
       }
 
       updateSVG()
@@ -1732,29 +1986,32 @@
         this.SVGElement.style.transformOrigin = "center";
         this.SVGElement.style.transformBox = "fill-box";
         this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) scale(${this.scale})`;
+
+        let tl = this.SVGElement.getTotalLength();
+        this.totalLength = parseFloat(Math.ceil(tl)+2);
+
         this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
         this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
         this.SVGElement.style.opacity = this.opacity;
 
-        this.totalLength = this.SVGElement.getTotalLength();
       }
 
       recordState() 
       {
         const stateSnapshot = 
         {
-          scale:this.scale,
-          dx:this.dx,
-          dy:this.dy,
-          opacity: this.opacity,
-          fillOpacity:this.fillOpacity,
-          strokeWidth:this.strokeWidth,
+          scale:parseFloat(this.scale),
+          dx:parseFloat(this.dx),
+          dy:parseFloat(this.dy),
+          opacity: parseFloat(this.opacity),
+          fillOpacity: parseFloat(this.fillOpacity),
+          strokeWidth: parseFloat(this.strokeWidth),
           strokeColor: this.strokeColor,
           strokeColorRGB:[...this.strokeColorRGB],
           fillColor: this.fillColor,
           fillColorRGB: [...this.fillColorRGB],
-          strokeDasharray: this.totalLength,
-          strokeDashoffset: this.strokeDashoffset
+          strokeDasharray: parseFloat(this.totalLength),
+          strokeDashoffset: parseFloat(this.strokeDashoffset)
         };
 
         return stateSnapshot;
@@ -1818,9 +2075,14 @@
         SVGElement.setAttribute("fill",'none');
 
         this.SVGElement = SVGElement;
-        this.totalLength = SVGElement.getTotalLength();
+
+        let tl = SVGElement.getTotalLength();
+        this.totalLength = Math.ceil(tl)+2;
         this.strokeDashoffset = this.totalLength;
-        SVGElement.style.strokeDashoffset = this.totalLength+'px';        
+        this.strokeDasharray = this.totalLength;
+
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';
+        SVGElement.style.strokeDasharray = this.totalLength+'px';        
       }
 
 
@@ -1837,11 +2099,13 @@
         this.SVGElement.style.transformOrigin = "center";
         this.SVGElement.style.transformBox = "fill-box";
         this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`;
+
+        let tl = this.SVGElement.getTotalLength();
+        this.totalLength = parseFloat(Math.ceil(tl)+2);
         this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
         this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
         this.SVGElement.style.opacity = this.opacity;
-        this.totalLength = this.SVGElement.getTotalLength();
-        if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+        
       }
 
       recordState() 
@@ -1925,9 +2189,15 @@
         SVGElement.setAttribute("stroke-linecap",'round');
         SVGElement.setAttribute("fill",'none');
         this.SVGElement = SVGElement;
-        this.totalLength = SVGElement.getTotalLength();
+
+        let tl = SVGElement.getTotalLength();
+        this.totalLength = Math.ceil(tl)+2;
+
         this.strokeDashoffset = this.totalLength;
+        this.strokeDasharray = this.totalLength;
+
         SVGElement.style.strokeDashoffset = this.totalLength+'px';
+        SVGElement.style.strokeDasharray = this.totalLength+'px';
       }
 
       updateSVG()
@@ -1951,11 +2221,17 @@
         this.SVGElement.style.transformOrigin = "center";
         this.SVGElement.style.transformBox = "fill-box";
         this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`;
+
+        let tl = this.SVGElement.getTotalLength();
+        this.totalLength = parseFloat(Math.ceil(tl)+2);
+
         this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
         this.SVGElement.style.strokeDasharray =  this.totalLength+'px';
         this.SVGElement.style.opacity = this.opacity;
-        this.totalLength = this.SVGElement.getTotalLength();
-        if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.max = this.totalLength.toFixed(0);
+
+
+        //this.totalLength = this.SVGElement.getTotalLength();
+        
       }
 
       recordState() 
@@ -1985,10 +2261,10 @@
 
       interpolateState(prevState, nextState, t)
       { 
-        let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
-        let ah = arrowHeadPath(this.pointsIndices,this.r);
-        d+=ah;
-        this.d=d;
+        //let d=`M ${objects[this.pointsIndices[0]].cx} ${objects[this.pointsIndices[0]].cy} Q ${objects[this.pointsIndices[1]].cx} ${objects[this.pointsIndices[1]].cy} ${objects[this.pointsIndices[2]].cx} ${objects[this.pointsIndices[2]].cy} `;
+        //let ah = arrowHeadPath(this.pointsIndices,this.r);
+        //d+=ah;
+        //this.d=d;
         this.dx = prevState.dx + (nextState.dx - prevState.dx) * t;
         this.dy = prevState.dy + (nextState.dy - prevState.dy) * t;
         this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
@@ -2002,6 +2278,174 @@
         // D. Synchronize directly to the XML rendering canvas
         this.updateSVG();
       }
+    }
+
+     class rectangle
+    {
+      constructor(objectIndex,pointIndex, height, width, opacity, strokeWidth, strokeColor,fillOpacity, fillColor, scale,rotate,rx,ry)
+      {
+        this.index = objectIndex;
+        this.pointIndex=pointIndex;
+    
+        
+
+        this.height = parseFloat(height);
+        this.width = parseFloat(width);
+
+
+        this.scale=parseFloat(scale);
+        this.rotate = parseFloat(rotate);
+        this.opacity = parseFloat(opacity);
+        this.fillOpacity = parseFloat(fillOpacity);
+        this.strokeWidth = parseFloat(strokeWidth);
+        this.strokeColor = strokeColor;
+        this.strokeColorRGB = parseColorToRGB(this.strokeColor);
+        this.fillColor = fillColor;
+        this.fillColorRGB = parseColorToRGB(this.fillColor);
+
+        this.rx = parseFloat(rx);
+        this.ry = parseFloat(ry);
+
+        
+        this.property = '';
+        this.type='rec';
+
+        // INITIALIZE COLOR RETAINERS (Fixes the undefined array bug)
+        
+        
+
+        
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+
+        SVGElement.setAttribute("id",'SVGElement'+this.index);
+
+        SVGElement.setAttribute("x",objects[this.pointIndex].cx);
+        SVGElement.setAttribute("y",objects[this.pointIndex].cy);
+        SVGElement.setAttribute("height",this.height);
+        SVGElement.setAttribute("width",this.width);
+
+        SVGElement.setAttribute("rx",this.rx);
+        SVGElement.setAttribute("ry",this.ry);
+
+
+        SVGElement.setAttribute("stroke-linejoin",'round');
+        SVGElement.setAttribute("stroke-linecap",'round');
+
+        SVGElement.style.pointerEvents = 'none';
+        
+
+        this.SVGElement = SVGElement;
+        let tl = SVGElement.getTotalLength();
+        this.totalLength = Math.ceil(tl)+2;
+
+        this.strokeDashoffset = this.totalLength;
+        this.strokeDasharray = this.totalLength;
+
+        SVGElement.style.strokeDashoffset = this.totalLength+'px';
+        SVGElement.style.strokeDasharray = this.totalLength+'px';
+    
+      }
+
+
+
+      updateSVG()
+      {
+        this.SVGElement.setAttribute("x",objects[this.pointIndex].cx);
+        this.SVGElement.setAttribute("y",objects[this.pointIndex].cy);
+
+        this.SVGElement.setAttribute("height",this.height);
+        this.SVGElement.setAttribute("width",this.width);
+
+        this.SVGElement.setAttribute("rx",this.rx);
+        this.SVGElement.setAttribute("ry",this.ry);
+        this.SVGElement.setAttribute("stroke-width",this.strokeWidth);
+        this.SVGElement.setAttribute("fill-opacity",this.fillOpacity);
+
+        let [rS, gS, bS] = this.strokeColorRGB.map(Math.round);
+        let [rF, gF, bF] = this.fillColorRGB.map(Math.round);
+
+        this.SVGElement.setAttribute("stroke",`rgb(${rS},${gS},${bS})`);
+        this.SVGElement.setAttribute("fill",`rgb(${rF},${gF},${bF})`);
+
+        //css
+        this.SVGElement.style.transformOrigin = "center";
+        this.SVGElement.style.transformBox = "fill-box";
+        this.SVGElement.style.transform = `rotate(${this.rotate}deg) scale(${this.scale})`;
+
+        let tl = this.SVGElement.getTotalLength();
+        this.totalLength = parseFloat(Math.ceil(tl)+2);
+
+        this.SVGElement.style.strokeDashoffset = this.strokeDashoffset+'px';
+        this.SVGElement.style.strokeDasharray =  (this.totalLength)+'px';
+        this.SVGElement.style.opacity = this.opacity;
+
+        
+        if (this.strokeDashoffsetInput) this.strokeDashoffsetInput.max = parseFloat(this.totalLength);
+      }
+
+  
+
+      recordState() 
+      {
+        const stateSnapshot =
+        {
+          height:parseFloat(this.height),
+          width:parseFloat(this.width),
+          scale:parseFloat(this.scale),
+          rotate:parseFloat(this.rotate),
+          opacity: parseFloat(this.opacity),
+          strokeColor: this.strokeColor,
+          strokeColorRGB:[...this.strokeColorRGB],
+          fillColor: parseFloat(this.fillColor),
+          fillColorRGB: [...this.fillColorRGB],
+          fillOpacity:parseFloat(this.fillOpacity),
+          strokeWidth:parseFloat(this.strokeWidth),
+          strokeDasharray: parseFloat(this.totalLength),
+          strokeDashoffset: parseFloat(this.strokeDashoffset),
+          rx:parseFloat(this.rx),
+          ry:parseFloat(this.ry)
+        };
+
+        return stateSnapshot;
+      }
+
+      setInitialState()
+      {
+        this.initialState = this.recordState();
+        this.initialState.strokeDasharray= parseFloat(this.totalLength);
+        
+      }
+
+      interpolateState(prevState, nextState, t)
+      {
+        
+        this.height = prevState.height + (nextState.height - prevState.height) * t;
+        this.width = prevState.width + (nextState.width - prevState.width) * t;
+
+        this.rx = prevState.rx + (nextState.rx - prevState.rx) * t;
+        this.ry = prevState.ry + (nextState.ry - prevState.ry) * t;
+
+
+        this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        this.strokeWidth = prevState.strokeWidth + (nextState.strokeWidth - prevState.strokeWidth) * t;
+        this.fillOpacity = prevState.fillOpacity + (nextState.fillOpacity - prevState.fillOpacity) * t;
+
+        this.strokeDashoffset = prevState.strokeDashoffset + (nextState.strokeDashoffset - prevState.strokeDashoffset) * t;
+       
+        this.strokeColorRGB[0] = prevState.strokeColorRGB[0] + (nextState.strokeColorRGB[0] - prevState.strokeColorRGB[0]) * t;
+        this.strokeColorRGB[1] = prevState.strokeColorRGB[1] + (nextState.strokeColorRGB[1] - prevState.strokeColorRGB[1]) * t;
+        this.strokeColorRGB[2] = prevState.strokeColorRGB[2] + (nextState.strokeColorRGB[2] - prevState.strokeColorRGB[2]) * t;
+
+        this.fillColorRGB[0] = prevState.fillColorRGB[0] + (nextState.fillColorRGB[0] - prevState.fillColorRGB[0]) * t;
+        this.fillColorRGB[1] = prevState.fillColorRGB[1] + (nextState.fillColorRGB[1] - prevState.fillColorRGB[1]) * t;
+        this.fillColorRGB[2] = prevState.fillColorRGB[2] + (nextState.fillColorRGB[2] - prevState.fillColorRGB[2]) * t;
+
+        // D. Synchronize directly to the XML rendering canvas
+        this.updateSVG();
+      }
+
     }
 
     function resetPlayerState()
@@ -2053,6 +2497,8 @@
             newObj = new qcurve(objData.index, objData.pointsIndices, objData.dx, objData.dy, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
         } else if (objData.type === "arw") {
             newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
+        } else if(objData.type === "rec") {
+              newObj = new rectangle(objData.index, objData.pointIndex, objData.height,objData.width, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity,objData.fillColor, objData.scale, objData.rotate,objData.rx,objData.ry);
         }
     
         // Transfers all custom properties (including saved objData.svgContent strings)
@@ -2524,13 +2970,13 @@
         let Py = Number(Be.cy)+Number(Bs.cy)-Number(B.cy);
 
         //pth= 'M '+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
-        pth=`M ${parseFloat(B.cx)} ${parseFloat(B.cy)} L ${parseFloat(Bs.cx)} ${parseFloat(Bs.cy)} L ${parseFloat(Px)} ${parseFloat(Py)} L ${parseFloat(Be.cx)} ${parseFloat(Be.cy)} Z`
+        pth=`M ${ Math.round(parseFloat(B.cx)) } ${ Math.round(parseFloat(B.cy))} L ${ Math.round(parseFloat(Bs.cx))} ${Math.round(parseFloat(Bs.cy))} L ${Math.round(parseFloat(Px))} ${Math.round(parseFloat(Py))} L ${Math.round(parseFloat(Be.cx))} ${Math.round(parseFloat(Be.cy))} Z`
       }
       //
 
       else
       {
-        pth='M '+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy+" L "+Number(B.cx)+" "+Number(B.cy)+' Z ';
+        pth='M '+ Math.round(Number(Bs.cx))+' '+Math.round(Number(Bs.cy)) +' A '+r+','+r+' 0 0,0 '+Math.round(Be.cx)+','+Math.round(Be.cy)+" L "+Math.round(Number(B.cx))+" "+Math.round(Number(B.cy))+' Z ';
       }
       
       return pth; 
