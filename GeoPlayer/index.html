@@ -915,7 +915,7 @@
     <div class="square1Div">
       <div class="screen-div">
         <svg class="svg-frame" id="playerSVG" xmlns="http://www.w3.org/2000/svg" style="width: 100cqmin; height: 100cqmin;" viewbox="0 0 750 750" >
-          <defs>
+          <defs >
             <pattern id="wholeGrid" width="60" height="60" patternUnits="userSpaceOnUse">
               <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#85BBB6" stroke-width="0.8"/>
             </pattern>
@@ -923,6 +923,8 @@
             <pattern id="halfGrid" width="30" height="30" patternUnits="userSpaceOnUse">
               <path d="M 30 0 L 0 0 0 30" fill="none" stroke="lightgray" stroke-width="0.8"/>
             </pattern>
+          </defs>
+          <defs id="allSVGDefs">
           </defs>
           <rect width="750" height="750" fill="url(#wholeGrid)" />
           <rect width="750" height="750" fill="url(#halfGrid)" />
@@ -983,9 +985,10 @@
 
    <script>
    // --- 1. SPA Playlist Configuration ---
-    const theoremPlaylist = [
-      { id: 1, title: "Problem - 1", file: "problem_1_complete.json" },
-      { id: 2, title: "Law of Sines", file: "los.json" }
+    const theoremPlaylist = [   
+      { id: 3, title: "Pythagorean Theorem", file: "pythagorean_thm2.json" },
+      { id: 2, title: "Law of Sines", file: "los.json" },
+      { id: 1, title: "Problem - 1", file: "problem_1_complete.json" }      
       
     ];
 
@@ -1104,6 +1107,8 @@
         })
         .then(data => {
           // 1. Recreate your objects into the DOM layout tree
+
+          document.getElementById('allSVGDefs').innerHTML='';
           parseProjectData(data);
           return Promise.resolve();
         })
@@ -1281,6 +1286,39 @@
         this.fontSize = parseFloat(fontSize);
         this.rotate = parseFloat(rotate);
         this.type = 'txt';
+
+
+        
+
+
+        this.width = originalWidth;
+        this.height = originalHeight;
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        SVGElement.setAttribute("id",'SVGText'+objectIndex);
+        SVGElement.setAttribute('style','transform-box: fill-box; transform-origin: center;');
+
+        let defs = document.getElementById('allSVGDefs');
+        let clipPath = document.createElementNS("http://www.w3.org/2000/svg", 'clipPath');
+        clipPath.setAttribute('id', `dynamicWipeClip${this.index}`);
+        defs.appendChild(clipPath);
+        this.clipPath = clipPath;
+        let clipRect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+        //clipRect.setAttribute('id', 'wipeRect');
+        clipRect.setAttribute('x', 0);
+        clipRect.setAttribute('y', 0);
+        clipRect.setAttribute('width', Math.max(2,this.width+2));
+        clipRect.setAttribute('height', Math.max(2,this.height+2));  // Covers full height
+        clipRect.setAttribute('fill', 'red');
+        clipPath.appendChild(clipRect);
+
+
+        SVGElement.setAttribute('clip-path', `url(#dynamicWipeClip${this.index})`);
+
+        this.clipRect = clipRect;
+        this.SVGElement = SVGElement;
+
+        /*
        
         // Safari Fix Step 1: Create a structural wrapper group element
         let wrapperGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -1309,10 +1347,82 @@
         this.width = parseFloat(originalWidth) || 100;
         this.height = parseFloat(originalHeight) || 30;
         this.fullWidth = this.width; 
+        */
       }
     
       updateSVG()
       {
+        let [r, g, b] = this.textColorRGB.map(Math.round);
+        //this.SVGElement.innerHTML = this.svgContent;
+        if (this.svgContent && this.svgContent !== "")
+        {
+          if (!this.SVGElement.querySelector('svg')) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(this.svgContent, 'image/svg+xml');
+                let latx = doc.documentElement;
+                if (latx) {
+                    this.SVGElement.appendChild(latx);
+                }
+          }
+          this.isComplied = true;
+        }
+
+        if(!this.isClipPath)
+        {
+          this.clipRect.setAttribute('height',  parseFloat(this.height)+4);
+          this.clipRect.setAttribute('width',  parseFloat(this.width)+4);
+          this.clipRect.setAttribute('x',  parseFloat(this.dx));
+          this.clipRect.setAttribute('y',  parseFloat(this.dy));
+          this.isClipPath=true;
+         } 
+        
+
+        let innerMathSvg = this.SVGElement.querySelector('svg');
+        if (innerMathSvg) {
+          
+          if (!innerMathSvg.hasAttribute('viewBox')) {
+              // Fallback viewBox if missing
+              innerMathSvg.setAttribute('viewBox', `0 0 ${this.width} ${this.height}`);
+          }
+
+
+
+
+          innerMathSvg.style.display = 'block';
+          innerMathSvg.style.overflow = 'visible'; 
+          innerMathSvg.style.color = `rgb(${r},${g},${b})`;
+
+          
+          innerMathSvg.setAttribute("x", this.dx);
+          innerMathSvg.setAttribute("y", this.dy);
+          innerMathSvg.style.transformBox = "fill-box"; 
+          innerMathSvg.style.transformOrigin = "center"; 
+          //innerMathSvg.style.backgroundColor = 'SeaGreen';
+
+
+          
+          if(this.clipRect)
+          {
+            this.clipRect.setAttribute('height',  parseFloat(this.height)+8);
+            this.clipRect.setAttribute('width',  parseFloat(this.width)+8);
+            this.clipRect.setAttribute('x',  parseFloat(this.dx)-8);
+            this.clipRect.setAttribute('y',  parseFloat(this.dy)-8);
+          }
+          
+          
+           
+        }
+
+        this.clipPath.style.fill=`rgb(${r},${g},${b})`;
+        this.SVGElement.setAttribute("x", this.dx);
+        this.SVGElement.setAttribute("y", this.dy);
+        this.SVGElement.style.transformBox = "fill-box"; 
+        this.SVGElement.style.transformOrigin = "center"; 
+        
+        this.SVGElement.style.transform = `scale(${this.scale}) rotate(${this.rotate}deg)`;
+        this.SVGElement.style.opacity = this.opacity;
+
+        /*
         let [r, g, b] = this.textColorRGB.map(Math.round);
 
         if (this.svgContent && this.svgContent !== "")
@@ -1373,6 +1483,7 @@
 
         // Manage group master visibility smoothly
         this.SVGElement.setAttribute("opacity", this.opacity);
+        */
       }
 
       recordState() 
@@ -1727,7 +1838,7 @@
         SVGElement.style.pointerEvents = 'none';
 
         this.SVGElement = SVGElement;
-       
+        
         //let tl = SVGElement.getTotalLength();
         let tl = 3000; // default fallback
         try {tl = this.SVGElement.getTotalLength();} catch (e) {}
@@ -2564,6 +2675,7 @@
       });
     
       // 3. Safe Reference Framework Scanner
+      /*
       aliveObjects.forEach(obj => {
         if (obj.type === 'txt') {
           let maxWidth = parseFloat(obj.width) || 0;
@@ -2585,6 +2697,7 @@
           
         }
       });
+      */
     
       // 4. Fire rendering pipeline immediately
       render();
