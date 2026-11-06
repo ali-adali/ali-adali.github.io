@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ali ADALI, PhD - Homepage</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo_still.svg">
+
+  <style>
+    /* Base Metallic Button Style (Applies to all div buttons) */
+    .btn-metallic {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      
+  
+      
+      /* Interactivity & Drag Safety */
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+      
+      /* Smooth tactile transitions */
+      transition: transform 0.12s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle sheen overlay sweep on hover */
+    .btn-metallic::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+      );
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+    }
+
+    .btn-metallic:hover::before {
+      left: 160%;
+    }
+
+    .btn-metallic:active {
+      transform: scale(0.97) translateY(1px);
+    }
+
+    /* =========================================================
+       1. METALLIC DARK ORANGE (Sunset Titanium / Burnt Amber)
+       ========================================================= */
+    .btn-orange {
+      background: linear-gradient(145deg, #d97706 0%, #78350f 100%);
+      color: #fff7ed;
+      border: 1px solid #f59e0b;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 4px 14px rgba(180, 83, 9, 0.35);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-orange:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.45),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 6px 20px rgba(245, 158, 11, 0.5);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       2. METALLIC DARK GREEN (Alpine Pine / Deep Emerald)
+       ========================================================= */
+    .btn-green {
+      background: linear-gradient(145deg, #059669 0%, #064e3b 100%);
+      color: #ecfdf5;
+      border: 1px solid #10b981;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 4px 14px rgba(6, 78, 59, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-green:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.45),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 6px 20px rgba(16, 185, 129, 0.45);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       3. METALLIC BLUE (Pacific Blue / Sierra Navy)
+       ========================================================= */
+    .btn-blue {
+      background: linear-gradient(145deg, #1d4ed8 0%, #0f172a 100%);
+      color: #eff6ff;
+      border: 0.15cqmin solid #3b82f6;
+      box-shadow: 
+        inset 0 0.15cqmin 0.15cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 14px rgba(29, 78, 216, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-blue:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.45),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 6px 20px rgba(59, 130, 246, 0.45);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       4. METALLIC SILVER (Natural Titanium / Platinum Chrome)
+       ========================================================= */
+    .btn-silver {
+      background: linear-gradient(145deg, #e2e8f0 0%, #64748b 100%);
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.8),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+        0 4px 14px rgba(148, 163, 184, 0.25);
+      font-weight: 700;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-silver:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.9),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+        0 6px 20px rgba(226, 232, 240, 0.4);
+      filter: brightness(1.05);
+    }
+
+      /* =========================================================
+       5. METALLIC TURQUOISE (Alpine Cyan / Anodized Teal)
+       ========================================================= */
+    .btn-turquoise {
+      background: linear-gradient(145deg, #06b6d4 0%, #155e75 100%);
+      color: #ecfeff;
+      border: 1px solid #22d3ee;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 4px 14px rgba(8, 145, 178, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-turquoise:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 6px 20px rgba(34, 211, 238, 0.45);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       6. METALLIC BLACKISH (Midnight Onyx / Obsidian)
+       ========================================================= */
+    .btn-blackish {
+      background: linear-gradient(145deg, #262626 0%, #0a0a0a 100%);
+      color: #f5f5f5;
+      border: 1px solid #404040;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.25),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+        0 4px 14px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    }
+
+    .btn-blackish:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+        0 6px 20px rgba(64, 64, 64, 0.5);
+      filter: brightness(1.12);
+    }
+
+    /* =========================================================
+       7. METALLIC DARK GRAY (Space Gray / Gunmetal Titanium)
+       ========================================================= */
+    .btn-darkgray {
+      background: linear-gradient(145deg, #52525b 0%, #27272a 100%);
+      color: #f4f4f5;
+      border: 1px solid #71717a;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 14px rgba(39, 39, 42, 0.5);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-darkgray:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.45),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 6px 20px rgba(113, 113, 122, 0.45);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       8. METALLIC DARK RED (Crimson / Deep Ruby)
+       ========================================================= */
+    .btn-darkred {
+      background: linear-gradient(145deg, #b91c1c 0%, #450a0a 100%);
+      color: #fef2f2;
+      border: 1px solid #ef4444;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 14px rgba(185, 28, 28, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-darkred:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.45),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 6px 20px rgba(239, 68, 68, 0.45);
+      filter: brightness(1.08);
+    }
+  </style>
+
+  <style>
+    :root {
+      --phi: 1.61803398875;
+      --w: min(99vw, calc(99svh * var(--phi)));
+
+
+
+      --bg-color: black;
+      --mainDiv-bg:  #091f36;
+
+      --accent-gold: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --text-main: #e4e5e7;
+      --text-muted: #9ca3af;
+      --border-color: #1f293d;
+
+
+      --bg-dark: #0b0f19;
+      --bg-card: #0f172a;
+
+      --card-bg2: #161b22;
+      --bg-color2: #0d1117;
+      --border-color2: #30363d;
+
+      
+      --blue-accent: #2563eb;       
+      --blue-glow: ghostwhite; 
+      --blue-light: #60a5fa;        
+      --blue-border: #1d4ed8;
+      --result-bg:#1e293b;
+
+      --gold : #FFD700;
+      
+
+    }
+
+    @media (orientation: portrait)
+    {
+      :root 
+      {
+        --w : min(99svh, calc(99vw * var(--phi)));
+      }
+    }
+
+    *{
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color); 
+      color: var(--text-main); 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height as fallback/standard */
+      height: 100svh;     /* Small viewport height - stays fixed even when address bar is expanded */
+      width: 100%;
+      
+      /* Prevent browser pull-to-refresh and bounce scrolling on outer body */
+      overscroll-behavior: none;
+      overflow: hidden; 
+    }
+
+    .rectangle0Div {
+      
+
+      width: var(--w);
+      height: calc( var(--w)/var(--phi) );
+
+      /*outline: 1px solid blueviolet;*/
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      background-color: var(--bg-dark);
+
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+      container-type: size;
+
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+
+    }
+
+    @media (orientation: portrait) {
+      .rectangle0Div {
+        
+        width: calc( var(--w)/var(--phi) );
+        height: var(--w);
+        flex-direction: column;
+      }
+    }
+
+    .square1Div {
+      height: calc( var(--w) / var(--phi) );
+      width: calc( var(--w) / var(--phi) );
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: center;
+      background-color: var(--bg-color2);
+
+      /*outline: 1px solid blueviolet;*/
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+      z-index: 2;
+      border-radius: 4cqmin;
+
+    }
+
+
+    .rectangle1Div {
+      opacity: 1;
+      height: calc( var(--w) / var(--phi) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi)) );
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+
+      
+    }
+
+    @media (orientation: portrait) {
+      .rectangle1Div
+      {
+        width: calc( var(--w) / var(--phi) );
+        height: calc( var(--w) / var(--phi)   / var(--phi) );
+        flex-direction: row;
+      }
+
+    }
+
+    .square2Div {
+      opacity: 1;
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      width: calc( var(--w) / (var(--phi)   * var(--phi)) );
+      height: calc( var(--w) / (var(--phi)   * var(--phi)) );
+      
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      /*outline: 1px solid blueviolet;*/
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+      font-size: 4cqmin;
+      padding-block: 2%;  
+    }
+
+    .square2DivPlace
+    {
+      height: calc(100%/8);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      outline: 0px solid blueviolet;
+      z-index: 4;
+      color: var(--text-muted);
+    }
+
+    .square2DivPlace span
+    {
+      width: 93%;
+      height: 80%;
+      text-align: center;
+      outline: 0.0px solid var(--text-muted);
+      border-radius: 999px;
+      align-content: center;
+      
+    }
+
+    @media (orientation: portrait) {
+
+      .square2Div
+      {
+        padding-block: 0%;
+      }
+
+      .square2DivPlace
+      {
+        align-items: center;
+      }
+
+
+
+    }
+  
+
+
+
+    .rectangle2Div {
+
+      opacity: 1;
+      
+      width: calc( var(--w) / (var(--phi)   * var(--phi)) );
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      aspect-ratio: var(--phi) / 1;
+
+
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      /* box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow); */
+
+      background-color: var(--bg-dark);
+
+      
+     
+    }
+
+    @media (orientation: portrait) {
+      .rectangle2Div 
+      {
+        height: calc( var(--w) / (var(--phi)   * var(--phi)) );
+        width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+        flex-direction: column;
+      }
+    }
+
+    .square3Div {
+      
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      opacity: 1;
+     
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      outline: 0px solid blueviolet;
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+
+      overflow: hidden;
+
+      border-radius: 4cqmin;
+
+      /*background-image: radial-gradient(60% 70% at 49% 50%, transparent 80%, transparent 85%, var(--bg-dark) 95%, var(--bg-dark) ), url('assets/WhiteBackground.jpg') ;
+
+      background-size: 
+        auto 100%, cover;     /* Stretches the gradient to fill the container */
+                 /* Scales the image to cover the container (or use exact width/height like '300px 200px') 
+
+      background-position: left;
+      background-repeat: no-repeat;*/
+
+
+    }
+
+    .square3Div img
+    {
+      display: block;
+      width: auto;
+      height: 100%;
+
+    }
+
+    
+
+    
+
+    .rectangle3Div {
+      /* In landscape, remaining height inside rectangle1Div */
+      opacity: 1;
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+     
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+     
+      
+    }
+
+    @media (orientation: portrait) {
+      .rectangle3Div {
+        width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      
+        height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+       
+        
+        flex-direction: row;
+      }
+    }
+
+    .square4Div {
+      
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      
+      
+      
+      display: flex;
+      flex-direction: column;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      outline: 0px solid blueviolet;
+      
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+      
+
+
+    }
+
+    .square4Title
+    {
+      height: calc(100%/5);
+      width: 100%;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      
+      border-radius: 0cqmin;
+      font-size: 2.7cqmin;
+      outline: 0px solid orangered;
+      margin-top: 5%;
+    }
+
+    .square4Title span
+    {
+      text-align: center;
+      width: 90%;
+      height: 90%;
+    }
+
+
+    .square4DivPlace
+    {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: 2.0cqmin;
+      color: var(--text-muted);
+      outline: 0px solid greenyellow;
+      gap: 0.0cqmin;
+    }
+
+    .square4DivPlace span
+    {
+      height: calc(90%/3);
+      width: 94%;
+      text-align: center;
+      outline:0px solid blueviolet;
+      align-content: center;   
+    }
+
+
+    .rectangle4Div {
+      /* In landscape, remaining height inside rectangle1Div */
+      opacity: 1;
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) * var(--phi) ) );
+     
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+     
+      
+    }
+
+    @media (orientation: portrait) {
+      .rectangle4Div {
+        height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      
+        width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) * var(--phi) ) );
+       
+        
+        flex-direction: row;
+      }
+    }
+
+    .square5Div {
+      
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) * var(--phi) ) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) * var(--phi) ) );
+      
+      
+      
+      display: flex;
+      flex-direction: column;
+
+      justify-content: center;
+      align-items: center;
+
+      outline: 0px solid blueviolet;
+      
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+
+
+      
+
+
+    }
+
+    .square5Div div
+    {
+      height: 80%;
+      width: 80%;
+      border-radius: 999px;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .square5Div div > svg
+    {
+      margin-top: 18%;
+      height: 80%;
+      width: 80%;
+     
+    }
+
+
+    .square1DivContent
+    {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      outline: 0px solid orangered;
+      gap: 1cqmin;
+      padding-block: 1%;
+      color: var(--text-main);
+    }
+
+    .square1DivContentTitle
+    {
+      height: calc(100%/11);
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+
+      outline: 0px solid blueviolet;
+      font-size: 7cqmin;
+
+    }
+
+    .square1DivContentPlace
+    {
+      height: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+
+      outline: 0px solid blueviolet;
+      font-size: 3cqmin;
+      text-align: center;
+      font-family: ui-monospace, monospace;
+    }
+
+    .square1DivContentPlace div
+    {
+      height: auto;
+      width: 96%;
+      padding:1.1cqmin;
+      
+
+
+      outline: 0px solid blueviolet;
+      font-size: 2.3cqmin;
+
+      border-radius: 3cqmin;
+      background-color: var(--card-bg2);
+
+      outline: 0.2cqmin solid var(--border-color2);
+
+      /*box-shadow: 0.01vmin 0.01vmin 0.2vmin 0.01vmin var(--blue-glow);*/
+
+      
+
+      border: 0.0cqmin solid var(--accent-cyan);
+      border-radius: 3cqmin;
+     
+      box-shadow: 0 0 0.0cqmin 0.0cqmin var(--gold);
+    }
+
+    .selectedGold
+    {
+      scale: 1.05;
+      outline:0.02cqmin solid var(--gold); 
+      box-shadow: 0.0vmin 0.0vmin 0.8vmin 0.3vmin var(--gold);
+      color:var(--bg-dark); 
+      text-shadow: -0.1vmin -0.1vmin 0.2vmin var(--gold),0.1vmin 0.1vmin 0.2vmin var(--gold),-0.1vmin 0.1vmin 0.2vmin var(--gold),0.1vmin -0.1vmin 0.2vmin var(--gold); 
+    }
+
+  </style>
+</head>
+
+
+<body>
+  <div class="rectangle0Div">
+    <div class="square1Div">
+      <div class="square1DivContent">
+        <div class="square1DivContentTitle">
+          <span>Home</span>
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div class="btn-blackish">
+            <span >
+              Hi, I am Ali ADALI. I am a Turkish<div style="display: inline-block; width: 3.6cqmin; height: 3.6cqmin; background-repeat: no-repeat; background-position: 25% 50%; background-size: 180%; background-image: url('assets/tr.svg') ; outline: 1px solid red;border-radius: 50%;margin-left: 0.5cqmin; vertical-align: -0.8cqmin; box-shadow: none; ">
+                
+              </div>
+               Mathematician currently based in Toronto, ON<div style="display: inline-block; width: 5.4cqmin; height: 3.8cqmin; background-repeat: no-repeat; background-position: center; background-size: 100%; background-image: url('assets/ca.svg') ; outline: 0px solid red;border-radius: 0%;margin-left: 0.7cqmin; vertical-align: -1cqmin; box-shadow: none; ">
+               </div>              
+            </span>
+          </div>
+          
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div class="btn-blackish">
+            <span>
+              Welcome to my website. Here you can review my portfolio, explore my academic and creative work, learn about ongoing projects, evaluate opportunities for professional engagements, and connect via my social channels.           
+            </span>
+          </div>
+          
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div class="btn-blackish" style="display:flex; flex-direction: column;align-items: center;">
+            <span>
+              I offer expert instruction, consulting, and specialized services for both individuals and institutions across:
+            </span>
+            <ul style="text-align: left;width: 93%;outline: 0px solid orangered; align-content: center;">
+              <li><i>Math Olympiad instruction and contest coaching</i></li>
+              <li><i>Academic mathematics instruction (undergraduate and graduate)</i></li>
+              <li><i>Mathematical research and modeling</i></li>
+              <li><i>Educational content creation and custom interactive projects.</i></li>
+            </ul>
+          </div>
+          
+        </div>
+
+
+        <div class="square1DivContentPlace">
+          <div class="btn-blackish">
+            <span>
+              Please visit the <b>Teaching & Coaching</b> section for details on available courses and competition curricula. To review service scopes or schedule an online consultation, please explore the <b>Professional Engagements</b> section.
+            </span> 
+          </div>
+        </div>
+
+        <div class="square1DivContentPlace" style="flex-direction: row; align-items: center;">
+          <div class="btn-blackish" style="display:flex; flex-direction: row;">
+            <img src="assets/gp1.png" style="height: 25cqmin;aspect-ratio: 1/1; border-radius: 1cqmin;opacity: 0.9;">  
+
+            <span style="width: calc(100% - 50cqmin);height: 25cqmin; align-content: center; border-radius: 0; padding-inline: 1cqmin;">
+              I am also excited to announce that GeoPlayer is now live and ready to explore! Please visit <b>GeoPlayer</b> section for further details.         
+            </span>
+
+             <img src="assets/gp2.png" style="height: 25cqmin;aspect-ratio: 1/1;border-radius: 1cqmin;opacity: 0.9;">  
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="rectangle1Div">
+      
+      <div class="rectangle2Div">
+
+        <div class="square3Div">
+          <img src="assets/WhiteBackground.jpg" alt="Ali ADALI, PhD" style="opacity: 0.88;">
+        </div>
+
+        <div class="rectangle3Div">
+          <div class="square4Div">
+            <div class="square4Title">
+              <span>Ali ADALI, Ph.D.</span>
+            </div>
+
+            <div class="square4DivPlace">
+              <span>2 X IMO Medalist</span>
+              <span>Olympiad Coach & Instructor</span>
+              <span>Applied Mathematician & Researcher</span>
+            </div>
+          </div>
+
+          <div class="rectangle4Div">
+            <div class="square5Div">
+              <div class="btn-metallic" onclick="location.reload();">
+                <svg id="item1" viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg" >
+                  <g id='logoGroup'>
+                    <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="#808080" class="SamplePath" />
+
+                    <path id='pathBlue'  stroke-width="60" stroke="#0093e4" fill="none" stroke-linecap="butt" class="SamplePath" d="M 374,430 Q 318,247 37,107" />
+
+
+                    <path id='pathRed' stroke-width="60" stroke="#cc0000" fill="none" stroke-linecap="round" class="SamplePath" d="M 37,107 Q 318,247 408,247" />
+                    
+                    <path id='pathGold2' stroke-width="60" stroke="#f0cc00" fill="none" stroke-linecap="round" class="SamplePath" d="M 374,618 Q 458,613  374,430" />
+
+                    <path id='pathGold1' stroke-width="60" stroke="#f0cc00" fill="none" stroke-linecap="round" class="SamplePath" d="M 374,430 Q 290,613 374,618" />
+
+                    <path id='pathGreen' stroke-width="60" stroke="#207720" fill="none" stroke-linecap="round" class="SamplePath" d="M 711,107  Q 430,247 374,430 " />
+                  </g>
+                </svg>  
+              </div> 
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="square2Div">
+        <div class="square2DivPlace">
+          <span role="button" class="selectedGold btn-metallic" style="color:var(--bg-dark);" >Home</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic btn-blue">CV/Profile</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic  btn-blue">Teaching & Coaching</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic btn-blue">Professional Engagements</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic btn-blue">GeoPlayer</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic btn-blue">Academic & Creative Works</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic btn-blue">Channels</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic btn-blue">About</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
