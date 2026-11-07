@@ -6,6 +6,10 @@
   <title>Ali ADALI, PhD - Homepage</title>
   <link rel="icon" type="image/svg+xml" href="assets/logo_still.svg">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,400&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     /* Base Metallic Button Style (Applies to all div buttons) */
     .btn-metallic {
@@ -19,6 +23,9 @@
       cursor: pointer;
       user-select: none;
       touch-action: manipulation;
+
+       box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.3vmin var(--border-color2);
+       
       
       /* Smooth tactile transitions */
       transition: transform 0.12s ease, box-shadow 0.15s ease, filter 0.15s ease;
@@ -319,7 +326,8 @@
 
       container-type: size;
 
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      /*font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;*/
+      font-family: 'Plus Jakarta Sans', sans-serif;
 
 
     }
@@ -343,18 +351,20 @@
       align-items: center;
       background-color: var(--bg-color2);
 
-      /*outline: 1px solid blueviolet;*/
-      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+      outline: 0px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--border-color2);
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
       z-index: 2;
       border-radius: 4cqmin;
 
+      opacity: 0;
+
     }
 
 
     .rectangle1Div {
-      opacity: 1;
+      opacity: 0;
       height: calc( var(--w) / var(--phi) );
       width: calc( var(--w) / (var(--phi)   * var(--phi)) );
 
@@ -395,7 +405,7 @@
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
 
-      font-size: 4cqmin;
+      font-size: 3.2cqmin;
       padding-block: 2%;  
     }
 
@@ -413,14 +423,14 @@
       color: var(--text-muted);
     }
 
-    .square2DivPlace span
+    .square2DivPlace > span
     {
       width: 93%;
       height: 80%;
       text-align: center;
-      outline: 0.0px solid var(--text-muted);
       border-radius: 999px;
       align-content: center;
+      outline: 0.2cqmin solid var(--border-color2);
       
     }
 
@@ -505,6 +515,8 @@
 
       background-position: left;
       background-repeat: no-repeat;*/
+      
+      
 
 
     }
@@ -514,6 +526,7 @@
       display: block;
       width: auto;
       height: 100%;
+
 
     }
 
@@ -703,10 +716,10 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       outline: 0px solid orangered;
-      gap: 1cqmin;
+      gap: 2cqmin;
       padding-block: 1%;
       color: var(--text-main);
     }
@@ -738,34 +751,34 @@
 
       outline: 0px solid blueviolet;
       font-size: 3cqmin;
-      text-align: center;
-      font-family: ui-monospace, monospace;
+      text-align: left;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+
+      font-size: 3.0cqmin;
+      font-weight: 400;
     }
 
     .square1DivContentPlace div
     {
       height: auto;
       width: 96%;
-      padding:1.1cqmin;
+      padding-left:4cqmin;
+      padding-right: 2cqmin;
+      padding-block: 2cqmin;
       
-
-
-      outline: 0px solid blueviolet;
-      font-size: 2.3cqmin;
 
       border-radius: 3cqmin;
       background-color: var(--card-bg2);
 
-      outline: 0.2cqmin solid var(--border-color2);
+      outline: 0.25cqmin solid var(--border-color2);
+      box-shadow: 0.0vmin 0.0vmin 0.7vmin 0.1vmin var(--border-color2);
 
       /*box-shadow: 0.01vmin 0.01vmin 0.2vmin 0.01vmin var(--blue-glow);*/
 
       
-
       border: 0.0cqmin solid var(--accent-cyan);
-      border-radius: 3cqmin;
      
-      box-shadow: 0 0 0.0cqmin 0.0cqmin var(--gold);
+      
     }
 
     .selectedGold
@@ -777,80 +790,100 @@
       text-shadow: -0.1vmin -0.1vmin 0.2vmin var(--gold),0.1vmin 0.1vmin 0.2vmin var(--gold),-0.1vmin 0.1vmin 0.2vmin var(--gold),0.1vmin -0.1vmin 0.2vmin var(--gold); 
     }
 
+    p 
+    {
+      text-indent: 6cqmin;
+    }
+
+    .logoClass
+    {
+      position: absolute;
+      height: 100cqmin;
+      width: 100cqmin;
+      left: calc(50% - 50cqmin);
+      z-index: 10;
+    }
+
   </style>
 </head>
 
 
 <body>
-  <div class="rectangle0Div">
-    <div class="square1Div">
+  
+
+  <div class="rectangle0Div" id = 'rect0'>
+    <svg id="logoSVG" class='logoClass' viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg" >
+      <g id='logoGroup'>
+        <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="#808080" class="SamplePath" />
+
+        <path id='pathBlue'  stroke-width="60" stroke="#0093e4" fill="none" stroke-linecap="butt" class="SamplePath" d="M 374,430 Q 318,247 37,107" />
+
+
+        <path id='pathRed' stroke-width="60" stroke="#cc0000" fill="none" stroke-linecap="round" class="SamplePath" d="M 37,107 Q 318,247 408,247" />
+        
+        <path id='pathGold2' stroke-width="60" stroke="#f0cc00" fill="none" stroke-linecap="round" class="SamplePath" d="M 374,618 Q 458,613  374,430" />
+
+        <path id='pathGold1' stroke-width="60" stroke="#f0cc00" fill="none" stroke-linecap="round" class="SamplePath" d="M 374,430 Q 290,613 374,618" />
+
+        <path id='pathGreen' stroke-width="60" stroke="#207720" fill="none" stroke-linecap="round" class="SamplePath" d="M 711,107  Q 430,247 374,430 " />
+      </g>  
+    </svg>
+    <div class="square1Div" id='square1' >
       <div class="square1DivContent">
-        <div class="square1DivContentTitle">
-          <span>Home</span>
-        </div>
+        
 
         <div class="square1DivContentPlace">
-          <div class="btn-blackish">
-            <span >
-              Hi, I am Ali ADALI. I am a Turkish<div style="display: inline-block; width: 3.6cqmin; height: 3.6cqmin; background-repeat: no-repeat; background-position: 25% 50%; background-size: 180%; background-image: url('assets/tr.svg') ; outline: 1px solid red;border-radius: 50%;margin-left: 0.5cqmin; vertical-align: -0.8cqmin; box-shadow: none; ">
-                
-              </div>
-               Mathematician currently based in Toronto, ON<div style="display: inline-block; width: 5.4cqmin; height: 3.8cqmin; background-repeat: no-repeat; background-position: center; background-size: 100%; background-image: url('assets/ca.svg') ; outline: 0px solid red;border-radius: 0%;margin-left: 0.7cqmin; vertical-align: -1cqmin; box-shadow: none; ">
-               </div>              
-            </span>
+          <div>
+            <p > Hi, I am Ali ADALI. I am a Turkish
+              <span style="display: inline-block; width: 3.6cqmin; height: 3.6cqmin; background-repeat: no-repeat; background-position: 25% 50%; background-size: 180%; background-image: url('assets/tr.svg') ; outline: 1px solid red;border-radius: 50%;margin-left: 0.5cqmin; vertical-align: -0.8cqmin; box-shadow: none; ">
+              </span> Mathematician currently based in Toronto, ON<span style="display: inline-block; width: 5.4cqmin; height: 3.8cqmin; background-repeat: no-repeat; background-position: center; background-size: 100%; background-image: url('assets/ca.svg') ; outline: 0px solid red;border-radius: 0%;margin-left: 0.7cqmin; vertical-align: -1cqmin; box-shadow: none; ">
+               </span>              
+            </p>
           </div>
           
         </div>
 
-        <div class="square1DivContentPlace">
-          <div class="btn-blackish">
-            <span>
+        <div class="square1DivContentPlace" >
+          <div class="">
+            <p>
               Welcome to my website. Here you can review my portfolio, explore my academic and creative work, learn about ongoing projects, evaluate opportunities for professional engagements, and connect via my social channels.           
-            </span>
+            </p>
           </div>
           
         </div>
 
         <div class="square1DivContentPlace">
-          <div class="btn-blackish" style="display:flex; flex-direction: column;align-items: center;">
-            <span>
+          <div class="" style="display:flex; flex-direction: column;align-items: center;">
+            <p>
               I offer expert instruction, consulting, and specialized services for both individuals and institutions across:
-            </span>
-            <ul style="text-align: left;width: 93%;outline: 0px solid orangered; align-content: center;">
+            </p>
+            
+            <ul style="outline: 0px solid blueviolet;width: 80%;" >
               <li><i>Math Olympiad instruction and contest coaching</i></li>
-              <li><i>Academic mathematics instruction (undergraduate and graduate)</i></li>
+              <li><i>Academic mathematics instruction (undergraduate and graduate levels)</i></li>
               <li><i>Mathematical research and modeling</i></li>
               <li><i>Educational content creation and custom interactive projects.</i></li>
             </ul>
+
           </div>
           
         </div>
 
 
         <div class="square1DivContentPlace">
-          <div class="btn-blackish">
-            <span>
-              Please visit the <b>Teaching & Coaching</b> section for details on available courses and competition curricula. To review service scopes or schedule an online consultation, please explore the <b>Professional Engagements</b> section.
-            </span> 
+          <div class="">
+            <p>
+              Please visit the <b>Teaching & Coaching</b> section for details on available courses and competition curricula. Please explore the <b>Professional Engagements</b> section to review service scopes or schedule an online consultation.
+            </p> 
           </div>
         </div>
 
-        <div class="square1DivContentPlace" style="flex-direction: row; align-items: center;">
-          <div class="btn-blackish" style="display:flex; flex-direction: row;">
-            <img src="assets/gp1.png" style="height: 25cqmin;aspect-ratio: 1/1; border-radius: 1cqmin;opacity: 0.9;">  
-
-            <span style="width: calc(100% - 50cqmin);height: 25cqmin; align-content: center; border-radius: 0; padding-inline: 1cqmin;">
-              I am also excited to announce that GeoPlayer is now live and ready to explore! Please visit <b>GeoPlayer</b> section for further details.         
-            </span>
-
-             <img src="assets/gp2.png" style="height: 25cqmin;aspect-ratio: 1/1;border-radius: 1cqmin;opacity: 0.9;">  
-          </div>
-        </div>
+      
         
       </div>
     </div>
 
-    <div class="rectangle1Div">
+    <div class="rectangle1Div" id='rectangle1'>
       
       <div class="rectangle2Div">
 
@@ -873,7 +906,7 @@
 
           <div class="rectangle4Div">
             <div class="square5Div">
-              <div class="btn-metallic" onclick="location.reload();">
+              <div class="btn-metallic" onclick="animateLogo();">
                 <svg id="item1" viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg" >
                   <g id='logoGroup'>
                     <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="#808080" class="SamplePath" />
@@ -904,35 +937,155 @@
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic btn-blue">CV/Profile</span>
+          <span class="btn-metallic ">CV/Profile</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic  btn-blue">Teaching & Coaching</span>
+          <span class="btn-metallic  ">Teaching & Coaching</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic btn-blue">Professional Engagements</span>
+          <span class="btn-metallic ">Professional Engagements</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic btn-blue">GeoPlayer</span>
+          <span class="btn-metallic">GeoPlayer</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic btn-blue">Academic & Creative Works</span>
+          <span class="btn-metallic ">Academic & Creative Work</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic btn-blue">Channels</span>
+          <span class="btn-metallic">Channels</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic btn-blue">About</span>
+          <span class="btn-metallic">About</span>
         </div>
       </div>
     </div>
   </div>
 </body>
+
+<script>
+  let logoGroup = document.getElementById('logoGroup');
+  let obj1 = document.getElementById('circle');
+  let obj2 = document.getElementById('pathGreen');
+  let obj3 = document.getElementById('pathGold1');
+  let obj4 = document.getElementById('pathGold2');
+  let obj5 = document.getElementById('pathBlue');
+  let obj6 = document.getElementById('pathRed');
+
+  let square1 = document.getElementById('square1');
+  let rectangle1 = document.getElementById('rectangle1');
+
+  square1.style.opacity = 0;
+  rectangle1.style.opacity = 0;
+
+  let objects = [];
+
+  
+  objects.push(obj2);
+  objects.push(obj3);
+  objects.push(obj4);
+  objects.push(obj5);
+  objects.push(obj6);
+  objects.push(obj1);
+
+  let animations = [];
+
+  animateLogo();
+
+
+
+
+  function animateLogo()
+  {
+    resetAnimation();
+    let waitTime = 200;
+
+    for(let i=0;i<objects.length;i++)
+    {
+      
+    
+      let obj = objects[i];
+      let time1 = 1*(Math.ceil(obj.getTotalLength())+2); 
+      //let time1 = 1000;
+
+      obj.setAttribute('style',`stroke-dashoffset:${time1}; stroke-dasharray:${time1}; `);
+
+
+      let anim = obj.animate(
+        [
+          { strokeDashoffset: time1, offset: 0 },
+          { strokeDashoffset: 0, offset: 1 } ], 
+        {duration: time1*0.6, delay: waitTime, fill: 'forwards'}
+      );
+
+      animations.push(anim);
+
+      /*
+      anim.onfinish = () => {
+        anim.commitStyles();
+        anim.cancel();
+      };
+      */
+
+      waitTime=waitTime + time1*0.6;
+      
+    }
+
+    let animLast = logoGroup.animate(
+        [
+          { opacity: 1, offset: 0 },
+          { opacity: 0.0, offset: 1 } ], 
+        {duration: 200, delay: waitTime+800, fill: 'forwards'}
+      );
+
+    animations.push(animLast);
+
+
+    
+    let animRectangle1In = rectangle1.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: 500, delay: waitTime+500, fill: 'forwards'}
+      );
+    animations.push(animRectangle1In);
+
+
+    let animSquare1In = square1.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: 500, delay: waitTime+500, fill: 'forwards'}
+      );
+    animations.push(animSquare1In);
+
+
+
+  }
+
+  function resetAnimation()
+  {
+    animations.forEach(anim => {
+        anim.cancel(); 
+    });
+
+    for(let i=0;i<objects.length;i++)
+    {
+      //objects[i].setAttribute('style',`stroke-dashoffset:2000;`);
+      let obj = objects[i];
+      let time1 = 4*(Math.ceil(obj.getTotalLength())+2); 
+      //let time1 = 1000;
+
+      obj.setAttribute('style',`stroke-dashoffset:${time1}; stroke-dasharray:${time1}; `);
+    }
+  }
+
+  
+</script>
 
 </html>
