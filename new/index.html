@@ -419,7 +419,7 @@
       align-items: center;
 
       outline: 0px solid blueviolet;
-      z-index: 4;
+      z-index: 14;
       color: var(--text-muted);
     }
 
@@ -699,6 +699,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      z-index: 14;
     }
 
     .square5Div div > svg
@@ -722,6 +723,8 @@
       gap: 2cqmin;
       padding-block: 1%;
       color: var(--text-main);
+      background-color: rgba(255, 215, 0, 0.0);
+      border-radius: 4cqmin;
     }
 
     .square1DivContentTitle
@@ -758,13 +761,15 @@
       font-weight: 400;
     }
 
-    .square1DivContentPlace div
+    .square1DivContentPlace > div
     {
       height: auto;
       width: 96%;
-      padding-left:4cqmin;
-      padding-right: 2cqmin;
+      padding-left:3cqmin;
+      padding-right: 1cqmin;
       padding-block: 2cqmin;
+
+      align-content: center;
       
 
       border-radius: 3cqmin;
@@ -780,6 +785,8 @@
      
       
     }
+
+    
 
     .selectedGold
     {
@@ -812,76 +819,6 @@
   
 
   <div class="rectangle0Div" id = 'rect0'>
-    <svg id="logoSVG" class='logoClass' viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg" >
-      <g id='logoGroup'>
-        <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="#808080" class="SamplePath" />
-
-        <path id='pathBlue'  stroke-width="60" stroke="#0093e4" fill="none" stroke-linecap="butt" class="SamplePath" d="M 374,430 Q 318,247 37,107" />
-
-
-        <path id='pathRed' stroke-width="60" stroke="#cc0000" fill="none" stroke-linecap="round" class="SamplePath" d="M 37,107 Q 318,247 408,247" />
-        
-        <path id='pathGold2' stroke-width="60" stroke="#f0cc00" fill="none" stroke-linecap="round" class="SamplePath" d="M 374,618 Q 458,613  374,430" />
-
-        <path id='pathGold1' stroke-width="60" stroke="#f0cc00" fill="none" stroke-linecap="round" class="SamplePath" d="M 374,430 Q 290,613 374,618" />
-
-        <path id='pathGreen' stroke-width="60" stroke="#207720" fill="none" stroke-linecap="round" class="SamplePath" d="M 711,107  Q 430,247 374,430 " />
-      </g>  
-    </svg>
-    <div class="square1Div" id='square1' >
-      <div class="square1DivContent">
-        
-
-        <div class="square1DivContentPlace">
-          <div>
-            <p > Hi, I am Ali ADALI. I am a Turkish
-              <span style="display: inline-block; width: 3.6cqmin; height: 3.6cqmin; background-repeat: no-repeat; background-position: 25% 50%; background-size: 180%; background-image: url('assets/tr.svg') ; outline: 1px solid red;border-radius: 50%;margin-left: 0.5cqmin; vertical-align: -0.8cqmin; box-shadow: none; ">
-              </span> Mathematician currently based in Toronto, ON<span style="display: inline-block; width: 5.4cqmin; height: 3.8cqmin; background-repeat: no-repeat; background-position: center; background-size: 100%; background-image: url('assets/ca.svg') ; outline: 0px solid red;border-radius: 0%;margin-left: 0.7cqmin; vertical-align: -1cqmin; box-shadow: none; ">
-               </span>              
-            </p>
-          </div>
-          
-        </div>
-
-        <div class="square1DivContentPlace" >
-          <div class="">
-            <p>
-              Welcome to my website. Here you can review my portfolio, explore my academic and creative work, learn about ongoing projects, evaluate opportunities for professional engagements, and connect via my social channels.           
-            </p>
-          </div>
-          
-        </div>
-
-        <div class="square1DivContentPlace">
-          <div class="" style="display:flex; flex-direction: column;align-items: center;">
-            <p>
-              I offer expert instruction, consulting, and specialized services for both individuals and institutions across:
-            </p>
-            
-            <ul style="outline: 0px solid blueviolet;width: 80%;" >
-              <li><i>Math Olympiad instruction and contest coaching</i></li>
-              <li><i>Academic mathematics instruction (undergraduate and graduate levels)</i></li>
-              <li><i>Mathematical research and modeling</i></li>
-              <li><i>Educational content creation and custom interactive projects.</i></li>
-            </ul>
-
-          </div>
-          
-        </div>
-
-
-        <div class="square1DivContentPlace">
-          <div class="">
-            <p>
-              Please visit the <b>Teaching & Coaching</b> section for details on available courses and competition curricula. Please explore the <b>Professional Engagements</b> section to review service scopes or schedule an online consultation.
-            </p> 
-          </div>
-        </div>
-
-      
-        
-      </div>
-    </div>
 
     <div class="rectangle1Div" id='rectangle1'>
       
@@ -905,9 +842,9 @@
           </div>
 
           <div class="rectangle4Div">
-            <div class="square5Div">
-              <div class="btn-metallic" onclick="animateLogo();">
-                <svg id="item1" viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg" >
+            <div class="square5Div" >
+              <div class="btn-metallic" id='logoHale' onclick="animateLogo();" style="box-shadow: none;">
+                <svg id="logoSVG" viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg" >
                   <g id='logoGroup'>
                     <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="#808080" class="SamplePath" />
 
@@ -965,6 +902,61 @@
         </div>
       </div>
     </div>
+
+    <div class="square1Div" id='square1' >
+      <div class="square1DivContent">
+        
+
+        <div class="square1DivContentPlace" >
+          <div style="height: 12cqmin;">
+            <p > Hi, I am Ali ADALI. I am a Turkish
+              <span style="display: inline-block; width: 3.6cqmin; height: 3.6cqmin; background-repeat: no-repeat; background-position: 25% 50%; background-size: 180%; background-image: url('assets/tr.svg') ; outline: 1px solid red;border-radius: 50%;margin-left: 0.5cqmin; vertical-align: -0.8cqmin; box-shadow: none; ">
+              </span> Mathematician currently based in Toronto, ON<span style="display: inline-block; width: 5.4cqmin; height: 3.8cqmin; background-repeat: no-repeat; background-position: center; background-size: 100%; background-image: url('assets/ca.svg') ; outline: 0px solid red;border-radius: 0%;margin-left: 0.7cqmin; vertical-align: -1cqmin; box-shadow: none; ">
+               </span>              
+            </p>
+          </div>
+          
+        </div>
+
+        <div class="square1DivContentPlace"  >
+          <div style="height: 20cqmin;">
+            <p>
+              Welcome to my website. Here you can review my portfolio, explore my academic and creative work, learn about ongoing projects, evaluate opportunities for professional engagements, and connect via my social channels.           
+            </p>
+          </div>
+          
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div style="height: 38cqmin; display: flex; flex-direction: column; justify-content: space-evenly;align-items: center;">
+            <p style="outline: 0px solid blueviolet;">
+              I offer expert instruction, consulting, and specialized services for both individuals and institutions across:
+            </p>
+            
+            <ul style="outline: 0px solid blueviolet; margin-left: 2cqmin; width: 85%;" >
+              <li><i>Math Olympiad instruction and contest coaching</i></li>
+              <li><i>Academic mathematics instruction (undergraduate and graduate levels)</i></li>
+              <li><i>Mathematical research and modeling</i></li>
+              <li><i>Educational content creation and custom interactive projects.</i></li>
+            </ul>
+
+          </div>
+          
+        </div>
+
+
+        <div class="square1DivContentPlace">
+          <div style="height: 20cqmin;">
+            <p>
+              Please visit the <b>Teaching & Coaching</b> section for details on available courses and competition curricula. Please explore the <b>Professional Engagements</b> section to review service scopes or schedule an online consultation.
+            </p> 
+          </div>
+        </div>
+
+      
+        
+      </div>
+    </div>
   </div>
 </body>
 
@@ -979,9 +971,11 @@
 
   let square1 = document.getElementById('square1');
   let rectangle1 = document.getElementById('rectangle1');
+  let logoHale = document.getElementById('logoHale');
 
-  square1.style.opacity = 0;
-  rectangle1.style.opacity = 0;
+  square1.style.opacity = 1;
+  rectangle1.style.opacity = 1;
+  //document.getElementById('logoSVG').style.opacity = 0;
 
   let objects = [];
 
@@ -995,14 +989,37 @@
 
   let animations = [];
 
-  animateLogo();
+  //animateLogo();
+
+  let trX = 350;
+  let trY = 100;
+
+  if(window.matchMedia("(orientation: portrait)").matches)
+    { trX = 150; trY = 200;}
+
+  window.matchMedia("(orientation: landscape)").addEventListener("change", (e) => {
+    if (e.matches) {
+      trX = 350;
+      trY = 100;
+    } else {
+      trX = 150;
+      trY = 200;
+    }
+  });
 
 
 
 
   function animateLogo()
-  {
+  { 
+    logoHale.style.boxShadow = 'none';
+    logoHale.style.transform = `translate(${trX}%, ${trY}%) scale(6)`;
+
+
+
     resetAnimation();
+
+    
     let waitTime = 200;
 
     for(let i=0;i<objects.length;i++)
@@ -1020,7 +1037,7 @@
         [
           { strokeDashoffset: time1, offset: 0 },
           { strokeDashoffset: 0, offset: 1 } ], 
-        {duration: time1*0.6, delay: waitTime, fill: 'forwards'}
+        {duration: time1*0.3, delay: waitTime, fill: 'forwards'}
       );
 
       animations.push(anim);
@@ -1032,18 +1049,36 @@
       };
       */
 
-      waitTime=waitTime + time1*0.6;
+      waitTime=waitTime + time1*0.3;
       
     }
 
-    let animLast = logoGroup.animate(
+    let animHale = logoHale.animate(
         [
-          { opacity: 1, offset: 0 },
-          { opacity: 0.0, offset: 1 } ], 
-        {duration: 200, delay: waitTime+800, fill: 'forwards'}
+          { boxShadow:'0 0 0 0 var(--blue-glow)' , offset: 0 },
+          { boxShadow: '0 0 0.9cqmin 0.2cqmin var(--blue-glow)', offset: 1 } ], 
+        {duration: 200, delay: waitTime+0, fill: 'forwards'}
+      );
+
+    animations.push(animHale);
+    if(trX)
+    {
+      let animLast = logoHale.animate(
+        [
+          { transform: `translate(${trX}%, ${trY}%) scale(6)`, offset: 0 },
+          { transform: `translate(0%, 0%) scale(1)`, offset: 1 } ], 
+        {duration: 500, delay: waitTime+800, fill: 'forwards'}
       );
 
     animations.push(animLast);
+
+    }
+
+    
+
+    /*
+
+    
 
 
     
@@ -1063,6 +1098,7 @@
         {duration: 500, delay: waitTime+500, fill: 'forwards'}
       );
     animations.push(animSquare1In);
+*/
 
 
 
