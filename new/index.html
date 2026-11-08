@@ -342,10 +342,12 @@
     }
 
     .square1Div {
+      position: relative;
       height: calc( var(--w) / var(--phi) );
       width: calc( var(--w) / var(--phi) );
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      
 
       justify-content: flex-start;
       align-items: center;
@@ -359,6 +361,7 @@
       border-radius: 4cqmin;
 
       opacity: 1;
+      gap: 0;
 
     }
 
@@ -715,19 +718,56 @@
 
     .square1DivContent
     {
-      height: 100%;
-      width: 100%;
+      height: 100cqmin;
+      width: 100cqmin;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      outline: 0px solid orangered;
+      
       gap: 2cqmin;
-      padding-block: 1%;
+      padding-block: 2cqmin;
       color: var(--text-main);
       background-color: rgba(255, 215, 0, 0.0);
       border-radius: 4cqmin;
+      overflow-y: auto;
+
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      /* GPU-accelerated transition setup */
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(10px);
+
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      transition: height 0.4s linear;
+
+      scroll-padding-top: 1.6cqmin;
+      scroll-padding-bottom: 0.0%;
     }
+
+    .square1DivContent.active
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .square1DivContentTitle
+    {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 4cqmin;
+      font-weight: bold;
+      letter-spacing: 0.05cqmin;
+      text-transform: uppercase;
+
+    }
+
+    
 
   
 
@@ -748,15 +788,39 @@
 
       font-size: 3.0cqmin;
       font-weight: 400;
+
+      opacity: 0;
+      transform: translateY(0px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+
+      margin-top: 0cqmin;
+
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    #profileDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+
+
+    #homeDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .square1DivContentPlace > div
     {
       height: auto;
       width: 96%;
-      padding-left:3cqmin;
-      padding-right: 1cqmin;
-      padding-block: 2cqmin;
+      
+      padding: 2cqmin;
 
       align-content: center;
       
@@ -765,14 +829,53 @@
       background-color: var(--card-bg2);
 
       outline: 0.25cqmin solid var(--border-color2);
-      box-shadow: 0.0vmin 0.0vmin 0.7vmin 0.1vmin var(--border-color2);
+      box-shadow: 0.0vmin 0.0vmin 0.7vmin 0.1vmin var(--border-color2);  
+    }
 
-      /*box-shadow: 0.01vmin 0.01vmin 0.2vmin 0.01vmin var(--blue-glow);*/
+    .logoAndInfoDiv
+    {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      align-content: center;
 
-      
-      border: 0.0cqmin solid var(--accent-cyan);
-     
-      
+      box-sizing: border-box;
+      paddin:0;
+      margin: 0;
+
+      width: 92%;
+      height: 9cqmin;
+
+      border-radius: 999px;
+      background-color: var(--card-bg2);
+      outline: 0px solid orangered;
+
+      /*outline: 0.25cqmin solid var(--border-color2);*/
+      box-shadow: 0.0vmin 0.0vmin 0.7vmin 0.1vmin var(--border-color2); 
+    }
+
+    .logoDiv
+    {
+      height: 9cqmin;
+      width: 9cqmin;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: 0px solid orangered;
+      border-radius: 999px;
+    }
+
+    .infoDiv
+    {
+      width:calc(100% - 10cqmin);
+      height: 8cqmin;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      outline: 0px solid blueviolet;
+
     }
 
     
@@ -893,8 +996,7 @@
     </div>
 
     <div class="square1Div" id='square1' >
-      <div class="square1DivContent" id='homeDiv'>
-        
+      <div class="square1DivContent" id='homeDiv' >
 
         <div class="square1DivContentPlace" >
           <div style="height: 12cqmin;">
@@ -942,6 +1044,317 @@
           </div>
         </div> 
       </div>
+
+      <div class="square1DivContent" id='profileDiv' style=" justify-content: flex-start; overflow-y:auto;">
+        
+
+        <div class="square1DivContentPlace" style="font-size: 2.8cqmin;">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> EDUCATION </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/Ohio_State_University_seal.svg" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Ph. D. in Mathematics, The Ohio State University, 2016</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>M.S. in Mathematics, Bilkent University, 2010</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>B.S. in Mathematics, Bilkent University, 2007</span>
+              </div>
+            </div>
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" style="font-size: 2.8cqmin;">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Olympiad Instruction & Leadership </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/alphastar_logo.png" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor - Full Time </span>
+                <span>Alphastar Academy, CA, USA </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/alphastar_logo.png" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor - Summer & Winter Camps  </span>
+                <span>Alphastar Academy, CA, USA </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor</span>
+                <span>National Olympiad Training Camps, TURKIYE</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor</span>
+                <span>National Teacher Training Programs, TURKIYE</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/EGMO2014logo.png" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Problem Grading Committee Member & Coordinator </span>
+                <span> 5th European Girls' Mathematical Olympiad 2014</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/jbmo2013_logo.png" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>USA Team Deputy Leader</span>
+                <span>17th Junior Balkan Mathematical Olympiad 2013 </span>
+              </div>
+            </div>
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" style="font-size: 2.8cqmin;">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Academic Work Experience </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/YeditepeUniversityLogo.gif" style="display:block;height: 90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Assistant Professor </span>
+                <span>Yeditepe University, Istanbul, Turkiye (2020-2022) </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/osu_logo_3.png" style="display:block;height: 90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Postdoctoral Fellow, </span>
+                <span>Deptartment of Mathematics, OSU (2018-2019)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/Ohio_State_University_Logo.svg" style="display:block;height: 90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Visiting Postdoctoral Research Scholar</span>
+                <span>Kural Lab, Deptartment of Physics, OSU (2018)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/osu_logo_3.png" style="display:block;height: 90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Lecturer</span>
+                <span>Deptartment of Mathematics, OSU (2016-2018)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/osu_logo_3.png" style="display:block;height: 90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Teaching Assistant</span>
+                <span>  Deptartment of Mathematics, OSU (2011-2016)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/Ohio_State_University_Logo.svg" style="display:block;height: 90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>DARPA Research Fellow</span>
+                <span>ECE Deptartment, OSU (2011)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Teaching Assistant</span>
+                <span>Bilkent University (2006-2010)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Graduate Research Fellow</span>
+                <span>TUBITAK (2007-2009)</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" style="font-size: 2.8cqmin;">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Awards and Honors </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/IMO2003logo.gif" style="display:block;height: 100%;width: 100%; border-radius: 999px;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Bronze Medalist</span>
+                <span>44th International Mathematical Olympiad 2003</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/imo2002_logo_upscaled.jpg" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Bronze Medalist</span>
+                <span>43th International Mathematical Olympiad 2002</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> 
+              </div>
+
+              <div class="infoDiv">
+                <span>Silver Medalist </span>
+                <span>20th Balkan Mathematical Olympiad 2003</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> 
+              </div>
+
+              <div class="infoDiv">
+                <span>Bronze Medalist</span>
+                <span>19th Balkan Mathematical Olympiad 2002</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Silver Medalist</span>
+                <span>National Mathematical Olympiad of Turkiye 2003</span>
+              </div>
+            </div>
+
+             <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Bronze Medalist</span>
+                <span>National Mathematical Olympiad of Turkiye 2002</span>
+              </div>
+            </div>
+
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Undergraduate Full Scholarship</span>
+                <span>Bilkent University (2003-2007)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Undergraduate Scholarship</span>
+                <span>TUBITAK (2007-2009)</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" style="font-size: 2.5cqmin;">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Publications </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/Ohio_State_University_seal.svg" style="display:block;height: 100%;width: 100$;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Applications of the Quasi Solution Method to Interfacial and Other Nonlinear Problems, OSU, Jan 2017</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/jde_logo.jpg" style="display:block;height: 100%;width: 100$;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Rigorous analytical approximation of tritronquée solution to Painlevé-I and the first singularity, J. Differ. Equ. 2016</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100$;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Explicit Reciprocity Laws, Bilkent University Institutional Repository Aug 2010 </span>
+              </div>
+            </div>
+          </div> 
+        </div>   
+      </div>
     </div>
   </div>
 </body>
@@ -968,6 +1381,10 @@
   let homeDiv = document.getElementById('homeDiv');
   let homeContent = [...homeDiv.children];
 
+  let profileDiv = document.getElementById('profileDiv');
+
+  contentSections = [...document.querySelectorAll('.square1DivContent')];
+
 
   //square1.style.opacity = 1;
   //rectangle1.style.opacity = 1;
@@ -987,7 +1404,7 @@
 
   //animateLogo();
 
-  let trX = 350;
+  let trX = 300;
   let trY = 100;
 
   if(window.matchMedia("(orientation: portrait)").matches)
@@ -995,7 +1412,7 @@
 
   window.matchMedia("(orientation: landscape)").addEventListener("change", (e) => {
     if (e.matches) {
-      trX = 350;
+      trX = 300;
       trY = 100;
     } else {
       trX = 150;
@@ -1092,9 +1509,25 @@
       waitTime=waitTime + time2;
 
     }
+
     waitTime+=200;
 
+    
+
+
+    
+
     setTimeout( () =>{  navButtons[0].click(); }, waitTime);
+    //waitTime+=200;
+    let animSquare1FadeIn = square1.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: 0, delay: waitTime, fill: 'forwards'}
+      );
+    animations.push(animSquare1FadeIn);
+
+    
 
   }
 
@@ -1113,7 +1546,7 @@
     //square4.setAttribute('style','opacity:0')
     //homeDiv.style.opacity=0;
     //homeDiv.style.scale=0;
-    homeContent.forEach(obj => obj.style.opacity=0);
+    //homeContent.forEach(obj => obj.style.opacity=0);
 
     square4.style.opacity=0;
     square3.style.opacity=0;
@@ -1146,53 +1579,77 @@
     });
   }
 
-  resetAnimation();
-
-  navButtons.forEach(btn => btn.style.opacity=0);
-
   
-  setTimeout(() => {animateLogo();},150);
+
+  //navButtons.forEach(btn => btn.style.opacity=0);
+
+   resetAnimation();
+   setTimeout(() => {animateLogo();},150);
+  
+  
+
+
 
   function bringContent(i)
   {
-    
-    if(i==0)
-    {
-      homeDiv.scale = 1;
-      homeDiv.opacity = 1;
+  
+    contentSections.forEach((section, index) => {
+    if (index === i) {
+      section.scrollTop = 0;
+      let dTime = 0.5;
+      section.classList.add('active');
+      const places = section.querySelectorAll('.square1DivContentPlace');
 
-      let waitTime = 400;
-
-      let anim0 = square1.animate(
-          [{ opacity: 1, offset: 1 } ], 
-          {duration: 200, delay: 400, fill: 'forwards'}
-        );
-      waitTime+=200;
-
-        animations.push(anim0);
-
+      /*
       
-      for(let i =0; i<homeContent.length;i++)
-      {
-        let obj = homeContent[i];
-        
-        let time2=400;
+      places.forEach((place, placeIndex) => { 
+        place.style.transitionDelay = `${placeIndex * dTime}s`;
+      });
+      
+      setTimeout(() => {autoScrollSequence(section.id);}, dTime);
+
+      setTimeout(() => { section.scrollTo({top: 0,behavior: 'smooth'}); }, ((places.length+0)*dTime)*1000  );
+      */
 
 
-        let anim = obj.animate(
-          [
-            { opacity: 0, offset: 0 },
-            { opacity: 1, offset: 1 } ], 
-          {duration: time2, delay: waitTime, fill: 'forwards'}
-        );
 
-        animations.push(anim);
-        waitTime=waitTime + time2;
+    } else {
+      section.classList.remove('active');
+      const places = section.querySelectorAll('.square1DivContentPlace');
+      places.forEach(place => {place.style.transitionDelay = '0s';});
     }
+  });
+
+  }
 
 
-    }
 
+  function autoScrollSequence(containerId) 
+  {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    // 1. Get all the child target divs in order (div1, div2, div3, div4)
+    const sections = container.querySelectorAll('.square1DivContentPlace'); 
+    
+    // Timing interval in milliseconds (0.4 seconds = 400ms)
+    const intervalTime = 500; 
+
+    sections.forEach((section, index) => {
+      setTimeout(() => {
+        // 2. Calculate the position of the target div relative to the scroll container
+        // offsetTop gives the exact pixel distance from the top of the container
+        const targetTop = section.offsetTop;
+
+        // 3. Smoothly scroll the container to that snap position
+        container.scrollTo({
+          top: targetTop,
+          behavior: 'smooth'
+        });
+
+      }, index * intervalTime); 
+     
+    });
   }
 
   
