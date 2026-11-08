@@ -358,13 +358,13 @@
       z-index: 2;
       border-radius: 4cqmin;
 
-      opacity: 0;
+      opacity: 1;
 
     }
 
 
     .rectangle1Div {
-      opacity: 0;
+      opacity: 1;
       height: calc( var(--w) / var(--phi) );
       width: calc( var(--w) / (var(--phi)   * var(--phi)) );
 
@@ -431,6 +431,8 @@
       border-radius: 999px;
       align-content: center;
       outline: 0.2cqmin solid var(--border-color2);
+
+      transition: all 0.2s ease;
       
     }
 
@@ -727,20 +729,7 @@
       border-radius: 4cqmin;
     }
 
-    .square1DivContentTitle
-    {
-      height: calc(100%/11);
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-
-
-      outline: 0px solid blueviolet;
-      font-size: 7cqmin;
-
-    }
+  
 
     .square1DivContentPlace
     {
@@ -824,12 +813,12 @@
       
       <div class="rectangle2Div">
 
-        <div class="square3Div">
+        <div class="square3Div" id='square3'>
           <img src="assets/WhiteBackground.jpg" alt="Ali ADALI, PhD" style="opacity: 0.88;">
         </div>
 
         <div class="rectangle3Div">
-          <div class="square4Div">
+          <div class="square4Div" id='square4'>
             <div class="square4Title">
               <span>Ali ADALI, Ph.D.</span>
             </div>
@@ -868,43 +857,43 @@
         </div>
       </div>
 
-      <div class="square2Div">
+      <div class="square2Div" id='square2'>
         <div class="square2DivPlace">
-          <span role="button" class="selectedGold btn-metallic" style="color:var(--bg-dark);" >Home</span>
+          <span role="button" class="btn-metallic navButtonClass" >Home</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic ">CV/Profile</span>
+          <span class="btn-metallic navButtonClass">CV/Profile</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic  ">Teaching & Coaching</span>
+          <span class="btn-metallic navButtonClass">Teaching & Coaching</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic ">Professional Engagements</span>
+          <span class="btn-metallic navButtonClass">Professional Engagements</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic">GeoPlayer</span>
+          <span class="btn-metallic navButtonClass">GeoPlayer</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic ">Academic & Creative Work</span>
+          <span class="btn-metallic navButtonClass">Academic & Creative Work</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic">Channels</span>
+          <span class="btn-metallic navButtonClass">Channels</span>
         </div>
 
         <div class="square2DivPlace">
-          <span class="btn-metallic">About</span>
+          <span class="btn-metallic navButtonClass">About</span>
         </div>
       </div>
     </div>
 
     <div class="square1Div" id='square1' >
-      <div class="square1DivContent">
+      <div class="square1DivContent" id='homeDiv'>
         
 
         <div class="square1DivContentPlace" >
@@ -951,10 +940,7 @@
               Please visit the <b>Teaching & Coaching</b> section for details on available courses and competition curricula. Please explore the <b>Professional Engagements</b> section to review service scopes or schedule an online consultation.
             </p> 
           </div>
-        </div>
-
-      
-        
+        </div> 
       </div>
     </div>
   </div>
@@ -970,11 +956,21 @@
   let obj6 = document.getElementById('pathRed');
 
   let square1 = document.getElementById('square1');
+  let square2 = document.getElementById('square2');
+  let square3 = document.getElementById('square3');
+  let square4 = document.getElementById('square4');
+
+
   let rectangle1 = document.getElementById('rectangle1');
   let logoHale = document.getElementById('logoHale');
+  let navButtons = [...document.getElementsByClassName('navButtonClass')];
 
-  square1.style.opacity = 1;
-  rectangle1.style.opacity = 1;
+  let homeDiv = document.getElementById('homeDiv');
+  let homeContent = [...homeDiv.children];
+
+
+  //square1.style.opacity = 1;
+  //rectangle1.style.opacity = 1;
   //document.getElementById('logoSVG').style.opacity = 0;
 
   let objects = [];
@@ -1012,14 +1008,8 @@
 
   function animateLogo()
   { 
-    logoHale.style.boxShadow = 'none';
-    logoHale.style.transform = `translate(${trX}%, ${trY}%) scale(6)`;
-
-
-
     resetAnimation();
 
-    
     let waitTime = 200;
 
     for(let i=0;i<objects.length;i++)
@@ -1037,19 +1027,11 @@
         [
           { strokeDashoffset: time1, offset: 0 },
           { strokeDashoffset: 0, offset: 1 } ], 
-        {duration: time1*0.3, delay: waitTime, fill: 'forwards'}
+        {duration: time1*0.4, delay: waitTime, fill: 'forwards'}
       );
 
       animations.push(anim);
-
-      /*
-      anim.onfinish = () => {
-        anim.commitStyles();
-        anim.cancel();
-      };
-      */
-
-      waitTime=waitTime + time1*0.3;
+      waitTime=waitTime + time1*0.4;
       
     }
 
@@ -1057,58 +1039,85 @@
         [
           { boxShadow:'0 0 0 0 var(--blue-glow)' , offset: 0 },
           { boxShadow: '0 0 0.9cqmin 0.2cqmin var(--blue-glow)', offset: 1 } ], 
-        {duration: 200, delay: waitTime+0, fill: 'forwards'}
+        {duration: 500, delay: waitTime, fill: 'forwards'}
       );
-
+    waitTime += 500;
     animations.push(animHale);
-    if(trX)
-    {
-      let animLast = logoHale.animate(
+    
+    let animLogoMove = logoHale.animate(
         [
           { transform: `translate(${trX}%, ${trY}%) scale(6)`, offset: 0 },
           { transform: `translate(0%, 0%) scale(1)`, offset: 1 } ], 
-        {duration: 500, delay: waitTime+800, fill: 'forwards'}
+        {duration: 500, delay: waitTime+300, fill: 'forwards'}
+      );
+    waitTime+= 800;
+    animations.push(animLogoMove);
+
+    let animSquare3FadeIn = square3.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: 500, delay: waitTime, fill: 'forwards'}
+      );
+    waitTime+= 500;
+    animations.push(animSquare3FadeIn);
+
+    let animSquare4FadeIn = square4.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: 500, delay: waitTime, fill: 'forwards'}
+      );
+    waitTime+=500;
+    animations.push(animSquare4FadeIn);
+
+
+    waitTime+=200;
+
+    for(let i =0; i<navButtons.length;i++)
+    {
+      let obj = navButtons[i];
+      
+      let time2=200;
+
+
+      let anim = obj.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: time2, delay: waitTime, fill: 'forwards'}
       );
 
-    animations.push(animLast);
+      animations.push(anim);
+      waitTime=waitTime + time2;
 
     }
+    waitTime+=200;
 
-    
-
-    /*
-
-    
-
-
-    
-    let animRectangle1In = rectangle1.animate(
-        [
-          { opacity: 0, offset: 0 },
-          { opacity: 1, offset: 1 } ], 
-        {duration: 500, delay: waitTime+500, fill: 'forwards'}
-      );
-    animations.push(animRectangle1In);
-
-
-    let animSquare1In = square1.animate(
-        [
-          { opacity: 0, offset: 0 },
-          { opacity: 1, offset: 1 } ], 
-        {duration: 500, delay: waitTime+500, fill: 'forwards'}
-      );
-    animations.push(animSquare1In);
-*/
-
-
+    setTimeout( () =>{  navButtons[0].click(); }, waitTime);
 
   }
 
   function resetAnimation()
   {
+    unselectButtons();
+    
+
     animations.forEach(anim => {
-        anim.cancel(); 
+      anim.commitStyles();
+      anim.cancel(); 
     });
+
+    logoHale.style.boxShadow = 'none';
+    logoHale.style.transform = `translate(${trX}%, ${trY}%) scale(6)`;
+    //square4.setAttribute('style','opacity:0')
+    //homeDiv.style.opacity=0;
+    //homeDiv.style.scale=0;
+    homeContent.forEach(obj => obj.style.opacity=0);
+
+    square4.style.opacity=0;
+    square3.style.opacity=0;
+    square1.style.opacity=0;
 
     for(let i=0;i<objects.length;i++)
     {
@@ -1119,6 +1128,71 @@
 
       obj.setAttribute('style',`stroke-dashoffset:${time1}; stroke-dasharray:${time1}; `);
     }
+
+    navButtons.forEach(btn => btn.style.opacity=0);
+  }
+
+  function unselectButtons()
+  {
+    navButtons.forEach(btn => btn.classList.remove('selectedGold'));
+  }
+
+  for (let i = 0; i < navButtons.length; i++)
+  {
+    navButtons[i].addEventListener('click', () => {
+      unselectButtons();
+      navButtons[i].classList.add('selectedGold');
+      bringContent(i);
+    });
+  }
+
+  resetAnimation();
+
+  navButtons.forEach(btn => btn.style.opacity=0);
+
+  
+  setTimeout(() => {animateLogo();},150);
+
+  function bringContent(i)
+  {
+    
+    if(i==0)
+    {
+      homeDiv.scale = 1;
+      homeDiv.opacity = 1;
+
+      let waitTime = 400;
+
+      let anim0 = square1.animate(
+          [{ opacity: 1, offset: 1 } ], 
+          {duration: 200, delay: 400, fill: 'forwards'}
+        );
+      waitTime+=200;
+
+        animations.push(anim0);
+
+      
+      for(let i =0; i<homeContent.length;i++)
+      {
+        let obj = homeContent[i];
+        
+        let time2=400;
+
+
+        let anim = obj.animate(
+          [
+            { opacity: 0, offset: 0 },
+            { opacity: 1, offset: 1 } ], 
+          {duration: time2, delay: waitTime, fill: 'forwards'}
+        );
+
+        animations.push(anim);
+        waitTime=waitTime + time2;
+    }
+
+
+    }
+
   }
 
   
