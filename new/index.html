@@ -739,7 +739,7 @@
       pointer-events: none;
       /* GPU-accelerated transition setup */
       transition: opacity 0.4s ease, transform 0.4s ease;
-      transform: translateY(10px);
+      transform: translateY(0px);
 
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
@@ -777,16 +777,16 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
 
 
       outline: 0px solid blueviolet;
-      font-size: 3cqmin;
+      font-size: 2.5cqmin;
       text-align: left;
       font-family: 'Plus Jakarta Sans', sans-serif;
 
-      font-size: 3.0cqmin;
+      font-size: 2.5cqmin;
       font-weight: 400;
 
       opacity: 0;
@@ -797,6 +797,9 @@
 
       scroll-snap-align: start;
       scroll-snap-stop: always;
+
+      
+
     }
 
     #profileDiv.active .square1DivContentPlace
@@ -812,6 +815,16 @@
     #homeDiv.active .square1DivContentPlace
     {
       opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    #teachingDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
       transform: translateY(0);
     }
 
@@ -866,10 +879,19 @@
       border-radius: 999px;
     }
 
+    .logoDiv > img
+    {
+      display:block;
+      height: 100%;
+      width: 100%;
+    }
+
     .infoDiv
     {
       width:calc(100% - 10cqmin);
-      height: 8cqmin;
+      height: 100%;
+
+      border-radius: 4cqmin;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -1045,88 +1067,51 @@
         </div> 
       </div>
 
-      <div class="square1DivContent" id='profileDiv' style=" justify-content: flex-start; overflow-y:auto;">
+      <div class="square1DivContent" id='profileDiv' style=" overflow-y:auto;">
         
 
-        <div class="square1DivContentPlace" style="font-size: 2.8cqmin;">
+        <div class="square1DivContentPlace" >
           <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
             <span class="square1DivContentTitle"> EDUCATION </span>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/Ohio_State_University_seal.svg" style="display:block;height: 100%;width: 100%;">
+              <div class="logoDiv"> <img src="assets/Ohio_State_University_seal.svg">
               </div>
 
               <div class="infoDiv">
-                <span>Ph. D. in Mathematics, The Ohio State University, 2016</span>
+                <span>Ph. D. in Mathematics</span>
+                <span>The Ohio State University, 2016</span>
               </div>
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100%;">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg">
               </div>
 
               <div class="infoDiv">
-                <span>M.S. in Mathematics, Bilkent University, 2010</span>
+                <span>M.S. in Mathematics </span>
+                <span>Bilkent University, 2010</span>
               </div>
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100%;">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg">
               </div>
 
               <div class="infoDiv">
-                <span>B.S. in Mathematics, Bilkent University, 2007</span>
+                <span>B.S. in Mathematics</span>
+                <span>Bilkent University, 2007</span>
               </div>
             </div>
           </div> 
         </div>
 
-        <div class="square1DivContentPlace" style="font-size: 2.8cqmin;">
+        <div class="square1DivContentPlace" >
           <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
             <span class="square1DivContentTitle"> Olympiad Instruction & Leadership </span>
-            
-            <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/alphastar_logo.png" style="display:block;height: 100%;width: 100%;">
-              </div>
-
-              <div class="infoDiv">
-                <span>Math Olympiad Instructor - Full Time </span>
-                <span>Alphastar Academy, CA, USA </span>
-              </div>
-            </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/alphastar_logo.png" style="display:block;height: 100%;width: 100%;">
-              </div>
-
-              <div class="infoDiv">
-                <span>Math Olympiad Instructor - Summer & Winter Camps  </span>
-                <span>Alphastar Academy, CA, USA </span>
-              </div>
-            </div>
-
-            <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 80%;width: 80%;">
-              </div>
-
-              <div class="infoDiv">
-                <span>Math Olympiad Instructor</span>
-                <span>National Olympiad Training Camps, TURKIYE</span>
-              </div>
-            </div>
-
-            <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 80%;width: 80%;">
-              </div>
-
-              <div class="infoDiv">
-                <span>Math Olympiad Instructor</span>
-                <span>National Teacher Training Programs, TURKIYE</span>
-              </div>
-            </div>
-
-            <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/EGMO2014logo.png" style="display:block;height: 100%;width: 100%;">
+              <div class="logoDiv"> <img src="assets/EGMO2014logo.png">
               </div>
 
               <div class="infoDiv">
@@ -1136,7 +1121,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/jbmo2013_logo.png" style="display:block;height: 100%;width: 100%;">
+              <div class="logoDiv"> <img src="assets/jbmo2013_logo.png">
               </div>
 
               <div class="infoDiv">
@@ -1144,15 +1129,56 @@
                 <span>17th Junior Balkan Mathematical Olympiad 2013 </span>
               </div>
             </div>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/alphastar_logo.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor - Full Time </span>
+                <span>Alphastar Academy, CA, USA </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/alphastar_logo.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor - Summer & Winter Camps  </span>
+                <span>Alphastar Academy, CA, USA </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor</span>
+                <span>National Olympiad Training Camps, TURKIYE</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor</span>
+                <span>National Teacher Training Programs, TURKIYE</span>
+              </div>
+            </div>
+         
           </div> 
         </div>
 
-        <div class="square1DivContentPlace" style="font-size: 2.8cqmin;">
+        <div class="square1DivContentPlace" >
           <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
             <span class="square1DivContentTitle"> Academic Work Experience </span>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/YeditepeUniversityLogo.gif" style="display:block;height: 90%;width: 90%;">
+              <div class="logoDiv"> <img src="assets/YeditepeUniversityLogo.gif">
               </div>
 
               <div class="infoDiv">
@@ -1162,7 +1188,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/osu_logo_3.png" style="display:block;height: 90%;width: 90%;">
+              <div class="logoDiv"> <img src="assets/osu_logo_3.png">
               </div>
 
               <div class="infoDiv">
@@ -1172,7 +1198,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/Ohio_State_University_Logo.svg" style="display:block;height: 90%;width: 90%;">
+              <div class="logoDiv"> <img src="assets/Ohio_State_University_Logo.svg">
               </div>
 
               <div class="infoDiv">
@@ -1182,7 +1208,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/osu_logo_3.png" style="display:block;height: 90%;width: 90%;">
+              <div class="logoDiv"> <img src="assets/osu_logo_3.png">
               </div>
 
               <div class="infoDiv">
@@ -1192,7 +1218,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/osu_logo_3.png" style="display:block;height: 90%;width: 90%;">
+              <div class="logoDiv"> <img src="assets/osu_logo_3.png">
               </div>
 
               <div class="infoDiv">
@@ -1202,7 +1228,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/Ohio_State_University_Logo.svg" style="display:block;height: 90%;width: 90%;">
+              <div class="logoDiv"> <img src="assets/Ohio_State_University_Logo.svg">
               </div>
 
               <div class="infoDiv">
@@ -1212,7 +1238,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100%;">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg">
               </div>
 
               <div class="infoDiv">
@@ -1222,7 +1248,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 80%;width: 80%;">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png">
               </div>
 
               <div class="infoDiv">
@@ -1234,12 +1260,12 @@
           </div> 
         </div>
 
-        <div class="square1DivContentPlace" style="font-size: 2.8cqmin;">
+        <div class="square1DivContentPlace" >
           <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
             <span class="square1DivContentTitle"> Awards and Honors </span>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/IMO2003logo.gif" style="display:block;height: 100%;width: 100%; border-radius: 999px;">
+              <div class="logoDiv"> <img src="assets/IMO2003logo.gif" style="border-radius: 999px;">
               </div>
 
               <div class="infoDiv">
@@ -1249,7 +1275,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/imo2002_logo_upscaled.jpg" style="display:block;height: 100%;width: 100%;">
+              <div class="logoDiv"> <img src="assets/imo2002_logo_upscaled.jpg">
               </div>
 
               <div class="infoDiv">
@@ -1259,7 +1285,8 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> 
+              <div class="logoDiv" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:5cqmin">BMO</span>
               </div>
 
               <div class="infoDiv">
@@ -1269,7 +1296,8 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> 
+              <div class="logoDiv" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:5cqmin">BMO</span>
               </div>
 
               <div class="infoDiv">
@@ -1279,7 +1307,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 90%;width: 90%;">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png">
               </div>
 
               <div class="infoDiv">
@@ -1289,7 +1317,7 @@
             </div>
 
              <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 90%;width: 90%;">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png">
               </div>
 
               <div class="infoDiv">
@@ -1300,7 +1328,7 @@
 
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100%;">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg">
               </div>
 
               <div class="infoDiv">
@@ -1310,7 +1338,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/tubitak_logo.png" style="display:block;height: 80%;width: 80%;">
+              <div class="logoDiv"> <img src="assets/tubitak_logo.png">
               </div>
 
               <div class="infoDiv">
@@ -1322,7 +1350,7 @@
           </div> 
         </div>
 
-        <div class="square1DivContentPlace" style="font-size: 2.5cqmin;">
+        <div class="square1DivContentPlace">
           <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
             <span class="square1DivContentTitle"> Publications </span>
             
@@ -1336,7 +1364,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/jde_logo.jpg" style="display:block;height: 100%;width: 100$;">
+              <div class="logoDiv"> <img src="assets/jde_logo.jpg">
               </div>
 
               <div class="infoDiv">
@@ -1345,13 +1373,369 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" style="display:block;height: 100%;width: 100$;">
+              <div class="logoDiv"> <img src="assets/Bilkent_University_Crest.svg" >
               </div>
 
               <div class="infoDiv">
                 <span>Explicit Reciprocity Laws, Bilkent University Institutional Repository Aug 2010 </span>
               </div>
             </div>
+          </div> 
+        </div>   
+      </div>
+
+      <div class="square1DivContent" id='teachingDiv' style=" justify-content: flex-start; overflow-y:auto;">
+        
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> CANADIAN MATH OLYMPIAD TRACKS </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/mc_logo_up.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Kangaroo</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/cms_logo_up.png">
+              </div>
+
+              <div class="infoDiv" >
+                <span>Canadian Open Mathematics Competition (COMC) </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/cms_logo_up.png">
+              </div>
+
+              <div class="infoDiv" >
+                <span>Canada Jay Mathematics Competition (CJMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/cms_logo_up.png">
+              </div>
+
+              <div class="infoDiv" >
+                <span>Canada Lynx Mathematical Competition (CLMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>The Pascal, Cayley, and Fermat Contests (PCF)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>The Canadian Intermediate Mathematics Contest (CIMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>The Canadian Senior Mathematics Contest (CSMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              </div>
+
+              <div class="infoDiv">  
+                <span>The Euclid Contest</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>The Fryer, Galois, and Hypatia (FGH) Contests</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>The Canadian Team Mathematics Contest (CTMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>The Gauss Contests</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> US MATH OLYMPIAD TRACKS </span>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/mathcounts_logo.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>Mathcounts</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/maa_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>AMC 8 - AMC 10 - AMC 12</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/maa_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span> American Invitational Mathematics Examination (AIME)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/maa_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>USA Mathematical Olympiad (USAMO)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/maa_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>USA Junior Mathematical Olympiad (USAJMO) </span>
+              </div>
+            </div>
+            
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> INTERNATIONAL MATH OLYMPIAD TRACKS </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/IMO_logo.svg" style="height: auto;">
+              </div>
+
+              <div class="infoDiv">
+                <span>International Mathematical Olympiad (IMO)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/apmo_logo_up.png" style="height: 80%;width: 80%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>Asian Pacific Mathematics Olympiad (APMO)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/pagmo_logo_up.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>Pan-American Girls' Mathematical Olympiad (PAGMO)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic"> <img src="assets/EGMO2014logo.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>European Girls’ Mathematical Olympiad (EGMO)</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> MATHEMATICAL PROOFS </span>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv" >
+                <span>Proof Techniques & Strategies</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv">
+                <span>Core Proof Methods</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv" >
+                <span>Geometry Theorems</span>
+              </div>
+            </div>
+
+             <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv" >
+                <span>Number Theory Theorems</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv">
+                <span>Combinatorics & Counting Theorems</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv">
+                <span>Algebra Theorems</span>
+              </div>
+            </div>
+
+           
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> GRADUATE LEVEL COURSES </span>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/grad_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Calculus</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/grad_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Differential Equations</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/grad_logo.svg" >
+              </div>
+
+              <div class="infoDiv">
+                <span>Linear Algebra</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/grad_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Abstract Mathematics</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/grad_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Real Analysis</span> 
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/grad_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Complex Analysis</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic"> <img src="assets/grad_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Probability</span>
+              </div>
+            </div>
+
+
+
+
+
+            
+
+        
           </div> 
         </div>   
       </div>
@@ -1513,19 +1897,21 @@
     waitTime+=200;
 
     
-
-
-    
-
-    setTimeout( () =>{  navButtons[0].click(); }, waitTime);
-    //waitTime+=200;
     let animSquare1FadeIn = square1.animate(
         [
           { opacity: 0, offset: 0 },
           { opacity: 1, offset: 1 } ], 
-        {duration: 0, delay: waitTime, fill: 'forwards'}
+        {duration: 300, delay: waitTime, fill: 'forwards'}
       );
     animations.push(animSquare1FadeIn);
+
+    waitTime+=300;
+
+    
+
+    setTimeout( () =>{  navButtons[0].click(); }, waitTime);
+    
+
 
     
 
@@ -1583,8 +1969,8 @@
 
   //navButtons.forEach(btn => btn.style.opacity=0);
 
-   resetAnimation();
-   setTimeout(() => {animateLogo();},150);
+   //resetAnimation();
+   //setTimeout(() => {animateLogo();},150);
   
   
 
