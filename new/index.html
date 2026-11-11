@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,400&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
+
   <style>
     /* Base Metallic Button Style (Applies to all div buttons) */
     .btn-metallic {
@@ -269,6 +270,16 @@
       --result-bg:#1e293b;
 
       --gold : #FFD700;
+
+      --colsultation-card-bg: #1e293b;
+      --colsultation-border-color: #334155;
+      --consultation-text-primary: #f8fafc;
+      --consultation-text-secondary: #94a3b8;
+      --consultation-accent-color: #38bdf8;
+      --consultation-accent-hover: #0284c7;
+      --consultation-font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+
       
 
     }
@@ -303,7 +314,9 @@
       
       /* Prevent browser pull-to-refresh and bounce scrolling on outer body */
       overscroll-behavior: none;
-      overflow: hidden; 
+      overflow: hidden;
+
+      
     }
 
     .rectangle0Div {
@@ -327,7 +340,8 @@
       container-type: size;
 
       /*font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;*/
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      /*font-family: 'Plus Jakarta Sans', sans-serif;*/
+      /*font-family: 'Cormorant Garamond', serif;*/
 
 
     }
@@ -408,7 +422,7 @@
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
 
-      font-size: 3.2cqmin;
+      font-size: 3.3cqmin;
       padding-block: 2%;  
     }
 
@@ -580,6 +594,7 @@
 
       justify-content: flex-start;
       align-items: center;
+      gap: 0cqmin;
 
       outline: 0px solid blueviolet;
       
@@ -603,9 +618,9 @@
 
       
       border-radius: 0cqmin;
-      font-size: 2.7cqmin;
+      font-size: 3cqmin;
       outline: 0px solid orangered;
-      margin-top: 5%;
+      margin-top: 0cqmin;
     }
 
     .square4Title span
@@ -623,8 +638,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      font-size: 2.0cqmin;
+      justify-content: space-evenly;
+      font-size: 2.1cqmin;
       color: var(--text-muted);
       outline: 0px solid greenyellow;
       gap: 0.0cqmin;
@@ -760,7 +775,7 @@
     .square1DivContentTitle
     {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 4cqmin;
+      font-size: 3.8cqmin;
       font-weight: bold;
       letter-spacing: 0.05cqmin;
       text-transform: uppercase;
@@ -782,11 +797,11 @@
 
 
       outline: 0px solid blueviolet;
-      font-size: 2.5cqmin;
+      font-size: 2.7cqmin;
       text-align: left;
       font-family: 'Plus Jakarta Sans', sans-serif;
 
-      font-size: 2.5cqmin;
+  
       font-weight: 400;
 
       opacity: 0;
@@ -810,6 +825,11 @@
       transform: translateY(0);
     }
 
+    #homeDiv
+    {
+  
+    }
+
 
 
     #homeDiv.active .square1DivContentPlace
@@ -821,6 +841,14 @@
     }
 
     #teachingDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    #engagementsDiv.active .square1DivContentPlace
     {
       opacity: 1;
       visibility: visible;
@@ -925,7 +953,278 @@
       z-index: 10;
     }
 
+    .darker
+    {
+      filter: brightness(0.85) contrast(1.4);
+    }
+
   </style>
+
+  <style>
+    .consultationCardClass
+    {
+            font-family: var(--consultation-font-sans);
+            color: var(--consultation-text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1.25;
+
+            top:1cqmin;
+
+            position: relative;
+            width: 98cqmin;
+            height: 98cqmin;
+            background: var(--colsultation-card-bg);
+            border: 0.2cqmin solid var(--colsultation-border-color);
+            border-radius: 3cqmin;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            box-shadow: 0 1cqmin 2.5cqmin -0.5cqmin rgba(0, 0, 0, 0.3);
+            container-type: size;
+
+            transition: all 0.4s ease;
+            
+            scale: 1;
+            opacity: 1;
+            z-index: 20;
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      /* GPU-accelerated transition setup */
+      transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+      transform: translateY(10px);
+    }
+
+    .consultationCardClass.active
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+
+
+        
+
+        .mentorship-form {
+            height: 94%;
+            width: 94%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 2.5cqmin;
+            outline: 0px solid greenyellow;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5cqmin;
+
+        }
+
+        /*
+        @media (orientation: portrait) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        */
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2cqmin;
+            position: relative;
+            outline: 0px solid blueviolet;
+        }
+
+        .form-group label {
+            font-size: 2.4cqmin;
+            font-weight: 600;
+            color: var(--consultation-text-primary);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 1.8cqmin 2.2cqmin;
+            background-color: #0f172a;
+            border: 0.2cqmin solid var(--colsultation-border-color);
+            border-radius: 3cqmin;
+            color: var(--consultation-text-primary);
+            font-family: inherit;
+            font-size: 2.4cqmin;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--consultation-accent-color);
+            box-shadow: 0 0 0 0.5cqmin rgba(56, 189, 248, 0.15);
+        }
+
+        .form-group textarea {
+            resize: none;
+           
+        }
+
+        /* --- CUSTOM DROPDOWN STYLES --- */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+        }
+
+        .custom-select-trigger {
+            width: 100%;
+            padding: 1.8cqmin 2.4cqmin;
+            background-color: #0f172a;
+            border: 0.2cqmin solid var(--colsultation-border-color);
+            border-radius: 3cqmin;
+            color: var(--consultation-text-primary);
+            font-size: 2.4cqmin;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .custom-select-trigger:focus,
+        .custom-select-wrapper.open .custom-select-trigger {
+            outline: none;
+            border-color: var(--consultation-accent-color);
+            box-shadow: 0 0 0 0.3cqmin rgba(56, 189, 248, 0.15);
+        }
+
+        .custom-select-trigger .placeholder {
+            color: var(--consultation-text-secondary);
+        }
+
+        .custom-select-arrow {
+            width: 3cqmin;
+            height: 3cqmin;
+            fill: none;
+            stroke: var(--consultation-text-secondary);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.2s ease;
+        }
+
+        .custom-select-wrapper.open .custom-select-arrow {
+            transform: rotate(180deg);
+        }
+
+        .custom-options {
+            position: absolute;
+            top: calc(100% + 0.1cqmin);
+            left: 0;
+            right: 0;
+            background-color: #0f172a;
+            border: 1px solid var(--colsultation-border-color);
+            border-radius: 3cqmin;
+            box-shadow: 0 1cqmin 2cqmin rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-8px);
+            transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+            
+            overflow-y: auto;
+        }
+
+        .custom-select-wrapper.open .custom-options {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .custom-option {
+            padding: 2.4cqmin 2.4cqmin;
+            font-size: 2.4cqmin;
+            color: var(--consultation-text-primary);
+            cursor: pointer;
+            transition: background 0.12s ease, color 0.12s ease;
+        }
+
+        .custom-option:hover,
+        .custom-option.focused {
+            background-color: var(--colsultation-card-bg);
+            color: var(--consultation-accent-color);
+        }
+
+        .custom-option.selected {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--consultation-accent-color);
+            font-weight: 600;
+        }
+        /* --- END CUSTOM DROPDOWN --- */
+
+        .submit-btn {
+            
+            background-color: var(--consultation-accent-color);
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 3cqmin;
+            padding: 2cqmin 3cqmin;
+            border: none;
+            border-radius: 3cqmin;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--consultation-accent-hover);
+        }
+
+
+        .close-btn {
+          position: absolute;
+          height: 6cqmin;
+          width: 6cqmin;
+          top: 0cqmin;
+          right: 0.5cqmin;
+          background: transparent;
+          border: none;
+          padding: 1cqmin;
+          margin: 0;
+          cursor: pointer;
+          color: #94a3b8; /* Neutral light gray icon color */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          transition: color 0.2s ease, opacity 0.2s ease;
+          line-height: 1;
+          outline: 0px  solid orangered;
+          z-index: 21;
+        }
+
+        /* 3. Hover state for dark-mode high contrast */
+        .close-btn:hover {
+          color: #f8fafc; /* Crisp white on hover */
+        }
+
+        .close-btn:focus-visible {
+          outline: 0.2cqmin solid #38bdf8;
+          outline-offset: 0.2cqmin;
+        }
+  </style>
+
+
+
 </head>
 
 
@@ -949,7 +1248,7 @@
             </div>
 
             <div class="square4DivPlace">
-              <span>2 X IMO Medalist</span>
+              <span style="height:4cqmin">2 X IMO Medalist</span>
               <span>Olympiad Coach & Instructor</span>
               <span>Applied Mathematician & Researcher</span>
             </div>
@@ -957,7 +1256,7 @@
 
           <div class="rectangle4Div">
             <div class="square5Div" >
-              <div class="btn-metallic" id='logoHale' onclick="animateLogo();" style="box-shadow: none;">
+              <div class="btn-metallic darker" id='logoHale' onclick="animateLogo();" >
                 <svg id="logoSVG" viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg" >
                   <g id='logoGroup'>
                     <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="#808080" class="SamplePath" />
@@ -1021,10 +1320,10 @@
       <div class="square1DivContent" id='homeDiv' >
 
         <div class="square1DivContentPlace" >
-          <div style="height: 12cqmin;">
+          <div style="height: 12cqmin; padding-left:3cqmin; align-content: center;">
             <p > Hi, I am Ali ADALI. I am a Turkish
-              <span style="display: inline-block; width: 3.6cqmin; height: 3.6cqmin; background-repeat: no-repeat; background-position: 25% 50%; background-size: 180%; background-image: url('assets/tr.svg') ; outline: 1px solid red;border-radius: 50%;margin-left: 0.5cqmin; vertical-align: -0.8cqmin; box-shadow: none; ">
-              </span> Mathematician currently based in Toronto, ON<span style="display: inline-block; width: 5.4cqmin; height: 3.8cqmin; background-repeat: no-repeat; background-position: center; background-size: 100%; background-image: url('assets/ca.svg') ; outline: 0px solid red;border-radius: 0%;margin-left: 0.7cqmin; vertical-align: -1cqmin; box-shadow: none; ">
+              <span class="btn-metallic darker" style="display: inline-block; width: 3.6cqmin; height: 3.6cqmin; background-repeat: no-repeat; background-position: 25% 50%; background-size: 180%; background-image: url('assets/tr.svg') ; outline: 1px solid red;border-radius: 50%;margin-left: 0.5cqmin; vertical-align: -0.8cqmin; box-shadow: none; ">
+              </span> Mathematician currently based in Toronto, ON<span class="btn-metallic darker" style="display: inline-block; width: 5.4cqmin; height: 3.8cqmin; background-repeat: no-repeat; background-position: center; background-size: 100%; background-image: url('assets/ca.svg') ; outline: 0px solid red;border-radius: 0%;margin-left: 0.7cqmin; vertical-align: -1cqmin; box-shadow: none; ">
                </span>              
             </p>
           </div>
@@ -1032,7 +1331,7 @@
         </div>
 
         <div class="square1DivContentPlace"  >
-          <div style="height: 20cqmin;">
+          <div style="height: 21cqmin; font-size: 3.0cqmin; align-content: center; padding-left: 3cqmin;">
             <p>
               Welcome to my website. Here you can review my portfolio, explore my academic and creative work, learn about ongoing projects, evaluate opportunities for professional engagements, and connect via my social channels.           
             </p>
@@ -1041,7 +1340,7 @@
         </div>
 
         <div class="square1DivContentPlace">
-          <div style="height: 38cqmin; display: flex; flex-direction: column; justify-content: space-evenly;align-items: center;">
+          <div style="height: 36cqmin; display: flex; flex-direction: column; justify-content: space-evenly;align-items: center; font-size: 3.0cqmin;">
             <p style="outline: 0px solid blueviolet;">
               I offer expert instruction, consulting, and specialized services for both individuals and institutions across:
             </p>
@@ -1059,7 +1358,7 @@
 
 
         <div class="square1DivContentPlace">
-          <div style="height: 20cqmin;">
+          <div style="height: 21cqmin; font-size: 3.0cqmin;">
             <p>
               Please visit the <b>Teaching & Coaching</b> section for details on available courses and competition curricula. Please explore the <b>Professional Engagements</b> section to review service scopes or schedule an online consultation.
             </p> 
@@ -1075,7 +1374,7 @@
             <span class="square1DivContentTitle"> EDUCATION </span>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/Ohio_State_University_seal.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Ohio_State_University_seal.svg">
               </div>
 
               <div class="infoDiv">
@@ -1085,22 +1384,22 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/Bilkent_University_Crest.svg">
+              <div class="logoDiv btn-metallic darker" > <img src="assets/Bilkent_University_Crest.svg" >
               </div>
 
               <div class="infoDiv">
                 <span>M.S. in Mathematics </span>
-                <span>Bilkent University, 2010</span>
+                <span>Bilkent University, TURKIYE, 2010</span>
               </div>
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/Bilkent_University_Crest.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Bilkent_University_Crest.svg" >
               </div>
 
               <div class="infoDiv">
                 <span>B.S. in Mathematics</span>
-                <span>Bilkent University, 2007</span>
+                <span>Bilkent University, TURKIYE, 2007</span>
               </div>
             </div>
           </div> 
@@ -1111,7 +1410,7 @@
             <span class="square1DivContentTitle"> Olympiad Instruction & Leadership </span>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/EGMO2014logo.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/EGMO2014logo.png">
               </div>
 
               <div class="infoDiv">
@@ -1121,7 +1420,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/jbmo2013_logo.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/jbmo2013_logo_upscaled.png" >
               </div>
 
               <div class="infoDiv">
@@ -1131,7 +1430,7 @@
             </div>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/alphastar_logo.png" style="height:80%;width: 80%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/alphastar_logo.png" style="height:80%;width: 80%;">
               </div>
 
               <div class="infoDiv">
@@ -1141,7 +1440,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/alphastar_logo.png" style="height:80%;width: 80%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/alphastar_logo.png" style="height:80%;width: 80%;">
               </div>
 
               <div class="infoDiv">
@@ -1151,7 +1450,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
               </div>
 
               <div class="infoDiv">
@@ -1161,7 +1460,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
               </div>
 
               <div class="infoDiv">
@@ -1178,7 +1477,7 @@
             <span class="square1DivContentTitle"> Academic Work Experience </span>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/YeditepeUniversityLogo.gif" style="height:80%;width: 80%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/yeditepe_logo.png" style="height:100%;width: 100%; background: white;">
               </div>
 
               <div class="infoDiv">
@@ -1188,7 +1487,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/osu_logo_3.png" style="height:90%;width: 90%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/osu_logo_3.png" style="height:90%;width: 90%;">
               </div>
 
               <div class="infoDiv">
@@ -1198,7 +1497,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/Ohio_State_University_Logo.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Ohio_State_University_Logo.svg">
               </div>
 
               <div class="infoDiv">
@@ -1208,7 +1507,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/osu_logo_3.png" style="height:90%;width: 90%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/osu_logo_3.png" style="height:90%;width: 90%;">
               </div>
 
               <div class="infoDiv">
@@ -1218,7 +1517,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/osu_logo_3.png" style="height:90%;width: 90%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/osu_logo_3.png" style="height:90%;width: 90%;">
               </div>
 
               <div class="infoDiv">
@@ -1228,7 +1527,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/Ohio_State_University_Logo.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Ohio_State_University_Logo.svg">
               </div>
 
               <div class="infoDiv">
@@ -1238,7 +1537,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/Bilkent_University_Crest.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Bilkent_University_Crest.svg">
               </div>
 
               <div class="infoDiv">
@@ -1248,7 +1547,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
               </div>
 
               <div class="infoDiv">
@@ -1265,7 +1564,7 @@
             <span class="square1DivContentTitle"> Awards and Honors </span>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/IMO2003logo.gif" style="border-radius: 999px;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/IMO2003logo.gif" style="border-radius: 999px;">
               </div>
 
               <div class="infoDiv">
@@ -1275,7 +1574,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/imo2002_logo_upscaled.jpg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/imo2002_logo_upscaled.jpg">
               </div>
 
               <div class="infoDiv">
@@ -1285,29 +1584,29 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+              <div class="logoDiv btn-metallic darker" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
                 <span style="font-size:4cqmin">BMO</span>
               </div>
 
               <div class="infoDiv">
                 <span>Silver Medalist </span>
-                <span>20th Balkan Mathematical Olympiad 2003</span>
+                <span>20th International Balkan Mathematical Olympiad 2003</span>
               </div>
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+              <div class="logoDiv btn-metallic darker" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
                 <span style="font-size:4cqmin">BMO</span>
               </div>
 
               <div class="infoDiv">
                 <span>Bronze Medalist</span>
-                <span>19th Balkan Mathematical Olympiad 2002</span>
+                <span>19th International Balkan Mathematical Olympiad 2002</span>
               </div>
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
               </div>
 
               <div class="infoDiv">
@@ -1317,7 +1616,7 @@
             </div>
 
              <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
               </div>
 
               <div class="infoDiv">
@@ -1328,7 +1627,7 @@
 
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/Bilkent_University_Crest.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Bilkent_University_Crest.svg">
               </div>
 
               <div class="infoDiv">
@@ -1338,7 +1637,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
               </div>
 
               <div class="infoDiv">
@@ -1355,7 +1654,7 @@
             <span class="square1DivContentTitle"> Publications </span>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/Ohio_State_University_seal.svg" style="display:block;height: 100%;width: 100$;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Ohio_State_University_seal.svg" style="display:block;height: 100%;width: 100$;">
               </div>
 
               <div class="infoDiv">
@@ -1364,7 +1663,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/jde_logo.jpg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/jde_logo.jpg">
               </div>
 
               <div class="infoDiv">
@@ -1373,7 +1672,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/Bilkent_University_Crest.svg" style="color:gray" >
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Bilkent_University_Crest.svg">
               </div>
 
               <div class="infoDiv">
@@ -1392,7 +1691,7 @@
             <span class="square1DivContentTitle"> CANADIAN MATH OLYMPIAD TRACKS </span>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/mc_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/mc_logo_up.png">
               </div>
 
               <div class="infoDiv">
@@ -1401,7 +1700,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/cms_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/cms_logo_up.png">
               </div>
 
               <div class="infoDiv" >
@@ -1410,7 +1709,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/cms_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/cms_logo_up.png">
               </div>
 
               <div class="infoDiv" >
@@ -1419,7 +1718,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/cms_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/cms_logo_up.png">
               </div>
 
               <div class="infoDiv" >
@@ -1428,7 +1727,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/CEMC_logo_up.png" >
               </div>
 
               <div class="infoDiv">
@@ -1437,7 +1736,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/CEMC_logo_up.png" >
               </div>
 
               <div class="infoDiv">
@@ -1446,7 +1745,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/CEMC_logo_up.png" >
               </div>
 
               <div class="infoDiv">
@@ -1455,7 +1754,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/CEMC_logo_up.png">
               </div>
 
               <div class="infoDiv">  
@@ -1464,7 +1763,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/CEMC_logo_up.png" >
               </div>
 
               <div class="infoDiv">
@@ -1473,7 +1772,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/CEMC_logo_up.png">
               </div>
 
               <div class="infoDiv">
@@ -1482,7 +1781,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/CEMC_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/CEMC_logo_up.png">
               </div>
 
               <div class="infoDiv">
@@ -1498,7 +1797,7 @@
             <span class="square1DivContentTitle"> US MATH OLYMPIAD TRACKS </span>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/mathcounts_logo.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/mathcounts_logo.png">
               </div>
 
               <div class="infoDiv">
@@ -1507,7 +1806,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic"> <img src="assets/maa_logo.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/maa_logo.svg">
               </div>
 
               <div class="infoDiv">
@@ -1516,7 +1815,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic"> <img src="assets/maa_logo.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/maa_logo.svg">
               </div>
 
               <div class="infoDiv">
@@ -1525,7 +1824,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic"> <img src="assets/maa_logo.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/maa_logo.svg">
               </div>
 
               <div class="infoDiv">
@@ -1534,7 +1833,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic"> <img src="assets/maa_logo.svg">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/maa_logo.svg">
               </div>
 
               <div class="infoDiv">
@@ -1550,7 +1849,7 @@
             <span class="square1DivContentTitle"> INTERNATIONAL MATH OLYMPIAD TRACKS </span>
             
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/IMO_logo.svg" style="height: auto;">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/IMO_logo.svg" style="height: auto;">
               </div>
 
               <div class="infoDiv">
@@ -1559,7 +1858,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/apmo_logo_up.png" style="height: 80%;width: 80%;" >
+              <div class="logoDiv btn-metallic darker"> <img src="assets/apmo_logo_up.png" style="height: 80%;width: 80%;" >
               </div>
 
               <div class="infoDiv">
@@ -1568,7 +1867,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/pagmo_logo_up.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/pagmo_logo_up.png">
               </div>
 
               <div class="infoDiv">
@@ -1577,7 +1876,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic"> <img src="assets/EGMO2014logo.png">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/EGMO2014logo.png">
               </div>
 
               <div class="infoDiv">
@@ -1593,7 +1892,7 @@
             <span class="square1DivContentTitle"> MATHEMATICAL PROOFS </span>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+              <div class="logoDiv btn-metallic darker" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
                 <span style="font-size:3.5cqmin">QED</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
               </div>
@@ -1604,7 +1903,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+              <div class="logoDiv btn-metallic darker" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
                 <span style="font-size:3.5cqmin">QED</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
               </div>
@@ -1615,7 +1914,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+              <div class="logoDiv btn-metallic darker" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
                 <span style="font-size:3.5cqmin">QED</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
               </div>
@@ -1626,7 +1925,7 @@
             </div>
 
              <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+              <div class="logoDiv btn-metallic darker" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
                 <span style="font-size:3.5cqmin">QED</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
               </div>
@@ -1637,7 +1936,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+              <div class="logoDiv btn-metallic darker" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
                 <span style="font-size:3.5cqmin">QED</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
               </div>
@@ -1648,7 +1947,7 @@
             </div>
 
             <div class="logoAndInfoDiv">
-              <div class="logoDiv btn-metallic" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+              <div class="logoDiv btn-metallic darker" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
                 <span style="font-size:3.5cqmin">QED</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
               </div>
@@ -1667,7 +1966,7 @@
             <span class="square1DivContentTitle"> GRADUATE LEVEL COURSES </span>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic">
+              <div class="logoDiv btn-metallic darker">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 27 27" fill="currentColor">
                   <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
                   <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
@@ -1680,7 +1979,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic">
+              <div class="logoDiv btn-metallic darker">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 27 27" fill="currentColor">
                   <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
                   <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
@@ -1693,7 +1992,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic">
+              <div class="logoDiv btn-metallic darker">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 27 27" fill="currentColor">
                   <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
                   <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
@@ -1706,7 +2005,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic">
+              <div class="logoDiv btn-metallic darker">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 27 27" fill="currentColor">
                   <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
                   <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
@@ -1719,7 +2018,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic">
+              <div class="logoDiv btn-metallic darker">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 27 27" fill="currentColor">
                   <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
                   <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
@@ -1732,7 +2031,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic">
+              <div class="logoDiv btn-metallic darker">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 27 27" fill="currentColor">
                   <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
                   <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
@@ -1745,7 +2044,7 @@
             </div>
 
             <div class="logoAndInfoDiv" >
-              <div class="logoDiv btn-metallic">
+              <div class="logoDiv btn-metallic darker" >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 27 27" fill="currentColor">
                   <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
                   <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
@@ -1766,6 +2065,244 @@
         
           </div> 
         </div>   
+      </div>
+
+      <div class="square1DivContent" id='engagementsDiv' style=" justify-content: flex-start; overflow-y:auto;">
+        
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> SPECIALIZED MATHEMATICS SERVICES</span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic darker">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%;color:#207720;' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor"  />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>Competition Mathematics Instruction </span>
+                <span>1-on-1, Groups & Institutions</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic darker">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%;color:var(--gold);' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor"  />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+                
+              </div>
+
+              <div class="infoDiv" >
+                <span>Olympiad Mentorship & Performance Coaching</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic darker">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%; color: #0093e4;' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor" class="SamplePath" />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+              </div>
+
+              <div class="infoDiv" >
+                <span>Curriculum Architecture & Problem Set Development</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic darker">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%;color: #cc0000;' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor" class="SamplePath" />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+              </div>
+
+              <div class="infoDiv" >
+                <span>Interactive Mathematical Content & Software Solutions</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic darker">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%; color: #808080;' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor" class="SamplePath" />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>University & Graduate-Level Instruction</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> BOOK A CONSULTATION</span>
+
+            <div class="logoAndInfoDiv" style="gap:0.5cqmin;padding: 0; flex-direction: space-evenly;">
+              <div class="logoDiv btn-metallic darker"> 
+                <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style='scale: 1.2; opacity: 0.9;'>
+                  <circle cx="375" cy="375" r="140" stroke-width="30" fill-opacity="0" stroke="currentColor" />
+                  <circle cx="462" cy="572" r="30" stroke-width="4" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <circle cx="330" cy="360" r="24" stroke-width="0" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <circle cx="420" cy="360" r="24" stroke-width="0" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <rect x="120" y="315" height="120" width="90" rx="30" ry="30" stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <rect x="540" y="315" height="120" width="90" rx="30" ry="30" stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <path d="M 584 315 A 217,217 0 0,0 166,315 L 375 375 Z " style="stroke-dashoffset: 439px; stroke-dasharray: 1001px;" stroke-linejoin="round" stroke-linecap="round" stroke-width="30" fill-opacity="0" stroke="currentColor"/>
+                  <path d="M 462 572 A 215,215 0 0,0 583,430 L 375 375 Z " style="stroke-dashoffset: 436px; stroke-dasharray: 626px;" stroke-linejoin="round" stroke-linecap="round" stroke-width="20" fill-opacity="0" stroke="currentColor" />
+                  <path d="M 338 432 A 55,55 0 0,0 417,432 L 378 394 Z " style="stroke-dashoffset: 113px; stroke-dasharray: 200px;" stroke-linejoin="round" stroke-linecap="round" stroke-width="30" fill-opacity="0" stroke="currentColor" />
+                </svg>
+              </div>
+
+              <div class="infoDiv" style="flex-direction: row; gap: 1cqmin;">
+                <span>Complete Form</span>
+                <div style="height:80%; aspect-ratio: 1/1;">
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M 120 375 L 600 375L 600 305 L 740 375 L 600 445 L 600 375" style="pointer-events: none; stroke-dashoffset: 0px; stroke-dasharray: 936px; transform-origin: center center 0px; transform-box: fill-box; transform: translate(-40px);" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="50" stroke="currentColor"/></svg>
+                </div>
+                <span>Book Consultation</span>
+                <div style="height:80%; aspect-ratio: 1/1;">
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M 120 375 L 600 375L 600 305 L 740 375 L 600 445 L 600 375" style="pointer-events: none; stroke-dashoffset: 0px; stroke-dasharray: 936px; transform-origin: center center 0px; transform-box: fill-box; transform: translate(-40px);" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="50" stroke="currentColor"/>
+                  </svg>
+                </div>
+                <span>Meet</span>
+              </div>
+            </div>
+
+           <button class="submit-btn" style="width: 80%; height: 10cqmin; margin-top:2cqmin ; fort-size:3cqmin" onclick="let card = document.getElementById('consultationCard'); card.classList.add('active');"> START</button>
+            
+          </div> 
+        </div>
+      </div>
+
+      <div class="consultationCardClass" id="consultationCard">
+
+          <button type="button" class="close-btn" aria-label="Close form" onclick="let card = document.getElementById('consultationCard'); card.classList.remove('active');">
+              <svg viewBox="0 0 24 24" style='height: 100%; width: 100%;' fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+          </button>
+
+
+
+          <form action="https://api.web3forms.com/submit" method="POST" class="mentorship-form" id="consultation-form">
+              <input type="hidden" name="access_key" value="1a56a177-b5d0-40f7-a920-b0574057d7dc">
+              <input type="hidden" name="redirect" value="https://calendar.app.google/DBzZ3WEHpUiFPHZD8">
+
+
+              <input type="hidden" name="subject" value="New Consultation Inquiry">
+              <input type="checkbox" name="botcheck" style="display: none;">
+
+              <div class="form-row">
+                  <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" id="name" name="name" required placeholder="e.g., Jane Doe or Oakridge High">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="email">Email Address</label>
+                      <input type="email" id="email" name="email" required placeholder="name@example.com">
+                  </div>
+              </div>
+
+              <div class="form-row">
+                  <!-- Custom Dropdown 1: Client Type -->
+                  <div class="form-group">
+                      <label>Inquiry Type</label>
+                      <div class="custom-select-wrapper" data-name="client_type">
+                          <input type="hidden" name="client_type" required>
+                          <div class="custom-select-trigger" tabindex="0">
+                              <span class="selected-text placeholder">Select one</span>
+                              <svg class="custom-select-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          </div>
+                          <div class="custom-options">
+                              <div class="custom-option" data-value="Individual Student/Parent">Individual Student / Parent</div>
+                              <div class="custom-option" data-value="Group">Group</div>
+                              <div class="custom-option" data-value="Institution">Institution / School</div>
+                              <div class="custom-option" data-value="Content">Content Creation</div>
+                              <div class="custom-option" data-value="General Inquiry">General Inquiry</div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Custom Dropdown 2: Preferred Format -->
+                  <div class="form-group">
+                      <label>Preferred Location</label>
+                      <div class="custom-select-wrapper" data-name="location">
+                          <input type="hidden" name="location" value="Online" required>
+                          <div class="custom-select-trigger" tabindex="0">
+                              <span class="selected-text placeholder">Select one</span>
+                              <svg class="custom-select-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          </div>
+                          <div class="custom-options">
+                              <div class="custom-option" data-value="Online">Online (Remote)</div>
+                              <div class="custom-option" data-value="In-Person (Toronto)">In-Person (Toronto)</div>
+                              <div class="custom-option" data-value="Hybrid">Hybrid</div>
+                              <div class="custom-option" data-value="Other">Other</div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label>Level</label>
+                      <div class="custom-select-wrapper" data-name="session_format">
+                          <input type="hidden" name="level" value="level" required>
+                          <div class="custom-select-trigger" tabindex="0">
+                              <span class="selected-text placeholder">Select one</span>
+                              <svg class="custom-select-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          </div>
+                          <div class="custom-options">
+                              <div class="custom-option" data-value="5-7">Grades 5–7</div>
+                              <div class="custom-option" data-value="8-10">Grades 8–10</div>
+                              <div class="custom-option" data-value="11-12">Grades 11–12</div>
+                              <div class="custom-option" data-value="Other">Other</div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label>Curriculum & Materials Status</label>
+                      <div class="custom-select-wrapper" data-name="curriculum">
+                          <input type="hidden" name="materials" value="materials" required>
+                          <div class="custom-select-trigger" tabindex="0">
+                              <span class="selected-text placeholder">Select one</span>
+                              <svg class="custom-select-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          </div>
+                          <div class="custom-options">
+                              <div class="custom-option" data-value="Have all">Existing curriculum available</div>
+                              <div class="custom-option" data-value="Have some">Custom content required</div>
+                              <div class="custom-option" data-value="No documents">Complete curriculum required</div>
+                              <div class="custom-option" data-value="Other">Other</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
+              <div class="form-group">
+                  <label for="background">Contest Experience and Background</label>
+                  <textarea id="background" name="background" rows="4" required placeholder="Please detail current contest experience (e.g., COMC, CMO, Euclid, AMC 10/12, AIME), previously taken contest-related courses and institutions (e.g., Spirit of Math, university math circles, Canada/USA Mathcamp, AoPS) if applicable "></textarea>
+              </div>
+
+              <div class="form-group">
+                  <label for="primaryGoal">Primary Goal / Details</label>
+                  <textarea id="primaryGoal" name="primaryGoal" rows="4" placeholder="Please detail goals, or institutional deliverables..."></textarea>
+              </div>
+
+               <div class="form-group">
+                  <button type="submit" class="submit-btn">Submit Application for Consultation</button>
+               </div>
+          </form>
       </div>
     </div>
   </div>
@@ -2066,7 +2603,98 @@
     });
   }
 
-  
+</script>
+
+<script>
+        // --- CUSTOM DROPDOWN ENGINE ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const wrappers = document.querySelectorAll('.custom-select-wrapper');
+
+            wrappers.forEach(wrapper => {
+                const trigger = wrapper.querySelector('.custom-select-trigger');
+                const options = wrapper.querySelectorAll('.custom-option');
+                const hiddenInput = wrapper.querySelector('input[type="hidden"]');
+                const textSpan = wrapper.querySelector('.selected-text');
+
+                // Toggle dropdown state
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeAllDropdowns(wrapper);
+                    wrapper.classList.toggle('open');
+                });
+
+                // Select option mouse click
+                options.forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        selectOption(wrapper, option, hiddenInput, textSpan);
+                    });
+                });
+
+                // Keyboard Navigation
+                trigger.addEventListener('keydown', (e) => {
+                    const isOpen = wrapper.classList.contains('open');
+                    const focusedOption = wrapper.querySelector('.custom-option.focused') || wrapper.querySelector('.custom-option.selected');
+                    const optionsList = Array.from(options);
+
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        if (isOpen && focusedOption) {
+                            selectOption(wrapper, focusedOption, hiddenInput, textSpan);
+                        } else {
+                            closeAllDropdowns(wrapper);
+                            wrapper.classList.add('open');
+                        }
+                    } else if (e.key === 'Escape') {
+                        wrapper.classList.remove('open');
+                    } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (!isOpen) {
+                            wrapper.classList.add('open');
+                            return;
+                        }
+                        let currentIndex = optionsList.indexOf(focusedOption);
+                        if (e.key === 'ArrowDown') {
+                            currentIndex = (currentIndex + 1) % optionsList.length;
+                        } else if (e.key === 'ArrowUp') {
+                            currentIndex = (currentIndex - 1 + optionsList.length) % optionsList.length;
+                        }
+                        optionsList.forEach(opt => opt.classList.remove('focused'));
+                        optionsList[currentIndex].classList.add('focused');
+                        optionsList[currentIndex].scrollIntoView({ block: 'nearest' });
+                    }
+                });
+            });
+
+            function selectOption(wrapper, option, hiddenInput, textSpan) {
+                const val = option.getAttribute('data-value');
+                const text = option.textContent;
+
+                hiddenInput.value = val;
+                textSpan.textContent = text;
+                textSpan.classList.remove('placeholder');
+
+                wrapper.querySelectorAll('.custom-option').forEach(opt => {
+                    opt.classList.remove('selected', 'focused');
+                });
+                option.classList.add('selected');
+                wrapper.classList.remove('open');
+            }
+
+            function closeAllDropdowns(exceptWrapper = null) {
+                document.querySelectorAll('.custom-select-wrapper').forEach(w => {
+                    if (w !== exceptWrapper) {
+                        w.classList.remove('open');
+                        w.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('focused'));
+                    }
+                });
+            }
+
+            // Close when clicking anywhere outside
+            document.addEventListener('click', () => closeAllDropdowns());
+        });
+
+       
 </script>
 
 </html>
