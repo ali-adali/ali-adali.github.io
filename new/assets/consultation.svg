@@ -1,0 +1,11 @@
+<svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <circle cx="375" cy="375" r="140" stroke-width="30" fill-opacity="0" stroke="currentColor" />
+  <circle cx="462" cy="572" r="30" stroke-width="4" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+  <circle cx="330" cy="360" r="24" stroke-width="0" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+  <circle cx="420" cy="360" r="24" stroke-width="0" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+  <rect x="120" y="315" height="120" width="90" rx="30" ry="30" stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+  <rect x="540" y="315" height="120" width="90" rx="30" ry="30" stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+  <path d="M 584 315 A 217,217 0 0,0 166,315 L 375 375 Z " style="stroke-dashoffset: 439px; stroke-dasharray: 1001px;" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="0" stroke="currentColor"/>
+  <path d="M 462 572 A 215,215 0 0,0 583,430 L 375 375 Z " style="stroke-dashoffset: 436px; stroke-dasharray: 626px;" stroke-linejoin="round" stroke-linecap="round" stroke-width="20" fill-opacity="0" stroke="currentColor" />
+  <path d="M 338 432 A 55,55 0 0,0 417,432 L 378 394 Z " style="stroke-dashoffset: 113px; stroke-dasharray: 200px;" stroke-linejoin="round" stroke-linecap="round" stroke-width="30" fill-opacity="0" stroke="currentColor" />
+</svg>
