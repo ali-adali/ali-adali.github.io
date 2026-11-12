@@ -970,9 +970,10 @@
             align-items: center;
             line-height: 1.25;
 
-            top:1cqmin;
+            top:calc(50% - 50cqmin + 1cqmin);
+            left: calc(50% - 50cqmin*var(--phi) + 100cqmin/var(--phi) + 1cqmin);
 
-            position: relative;
+            position: absolute;
             width: 98cqmin;
             height: 98cqmin;
             background: var(--colsultation-card-bg);
@@ -1012,7 +1013,8 @@
 
         
 
-        .mentorship-form {
+    .mentorship-form
+    {
             height: 94%;
             width: 94%;
             display: flex;
@@ -1022,20 +1024,37 @@
             outline: 0px solid greenyellow;
         }
 
-        .form-row {
+    .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2.5cqmin;
 
         }
+    @media (orientation: portrait)
+    {
+      .form-row
+      {
+        grid-template-columns: 1fr;
+      }
 
-        /*
-        @media (orientation: portrait) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-        */
+      .consultationCardClass
+      {
+        height: calc(var(--phi)*100cqmin);
+        width: 100cqmin;
+        left: calc(50% - 50cqmin);
+        top: calc(50% - 50cqmin*var(--phi));
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group textarea,
+      .custom-select-trigger,
+      .custom-option
+      {
+        font-size: 3cqmin;
+      }
+    }
+      
 
         .form-group {
             display: flex;
@@ -2184,7 +2203,10 @@
         </div>
       </div>
 
-      <div class="consultationCardClass" id="consultationCard">
+      
+    </div>
+
+    <div class="consultationCardClass" id="consultationCard">
 
           <button type="button" class="close-btn" aria-label="Close form" onclick="let card = document.getElementById('consultationCard'); card.classList.remove('active');">
               <svg viewBox="0 0 24 24" style='height: 100%; width: 100%;' fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2303,9 +2325,10 @@
                   <button type="submit" class="submit-btn">Submit Application for Consultation</button>
                </div>
           </form>
-      </div>
-    </div>
+   </div>
   </div>
+
+  
 </body>
 
 <script>
@@ -2534,8 +2557,8 @@
 
   //navButtons.forEach(btn => btn.style.opacity=0);
 
-   resetAnimation();
-   setTimeout(() => {animateLogo();},150);
+   //resetAnimation();
+   //setTimeout(() => {animateLogo();},150);
   
   
 
