@@ -88,19 +88,19 @@
     .btn-green {
       background: linear-gradient(145deg, #059669 0%, #064e3b 100%);
       color: #ecfdf5;
-      border: 1px solid #10b981;
+      border: 0.1cqmin solid #10b981;
       box-shadow: 
-        inset 0 1px 1px rgba(255, 255, 255, 0.35),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
-        0 4px 14px rgba(6, 78, 59, 0.4);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.5),
+        0 0.4cqmin 1.4cqmin rgba(6, 78, 59, 0.4);
+      text-shadow: 0 0.1cqmin 0.2cqmin rgba(0, 0, 0, 0.6);
     }
 
     .btn-green:hover {
       box-shadow: 
-        inset 0 1px 2px rgba(255, 255, 255, 0.45),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
-        0 6px 20px rgba(16, 185, 129, 0.45);
+        inset 0 0.1cqmin 0.2cqmin rgba(255, 255, 255, 0.45),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.5),
+        0 0.6cqmin 2.0cqmin rgba(16, 185, 129, 0.45);
       filter: brightness(1.08);
     }
 
@@ -110,19 +110,19 @@
     .btn-blue {
       background: linear-gradient(145deg, #1d4ed8 0%, #0f172a 100%);
       color: #eff6ff;
-      border: 0.15cqmin solid #3b82f6;
+      border: 0.1cqmin solid #3b82f6;
       box-shadow: 
-        inset 0 0.15cqmin 0.15cqmin rgba(255, 255, 255, 0.35),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
-        0 4px 14px rgba(29, 78, 216, 0.4);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+        inset 0 0.1cqmin 0.15cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.6),
+        0 0.4cqmin 1.4cqmin rgba(29, 78, 216, 0.4);
+      text-shadow: 0 0.1cqmin 2cqmin rgba(0, 0, 0, 0.6);
     }
 
     .btn-blue:hover {
       box-shadow: 
-        inset 0 1px 2px rgba(255, 255, 255, 0.45),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
-        0 6px 20px rgba(59, 130, 246, 0.45);
+        inset 0 0.1cqmin 0.2cqmin rgba(255, 255, 255, 0.45),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.6),
+        0 0.5cqmin 1.8cqmin rgba(59, 130, 246, 0.45);
       filter: brightness(1.08);
     }
 
@@ -825,11 +825,7 @@
       transform: translateY(0);
     }
 
-    #homeDiv
-    {
   
-    }
-
 
 
     #homeDiv.active .square1DivContentPlace
@@ -849,6 +845,14 @@
     }
 
     #engagementsDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    #geoPlayerDiv.active .square1DivContentPlace
     {
       opacity: 1;
       visibility: visible;
@@ -2183,13 +2187,13 @@
                 </svg>
               </div>
 
-              <div class="infoDiv" style="flex-direction: row; gap: 1cqmin;">
+              <div class="infoDiv" style="flex-direction: row; gap: 1cqmin; justify-content: center;">
                 <span>Complete Form</span>
-                <div style="height:80%; aspect-ratio: 1/1;">
+                <div style="height:70%; aspect-ratio: 1/1;">
                   <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M 120 375 L 600 375L 600 305 L 740 375 L 600 445 L 600 375" style="pointer-events: none; stroke-dashoffset: 0px; stroke-dasharray: 936px; transform-origin: center center 0px; transform-box: fill-box; transform: translate(-40px);" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="50" stroke="currentColor"/></svg>
                 </div>
                 <span>Book Consultation</span>
-                <div style="height:80%; aspect-ratio: 1/1;">
+                <div style="height:70%; aspect-ratio: 1/1;">
                   <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <path d="M 120 375 L 600 375L 600 305 L 740 375 L 600 445 L 600 375" style="pointer-events: none; stroke-dashoffset: 0px; stroke-dasharray: 936px; transform-origin: center center 0px; transform-box: fill-box; transform: translate(-40px);" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="50" stroke="currentColor"/>
                   </svg>
@@ -2198,14 +2202,107 @@
               </div>
             </div>
 
-           <button class="submit-btn" style="width: 80%; height: 10cqmin; margin-top:2cqmin ; fort-size:3cqmin" onclick="let card = document.getElementById('consultationCard'); card.classList.add('active');"> START</button>
+           <button class="btn-metallic btn-blue" style="width: 40cqmin; height: 8cqmin; margin-top:2cqmin ; font-size:3cqmin; border-radius: 3cqmin" onclick="let card = document.getElementById('consultationCard'); card.classList.add('active');"> START</button>
             
           </div> 
         </div>
       </div>
 
-      
+      <div class="square1DivContent" id='geoPlayerDiv' style=" justify-content: flex-start; overflow-y:auto; gap: 2cqmin;">
+        
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 1cqmin; height: 78cqmin;">
+            <span class="square1DivContentTitle"> GeoPlayer</span>
+            
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; gap: 2cqmin; ">
+              <div class="logoDiv btn-metallic darker" >
+                <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" >
+                  <circle cx="377.1" cy="384.6" r="312.9" stroke-width="30" stroke="#808080" fill="red" fill-opacity='0.0'/>
+
+                  <polygon points="210,120 150,600 690,390" stroke-linejoin="round" stroke-linecap="round" stroke-width="0" fill-opacity="0.3" fill="#207720"/>
+
+                  <circle cx="377.1" cy="384.6" r="30" stroke-width="0" stroke="#808080" fill="none"/>
+
+                  <polyline points="150,600 210,120" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="40" stroke="#cc0000"/>
+
+                  <polyline points="210,120 690,390" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="40" stroke="#207720"/>
+
+                  <polyline points="690,390 150,600" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="40" stroke="#0093e4"/>
+
+                  <circle cx="150" cy="600" r="54" fill-opacity="1" stroke="none" fill="#f0cc00"/>
+
+                  <circle cx="690" cy="390" r="54" stroke-width="none" fill-opacity="1" fill="#f0cc00"/>
+
+                  <circle cx="210" cy="120" r="54" stroke-width="none" fill-opacity="1" fill="#f0cc00"/>
+                </svg>
+                
+              </div>
+
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  I am pleased to announce the official release of <span style="font-size:4.5cqmin; font-family: 'Cormorant Garamond', serif; font-weight: bold; " >GeoPlayer</span>.
+                </span>
+              </div>
+            </div>
+
+            <img class=" btn-metallic" src="assets/gp3.png" style="height:45cqmin; width: auto; border-radius: 2cqmin; ">
+
+            <a href="https://ali-adali.github.io/GeoPlayer/" target="_blank" rel="noopener" role='button' class=" btn-metallic btn-blue" style="width: 40cqmin; height: 8cqmin; border-radius: 3cqmin; display: flex; justify-content: center; align-items: center; text-decoration: none; font-family: inherit;"> Click to Explore </a>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; justify-content: center; flex-direction: column; align-items: center; height: 17cqmin; align-content: center;">
+            <span style="text-align: left; width: 94%; font-size: 2.8cqmin; ">
+              GeoPlayer an interactive web-based player engine engineered from the ground up to render advanced mathematical problem solutions and geometric proofs with absolute clarity.
+            </span>
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin; height: 38cqmin;">
+            <span style="width: 94%;outline: 0px solid orangered;">
+              Built using pure, lightweight vanilla code without heavy frameworks or bloated media files, GeoPlayer bridges the gap between static diagrams and video walkthroughs:
+            </span>
+
+            <ul style="width: 88%; ">
+              <li><b> Vector-Native Precision: </b> <span style="font-size:1.8cqmin">All solutions are rendered as crisp vector graphics, ensuring infinite resolution at any zoom level while maintaining exceptionally small file sizes.</span>
+              </li>
+              <li> <b>Fluid Timeline Scrubbing:</b> <span style="font-size:1.8cqmin">Freely scrub the progress bar backward and forward to examine multi-step geometric constructions and proof sequences at your own pace.</span>
+              </li>
+
+              <li><b>Universal Compatibility:</b>  <span style="font-size:1.8cqmin">Optimized for zero latency and zero jitter, performing smoothly across all modern desktop and mobile browsers.</span> </li>
+            </ul>
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin; height: 38cqmin;">
+            <span style="width: 94%;outline: 0px solid orangered;">
+              GeoPlayer's library is continuously expanding, with a rigorous curriculum tailored for high-level contest participants:
+            </span>
+
+            <ul style="width: 88%;">
+              <li><b> Foundational Olympiad Geometry: </b> <span style="font-size:1.8cqmin">Clear, step-by-step visual proofs of fundamental theorems in advanced Euclidean geometry.</span>
+              </li>
+                  
+              <li> <b>Advanced AIME Track:</b> <span style="font-size:1.8cqmin">Special focus on high-difficulty American Invitational Mathematics Examination problems, targeting the rigorous problems spanning Numbers 10 through 15.</span>
+              </li>
+
+              <li><b>International Mathematical Olympiad (IMO):</b>  <span style="font-size:1.8cqmin">Future expansion scaling toward full-scale solutions for elite international contest problems.</span> </li>
+            </ul>
+          </div> 
+        </div>
+        
+      </div>
+
+
+
     </div>
+
+
 
     <div class="consultationCardClass" id="consultationCard">
 
@@ -2220,7 +2317,6 @@
 
           <form action="https://api.web3forms.com/submit" method="POST" class="mentorship-form" id="consultation-form">
               <input type="hidden" name="access_key" value="1a56a177-b5d0-40f7-a920-b0574057d7dc">
-              <input type="hidden" name="redirect" value="https://calendar.app.google/DBzZ3WEHpUiFPHZD8">
 
 
               <input type="hidden" name="subject" value="New Consultation Inquiry">
@@ -2314,7 +2410,7 @@
 
               <div class="form-group">
                   <label for="background">Contest Experience and Background</label>
-                  <textarea id="background" name="background" rows="4" required placeholder="Please detail current contest experience (e.g., COMC, CMO, Euclid, AMC 10/12, AIME), previously taken contest-related courses and institutions (e.g., Spirit of Math, university math circles, Canada/USA Mathcamp, AoPS) if applicable "></textarea>
+                  <textarea id="background" name="background" rows="4" required placeholder="Please detail current contest experience, previously taken contest-related courses if applicable "></textarea>
               </div>
 
               <div class="form-group">
@@ -2322,8 +2418,8 @@
                   <textarea id="primaryGoal" name="primaryGoal" rows="4" placeholder="Please detail goals, or institutional deliverables..."></textarea>
               </div>
 
-               <div class="form-group">
-                  <button type="submit" class="submit-btn">Submit Application for Consultation</button>
+               <div class="form-group" style="outline: 0px solid greenyellow; display: flex; justify-content: center; align-items: center;  ">
+                  <button type="submit" class="btn-blue btn-metallic" style="width: 40cqmin; height: 8cqmin;  transform:translateY(calc(-1cqmin)); outline: 0px solid orangered; font-size:3cqmin; border-radius: 3cqmin;">SUBMIT</button>
                </div>
           </form>
    </div>
@@ -2558,8 +2654,8 @@
 
   //navButtons.forEach(btn => btn.style.opacity=0);
 
-  resetAnimation();
-  setTimeout(() => {animateLogo();},150);
+   //resetAnimation();
+   //setTimeout(() => {animateLogo();},150);
   
   
 
@@ -2626,6 +2722,51 @@
      
     });
   }
+
+
+  document.getElementById('consultation-form').addEventListener('submit', function(e)
+  {
+      e.preventDefault(); // Stop standard form submission
+
+      const form = e.target;
+      const submitBtn = form.querySelector('.submit-btn');
+      const originalBtnText = submitBtn.textContent;
+      
+      // Provide visual feedback while submitting
+      submitBtn.textContent = "Submitting application...";
+      submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+          body: json
+      })
+      .then(async (response) => {
+          let res = await response.json();
+          if (response.status === 200) {
+              // Success! Instantly redirect to your Google Calendar link
+              window.location.href = "https://calendar.app.google/DBzZ3WEHpUiFPHZD8";
+          } else {
+              console.error(res);
+              alert(res.message || "Something went wrong. Please try again.");
+              submitBtn.textContent = originalBtnText;
+              submitBtn.disabled = false;
+          }
+      })
+      .catch(error => {
+          console.error(error);
+          alert("Network error. Please check your connection and try again.");
+          submitBtn.textContent = originalBtnText;
+          submitBtn.disabled = false;
+      });
+  });
 
 </script>
 
