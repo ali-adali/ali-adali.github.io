@@ -1,0 +1,3688 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>Ali ADALI, PhD - Homepage</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo_still.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,400&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+  <style>
+    /* Base Metallic Button Style (Applies to all div buttons) */
+    .btn-metallic {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      
+  
+      
+      /* Interactivity & Drag Safety */
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+
+       box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.3vmin var(--border-color2);
+       
+      
+      /* Smooth tactile transitions */
+      transition: transform 0.12s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle sheen overlay sweep on hover */
+    .btn-metallic::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+      );
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+    }
+
+    .btn-metallic:hover::before {
+      left: 160%;
+    }
+
+    .btn-metallic:active {
+      transform: scale(0.97) translateY(1px);
+    }
+
+    /* =========================================================
+       1. METALLIC DARK ORANGE (Sunset Titanium / Burnt Amber)
+       ========================================================= */
+    .btn-orange {
+      background: linear-gradient(145deg, #d97706 0%, #78350f 100%);
+      color: #fff7ed;
+      border: 1px solid #f59e0b;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 4px 14px rgba(180, 83, 9, 0.35);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-orange:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.45),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 6px 20px rgba(245, 158, 11, 0.5);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       2. METALLIC DARK GREEN (Alpine Pine / Deep Emerald)
+       ========================================================= */
+    .btn-green {
+      background: linear-gradient(145deg, #059669 0%, #064e3b 100%);
+      color: #ecfdf5;
+      border: 0.1cqmin solid #10b981;
+      box-shadow: 
+        inset 0 0.1cqmin 0.1cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.5),
+        0 0.4cqmin 1.4cqmin rgba(6, 78, 59, 0.4);
+      text-shadow: 0 0.1cqmin 0.2cqmin rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-green:hover {
+      box-shadow: 
+        inset 0 0.1cqmin 0.2cqmin rgba(255, 255, 255, 0.45),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.5),
+        0 0.6cqmin 2.0cqmin rgba(16, 185, 129, 0.45);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       3. METALLIC BLUE (Pacific Blue / Sierra Navy)
+       ========================================================= */
+    .btn-blue {
+      background: linear-gradient(145deg, #1d4ed8 0%, #0f172a 100%);
+      color: #eff6ff;
+      border: 0.25cqmin solid #3b82f6;
+      box-shadow: 
+        inset 0 0.1cqmin 0.15cqmin rgba(255, 255, 255, 0.35),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.6),
+        0 0.4cqmin 1.4cqmin rgba(29, 78, 216, 0.4);
+      text-shadow: 0 0.1cqmin 2cqmin rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-blue:hover {
+      box-shadow: 
+        inset 0 0.1cqmin 0.2cqmin rgba(255, 255, 255, 0.45),
+        inset 0 -0.2cqmin 0.4cqmin rgba(0, 0, 0, 0.6),
+        0 0.5cqmin 1.8cqmin rgba(59, 130, 246, 0.45);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       4. METALLIC SILVER (Natural Titanium / Platinum Chrome)
+       ========================================================= */
+    .btn-silver {
+      background: linear-gradient(145deg, #e2e8f0 0%, #64748b 100%);
+      /*color: #0f172a;*/
+      color: black;
+      border: 1px solid #cbd5e1;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.8),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+        0 4px 14px rgba(148, 163, 184, 0.25);
+      font-weight: 700;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-silver:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.9),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+        0 6px 20px rgba(226, 232, 240, 0.4);
+      filter: brightness(1.05);
+    }
+
+      /* =========================================================
+       5. METALLIC TURQUOISE (Alpine Cyan / Anodized Teal)
+       ========================================================= */
+    .btn-turquoise {
+      background: linear-gradient(145deg, #06b6d4 0%, #155e75 100%);
+      color: #ecfeff;
+      border: 1px solid #22d3ee;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 4px 14px rgba(8, 145, 178, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-turquoise:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 6px 20px rgba(34, 211, 238, 0.45);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       6. METALLIC BLACKISH (Midnight Onyx / Obsidian)
+       ========================================================= */
+    .btn-blackish {
+      background: linear-gradient(145deg, #262626 0%, #0a0a0a 100%);
+      color: #f5f5f5;
+      border: 1px solid #404040;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.25),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+        0 4px 14px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    }
+
+    .btn-blackish:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+        0 6px 20px rgba(64, 64, 64, 0.5);
+      filter: brightness(1.12);
+    }
+
+    /* =========================================================
+       7. METALLIC DARK GRAY (Space Gray / Gunmetal Titanium)
+       ========================================================= */
+    .btn-darkgray {
+      background: linear-gradient(145deg, #52525b 0%, #27272a 100%);
+      color: #f4f4f5;
+      border: 1px solid #71717a;
+      box-shadow: 
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 14px rgba(39, 39, 42, 0.5);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-darkgray:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.45),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 6px 20px rgba(113, 113, 122, 0.45);
+      filter: brightness(1.08);
+    }
+
+    /* =========================================================
+       8. METALLIC DARK RED (Crimson / Deep Ruby)
+       ========================================================= */
+    .btn-darkred {
+      background: linear-gradient(145deg, #b91c1c 0%, #450a0a 100%);
+      color: #fef2f2;
+      border: 1px solid #ef4444;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 14px rgba(185, 28, 28, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-darkred:hover {
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.45),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+        0 6px 20px rgba(239, 68, 68, 0.45);
+      filter: brightness(1.08);
+    }
+  </style>
+
+  <style>
+    :root {
+      --phi: 1.61803398875;
+      --w: min(98vw, calc(98dvh * var(--phi)));
+
+
+
+      --bg-color: black;
+      --mainDiv-bg:  #091f36;
+
+      --accent-gold: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --text-main: #e4e5e7;
+      --text-muted: #9ca3af;
+      --border-color: #1f293d;
+
+
+      --bg-dark: #0b0f19;
+      --bg-card: #0f172a;
+
+      --card-bg2: #161b22;
+      --bg-color2: #0d1117;
+      --border-color2: #30363d;
+
+      
+      --blue-accent: #2563eb;       
+      --blue-glow: ghostwhite; 
+      --blue-light: #60a5fa;        
+      --blue-border: #1d4ed8;
+      --result-bg:#1e293b;
+
+      --gold : #FFD700;
+
+      --colsultation-card-bg: #1e293b;
+      --colsultation-border-color: #334155;
+      --consultation-text-primary: #f8fafc;
+      --consultation-text-secondary: #94a3b8;
+      --consultation-accent-color: #38bdf8;
+      --consultation-accent-hover: #0284c7;
+      --consultation-font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+
+      
+
+    }
+
+    @media (orientation: portrait)
+    {
+      :root 
+      {
+        --w : min(98dvh, calc(98vw * var(--phi)));
+      }
+    }
+
+    *{
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0;
+    }
+
+      body {
+      background-color: var(--bg-color); 
+      color: var(--text-main); 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+
+      height: 100dvh;
+      width: 100vw;
+      
+      /* Prevent browser pull-to-refresh and bounce scrolling on outer body */
+      overscroll-behavior: none;
+      overflow: hidden;
+
+      
+    }
+
+    .rectangle0Div {
+      
+
+      width: var(--w);
+      height: calc( var(--w)/var(--phi) );
+      max-width: 100vw;
+      max-height: 100dvh;
+      position: relative;
+
+
+      /*outline: 1px solid blueviolet;*/
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      background-color: var(--bg-dark);
+
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+      container-type: size;
+
+      /*font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;*/
+      /*font-family: 'Plus Jakarta Sans', sans-serif;*/
+      /*font-family: 'Cormorant Garamond', serif;*/
+
+
+    }
+
+    @media (orientation: portrait) {
+      .rectangle0Div {
+        
+        width: calc( var(--w)/var(--phi) );
+        height: var(--w);
+        flex-direction: column;
+
+        max-width: 100dvw;
+        max-height: 100dvh;
+      }
+    }
+
+    .square1Div {
+      position: relative;
+      height: calc( var(--w) / var(--phi) );
+      width: calc( var(--w) / var(--phi) );
+      display: flex;
+      flex-direction: column;
+      
+
+      justify-content: flex-start;
+      align-items: center;
+      background-color: var(--bg-color2);
+
+      outline: 0px solid blueviolet;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--border-color2);
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+      z-index: 2;
+      border-radius: 4cqmin;
+
+      opacity: 1;
+      gap: 0;
+
+      overflow: hidden;
+
+    }
+
+
+    .rectangle1Div {
+      opacity: 1;
+      height: calc( var(--w) / var(--phi) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi)) );
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+
+      
+    }
+
+    @media (orientation: portrait) {
+      .rectangle1Div
+      {
+        width: calc( var(--w) / var(--phi) );
+        height: calc( var(--w) / var(--phi)   / var(--phi) );
+        flex-direction: row;
+      }
+
+    }
+
+    .square2Div {
+      opacity: 1;
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      width: calc( var(--w) / (var(--phi)   * var(--phi)) );
+      height: calc( var(--w) / (var(--phi)   * var(--phi)) );
+      
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      /*outline: 1px solid blueviolet;*/
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+      font-size: 3.3cqmin;
+      padding-block: 2%;  
+    }
+
+    .square2DivPlace
+    {
+      height: calc(100%/8);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      outline: 0px solid blueviolet;
+      z-index: 14;
+      color: var(--text-muted);
+    }
+
+    .square2DivPlace > span
+    {
+      width: 93%;
+      height: 80%;
+      text-align: center;
+      border-radius: 999px;
+      align-content: center;
+      outline: 0.2cqmin solid var(--border-color2);
+
+      transition: all 0.2s ease;
+      
+    }
+
+    @media (orientation: portrait) {
+
+      .square2Div
+      {
+        padding-block: 0%;
+      }
+
+      .square2DivPlace
+      {
+        align-items: center;
+      }
+
+
+
+    }
+  
+
+
+
+    .rectangle2Div {
+
+      opacity: 1;
+      
+      width: calc( var(--w) / (var(--phi)   * var(--phi)) );
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      aspect-ratio: var(--phi) / 1;
+
+
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      /* box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow); */
+
+      background-color: var(--bg-dark);
+
+      
+     
+    }
+
+    @media (orientation: portrait) {
+      .rectangle2Div 
+      {
+        height: calc( var(--w) / (var(--phi)   * var(--phi)) );
+        width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+        flex-direction: column;
+      }
+    }
+
+    .square3Div {
+      
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      opacity: 1;
+     
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-start;
+      align-items: center;
+
+      outline: 0px solid blueviolet;
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+
+      overflow: hidden;
+
+      border-radius: 4cqmin;
+
+      /*background-image: radial-gradient(60% 70% at 49% 50%, transparent 80%, transparent 85%, var(--bg-dark) 95%, var(--bg-dark) ), url('assets/WhiteBackground.jpg') ;
+
+      background-size: 
+        auto 100%, cover;     /* Stretches the gradient to fill the container */
+                 /* Scales the image to cover the container (or use exact width/height like '300px 200px') 
+
+      background-position: left;
+      background-repeat: no-repeat;*/
+      
+      
+
+
+    }
+
+    .square3Div img
+    {
+      
+      width: auto;
+      height: calc(100cqmin/(var(--phi)*var(--phi)));
+
+    }
+
+    
+
+    
+
+    .rectangle3Div {
+      /* In landscape, remaining height inside rectangle1Div */
+      opacity: 1;
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+     
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
+     
+      
+    }
+
+    @media (orientation: portrait) {
+      .rectangle3Div {
+        width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi)) );
+      
+        height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+       
+        
+        flex-direction: row;
+      }
+    }
+
+    .square4Div {
+      
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      
+      
+      
+      display: flex;
+      flex-direction: column;
+
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0cqmin;
+
+      outline: 0px solid blueviolet;
+      
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+      
+
+
+    }
+
+    .square4Title
+    {
+      height: calc(100%/5);
+      width: 100%;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      
+      border-radius: 0cqmin;
+      font-size: 3cqmin;
+      outline: 0px solid orangered;
+      margin-top: 0cqmin;
+    }
+
+    .square4Title span
+    {
+      text-align: center;
+      width: 90%;
+      height: 90%;
+    }
+
+
+    .square4DivPlace
+    {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      font-size: 2.1cqmin;
+      color: var(--text-muted);
+      outline: 0px solid greenyellow;
+      gap: 0.0cqmin;
+    }
+
+    .square4DivPlace span
+    {
+      height: calc(90%/3);
+      width: 94%;
+      text-align: center;
+      outline:0px solid blueviolet;
+      align-content: center;   
+    }
+
+
+    .rectangle4Div {
+      /* In landscape, remaining height inside rectangle1Div */
+      opacity: 1;
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) * var(--phi) ) );
+     
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+     
+      
+    }
+
+    @media (orientation: portrait) {
+      .rectangle4Div {
+        height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) ) );
+      
+        width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) * var(--phi) ) );
+       
+        
+        flex-direction: row;
+      }
+    }
+
+    .square5Div {
+      
+      /* In landscape, container width is 100cqmin (the smaller dimension of rectangle1Div) */
+      height: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) * var(--phi) ) );
+      width: calc( var(--w) / (var(--phi)   * var(--phi) * var(--phi) * var(--phi) * var(--phi) ) );
+      
+      
+      
+      display: flex;
+      flex-direction: column;
+
+      justify-content: center;
+      align-items: center;
+
+      outline: 0px solid blueviolet;
+      
+
+      transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+
+
+
+      
+
+
+    }
+
+    .square5Div div
+    {
+      height: 80%;
+      width: 80%;
+      border-radius: 999px;
+      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 14;
+    }
+
+    .square5Div div > svg
+    {
+      margin-top: 18%;
+      height: 80%;
+      width: 80%;
+     
+    }
+
+
+    .square1DivContent
+    {
+      height: 100cqmin;
+      width: 100cqmin;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      
+      gap: 2cqmin;
+      padding-block: 2cqmin;
+      color: var(--text-main);
+      background-color: rgba(255, 215, 0, 0.0);
+      border-radius: 4cqmin;
+      overflow-y: auto;
+
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      /* GPU-accelerated transition setup */
+      transition:visibility 0.4s ease opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(0px);
+
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      transition: height 0.4s linear;
+
+      scroll-padding-top: 1.6cqmin;
+      scroll-padding-bottom: 0.0%;
+    }
+
+    .square1DivContent.active
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+      
+    }
+
+    .square1DivContentTitle
+    {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 3.8cqmin;
+      font-weight: bold;
+      letter-spacing: 0.05cqmin;
+      text-transform: uppercase;
+
+    }
+
+    
+
+  
+
+    .square1DivContentPlace
+    {
+      height: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+
+      outline: 0px solid blueviolet;
+      font-size: 2.7cqmin;
+      text-align: left;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+
+  
+      font-weight: 400;
+
+      opacity: 0;
+      transform: translateY(0px);
+      transition: visibility 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+      transition-delay: all 0.2s;
+
+      margin-top: 0cqmin;
+
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      
+
+    }
+
+
+    #profileDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+
+    #homeDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    #teachingDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    #engagementsDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    #geoPlayerDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    
+
+    #worksDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    #channelsDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    #aboutDiv.active .square1DivContentPlace
+    {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    
+
+    
+
+
+    .square1DivContentPlace > div
+    {
+      height: auto;
+      width: 96%;
+      
+      padding: 2cqmin;
+
+      align-content: center;
+      
+
+      border-radius: 3cqmin;
+      background-color: var(--card-bg2);
+
+      outline: 0.25cqmin solid var(--border-color2);
+      box-shadow: 0.0vmin 0.0vmin 0.7vmin 0.1vmin var(--border-color2);  
+    }
+
+    .logoAndInfoDiv
+    {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      align-content: center;
+
+      box-sizing: border-box;
+      paddin:0;
+      margin: 0;
+
+      width: 94%;
+      height: 9cqmin;
+
+      border-radius: 999px;
+      background-color: var(--card-bg2);
+      outline: 0px solid orangered;
+
+      /*outline: 0.25cqmin solid var(--border-color2);*/
+      box-shadow: 0.0vmin 0.0vmin 0.7vmin 0.1vmin var(--border-color2); 
+    }
+
+    .logoDiv
+    {
+      height: 9cqmin;
+      width: 9cqmin;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: 0px solid orangered;
+      border-radius: 999px;
+    }
+
+    .logoDiv > img
+    {
+      display:block;
+      height: 100%;
+      width: 100%;
+
+    }
+
+    .infoDiv
+    {
+      flex: 1;
+      height: 100%;
+
+      border-radius: 4cqmin;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      outline: 0px solid blueviolet;
+
+    }
+
+    
+
+    .selectedGold
+    {
+      scale: 1.05;
+      outline:0.02cqmin solid var(--gold); 
+      box-shadow: 0.0vmin 0.0vmin 0.8vmin 0.3vmin var(--gold);
+      color:var(--bg-dark); 
+      text-shadow: -0.1vmin -0.1vmin 0.2vmin var(--gold),0.1vmin 0.1vmin 0.2vmin var(--gold),-0.1vmin 0.1vmin 0.2vmin var(--gold),0.1vmin -0.1vmin 0.2vmin var(--gold); 
+    }
+
+    p 
+    {
+      text-indent: 6cqmin;
+    }
+
+    .logoClass
+    {
+      position: absolute;
+      height: 100cqmin;
+      width: 100cqmin;
+      left: calc(50% - 50cqmin);
+      z-index: 10;
+    }
+
+    .darker
+    {
+      filter: brightness(0.85) contrast(1.4);
+    }
+
+  </style>
+
+  <style>
+
+    /*
+
+    .consultationCardWrapper
+    {
+      position: absolute;
+      top: calc(50% - 50cqmin + 1cqmin);
+      left: calc(50% - 50cqmin * var(--phi) + 100cqmin / var(--phi) + 1cqmin);
+      width: 98cqmin;
+      height: 98cqmin;
+      z-index: 20;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+      transform: translateY(10px);
+    }
+    */
+    .consultationCardWrapper
+    {
+        position: absolute;
+        /* This anchors the wrapper to all four edges of .rectangle0Div */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        
+        /* Forces the card to stay its exact size and centers it automatically */
+        width: 100cqmin;
+        height: 100cqmin;
+        margin: auto; 
+
+        z-index: 20;
+        opacity: 0;
+        
+        
+        visibility: hidden;
+        
+        pointer-events: none;
+        transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+        transform: translateY(10px);
+    }
+
+
+    .consultationCardWrapper.active {
+        opacity: 1;
+        display: flex;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    /* Handles styling and container queries without layout conflicts */
+    .consultationCardClass {
+        font-family: var(--consultation-font-sans);
+        color: var(--consultation-text-primary);
+        width: 100%;
+        height: 100%;
+        background: var(--colsultation-card-bg);
+        border: 0.2cqmin solid var(--colsultation-border-color);
+        border-radius: 3cqmin;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 1cqmin 2.5cqmin -0.5cqmin rgba(0, 0, 0, 0.3);     
+    }
+
+    
+
+
+        
+
+    .mentorship-form
+    {
+            height: 94%;
+            width: 94%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 2.5cqmin;
+            outline: 0px solid greenyellow;
+        }
+
+    .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5cqmin;
+
+        }
+    
+      
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2cqmin;
+            position: relative;
+            outline: 0px solid blueviolet;
+        }
+
+        .form-group label {
+            font-size: 2.4cqmin;
+            font-weight: 600;
+            color: var(--consultation-text-primary);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 1.8cqmin 2.2cqmin;
+            background-color: #0f172a;
+            border: 0.2cqmin solid var(--colsultation-border-color);
+            border-radius: 3cqmin;
+            color: var(--consultation-text-primary);
+            font-family: inherit;
+            font-size: 2.4cqmin;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--consultation-accent-color);
+            box-shadow: 0 0 0 0.5cqmin rgba(56, 189, 248, 0.15);
+        }
+
+        .form-group textarea {
+            resize: none;
+           
+        }
+
+        /* --- CUSTOM DROPDOWN STYLES --- */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+        }
+
+        .custom-select-trigger {
+            width: 100%;
+            padding: 1.8cqmin 2.4cqmin;
+            background-color: #0f172a;
+            border: 0.2cqmin solid var(--colsultation-border-color);
+            border-radius: 3cqmin;
+            color: var(--consultation-text-primary);
+            font-size: 2.4cqmin;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .custom-select-trigger:focus,
+        .custom-select-wrapper.open .custom-select-trigger {
+            outline: none;
+            border-color: var(--consultation-accent-color);
+            box-shadow: 0 0 0 0.3cqmin rgba(56, 189, 248, 0.15);
+        }
+
+        .custom-select-trigger .placeholder {
+            color: var(--consultation-text-secondary);
+        }
+
+        .custom-select-arrow {
+            width: 3cqmin;
+            height: 3cqmin;
+            fill: none;
+            stroke: var(--consultation-text-secondary);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.2s ease;
+        }
+
+        .custom-select-wrapper.open .custom-select-arrow {
+            transform: rotate(180deg);
+        }
+
+        .custom-options {
+            position: absolute;
+            top: calc(100% + 0.1cqmin);
+            left: 0;
+            right: 0;
+            background-color: #0f172a;
+            border: 1px solid var(--colsultation-border-color);
+            border-radius: 3cqmin;
+            box-shadow: 0 1cqmin 2cqmin rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-8px);
+            transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+            
+            overflow-y: auto;
+        }
+
+        .custom-select-wrapper.open .custom-options {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .custom-option {
+            padding: 2.4cqmin 2.4cqmin;
+            font-size: 2.4cqmin;
+            color: var(--consultation-text-primary);
+            cursor: pointer;
+            transition: background 0.12s ease, color 0.12s ease;
+        }
+
+        .custom-option:hover,
+        .custom-option.focused {
+            background-color: var(--colsultation-card-bg);
+            color: var(--consultation-accent-color);
+        }
+
+        .custom-option.selected {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--consultation-accent-color);
+            font-weight: 600;
+        }
+        /* --- END CUSTOM DROPDOWN --- */
+
+        .submit-btn {
+            
+            background-color: var(--consultation-accent-color);
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 3cqmin;
+            padding: 2cqmin 3cqmin;
+            border: none;
+            border-radius: 3cqmin;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--consultation-accent-hover);
+        }
+
+
+        .close-btn {
+          position: absolute;
+          height: 9cqmin;
+          width: 9cqmin;
+          top: 0.0cqmin;
+          right: 0.0cqmin;
+          background: transparent;
+          border: none;
+          padding: 1cqmin;
+          margin: 0;
+          cursor: pointer;
+          color: #94a3b8; /* Neutral light gray icon color */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          transition: color 0.2s ease, opacity 0.2s ease;
+          line-height: 1;
+          outline: 0px  solid orangered;
+          z-index: 21;
+        }
+
+        /* 3. Hover state for dark-mode high contrast */
+        .close-btn:hover {
+          color: #f8fafc; /* Crisp white on hover */
+        }
+
+        .close-btn:focus-visible {
+          outline: 0.2cqmin solid #38bdf8;
+          outline-offset: 0.2cqmin;
+        }
+   @media (orientation: portrait)
+    {
+      .form-row
+      {
+        grid-template-columns: 1fr;
+      }
+
+      .consultationCardWrapper
+      {
+        height: calc(var(--phi)*100cqmin);
+        width: 100cqmin;
+        /*
+        left: calc(50% - 50cqmin);
+        top: calc(50% - 50cqmin*var(--phi));
+        */
+      }
+
+      .close-btn
+      {
+          height: 10cqmin;
+          width: 10cqmin;
+          top: 0.3cqmin;
+          right: 0.3cqmin;
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group textarea,
+      .custom-select-trigger,
+      .custom-option
+      {
+        font-size: 3.4cqmin;
+      }
+    }
+
+    .svg-frame
+    {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+
+
+</head>
+
+
+<body>
+  
+
+  <div class="rectangle0Div" id = 'rect0'>
+
+    <div class="rectangle1Div" id='rectangle1'>
+      
+      <div class="rectangle2Div">
+
+        <div class="square3Div" id='square3'>
+          <img src="assets/WhiteBackground.jpg" alt="Ali ADALI, PhD" style="opacity: 0.88;">
+        </div>
+
+        <div class="rectangle3Div">
+          <div class="square4Div" id='square4'>
+            <div class="square4Title">
+              <span>Ali ADALI, Ph.D.</span>
+            </div>
+
+            <div class="square4DivPlace">
+              <span style="height:4cqmin">2 X IMO Medalist</span>
+              <span>Olympiad Coach & Instructor</span>
+              <span>Applied Mathematician & Researcher</span>
+            </div>
+          </div>
+
+          <div class="rectangle4Div">
+            <div class="square5Div" >
+              <div class="btn-metallic darker" id='logoHale' onclick="animateLogo();" >
+                <svg id="logoSVG" viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg" >
+                  <g id='logoGroup'>
+                    <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="#808080" class="SamplePath" />
+
+                    <path id='pathBlue'  stroke-width="60" stroke="#0093e4" fill="none" stroke-linecap="butt" class="SamplePath" d="M 374,430 Q 318,247 37,107" />
+
+
+                    <path id='pathRed' stroke-width="60" stroke="#cc0000" fill="none" stroke-linecap="round" class="SamplePath" d="M 37,107 Q 318,247 408,247" />
+                    
+                    <path id='pathGold2' stroke-width="60" stroke="#f0cc00" fill="none" stroke-linecap="round" class="SamplePath" d="M 374,618 Q 458,613  374,430" />
+
+                    <path id='pathGold1' stroke-width="60" stroke="#f0cc00" fill="none" stroke-linecap="round" class="SamplePath" d="M 374,430 Q 290,613 374,618" />
+
+                    <path id='pathGreen' stroke-width="60" stroke="#207720" fill="none" stroke-linecap="round" class="SamplePath" d="M 711,107  Q 430,247 374,430 " />
+                  </g>
+                </svg>  
+              </div> 
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="square2Div" id='square2'>
+        <div class="square2DivPlace">
+          <span role="button" class="btn-metallic navButtonClass" >Home</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic navButtonClass">CV/Profile</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic navButtonClass">Teaching & Coaching</span>
+        </div>
+
+        
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic navButtonClass">GeoPlayer</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic navButtonClass">Academic & Creative Work</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic navButtonClass">Professional Engagements</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic navButtonClass">About</span>
+        </div>
+
+        <div class="square2DivPlace">
+          <span class="btn-metallic navButtonClass">Channels</span>
+        </div>
+
+        
+      </div>
+    </div>
+
+    <div class="square1Div" id='square1' >
+      <div class="square1DivContent" id='homeDiv' >
+
+        <div class="square1DivContentPlace" >
+          <div style="height: 12cqmin; padding-left:3cqmin; align-content: center; font-size: 2.8cqmin;">
+            <p > Hi, I am Ali ADALI. I am a Turkish
+              <span class="btn-metallic btn-darkred darker" style="display: inline-block; width: 3.6cqmin; height: 3.6cqmin; background-repeat: no-repeat; background-position: 25% 50%; background-size: 180%; background-image: url('assets/tr.svg') ; outline: 1px solid red;border-radius: 50%;margin-left: 0.5cqmin; vertical-align: -0.8cqmin; box-shadow: none; ">
+              </span class="btn-metallic btn-darkred darker"> Mathematician currently based in Toronto, ON<span class="btn-metallic darker" style="display: inline-block; width: 5.4cqmin; height: 3.8cqmin; background-repeat: no-repeat; background-position: center; background-size: 100%; background-image: url('assets/ca.svg') ; outline: 0px solid red;border-radius: 0%;margin-left: 0.7cqmin; vertical-align: -1cqmin; box-shadow: none; ">
+               </span>              
+            </p>
+          </div>
+          
+        </div>
+
+        <div class="square1DivContentPlace"  >
+          <div style="height: 21cqmin; font-size: 2.8cqmin; align-content: center; padding-left: 3cqmin;">
+            <p>
+              Welcome to my website. Here you can review my portfolio, explore my academic and creative work, learn about ongoing projects, evaluate opportunities for professional engagements, and connect via my social channels.           
+            </p>
+          </div>
+          
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div style="height: 36cqmin; display: flex; flex-direction: column; justify-content: space-evenly;align-items: center; font-size: 2.8cqmin; padding-left: 3cqmin;">
+            <p style="outline: 0px solid blueviolet;">
+              I offer expert instruction, consulting, and specialized services for both individuals and institutions across:
+            </p>
+            
+            <ul style="outline: 0px solid blueviolet; margin-left: 2cqmin; width: 85%;" >
+              <li><i>Math Olympiad instruction and contest coaching</i></li>
+              <li><i>Academic mathematics instruction (undergraduate and graduate levels)</i></li>
+              <li><i>Mathematical research and modeling</i></li>
+              <li><i>Educational content creation and custom interactive projects.</i></li>
+            </ul>
+
+          </div>
+          
+        </div>
+
+
+        <div class="square1DivContentPlace">
+          <div style="height: 21cqmin; font-size: 2.8cqmin;padding-left: 3cqmin;">
+            <p>
+              Please visit the <b>Teaching & Coaching</b> section for details on available courses and competition curricula. Please explore the <b>Professional Engagements</b> section to review service scopes or schedule an online consultation.
+            </p> 
+          </div>
+        </div> 
+      </div>
+
+      <div class="square1DivContent" id='profileDiv' style=" overflow-y:auto;">
+        
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> EDUCATION </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/Ohio_State_University_seal.svg" style="height:95%">
+              </div>
+
+              <div class="infoDiv">
+                <span>Ph. D. in Mathematics</span>
+                <span>The Ohio State University, 2016</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker" > <img src="assets/Bilkent_University_Crest.svg" style="height:90%" >
+              </div>
+
+              <div class="infoDiv">
+                <span>M.S. in Mathematics </span>
+                <span>Bilkent University, TURKIYE, 2010</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker "> <img src="assets/Bilkent_University_Crest.svg" style="height:90%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>B.S. in Mathematics</span>
+                <span>Bilkent University, TURKIYE, 2007</span>
+              </div>
+            </div>
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Olympiad Instruction & Leadership </span>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-darkgray darker "> <img src="assets/EGMO2014logo.png" style="height:85%;width: 85%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Problem Grading Committee Member & Coordinator </span>
+                <span> 5th European Girls' Mathematical Olympiad 2014</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/jbmo2013_logo_upscaled.png" style="height:90%; width: 90%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>USA Team Deputy Leader</span>
+                <span>17th Junior Balkan Mathematical Olympiad 2013 </span>
+              </div>
+            </div>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish"> <img src="assets/alphastar_logo.png" style="height:80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor - Full Time </span>
+                <span>Alphastar Academy, CA, USA </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish"> <img src="assets/alphastar_logo.png" style="height:80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor - Summer & Winter Camps  </span>
+                <span>Alphastar Academy, CA, USA </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor</span>
+                <span>National Olympiad Training Camps, TURKIYE</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Olympiad Instructor</span>
+                <span>National Teacher Training Programs, TURKIYE</span>
+              </div>
+            </div>
+         
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Academic Work Experience </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/yeditepe_logo.png" style="height:100%;width: 100%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Assistant Professor </span>
+                <span>Yeditepe University, Istanbul, Turkiye (2020-2022) </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-darkgray darker"> <img src="assets/osu_logo_3.png" style="height:90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Postdoctoral Fellow, </span>
+                <span>Deptartment of Mathematics, OSU (2018-2019)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker "> <img src="assets/Ohio_State_University_Logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Visiting Postdoctoral Research Scholar</span>
+                <span>Kural Lab, Deptartment of Physics, OSU (2018)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-darkgray darker"> <img src="assets/osu_logo_3.png" style="height:90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Lecturer</span>
+                <span>Deptartment of Mathematics, OSU (2016-2018)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-darkgray darker"> <img src="assets/osu_logo_3.png" style="height:90%;width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Teaching Assistant</span>
+                <span>  Deptartment of Mathematics, OSU (2011-2016)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/Ohio_State_University_Logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>DARPA Research Fellow</span>
+                <span>ECE Deptartment, OSU (2011)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/Bilkent_University_Crest.svg" style="height:90%">
+              </div>
+
+              <div class="infoDiv">
+                <span>Teaching Assistant</span>
+                <span>Bilkent University (2006-2010)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Graduate Research Fellow</span>
+                <span>TUBITAK (2007-2009)</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Awards and Honors </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/IMO2003logo.gif" style="border-radius: 999px; height: 90%; width: 90%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Bronze Medalist</span>
+                <span>44th International Mathematical Olympiad 2003</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish"> <img src="assets/imo2002_logo_upscaled.jpg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Bronze Medalist</span>
+                <span>43th International Mathematical Olympiad 2002</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish " style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3cqmin">BMO</span>
+              </div>
+
+              <div class="infoDiv">
+                <span>Silver Medalist </span>
+                <span>20th International Balkan Mathematical Olympiad 2003</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3cqmin">BMO</span>
+              </div>
+
+              <div class="infoDiv">
+                <span>Bronze Medalist</span>
+                <span>19th International Balkan Mathematical Olympiad 2002</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Silver Medalist</span>
+                <span>National Mathematical Olympiad of Turkiye 2003</span>
+              </div>
+            </div>
+
+             <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Bronze Medalist</span>
+                <span>National Mathematical Olympiad of Turkiye 2002</span>
+              </div>
+            </div>
+
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/Bilkent_University_Crest.svg" style="height:90%">
+              </div>
+
+              <div class="infoDiv">
+                <span>Undergraduate Full Scholarship</span>
+                <span>Bilkent University (2003-2007)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/tubitak_logo.png" style="height:80%;width: 80%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Undergraduate Scholarship</span>
+                <span>TUBITAK (2007-2009)</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Publications </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Ohio_State_University_seal.svg" style="display:block;height: 100%;width: 100$;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Applications of the Quasi Solution Method to Interfacial </span>
+                <span>and Other Nonlinear Problems, OSU, Jan 2017</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/jde_logo.jpg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Rigorous analytical approximation of tritronquée solution</span>
+                <span>to Painlevé-I and the first singularity, J. Differ. Equ. 2016</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic darker"> <img src="assets/Bilkent_University_Crest.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>Explicit Reciprocity Laws, Bilkent University </span>
+                <span>Institutional Repository Aug 2010 </span>
+              </div>
+            </div>
+          </div> 
+        </div>   
+      </div>
+
+      <div class="square1DivContent" id='teachingDiv' style=" justify-content: flex-start; overflow-y:auto;">
+        
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> CANADIAN MATH OLYMPIAD TRACKS </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish "> <img src="assets/mc_logo_up.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>Math Kangaroo</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-darkgray darker"> <img src="assets/cms_logo_up.png">
+              </div>
+
+              <div class="infoDiv" >
+                <span>Canadian Open Mathematics Competition (COMC) </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-darkgray darker "> <img src="assets/cms_logo_up.png">
+              </div>
+
+              <div class="infoDiv" >
+                <span>Canada Jay Mathematics Competition (CJMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-darkgray darker "> <img src="assets/cms_logo_up.png">
+              </div>
+
+              <div class="infoDiv" >
+                <span>Canada Lynx Mathematical Competition (CLMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/CEMC_logo_up.png" style="height:90%; width: 90%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>The Pascal, Cayley, and Fermat Contests (PCF)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/CEMC_logo_up.png" style="height:90%; width: 90%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>The Canadian Intermediate Mathematics Contest (CIMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/CEMC_logo_up.png" style="height:90%; width: 90%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>The Canadian Senior Mathematics Contest (CSMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/CEMC_logo_up.png" style="height:90%; width: 90%;" >
+              </div>
+
+              <div class="infoDiv">  
+                <span>The Euclid Contest</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/CEMC_logo_up.png" style="height:90%; width: 90%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>The Fryer, Galois, and Hypatia (FGH) Contests</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/CEMC_logo_up.png" style="height:90%; width: 90%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>The Canadian Team Mathematics Contest (CTMC)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/CEMC_logo_up.png" style="height:90%; width: 90%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>The Gauss Contests</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> US MATH OLYMPIAD TRACKS </span>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/mathcounts_logo.png">
+              </div>
+
+              <div class="infoDiv">
+                <span>Mathcounts</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-blue darker"> <img src="assets/maa_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>AMC 8 - AMC 10 - AMC 12</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-blue darker"> <img src="assets/maa_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span> American Invitational Mathematics Examination (AIME)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-blue darker"> <img src="assets/maa_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>USA Mathematical Olympiad (USAMO)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-blue darker"> <img src="assets/maa_logo.svg">
+              </div>
+
+              <div class="infoDiv">
+                <span>USA Junior Mathematical Olympiad (USAJMO) </span>
+              </div>
+            </div>
+            
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> INTERNATIONAL MATH OLYMPIAD TRACKS </span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/IMO_logo.svg" style="height: auto;">
+              </div>
+
+              <div class="infoDiv">
+                <span>International Mathematical Olympiad (IMO)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-silver darker"> <img src="assets/apmo_logo_up.png" style="height: 80%;width: 80%;" >
+              </div>
+
+              <div class="infoDiv">
+                <span>Asian Pacific Mathematics Olympiad (APMO)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish"> <img src="assets/pagmo_logo_up.png" style="height:85%; width: 85%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>Pan-American Girls' Mathematical Olympiad (PAGMO)</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish"> <img src="assets/EGMO2014logo.png" style="height:85%; width: 85%;">
+              </div>
+
+              <div class="infoDiv">
+                <span>European Girls’ Mathematical Olympiad (EGMO)</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> MATHEMATICAL PROOFS </span>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv" >
+                <span>Proof Techniques & Strategies</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv">
+                <span>Core Proof Methods</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv" >
+                <span>Geometry Theorems</span>
+              </div>
+            </div>
+
+             <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-blackish" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv" >
+                <span>Number Theory Theorems</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv">
+                <span>Combinatorics & Counting Theorems</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish" style="  font-family: 'Cormorant Garamond', Georgia, serif;display: flex; flex-direction: column;">
+                <span style="font-size:3.5cqmin">QED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"> <rect x="5" y="5" width="14" height="14" /> </svg> 
+              </div>
+
+              <div class="infoDiv">
+                <span>Algebra Theorems</span>
+              </div>
+            </div>
+
+           
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> GRADUATE LEVEL COURSES </span>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-silver darker">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 27 27"  style="height: 100%; width: 100%;" >
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+                  <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>Calculus</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-silver darker">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 27 27" style="height: 100%; width: 100%;" fill="currentColor">
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+                  <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>Differential Equations</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-silver darker">
+                <svg xmlns="http://www.w3.org/2000/svg" style="height: 100%; width: 100%;" viewBox="-1 -1 27 27" fill="currentColor">
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+                  <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>Linear Algebra</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-silver darker">
+                <svg xmlns="http://www.w3.org/2000/svg" style="height: 100%; width: 100%;" viewBox="-1 -1 27 27" fill="currentColor">
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+                  <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>Abstract Mathematics</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-silver darker">
+                <svg xmlns="http://www.w3.org/2000/svg" style="height: 100%; width: 100%;" viewBox="-1 -1 27 27" fill="currentColor">
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+                  <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>Real Analysis</span> 
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-silver darker">
+                <svg xmlns="http://www.w3.org/2000/svg" style="height: 100%; width: 100%;" viewBox="-1 -1 27 27" fill="currentColor">
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+                  <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>Complex Analysis</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+              <div class="logoDiv btn-metallic btn-silver darker" >
+                <svg xmlns="http://www.w3.org/2000/svg" style="height: 100%; width: 100%;" viewBox="-1 -1 27 27" fill="currentColor">
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+                  <path d="M5 13.18v4.15c0 2.04 3.13 3.67 7 3.67s7-1.63 7-3.67v-4.15l-7 3.82-7-3.82z" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>Probability</span>
+              </div>
+            </div>
+
+
+
+
+
+            
+
+        
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> SELECTED OLYMPIAD TEACHING - AIME</span>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AIME 1 - SOLUTION PLAYLIST</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://www.youtube.com/playlist?list=PLd3WsnUHnQdSNrlY__QPM5JkRbJkmpQQ-" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2025 AIME 1 - Problem 12</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a  href="https://youtu.be/Yr7ztUS7gJM" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;"  target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2025 AIME 1 - Problem 14</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/ubEhq65XgKg" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> SELECTED OLYMPIAD TEACHING - AMC 12</span>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2024 AMC 12 B - Problem 24</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/ubEhq65XgKg" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2024 AMC 12 B - Problem 23</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/7hnVc_6DRCU" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2024 AMC 12 B - Problem 22</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/HA9GncyZzKM" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2024 AMC 12 B - Problem 20</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/8PxBsl24WFY" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2024 AMC 12 B - Problem 19</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/P_A_8IO06q4" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2024 AMC 12 B - Problem 17</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/dULQwGmVZl4" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 B - Problem 25</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/7EmhBrROVC8" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 B - Problem 19</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/9z3DZd8shYM" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 A - Problem 25</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/nRkM3KFHDIk" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 A - Problem 24</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/ksdZgUfZPW8" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 A - Problem 23</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/58XOIP9ZaWc" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 A - Problem 22</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/Z8nLINy6ucs" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 A - Problem 20</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/KycItLeH4rQ" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 A - Problem 19</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/DBDiClHJ9EI" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 A - Problem 13</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/g98MDvpr9EE" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2023 AMC 12 A - Problem 7</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/HssBpiy3Bz8" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2022 AMC 12 B - Problem 25</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/pbfzu6NPQLI" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2022 AMC 12 B - Problem 19</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/IMNtvtUqsx8" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2022 AMC 12 B - Problem 13</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/6zpDWdUO4KQ" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" >
+
+              <div class="infoDiv">
+                <span>2022 AMC 12 A - Problem 21</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish">
+                <a href="https://youtu.be/_adBw8U1uHE" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                  <img src="assets/yt_logo.svg" style="width: 70%">
+                </a>
+
+              </div>
+            </div>
+
+        
+          </div> 
+        </div>
+      </div>
+
+      
+
+      <div class="square1DivContent" id='geoPlayerDiv' style=" justify-content: flex-start; overflow-y:auto; gap: 2cqmin;">
+        
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 1cqmin; height: 78cqmin;">
+            <span class="square1DivContentTitle"> GeoPlayer</span>
+            
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; gap: 2cqmin; ">
+              <div class="logoDiv btn-metallic btn-blackish darker" >
+                <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <circle cx="375" cy="375" r="300" stroke-width="30" fill-opacity="0" stroke="#808080" fill="rgb(100,149,237)"/>
+                  <polygon points="180,603 675,375 180,147" fill-opacity="0.2" stroke="none" fill="rgb(167,243,208)"/>
+                  <polyline points="180,603 180,147" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" stroke="#cc0000"/>
+                  <polyline points="180,147 675,375" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" stroke="#207720"/>
+                  <polyline points="675,375 180,603" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" stroke="#0093e4"/>
+                  <circle cx="180" cy="147" r="54" stroke="none" fill-opacity="1" fill="#f0cc00"/>
+                  <circle cx="180" cy="603" r="54" stroke="none" fill-opacity="1" fill="#f0cc00"/>
+                  <circle cx="675" cy="375" r="54" stroke="none" fill-opacity="1" fill="#f0cc00"/>
+                  <circle cx="375" cy="375" r="36" stroke="none" fill-opacity="1" fill="#f0cc00"/>
+                </svg>
+                
+              </div>
+
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  I am pleased to announce the official release of <span style="font-size:4.5cqmin; font-family: 'Cormorant Garamond', serif; font-weight: bold; " >GeoPlayer</span>.
+                </span>
+              </div>
+            </div>
+
+            <img class=" btn-metallic" src="assets/gp3.png" style="height:45cqmin; width: auto; border-radius: 2cqmin; ">
+
+            <a href="https://ali-adali.github.io/GeoPlayer/" target="_blank" rel="noopener" role='button' class=" btn-metallic btn-blue" style="width: 40cqmin; height: 8cqmin; border-radius: 3cqmin; display: flex; justify-content: center; align-items: center; text-decoration: none; font-family: inherit; font-weight: bold;"> Click to Explore </a>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; justify-content: center; flex-direction: column; align-items: center; height: 17cqmin; align-content: center;">
+            <span style="text-align: left; width: 94%; font-size: 2.8cqmin; ">
+              GeoPlayer an interactive web-based player engine engineered from the ground up to render advanced mathematical problem solutions and geometric proofs with absolute clarity.
+            </span>
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin; height: 38cqmin;">
+            <span style="width: 94%;outline: 0px solid orangered;">
+              Built using pure, lightweight vanilla code without heavy frameworks or bloated media files, GeoPlayer bridges the gap between static diagrams and video walkthroughs:
+            </span>
+
+            <ul style="width: 88%; ">
+              <li><b> Vector-Native Precision: </b> <span style="font-size:1.8cqmin">All solutions are rendered as crisp vector graphics, ensuring infinite resolution at any zoom level while maintaining exceptionally small file sizes.</span>
+              </li>
+              <li> <b>Fluid Timeline Scrubbing:</b> <span style="font-size:1.8cqmin">Freely scrub the progress bar backward and forward to examine multi-step geometric constructions and proof sequences at your own pace.</span>
+              </li>
+
+              <li><b>Universal Compatibility:</b>  <span style="font-size:1.8cqmin">Optimized for zero latency and zero jitter, performing smoothly across all modern desktop and mobile browsers.</span> </li>
+            </ul>
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin; height: 38cqmin;">
+            <span style="width: 94%;outline: 0px solid orangered;">
+              GeoPlayer's library is continuously expanding, with a rigorous curriculum tailored for high-level contest participants:
+            </span>
+
+            <ul style="width: 88%;">
+              <li><b> Foundational Olympiad Geometry: </b> <span style="font-size:1.8cqmin">Clear, step-by-step visual proofs of fundamental theorems in advanced Euclidean geometry.</span>
+              </li>
+                  
+              <li> <b>Advanced AIME Track:</b> <span style="font-size:1.8cqmin">Special focus on high-difficulty American Invitational Mathematics Examination problems, targeting the rigorous problems spanning Numbers 10 through 15.</span>
+              </li>
+
+              <li><b>International Mathematical Olympiad (IMO):</b>  <span style="font-size:1.8cqmin">Future expansion scaling toward full-scale solutions for elite international contest problems.</span> </li>
+            </ul>
+          </div> 
+        </div>  
+      </div>
+
+      <div class="square1DivContent" id='worksDiv' style=" justify-content: flex-start; overflow-y:auto; gap: 2cqmin;">
+        
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Google Scholar</span>
+            
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">      
+
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  Link to my Google Scholar account
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-blackish " >
+                <a href="https://scholar.google.com/citations?hl=en&user=vyBo2nUAAAAJ" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                 <img src="assets/Google_Scholar_logo.svg" style="height:90%">
+                </a>
+                
+
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Research Papers & Publications</span>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  Geometric and Analytic Aspects of Elliptic Functions, Modular Forms, and Picard’s Theorem (Senior Project)
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker"  onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/senior_project.html'; card.classList.add('active');" > 
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                    <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                    <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  </svg>
+              </div>
+            </div>
+            
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  Explicit Reciprocity Laws ( Masters' Thesis )
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/masters_thesis.html'; card.classList.add('active');" >
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                    <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                    <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  </svg>
+
+                
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  A Uniqueness Condition For The Invers Blind Problem And The Syncopated Sampling ( Darpa project long paper )
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/darpa_project.html'; card.classList.add('active');">
+                
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                    <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                    <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  </svg>
+                
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin;  ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  Applications of the Quasi Solution Method to Interfacial and Other Nonlinear Problems ( Ph. D. Thesis )
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/phd_thesis.html'; card.classList.add('active');">
+                
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                    <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                    <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  </svg>
+                
+                
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; height: 11cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  Rigorous analytical approximation of tritronquée solution to Painlevé-I and the first singularity, A Adali, S Tanveer
+                </span>
+                <span>Journal of Differential Equations, 2016</span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/jde_paper.html'; card.classList.add('active');">
+                
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                    <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                    <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  </svg>
+                
+                
+              </div>
+            </div>
+
+             <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; height: 11cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  Quasi Solution Method
+                </span>
+                
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/qsm.html'; card.classList.add('active');">
+                
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                    <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                    <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  </svg>
+                
+                
+              </div>
+            </div>
+            
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Mathematical Notes & Solutions</span>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  A Proof of Wallace-Bolyai-Gerwien Theorem
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/wbg.html'; card.classList.add('active');" >
+
+                <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                  <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                </svg>
+                
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  The Existence of a Monochromatic P-pentomino in a Bicolored Integer Lattice
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/monochromatic_P_pentomino.html'; card.classList.add('active');" >
+
+                <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                  <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                </svg>
+                
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  The Existence of a Regular Monochromatic Square in a 2-colored Square Lattice
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/monochromatic_square.html'; card.classList.add('active');" >
+
+                <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                  <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                </svg>
+                
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  Linear Independence of Square Roots
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/linear_independence_of_squareroots.html'; card.classList.add('active');" >
+
+                <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                  <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                </svg>
+                
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  Generalized Cauchy-Schwartz Inequality
+                </span>
+              </div>
+
+              <div class="logoDiv btn-metallic btn-green darker" onclick="let card = document.getElementById('presentationCard'); let frame = document.getElementById('presentationFrame');  frame.src = 'assets/generalized_CS.html'; card.classList.add('active');" >
+
+                <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:90%;">
+                  <rect x="210" y="540" height="40" width="330" rx="20" ry="20" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <polygon points="300,150 300,360 210,360 375,480 540,360 450,360 450,150" style="transform: translateY(-30px);" stroke-linejoin="round" stroke-linecap="round" stroke-width="40" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                </svg>
+                
+              </div>
+            </div>
+
+            
+
+  
+            
+          </div> 
+        </div>
+      </div>
+
+      <div class="square1DivContent" id='engagementsDiv' style=" justify-content: flex-start; overflow-y:auto;">
+        
+
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> SPECIALIZED MATHEMATICS SERVICES</span>
+            
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%;color:#207720;' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor"  />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>Competition Mathematics Instruction </span>
+                <span>1-on-1, Groups & Institutions</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%;color:var(--gold);' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor"  />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+                
+              </div>
+
+              <div class="infoDiv" >
+                <span>Olympiad Mentorship & Performance Coaching</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish ">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%; color: #0093e4;' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor" class="SamplePath" />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+              </div>
+
+              <div class="infoDiv" >
+                <span>Curriculum Architecture & Problem Set Development</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%;color: #cc0000;' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor" class="SamplePath" />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+              </div>
+
+              <div class="infoDiv" >
+                <span>Interactive Mathematical Content & Software Solutions</span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv">
+              <div class="logoDiv btn-metallic btn-blackish">
+                <svg  viewBox="0 -50 750 700" xmlns="http://www.w3.org/2000/svg" style='height: 80%;width: 80%; color: #808080;' >
+                  <circle id='circle' cx="380" cy="100" stroke-linecap="round" r="62" stroke-width="50" fill="none" stroke="currentColor" class="SamplePath" />
+                  <path stroke-width="60" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin='round' d="M 711,107  Q 430,247 374,430 Q 290,613 374,618 Q 458,613  374,430 Q 318,247 37,107 Q 318,247 408,247" />
+                </svg>
+              </div>
+
+              <div class="infoDiv">
+                <span>University & Graduate-Level Instruction</span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="square1DivContentPlace">
+          <div style="display:flex; flex-direction: column; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> BOOK A CONSULTATION</span>
+
+            <div class="logoAndInfoDiv" style="gap:0.5cqmin;padding: 0; flex-direction: space-evenly;">
+              <div class="logoDiv btn-metallic btn-silver "> 
+                <svg style="height: 120%; width: 120%;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink" style='scale: 1.2; opacity: 1;'>
+                  <circle cx="375" cy="375" r="140" stroke-width="30" fill-opacity="0" stroke="currentColor" />
+                  <circle cx="462" cy="572" r="30" stroke-width="4" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <circle cx="330" cy="360" r="24" stroke-width="0" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <circle cx="420" cy="360" r="24" stroke-width="0" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <rect x="120" y="315" height="120" width="90" rx="30" ry="30" stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <rect x="540" y="315" height="120" width="90" rx="30" ry="30" stroke-linejoin="round" stroke-linecap="round" stroke-width="4" fill-opacity="1" stroke="currentColor" fill="currentColor"/>
+                  <path d="M 584 315 A 217,217 0 0,0 166,315 L 375 375 Z " style="stroke-dashoffset: 439px; stroke-dasharray: 1001px;" stroke-linejoin="round" stroke-linecap="round" stroke-width="30" fill-opacity="0" stroke="currentColor"/>
+                  <path d="M 462 572 A 215,215 0 0,0 583,430 L 375 375 Z " style="stroke-dashoffset: 436px; stroke-dasharray: 626px;" stroke-linejoin="round" stroke-linecap="round" stroke-width="20" fill-opacity="0" stroke="currentColor" />
+                  <path d="M 338 432 A 55,55 0 0,0 417,432 L 378 394 Z " style="stroke-dashoffset: 113px; stroke-dasharray: 200px;" stroke-linejoin="round" stroke-linecap="round" stroke-width="30" fill-opacity="0" stroke="currentColor" />
+                </svg>
+              </div>
+
+              <div class="infoDiv" style="flex-direction: row; gap: 1cqmin; justify-content: center;">
+                <span>Complete Form</span>
+                <div style="height:70%; aspect-ratio: 1/1;">
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M 120 375 L 600 375L 600 305 L 740 375 L 600 445 L 600 375" style="pointer-events: none; stroke-dashoffset: 0px; stroke-dasharray: 936px; transform-origin: center center 0px; transform-box: fill-box; transform: translate(-40px);" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="50" stroke="currentColor"/></svg>
+                </div>
+                <span>Book Consultation</span>
+                <div style="height:70%; aspect-ratio: 1/1;">
+                  <svg class="svg-frame" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M 120 375 L 600 375L 600 305 L 740 375 L 600 445 L 600 375" style="pointer-events: none; stroke-dashoffset: 0px; stroke-dasharray: 936px; transform-origin: center center 0px; transform-box: fill-box; transform: translate(-40px);" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="50" stroke="currentColor"/>
+                  </svg>
+                </div>
+                <span>Meet</span>
+              </div>
+            </div>
+
+           <button class="btn-metallic btn-blue" style="width: 40cqmin; height: 8cqmin; margin-top:2cqmin ; font-size:3cqmin; border-radius: 3cqmin" onclick="let card = document.getElementById('consultationCard'); card.classList.add('active');"> START</button>
+            
+          </div> 
+        </div>
+      </div>
+
+      <div class="square1DivContent" id='aboutDiv' style=" justify-content: flex-start; overflow-y:auto; gap: 2cqmin;">
+        
+        <div class="square1DivContentPlace"   >
+          <div style="display:flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 2cqmin; ">
+            <span class="square1DivContentTitle"> A Bit About Me</span>
+            
+            <div class="logoAndInfoDiv" style="  width: 90cqmin; font-size: 2.4cqmin; height: auto; border-radius: 3cqmin; gap:2cqmin; flex-direction: column; box-shadow: none; ">
+
+              <div class="logoDiv" style=" width: 80cqmin; height: 80cqmin;" >
+                <img src="assets/c_osu.jpg" style="width:100%; aspect-ratio: 1/1;border-radius: 3cqmin;" >
+              </div>
+
+              <div class="infoDiv" style="width: 90cqmin; height: auto; border-radius: 3cqmin;"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center; padding: 2cqmin;">
+                  I was born in Bulgaria and migrated to Türkiye as a kid. Since then, I’ve lived and worked across several vibrant places—including İzmir, Ankara, Istanbul, Sweden, Columbus (Ohio), Bursa, and currently Toronto, Ontario.
+                </span>
+              </div>
+
+              <div class="logoDiv" style=" width: 80cqmin; height: 80cqmin;" >
+                <img src="assets/c_sea.jpg" style="width:100%; aspect-ratio: 1/1;border-radius: 3cqmin;" >
+              </div>
+
+              
+
+
+              <div class="logoDiv" style=" width: 80cqmin; height: 80cqmin;" >
+                <img src="assets/c_toronto.jpg" style="width:100%; aspect-ratio: 1/1;border-radius: 3cqmin;" >
+              </div>
+
+              <div class="infoDiv" style="width: 90cqmin; height: auto; "  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center; padding: 2cqmin;">
+                  You’ll usually find me exploring this beautiful city, hunting down a great cup of coffee, discovering new neighborhoods on my bicycle, checking out local parks, or steadily learning how to survive a Canadian winter.
+                </span>
+              </div>
+
+
+              <div class="infoDiv" style="width: 90cqmin; height: auto; border-radius: 3cqmin;"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;padding: 2cqmin;">
+                  While I won two IMO bronze medals, my highest IMO achievement is arguably the silver medal won by my wife. I am grateful to have a brilliant partner whose competition records are superior and whose olympiad teaching skills are second to none. My official life philosophy has quickly become: "If you can’t beat her, bring her to the team."
+                </span>
+              </div>
+
+              
+
+              <div class="logoDiv" style=" width: 80cqmin; height: 80cqmin;" >
+                <img src="assets/c_olymp.jpg" style="width:100%; aspect-ratio: 1/1;border-radius: 3cqmin;" >
+              </div>
+
+              <div class="logoDiv" style=" width: 80cqmin; height: 80cqmin; border-radius: 3cqmin;" >
+                <img src="assets/c_mix_2.jpg" style="width:100%; aspect-ratio: 1/1;border-radius: 3cqmin;" >
+              </div>
+
+              <div class="infoDiv" style="width: 90cqmin; height: auto; border-radius: 3cqmin; "  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;padding: 2cqmin;">
+                  Outside of mathematics, sports are a massive part of my life. My main staples used to be soccer and volleyball—I played on my university’s varsity soccer team for two years and the varsity volleyball team for a season, while also winning around 15 medals in university-wide soccer tournaments. These days, I play tennis very passionately, enjoy winter and water sports, and keep active with running and cycling.
+                </span>
+              </div>
+
+              
+
+              
+
+              <div class="logoDiv" style=" width: 80cqmin; height: 90cqmin;border-radius: 3cqmin;" >
+                <img src="assets/c_mix.jpg" style="width:100%; aspect-ratio: 1/1;border-radius: 3cqmin;" >
+              </div>
+
+              <div class="logoDiv" style=" width: 80cqmin; height: 80cqmin; border-radius: 3cqmin;" >
+                <img src="assets/c_sport.jpg" style="width:100%; aspect-ratio: 1/1;border-radius: 3cqmin;" >
+              </div>
+
+              <div class="infoDiv" style="width: 90cqmin; height: auto; border-radius: 3cqmin;"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center; padding: 2cqmin;">
+                  That’s the story so far—thanks for stopping by, and feel free to reach out if you’d like to connect!
+                </span>
+              </div>
+
+
+
+
+
+
+
+            </div>
+
+          
+          
+
+            
+
+          </div> 
+        </div>
+      </div>
+
+      <div class="square1DivContent" id='channelsDiv' style=" justify-content: flex-start; overflow-y:auto; gap: 2cqmin;">
+        
+        <div class="square1DivContentPlace" >
+          <div style="display:flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 1cqmin;">
+            <span class="square1DivContentTitle"> Channels</span>
+            
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">      
+
+              <div class="logoDiv btn-metallic btn-blackish " >
+                <a href="https://www.youtube.com/@aliadalimath" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                 <img src="assets/yt_logo.svg" style="width:80%;">
+                </a>
+              </div>
+
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  youtube.com/@aliadalimath
+                </span>
+              </div>
+            </div>
+
+            <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">      
+
+              <div class="logoDiv btn-metallic btn-blackish darker" >
+                <a href="https://www.instagram.com/aliadalimath/" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                 <img src="assets/instagram_logo_2022.svg" style="width:100%;">
+                </a>
+              </div>
+
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  instagram.com/aliadalimath
+                </span>
+              </div>
+            </div>
+
+             <div class="logoAndInfoDiv" style="  font-size: 2.4cqmin; ">      
+
+              <div class="logoDiv btn-metallic btn-darkgray darker" >
+                <a href="https://www.tiktok.com/@aliadalimath/" style="height:100%;width: 100%; display: flex; justify-content: center; align-items: center;" target="_blank" rel="noopener">
+                 <img src="assets/tiktok_logo.png" style="width:80%;">
+                </a>
+              </div>
+
+              <div class="infoDiv"  >
+                <span style="outline: 0px solid orangered; text-align: center;align-content: center;">
+                  tiktok.com/@aliadalimath
+                </span>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="consultationCardWrapper" id="consultationCard">
+      <div class="consultationCardClass" >
+
+          <button type="button" class="close-btn" aria-label="Close form" onclick="let card = document.getElementById('consultationCard'); card.classList.remove('active');">
+              <svg viewBox="0 0 24 24" style='height: 100%; width: 100%;' fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+          </button>
+
+
+
+          <form action="https://api.web3forms.com/submit" method="POST" class="mentorship-form" id="consultation-form">
+              <input type="hidden" name="access_key" value="1a56a177-b5d0-40f7-a920-b0574057d7dc">
+
+
+              <input type="hidden" name="subject" value="New Consultation Inquiry">
+              <input type="checkbox" name="botcheck" style="display: none;">
+
+              <div class="form-row">
+                  <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" id="name" name="name" required placeholder="e.g., Jane Doe or Oakridge High">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="email">Email Address</label>
+                      <input type="email" id="email" name="email" required placeholder="name@example.com">
+                  </div>
+              </div>
+
+              <div class="form-row">
+                  <!-- Custom Dropdown 1: Client Type -->
+                  <div class="form-group">
+                      <label>Inquiry Type</label>
+                      <div class="custom-select-wrapper" data-name="client_type">
+                          <input type="hidden" name="client_type" required>
+                          <div class="custom-select-trigger" tabindex="0">
+                              <span class="selected-text placeholder">Select one</span>
+                              <svg class="custom-select-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          </div>
+                          <div class="custom-options">
+                              <div class="custom-option" data-value="Individual Student/Parent">Individual Student / Parent</div>
+                              <div class="custom-option" data-value="Group">Group</div>
+                              <div class="custom-option" data-value="Institution">Institution / School</div>
+                              <div class="custom-option" data-value="Content">Content Creation</div>
+                              <div class="custom-option" data-value="General Inquiry">General Inquiry</div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Custom Dropdown 2: Preferred Format -->
+                  <div class="form-group">
+                      <label>Preferred Location</label>
+                      <div class="custom-select-wrapper" data-name="location">
+                          <input type="hidden" name="location" value="Online" required>
+                          <div class="custom-select-trigger" tabindex="0">
+                              <span class="selected-text placeholder">Select one</span>
+                              <svg class="custom-select-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          </div>
+                          <div class="custom-options">
+                              <div class="custom-option" data-value="Online">Online (Remote)</div>
+                              <div class="custom-option" data-value="In-Person (Toronto)">In-Person (Toronto)</div>
+                              <div class="custom-option" data-value="Hybrid">Hybrid</div>
+                              <div class="custom-option" data-value="Other">Other</div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label>Level</label>
+                      <div class="custom-select-wrapper" data-name="session_format">
+                          <input type="hidden" name="level" value="level" required>
+                          <div class="custom-select-trigger" tabindex="0">
+                              <span class="selected-text placeholder">Select one</span>
+                              <svg class="custom-select-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          </div>
+                          <div class="custom-options">
+                              <div class="custom-option" data-value="5-7">Grades 5–7</div>
+                              <div class="custom-option" data-value="8-10">Grades 8–10</div>
+                              <div class="custom-option" data-value="11-12">Grades 11–12</div>
+                              <div class="custom-option" data-value="Other">Other</div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label>Curriculum & Materials Status</label>
+                      <div class="custom-select-wrapper" data-name="curriculum">
+                          <input type="hidden" name="materials" value="materials" required>
+                          <div class="custom-select-trigger" tabindex="0">
+                              <span class="selected-text placeholder">Select one</span>
+                              <svg class="custom-select-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          </div>
+                          <div class="custom-options">
+                              <div class="custom-option" data-value="Have all">Existing curriculum available</div>
+                              <div class="custom-option" data-value="Have some">Custom content required</div>
+                              <div class="custom-option" data-value="No documents">Complete curriculum required</div>
+                              <div class="custom-option" data-value="Other">Other</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
+              <div class="form-group">
+                  <label for="background">Contest Experience and Background</label>
+                  <textarea id="background" name="background" rows="4" required placeholder="Please detail current contest experience, previously taken contest-related courses if applicable "></textarea>
+              </div>
+
+              <div class="form-group">
+                  <label for="primaryGoal">Primary Goal / Details</label>
+                  <textarea id="primaryGoal" name="primaryGoal" rows="4" placeholder="Please detail goals, or institutional deliverables..."></textarea>
+              </div>
+
+               <div class="form-group" style="outline: 0px solid greenyellow; display: flex; justify-content: center; align-items: center;  ">
+                  <button type="submit" class="btn-blue btn-metallic" style="width: 40cqmin; height: 8cqmin;  transform:translateY(calc(-1cqmin)); outline: 0px solid orangered; font-size:3cqmin; border-radius: 3cqmin;">SUBMIT</button>
+               </div>
+          </form>
+      </div>
+    </div>
+
+    <div class="consultationCardWrapper" id="presentationCard">
+      <div class="consultationCardClass" >
+        <button type="button" class="close-btn" aria-label="Close form" onclick="let card = document.getElementById('presentationCard'); card.classList.remove('active');">
+          <svg viewBox="0 0 24 24" style='height: 100%; width: 100%;' fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <iframe id='presentationFrame' style="height:100%; width: 100%;border-radius: inherit;" ></iframe>
+      </div>
+    </div>
+
+    
+
+    
+
+    
+  </div>
+
+  
+</body>
+
+<script>
+  let logoGroup = document.getElementById('logoGroup');
+  let obj1 = document.getElementById('circle');
+  let obj2 = document.getElementById('pathGreen');
+  let obj3 = document.getElementById('pathGold1');
+  let obj4 = document.getElementById('pathGold2');
+  let obj5 = document.getElementById('pathBlue');
+  let obj6 = document.getElementById('pathRed');
+
+  let square1 = document.getElementById('square1');
+  let square2 = document.getElementById('square2');
+  let square3 = document.getElementById('square3');
+  let square4 = document.getElementById('square4');
+
+
+  let rectangle1 = document.getElementById('rectangle1');
+  let logoHale = document.getElementById('logoHale');
+  let navButtons = [...document.getElementsByClassName('navButtonClass')];
+
+  let homeDiv = document.getElementById('homeDiv');
+  let homeContent = [...homeDiv.children];
+
+  let profileDiv = document.getElementById('profileDiv');
+
+  contentSections = [...document.querySelectorAll('.square1DivContent')];
+
+
+  //square1.style.opacity = 1;
+  //rectangle1.style.opacity = 1;
+  //document.getElementById('logoSVG').style.opacity = 0;
+
+  let objects = [];
+
+  
+  objects.push(obj2);
+  objects.push(obj3);
+  objects.push(obj4);
+  objects.push(obj5);
+  objects.push(obj6);
+  objects.push(obj1);
+
+  let animations = [];
+
+  //animateLogo();
+
+  let trX = 300;
+  let trY = 100;
+
+  if(window.matchMedia("(orientation: portrait)").matches)
+    { trX = 150; trY = 200;}
+
+  window.matchMedia("(orientation: landscape)").addEventListener("change", (e) => {
+    if (e.matches) {
+      trX = 300;
+      trY = 100;
+    } else {
+      trX = 150;
+      trY = 200;
+    }
+  });
+
+
+
+
+  function animateLogo()
+  { 
+    resetAnimation();
+
+
+
+    
+
+    let waitTime = 200;
+
+    setTimeout( () =>{ square2.style.opacity=1; logoHale.style.visibility='visible';  navButtons.forEach(btn => {btn.style.visibility='visible'; }); }, waitTime);
+
+    for(let i=0;i<objects.length;i++)
+    {
+      
+    
+      let obj = objects[i];
+      let time1 = 1*(Math.ceil(obj.getTotalLength())+2); 
+      //let time1 = 1000;
+
+      obj.setAttribute('style',`stroke-dashoffset:${time1}; stroke-dasharray:${time1}; `);
+
+
+      let anim = obj.animate(
+        [
+          { strokeDashoffset: time1, offset: 0 },
+          { strokeDashoffset: 0, offset: 1 } ], 
+        {duration: time1*0.4, delay: waitTime, fill: 'forwards'}
+      );
+
+      animations.push(anim);
+      waitTime=waitTime + time1*0.4;
+      
+    }
+
+    let animHale = logoHale.animate(
+        [
+          { boxShadow:'0 0 0 0 var(--blue-glow)' , offset: 0 },
+          { boxShadow: '0 0 0.9cqmin 0.2cqmin var(--blue-glow)', offset: 1 } ], 
+        {duration: 500, delay: waitTime, fill: 'forwards'}
+      );
+    waitTime += 500;
+    animations.push(animHale);
+    
+    let animLogoMove = logoHale.animate(
+        [
+          { transform: `translate(${trX}%, ${trY}%) scale(6)`, offset: 0 },
+          { transform: `translate(0%, 0%) scale(1)`, offset: 1 } ], 
+        {duration: 500, delay: waitTime+300, fill: 'forwards'}
+      );
+    waitTime+= 800;
+    animations.push(animLogoMove);
+
+    let animSquare3FadeIn = square3.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: 500, delay: waitTime, fill: 'forwards'}
+      );
+    waitTime+= 500;
+    animations.push(animSquare3FadeIn);
+
+    let animSquare4FadeIn = square4.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: 500, delay: waitTime, fill: 'forwards'}
+      );
+    waitTime+=500;
+    animations.push(animSquare4FadeIn);
+
+
+    waitTime+=200;
+
+    for(let i =0; i<navButtons.length;i++)
+    {
+      let obj = navButtons[i];
+      
+      let time2=200;
+
+
+      let anim = obj.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: time2, delay: waitTime, fill: 'forwards'}
+      );
+
+      animations.push(anim);
+      waitTime=waitTime + time2;
+
+    }
+
+    waitTime+=200;
+
+    
+    let animSquare1FadeIn = square1.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 1, offset: 1 } ], 
+        {duration: 300, delay: waitTime, fill: 'forwards'}
+      );
+    animations.push(animSquare1FadeIn);
+
+    waitTime+=300;
+
+    
+
+    setTimeout( () =>{  navButtons[0].click(); }, waitTime);
+    
+
+
+    
+
+  }
+
+  function resetAnimation()
+  {
+    unselectButtons();
+    
+
+    animations.forEach(anim => {
+      anim.commitStyles();
+      anim.cancel(); 
+    });
+
+    logoHale.style.boxShadow = 'none';
+    logoHale.style.transform = `translate(${trX}%, ${trY}%) scale(6)`;
+    logoHale.style.visibility='hidden';
+    //square4.setAttribute('style','opacity:0')
+    //homeDiv.style.opacity=0;
+    //homeDiv.style.scale=0;
+    //homeContent.forEach(obj => obj.style.opacity=0);
+
+    square4.style.opacity=0;
+    square3.style.opacity=0;
+    square2.style.opacity=0;
+    square1.style.opacity=0;
+
+    for(let i=0;i<objects.length;i++)
+    {
+      //objects[i].setAttribute('style',`stroke-dashoffset:2000;`);
+      let obj = objects[i];
+      let time1 = 4*(Math.ceil(obj.getTotalLength())+2); 
+      //let time1 = 1000;
+
+      obj.setAttribute('style',`stroke-dashoffset:${time1}; stroke-dasharray:${time1}; `);
+    }
+
+    navButtons.forEach(btn => {btn.style.opacity=0;btn.style.visibility='hidden'; });
+  }
+
+  function unselectButtons()
+  {
+    navButtons.forEach(btn => btn.classList.remove('selectedGold'));
+  }
+
+  for (let i = 0; i < navButtons.length; i++)
+  {
+    navButtons[i].addEventListener('click', () => {
+      unselectButtons();
+      navButtons[i].classList.add('selectedGold');
+      bringContent(i);
+    });
+  }
+
+  
+
+  //navButtons.forEach(btn => btn.style.opacity=0);
+
+  //resetAnimation();
+  //setTimeout(() => {animateLogo();},150);
+  
+  
+
+
+
+  function bringContent(i)
+  {
+  
+    contentSections.forEach((section, index) => {
+    if (index === i) {
+      section.scrollTop = 0;
+      let dTime = 0.5;
+      section.classList.add('active');
+      const places = section.querySelectorAll('.square1DivContentPlace');
+
+      /*
+      
+      places.forEach((place, placeIndex) => { 
+        place.style.transitionDelay = `${placeIndex * dTime}s`;
+      });
+      
+      setTimeout(() => {autoScrollSequence(section.id);}, dTime);
+
+      setTimeout(() => { section.scrollTo({top: 0,behavior: 'smooth'}); }, ((places.length+0)*dTime)*1000  );
+      */
+
+
+
+    } else {
+      section.classList.remove('active');
+      const places = section.querySelectorAll('.square1DivContentPlace');
+      places.forEach(place => {place.style.transitionDelay = '0s';});
+    }
+  });
+
+  }
+
+
+
+  function autoScrollSequence(containerId) 
+  {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    // 1. Get all the child target divs in order (div1, div2, div3, div4)
+    const sections = container.querySelectorAll('.square1DivContentPlace'); 
+    
+    // Timing interval in milliseconds (0.4 seconds = 400ms)
+    const intervalTime = 500; 
+
+    sections.forEach((section, index) => {
+      setTimeout(() => {
+        // 2. Calculate the position of the target div relative to the scroll container
+        // offsetTop gives the exact pixel distance from the top of the container
+        const targetTop = section.offsetTop;
+
+        // 3. Smoothly scroll the container to that snap position
+        container.scrollTo({
+          top: targetTop,
+          behavior: 'smooth'
+        });
+
+      }, index * intervalTime); 
+     
+    });
+  }
+
+
+  document.getElementById('consultation-form').addEventListener('submit', function(e)
+  {
+      e.preventDefault(); // Stop standard form submission
+
+      const form = e.target;
+      const submitBtn = form.querySelector('.submit-btn');
+      const originalBtnText = submitBtn.textContent;
+      
+      // Provide visual feedback while submitting
+      submitBtn.textContent = "Submitting application...";
+      submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+          body: json
+      })
+      .then(async (response) => {
+          let res = await response.json();
+          if (response.status === 200) {
+              // Success! Instantly redirect to your Google Calendar link
+              window.location.href = "https://calendar.app.google/DBzZ3WEHpUiFPHZD8";
+          } else {
+              console.error(res);
+              alert(res.message || "Something went wrong. Please try again.");
+              submitBtn.textContent = originalBtnText;
+              submitBtn.disabled = false;
+          }
+      })
+      .catch(error => {
+          console.error(error);
+          alert("Network error. Please check your connection and try again.");
+          submitBtn.textContent = originalBtnText;
+          submitBtn.disabled = false;
+      });
+  });
+
+</script>
+
+<script>
+        // --- CUSTOM DROPDOWN ENGINE ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const wrappers = document.querySelectorAll('.custom-select-wrapper');
+
+            wrappers.forEach(wrapper => {
+                const trigger = wrapper.querySelector('.custom-select-trigger');
+                const options = wrapper.querySelectorAll('.custom-option');
+                const hiddenInput = wrapper.querySelector('input[type="hidden"]');
+                const textSpan = wrapper.querySelector('.selected-text');
+
+                // Toggle dropdown state
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeAllDropdowns(wrapper);
+                    wrapper.classList.toggle('open');
+                });
+
+                // Select option mouse click
+                options.forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        selectOption(wrapper, option, hiddenInput, textSpan);
+                    });
+                });
+
+                // Keyboard Navigation
+                trigger.addEventListener('keydown', (e) => {
+                    const isOpen = wrapper.classList.contains('open');
+                    const focusedOption = wrapper.querySelector('.custom-option.focused') || wrapper.querySelector('.custom-option.selected');
+                    const optionsList = Array.from(options);
+
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        if (isOpen && focusedOption) {
+                            selectOption(wrapper, focusedOption, hiddenInput, textSpan);
+                        } else {
+                            closeAllDropdowns(wrapper);
+                            wrapper.classList.add('open');
+                        }
+                    } else if (e.key === 'Escape') {
+                        wrapper.classList.remove('open');
+                    } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (!isOpen) {
+                            wrapper.classList.add('open');
+                            return;
+                        }
+                        let currentIndex = optionsList.indexOf(focusedOption);
+                        if (e.key === 'ArrowDown') {
+                            currentIndex = (currentIndex + 1) % optionsList.length;
+                        } else if (e.key === 'ArrowUp') {
+                            currentIndex = (currentIndex - 1 + optionsList.length) % optionsList.length;
+                        }
+                        optionsList.forEach(opt => opt.classList.remove('focused'));
+                        optionsList[currentIndex].classList.add('focused');
+                        optionsList[currentIndex].scrollIntoView({ block: 'nearest' });
+                    }
+                });
+            });
+
+            function selectOption(wrapper, option, hiddenInput, textSpan) {
+                const val = option.getAttribute('data-value');
+                const text = option.textContent;
+
+                hiddenInput.value = val;
+                textSpan.textContent = text;
+                textSpan.classList.remove('placeholder');
+
+                wrapper.querySelectorAll('.custom-option').forEach(opt => {
+                    opt.classList.remove('selected', 'focused');
+                });
+                option.classList.add('selected');
+                wrapper.classList.remove('open');
+            }
+
+            function closeAllDropdowns(exceptWrapper = null) {
+                document.querySelectorAll('.custom-select-wrapper').forEach(w => {
+                    if (w !== exceptWrapper) {
+                        w.classList.remove('open');
+                        w.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('focused'));
+                    }
+                });
+            }
+
+            // Close when clicking anywhere outside
+            document.addEventListener('click', () => closeAllDropdowns());
+        });
+
+       
+</script>
+
+</html>
