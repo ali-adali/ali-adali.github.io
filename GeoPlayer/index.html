@@ -82,7 +82,7 @@
       width: var(--w);
       height: calc( var(--w)/var(--phi) );
 
-      outline: 1px solid blueviolet;
+      outline: 0px solid blueviolet;
       display: flex;
       flex-direction: row;
       align-items: flex-start;
@@ -113,7 +113,7 @@
       justify-content: flex-start;
       align-items: center;
 
-      outline: 1px solid blueviolet;
+      outline: 0px solid blueviolet;
 
       box-shadow: 0.0vmin 0.0vmin 0.0vmin 0.0vmin var(--blue-glow);
 
@@ -157,7 +157,7 @@
       justify-content: flex-start;
       align-items: center;
 
-      box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);
+      /*box-shadow: 0.0vmin 0.0vmin 0.9vmin 0.2vmin var(--blue-glow);*/
      
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease; 
@@ -418,7 +418,7 @@
      
       aspect-ratio: 1 / 1;
       background-color: var(--canvas-bg);
-      border-radius: 3cqmin 0cqmin 0cqmin 3cqmin;
+      border-radius: 3cqmin 3cqmin 3cqmin 3cqmin;
       overflow: hidden;
       outline: 0px solid orange;
     }
@@ -531,9 +531,10 @@
       align-items: center;
       gap: 3cqmin;
       padding-right: 2cqmin;
+      background-color: whitesmoke;
 
-      width: 100cqmin;
-      top: calc(100%/2 - 100cqh/2 + 100cqmin*11/12 + 0.4cqmin );
+      width: var(--w);
+      bottom: 1%;
       
       
       border-radius: 4cqmin;
@@ -548,9 +549,15 @@
       opacity: 1;
       visibility: visible;
       transition: opacity 1s ease;
-      outline: 0px solid blueviolet;
+      outline: 1px solid blueviolet;
 
       transition: width 0.2s ease, height 0.2s ease, aspect-ratio 0.2s ease, flex-direction 0.2s ease;
+    }
+
+    @media (orientation: portrait) {
+      .player-controls-bar {
+        width: calc( var(--w)/var(--phi) );
+      }
     }
 
     .player-controls-bar.is-hidden
@@ -561,7 +568,7 @@
 
 
     .btn-play-pause {
-      width: 8cqmin;
+      width: 6cqmin;
       
       aspect-ratio: 1/1;
   
@@ -596,7 +603,7 @@
     .scrubber-container {
       position: relative;
       flex: 1;
-      height: 4cqmin;
+      height: 3cqmin;
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -634,7 +641,7 @@
       border-radius: 0.5cqmin;
       box-shadow: 0 0 1cqmin rgba(56, 189, 248, 0.6);
       pointer-events: none;
-      outline: 1px solid blueviolet;
+      outline: 0px solid blueviolet;
     }
 
     /* Handle */
@@ -642,9 +649,9 @@
       position: absolute;
       bottom: 0.7cqmin;
       left: 0%;
-      width: 4cqmin;
-      height: 6.5cqmin;
-      margin-left: -2cqmin;
+      width: 3cqmin;
+      height: 5.0cqmin;
+      margin-left: -1.5cqmin;
       clip-path: polygon(
         20% 0%, 80% 0%, 100% 25%, 100% 65%, 50% 100%, 0% 65%, 0% 25%
       );
@@ -933,7 +940,27 @@
         </svg>
       </div>
 
-      <div class="player-controls-bar" id="controlsBar">
+      
+    </div>
+
+    <div class="rectangle1Div">
+      <div class="square2Div" >
+        <span class="playlistTitleDiv"> Playlist - Geometry Theorems </span>
+        <div class="thms-div" id="theoremsSidebar"> </div>
+        
+      </div>
+      
+      <div class="rectangle2Div">
+        <div class="square3Div"> </div>
+        <div class="rectangle3Div">
+          <div class="square4Div"> </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="player-controls-bar" id="controlsBar">
         <div class="btn-play-pause" id="togglePlayBtn" role="button" aria-label="Play animation">
             <svg id="playIcon" viewbox="0 0 24 24" style="height: 6cqmin; width:6cqmin;aspect-ratio: 1/1; fill: currentColor;"><use href="#icon-play"></use>
             </svg>
@@ -954,43 +981,20 @@
           <span class="time-divider">/</span>
           <span class="time-total" id="timeTotal">0:00.00</span>
         </div>
-        
-        
-
-      </div>
-    </div>
-
-    <div class="rectangle1Div">
-      <div class="square2Div" >
-        <span class="playlistTitleDiv"> Playlist - Geometry Theorems </span>
-        <div class="thms-div" id="theoremsSidebar"> </div>
-        
-      </div>
-      
-      <div class="rectangle2Div">
-        <div class="square3Div"> </div>
-        <div class="rectangle3Div">
-          <div class="square4Div"> </div>
-        </div>
-      </div>
-      
-    </div>
-
-    
-
-    
-
-    
   </div>
 
    <script>
    // --- 1. SPA Playlist Configuration ---
     const theoremPlaylist = [   
-      { id: 1, title: "Pythagorean Theorem", file: "pythagorean_thm2.json" },
-      { id: 2, title: "Law of Sines", file: "los.json" },
-      { id: 3, title: "Law of Cosines", file: "loc.json" },
-      { id: 4, title: "Stewart's Theorem", file: "stewarts_thm.json" },
-      { id: 5, title: "Problem - 1", file: "problem_1_complete.json" }      
+      { id: 1, title: "Pythagorean Theorem", file: "playlists/thms/pythagorean_thm2.json" },
+      { id: 2, title: "Law of Sines", file: "playlists/thms/los.json" },
+      { id: 3, title: "Law of Cosines", file: "playlists/thms/loc.json" },
+      { id: 4, title: "Stewart's Theorem", file: "playlists/thms/stewarts_thm.json" },
+      { id: 5, title: "Angle Bisector Theorem", file: "playlists/thms/angle_bisector_thm.json" },
+      { id: 6, title: "Trapezoid Formula", file: "playlists/thms/trapezoid_formula.json" },
+      { id: 7, title: "Fermat's Point", file: "playlists/thms/fermat_point.json" },  
+      { id: 8, title: "Problem - 1", file: "playlists/featured/problem_1_complete.json" }
+
       
     ];
 
@@ -2598,6 +2602,74 @@
         // D. Synchronize directly to the XML rendering canvas
         this.updateSVG();
       }
+    }
+
+    class group
+    {
+      constructor(objectIndex,pointsIndices,dx, dy, opacity,scale,rotate)
+      {
+        this.index = objectIndex;
+        this.pointsIndices=pointsIndices;
+    
+        this.dx = parseFloat(dx);
+        this.dy = parseFloat(dy);
+        this.scale=parseFloat(scale);
+        this.rotate = parseFloat(rotate);
+        this.opacity = parseFloat(opacity);
+        this.property = pointsIndices.map(obj => obj + 1).join(',');
+        this.type='grp';
+        this.displayType = `g`;
+
+        let SVGElement = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        
+        SVGElement.setAttribute('style','transform-box: fill-box; transform-origin: center;');
+
+        pointsIndices.forEach(i => {
+          SVGElement.appendChild(objects[i].SVGElement);
+        });
+
+        this.SVGElement = SVGElement;
+
+      }
+
+      updateSVG()
+      {
+        this.pointsIndices.forEach(i => {
+          this.SVGElement.appendChild(objects[i].SVGElement);
+        });
+
+        this.SVGElement.style.transform = `translate(${this.dx}px,${this.dy}px) rotate(${this.rotate}deg) scale(${this.scale})`;
+
+         this.SVGElement.style.opacity = this.opacity;
+      }
+
+
+      recordState() 
+      {
+        const stateSnapshot =
+        {
+          dx:parseFloat(this.dx),
+          dy:parseFloat(this.dy),
+          scale:parseFloat(this.scale),
+          rotate:parseFloat(this.rotate),
+          opacity: parseFloat(this.opacity)
+        };
+
+        return stateSnapshot;
+      }
+
+
+
+      interpolateState(prevState, nextState, t)
+      {
+        this.dx = prevState.dx + (nextState.dx - prevState.dx) * t;
+        this.dy = prevState.dy + (nextState.dy - prevState.dy) * t;
+        this.rotate = prevState.rotate + (nextState.rotate - prevState.rotate) * t;
+        this.opacity = prevState.opacity + (nextState.opacity - prevState.opacity) * t;
+        this.scale = prevState.scale + (nextState.scale - prevState.scale) * t;
+        // D. Synchronize directly to the XML rendering canvas
+        this.updateSVG();
+      }
 
     }
 
@@ -2652,6 +2724,11 @@
             newObj = new arrow(objData.index, objData.pointsIndices, objData.r, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.scale, objData.rotate);
         } else if(objData.type === "rec") {
               newObj = new rectangle(objData.index, objData.pointIndex, objData.height,objData.width, objData.opacity, objData.strokeWidth, objData.strokeColor, objData.fillOpacity,objData.fillColor, objData.scale, objData.rotate,objData.rx,objData.ry);
+        } else if(objData.type === "grp")
+        {
+              //constructor(objectIndex,pointsIndices,dx, dy, opacity,scale,rotate)
+
+              newObj = new group(objData.index, objData.pointsIndices, objData.dx,objData.dy, objData.opacity, objData.scale, objData.rotate);
         }
     
         // Transfers all custom properties (including saved objData.svgContent strings)
